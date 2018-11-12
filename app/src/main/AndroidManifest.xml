@@ -21,6 +21,12 @@
         <activity android:name=".verification.VerificationCode"></activity>
         <activity android:name=".Activity.LoginCardOverlap"></activity>
         <activity android:name=".profile.ProfilePurple"></activity>
+        <activity android:name=".dashboard.DashboardGridFab"></activity>
+        <activity android:name=".list.ListMultiSelection"></activity>
+
+
+
+
 
     </application>
 

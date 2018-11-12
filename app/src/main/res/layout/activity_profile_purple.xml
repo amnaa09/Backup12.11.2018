@@ -14,7 +14,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/purple_500"
+            android:background="@color/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:contentInsetStartWithNavigation="0dp"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text="Julianna Carter"
+                android:text="Unknown"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
                 android:textColor="@color/grey_90" />
 
@@ -70,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_medium"
-                android:text="Photographer"
+                android:text="Unknown"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textColor="@color/grey_60" />
 
@@ -105,9 +105,9 @@
                             android:id="@+id/profileDirectCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1.5 K"
+                            android:text="0"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                            android:textColor="@color/purple_500" />
+                            android:textColor="@color/colorPrimary" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -132,9 +132,9 @@
                             android:id="@+id/profileFyrCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="17.8 K"
+                            android:text="0"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                            android:textColor="@color/purple_500" />
+                            android:textColor="@color/colorPrimary" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -159,9 +159,9 @@
                             android:id="@+id/profileFyiCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1.3 K"
+                            android:text="0"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                            android:textColor="@color/purple_500" />
+                            android:textColor="@color/colorPrimary" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -189,10 +189,11 @@
                 android:layout_marginRight="@dimen/spacing_xlarge"
                 android:layout_marginTop="@dimen/spacing_large"
                 android:gravity="center"
-                android:lineSpacingExtra="2dp"
-                android:text="Welcome to profile"
+                android:lineSpacingExtra="0dp"
+                android:text="The only way to do great work is to love what you do.
+Steve Jobs"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                android:textColor="@color/grey_90" />
+                android:textColor="@color/grey_60" />
 
             <View
                 android:layout_width="match_parent"
@@ -219,7 +220,7 @@
                         android:layout_height="wrap_content"
                         android:text="User Name"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                        android:textColor="@color/purple_500"
+                        android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
 
                     <TextView
@@ -227,7 +228,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_medium"
-                        android:text="visual-photo.me"
+                        android:text="Nil"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                         android:textColor="@color/grey_60" />
 
@@ -258,7 +259,7 @@
                         android:layout_height="wrap_content"
                         android:text="Company"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                        android:textColor="@color/purple_500"
+                        android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
 
                     <TextView
@@ -266,7 +267,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_medium"
-                        android:text="juliana.c@mail.com"
+                        android:text="Nil"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                         android:textColor="@color/grey_60" />
 
@@ -293,7 +294,7 @@
                         android:layout_height="wrap_content"
                         android:text="Email"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                        android:textColor="@color/purple_500"
+                        android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
 
                     <TextView
@@ -301,7 +302,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_medium"
-                        android:text="(022)77723287"
+                        android:text="Nil"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                         android:textColor="@color/grey_60" />
 
@@ -334,7 +335,7 @@
                         android:layout_height="wrap_content"
                         android:text="Location"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                        android:textColor="@color/purple_500"
+                        android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
 
                     <TextView
@@ -342,7 +343,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_medium"
-                        android:text="United State"
+                        android:text="Nil"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                         android:textColor="@color/grey_60" />
 

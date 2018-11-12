@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">PROJECT</string>
     <string name="RETRY">RETRY</string>
+
+    <string name="lorem_ipsum">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur ipsum in placerat molestie.  Fusce quis mauris a enim sollicitudin
+        \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur ipsum in placerat molestie.  Fusce quis mauris a enim sollicitudin
+    </string>
+
+    <string name="error_invalid_email">Invalid email</string>
+    <string name="error_field_required">Field required</string>
+    <string name="error_invalid_password">Invalid password</string>
+    <string name="action_settings">Settings</string>
 </resources>

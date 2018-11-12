@@ -1,11 +1,14 @@
 package com.example.sammrabatool.solutions5d.profile;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -25,6 +28,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
 import com.example.sammrabatool.solutions5d.R;
+import com.example.sammrabatool.solutions5d.list.ListMultiSelection;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import org.json.JSONException;
@@ -44,7 +48,9 @@ public class ProfilePurple extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_purple);
-      //  initToolbar();
+//        initToolbar();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         initComponent();
 
 
@@ -152,14 +158,15 @@ public class ProfilePurple extends AppCompatActivity {
                     //    Toast.makeText(Signup.this, "result="+user_valid, Toast.LENGTH_SHORT).show();
                     //   company.setText(name);
                     //     userId.setText(age);
-                    if(user_valid==true) {
+                    if(user_valid==true)
+                    {
                         user_valid=false;
                         //==============shared pref
                         Intent intent=new Intent(ProfilePurple.this, ProfilePurple.class);
                         intent.putExtra("userID",userID);
                         intent.putExtra("token",token);
                         intent.putExtra("instance", instanceStr);
-                       // startActivity(intent);
+                        // startActivity(intent);
                     }
 
 
@@ -222,16 +229,26 @@ public class ProfilePurple extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search_setting, menu);
+        getMenuInflater().inflate(R.menu.menu_profile_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        } else if (id == R.id.logout){
+            Toast.makeText(this,"logout is clicked",Toast.LENGTH_LONG).show();
+            SharedPreferences preferences =getSharedPreferences("LoginDetails",Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.clear();
+            editor.commit();
+            Intent intent=new Intent(ProfilePurple.this,LoginCardOverlap.class);
+            startActivity(intent);
             finish();
-        } else {
-            Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }
