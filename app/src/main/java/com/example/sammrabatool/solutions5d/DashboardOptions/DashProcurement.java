@@ -1,6 +1,14 @@
 package com.example.sammrabatool.solutions5d.DashboardOptions;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
@@ -13,21 +21,24 @@ import com.anychart.graphics.vector.Fill;
 import com.anychart.graphics.vector.SolidFill;
 import com.anychart.graphics.vector.text.HAlign;
 import com.anychart.graphics.vector.text.VAlign;
+import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
 import com.example.sammrabatool.solutions5d.R;
+import com.example.sammrabatool.solutions5d.Tools;
 
 
 public class DashProcurement extends AppCompatActivity {
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dash_options_procurement);
-
+        initToolbar();
         AnyChartView anyChartView = findViewById(R.id.any_chart_view);
         anyChartView.setProgressBar(findViewById(R.id.progress_bar));
 
         CircularGauge circularGauge = AnyChart.circular();
-        circularGauge.data(new SingleValueDataSet(new String[] { "23", "34", "67", "93", "56", "100"}));
+        circularGauge.data(new SingleValueDataSet(new String[]{"23", "34", "67", "93", "56", "100"}));
         circularGauge.fill("#fff")
                 .stroke(null)
                 .padding(0d, 0d, 0d, 0d)
@@ -190,5 +201,41 @@ public class DashProcurement extends AppCompatActivity {
                 .margin(0d, 0d, 20d, 0d);
 
         anyChartView.setChart(circularGauge);
+    }
+
+    private void initToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        toolbar.setNavigationIcon(R.drawable.ic_menu);
+//        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.indigo_500), PorterDuff.Mode.SRC_ATOP);
+        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        Tools.setSystemBarColor(this, android.R.color.white);
+//        Tools.setSystemBarLight(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_profile_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        } else if (id == R.id.logout) {
+            Toast.makeText(this, "logout is clicked", Toast.LENGTH_LONG).show();
+            SharedPreferences preferences = getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.clear();
+            editor.commit();
+            Intent intent = new Intent(DashProcurement.this, LoginCardOverlap.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

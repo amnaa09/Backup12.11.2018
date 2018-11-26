@@ -1,6 +1,9 @@
 package com.example.sammrabatool.solutions5d.DashboardOptions;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -11,6 +14,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
 import com.example.sammrabatool.solutions5d.R;
 import com.example.sammrabatool.solutions5d.Tools;
 
@@ -68,7 +72,7 @@ public class DashboardOptions extends AppCompatActivity {
         });
       //  isure=(CardView)findViewById(R.id.insurrance);
 
-       // initToolbar();
+        initToolbar();
 
 
 
@@ -77,31 +81,38 @@ public class DashboardOptions extends AppCompatActivity {
 
     }
 
-//    private void initToolbar() {
-//        toolbar = (Toolbar) findViewById(R.id.toolbar);
+    private void initToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        toolbar.setNavigationIcon(R.drawable.ic_menu);
 //        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.indigo_500), PorterDuff.Mode.SRC_ATOP);
-//        setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        Tools.setSystemBarColor(this, android.R.color.white);
 //        Tools.setSystemBarLight(this);
-//    }
-
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search_setting, menu);
-        Tools.changeMenuIconColor(menu, getResources().getColor(R.color.indigo_500));
-        Tools.changeOverflowMenuIconColor(toolbar, getResources().getColor(R.color.indigo_500));
+        getMenuInflater().inflate(R.menu.menu_profile_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        } else if (id == R.id.logout) {
+            Toast.makeText(this, "logout is clicked", Toast.LENGTH_LONG).show();
+            SharedPreferences preferences = getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.clear();
+            editor.commit();
+            Intent intent = new Intent(DashboardOptions.this, LoginCardOverlap.class);
+            startActivity(intent);
             finish();
-        } else {
-            Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }

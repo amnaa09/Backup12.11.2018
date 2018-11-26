@@ -634,17 +634,17 @@
                             <android.support.v7.widget.CardView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/spacing_xsmall"
                                 android:layout_marginLeft="@dimen/spacing_xsmall"
-                                android:layout_marginRight="@dimen/spacing_xsmall"
                                 android:layout_marginTop="@dimen/spacing_xsmall"
+                                android:layout_marginRight="@dimen/spacing_xsmall"
+                                android:layout_marginBottom="@dimen/spacing_xsmall"
                                 android:visibility="visible"
                                 app:cardCornerRadius="2dp"
                                 app:cardElevation="2dp">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="433dp"
                                     android:orientation="vertical">
 
                                     <LinearLayout
@@ -691,7 +691,7 @@
                                             android:layout_width="0dp"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
-                                            android:text="Recent Invoice"
+                                            android:text="LPO/PO Approved"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
                                             android:textColor="@color/grey_60" />
 
@@ -722,7 +722,7 @@
                                             android:layout_width="0dp"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
-                                            android:text="Payable Invoice"
+                                            android:text="Approved GRN/Receipt"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
                                             android:textColor="@color/grey_60" />
 
@@ -753,7 +753,7 @@
                                             android:layout_width="0dp"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
-                                            android:text="Purchase Order"
+                                            android:text="Aproved Supplier Invoice"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
                                             android:textColor="@color/grey_60" />
 
@@ -784,7 +784,7 @@
                                             android:layout_width="0dp"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
-                                            android:text="Requisition"
+                                            android:text="Approved Payment Voucher"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
                                             android:textColor="@color/grey_60" />
 
@@ -801,15 +801,104 @@
 
                                     </LinearLayout>
 
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/spacing_xmlarge"
+                                        android:gravity="center_vertical"
+                                        android:orientation="horizontal">
+
+                                        <View
+                                            android:layout_width="@dimen/spacing_large"
+                                            android:layout_height="0dp" />
+
+                                        <TextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:text="Approved Receipt Voucher"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+                                            android:textColor="@color/grey_60" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="10"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+                                            android:textColor="@color/grey_40" />
+
+                                        <View
+                                            android:layout_width="@dimen/spacing_large"
+                                            android:layout_height="0dp" />
+
+                                    </LinearLayout>
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/spacing_xmlarge"
+                                        android:gravity="center_vertical"
+                                        android:orientation="horizontal">
+
+                                        <View
+                                            android:layout_width="@dimen/spacing_large"
+                                            android:layout_height="0dp" />
+
+                                        <TextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:text="Approved Customer Invoice"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+                                            android:textColor="@color/grey_60" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="10"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+                                            android:textColor="@color/grey_40" />
+
+                                        <View
+                                            android:layout_width="@dimen/spacing_large"
+                                            android:layout_height="0dp" />
+
+                                    </LinearLayout>
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/spacing_xmlarge"
+                                        android:gravity="center_vertical"
+                                        android:orientation="horizontal">
+
+                                        <View
+                                            android:layout_width="@dimen/spacing_large"
+                                            android:layout_height="0dp" />
+
+                                        <TextView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:text="Approved Requisition"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+                                            android:textColor="@color/grey_60" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="10"
+                                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+                                            android:textColor="@color/grey_40" />
+
+                                        <View
+                                            android:layout_width="@dimen/spacing_large"
+                                            android:layout_height="0dp" />
+
+                                    </LinearLayout>
+
+
 
                                     <View
                                         android:layout_width="0dp"
                                         android:layout_height="@dimen/spacing_middle" />
 
-                                    <View
-                                        android:layout_width="match_parent"
-                                        android:layout_height="1dp"
-                                        android:background="@color/grey_10" />
+
 
                                     <!--    <LinearLayout
                                             android:layout_width="match_parent"
@@ -838,18 +927,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/spacing_middle" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingLeft="@dimen/spacing_middle"
-                            android:paddingRight="@dimen/spacing_middle">
 
-
-
-
-
-                        </LinearLayout>
 
                         <View
                             android:layout_width="0dp"

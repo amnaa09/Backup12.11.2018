@@ -10,6 +10,17 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".DashboardOptions.DashFinance"
     android:orientation="vertical">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:contentInsetStartWithNavigation="0dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:subtitleTextAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+        app:subtitleTextColor="@color/grey_10"
+        app:title="INSURANCE"
+        android:background="@color/colorPrimary"></android.support.v7.widget.Toolbar>
 
 
     <LinearLayout

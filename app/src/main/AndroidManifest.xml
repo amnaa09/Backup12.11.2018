@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.Signup">
+        <activity android:name=".dashboard.DashboardGridFab">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,7 +25,7 @@
         <activity android:name=".verification.VerificationCode" />
         <activity android:name=".Activity.LoginCardOverlap" />
         <activity android:name=".profile.ProfilePurple" />
-        <activity android:name=".dashboard.DashboardGridFab" />
+        <activity android:name=".Activity.Signup" />
         <activity android:name=".list.ListMultiSelection" />
         <activity android:name=".dialog.Agreement"></activity>
         <activity android:name=".list.ViewHtml" />
