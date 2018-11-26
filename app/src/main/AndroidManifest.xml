@@ -28,6 +28,7 @@
         <activity android:name=".dashboard.DashboardGridFab" />
         <activity android:name=".list.ListMultiSelection" />
         <activity android:name=".dialog.Agreement"></activity>
+        <activity android:name=".dialog.LockError"></activity>
         <activity android:name=".list.ViewHtml" />
         <activity android:name=".DashboardOptions.DashboardOptions" />
         <activity android:name=".DashboardOptions.DashFinance" />

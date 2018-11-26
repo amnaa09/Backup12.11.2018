@@ -37,6 +37,7 @@ import com.example.sammrabatool.solutions5d.PrefManager;
 import com.example.sammrabatool.solutions5d.R;
 import com.example.sammrabatool.solutions5d.dashboard.DashboardGridFab;
 import com.example.sammrabatool.solutions5d.dialog.Agreement;
+import com.example.sammrabatool.solutions5d.dialog.LockError;
 import com.example.sammrabatool.solutions5d.profile.ProfilePurple;
 import com.example.sammrabatool.solutions5d.utils.Tools;
 import com.example.sammrabatool.solutions5d.verification.VerificationCode;
@@ -55,9 +56,11 @@ public class LoginCardOverlap extends AppCompatActivity {
     TextInputEditText uname,password;
     String userID,instanceStr, message, userToken, userName, Passowrd;
     boolean user_valid=false;
+    boolean agreement=true;
     public static final String UNAME = "username";
     public static final String TOKEN = "token";
-    SharedPreferences Prefs;
+    SharedPreferences Prefs,prefLockError;
+    int count;
 
 
     @Override
@@ -67,18 +70,30 @@ public class LoginCardOverlap extends AppCompatActivity {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         parent_view = findViewById(android.R.id.content);
         Tools.setSystemBarColor(this);
+
+
+        count=0;
+        prefLockError=getSharedPreferences("LockError",Context.MODE_PRIVATE);
+
+        if(prefLockError.getInt("lockCounter",0)==3) {
+
+            Intent intent=new Intent(LoginCardOverlap.this,LockError.class);
+            startActivity(intent);
+        }
         final SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
         Prefs = this.getSharedPreferences("com.example.sammrabatool.solutions5d.dialog", Context.MODE_PRIVATE);
        final String keyTutorial = Prefs.getString("keyTutorial", "NullTutorial");
+        final boolean agreement = Prefs.getBoolean("agreement", false);
      //   Toast.makeText(this, "agrrement="+keyTutorial, Toast.LENGTH_SHORT).show();
+      //  agreement= getIntent().getStringExtra("agreement");
         signin=(Button)findViewById(R.id.signin);
         uname=(TextInputEditText)findViewById(R.id.uname);
         password=(TextInputEditText)findViewById(R.id.password);
         password.requestFocus();
 
 
-        SharedPreferences sharedprefSignup = getSharedPreferences("SignupPref", Context.MODE_PRIVATE);
+        final SharedPreferences sharedprefSignup = getSharedPreferences("SignupPref", Context.MODE_PRIVATE);
 
         userID=sharedprefSignup.getString("userID", "save user id");//getIntent().getStringExtra("userID");
         instanceStr=sharedprefSignup.getString("instance", "save user id");//getIntent().getStringExtra("instance");
@@ -103,22 +118,40 @@ public class LoginCardOverlap extends AppCompatActivity {
 
         final SharedPreferences sharedPreferencesLogin = getBaseContext().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
 
-        if (!sharedPreferencesLogin.getString("Email", "").isEmpty() &&  !(keyTutorial.contains("NullTutorial")))
+        if (!sharedPreferencesLogin.getString("Email", "").isEmpty() &&  !(keyTutorial.contains("NullTutorial")) && agreement==true)
         {
-            Intent intent = new Intent(getBaseContext(), DashboardGridFab.class);//Listviewactivity if there is data in user
-            intent.putExtra("userID",userID);
-            intent.putExtra("token",userToken);
-            intent.putExtra("instance", instanceStr);
-            intent.putExtra("name", userName);
-       //     Toast.makeText(LoginCardOverlap.this, "from and statement sending to agreement name=" + userName + "token=" + userToken, Toast.LENGTH_SHORT).show();
-            startActivity(intent);
-            finish();
+
+                Intent intent = new Intent(getBaseContext(), DashboardGridFab.class);//Listviewactivity if there is data in user
+                intent.putExtra("userID", userID);
+                intent.putExtra("token", userToken);
+                intent.putExtra("instance", instanceStr);
+                intent.putExtra("name", userName);
+                //     Toast.makeText(LoginCardOverlap.this, "from and statement sending to agreement name=" + userName + "token=" + userToken, Toast.LENGTH_SHORT).show();
+                startActivity(intent);
+                finish();
+
         }
         else
         {
-                /*Intent intent = new Intent(getBaseContext(), LoginCardOverlap.class);//it is empity so have to login
+            if( (keyTutorial.contains("PROMPTED")) && agreement==false) {
+
+                SharedPreferences preferences =getSharedPreferences("SignupPref",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.clear();
+                editor.commit();
+
+                SharedPreferences.Editor editor2 = Prefs.edit();
+                editor2.putString("keyTutorial","NullTutorial");
+                editor2.commit();
+                Intent intent=new Intent(getBaseContext(),Signup.class);
                 startActivity(intent);
-                finish();*/
+                finish();
+
+            }
+
+            //    Intent intent = new Intent(getBaseContext(), .class);//it is empity so have to login
+             //   startActivity(intent);
+              //  finish();
         }
 
         /*if (!new PrefManager(this).isUserLogedOut()) {
@@ -166,6 +199,7 @@ public class LoginCardOverlap extends AppCompatActivity {
                             }
                             else
                             {
+
                                 message = data.getString("message");
                             }
                             //  tx.setText("response== " + name+ age);
@@ -203,6 +237,18 @@ public class LoginCardOverlap extends AppCompatActivity {
                             else
                             {
                                 Toast.makeText(LoginCardOverlap.this, message, Toast.LENGTH_SHORT).show();
+                                count++;
+
+                                if(count==3)
+                                {
+                                    SharedPreferences.Editor editor = prefLockError.edit();
+                                    editor.putInt("lockCounter", count);
+                                    editor.commit();
+                                    Intent intent=new Intent(LoginCardOverlap.this,LockError.class);
+                                    startActivity(intent);
+
+                                }
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

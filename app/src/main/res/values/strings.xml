@@ -44,4 +44,13 @@
 
 
     </string>
+
+    <string name="lockError">Dear User,
+
+\n\nYour account has been blocked due to three failed attempts. Please contact our support team to activate your account.
+
+\n\nContact no:  12345
+        \nEmail: support@5derp.com
+
+    </string>
 </resources>

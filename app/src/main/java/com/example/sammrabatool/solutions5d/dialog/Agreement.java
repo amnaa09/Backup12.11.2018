@@ -77,6 +77,12 @@ public class Agreement extends AppCompatActivity {
         ((Button) dialog.findViewById(R.id.bt_accept)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+              //  boolean AgreementAccept = Prefs.getBoolean("agreement", true);
+                SharedPreferences.Editor editor = Prefs.edit();
+                // Log what are we saving in the shared Prefs
+
+                editor.putBoolean("agreement", true);
+                editor.commit();
                 Intent intent = new Intent(Agreement.this, DashboardGridFab.class);
 
                 intent.putExtra("userID",userID);
@@ -93,7 +99,18 @@ public class Agreement extends AppCompatActivity {
         ((Button) dialog.findViewById(R.id.bt_decline)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Button Decline Clicked", Toast.LENGTH_SHORT).show();
+              //  boolean AgreementAccept = Prefs.getBoolean("agreement", false);
+                SharedPreferences.Editor editor = Prefs.edit();
+                // Log what are we saving in the shared Prefs
+
+                editor.putBoolean("agreement", false);
+                editor.commit();
+                Toast.makeText(getApplicationContext(), "Please accept the terms of service first.", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(Agreement.this, LoginCardOverlap.class);
+                intent.putExtra("userID","");
+                intent.putExtra("instance",instanceStr);
+                intent.putExtra("agreement","decline");
+                startActivity(intent);
             }
         });
 
@@ -105,6 +122,7 @@ public class Agreement extends AppCompatActivity {
     private boolean promptTutorial() {
         // Check fo saved value in Shared preference for key: keyTutorial return "NullTutorial" if nothing found
         String keyTutorial = Prefs.getString("keyTutorial", "NullTutorial");
+
         // Log what we found in shared preference
         Log.d(TAG, "Shared Pref read: [keyTutorial: " + keyTutorial + "]");
 
