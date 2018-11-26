@@ -10,9 +10,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
+import com.example.sammrabatool.solutions5d.DashboardOptions.DashboardOptions;
 import com.example.sammrabatool.solutions5d.R;
 import com.example.sammrabatool.solutions5d.list.ListMultiSelection;
 import com.example.sammrabatool.solutions5d.profile.ProfilePurple;
@@ -21,8 +23,9 @@ import com.example.sammrabatool.solutions5d.utils.Tools;
 
 public class DashboardGridFab extends AppCompatActivity {
 
-    FloatingActionButton profile, team, fyi, fyr, request;
+    FloatingActionButton profile, team, fyi, fyr, request, dash;
     String   instanceStr, message, userID, token, details, image, name="Unknown";
+    LinearLayout dashboard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,8 @@ public class DashboardGridFab extends AppCompatActivity {
         fyi = (FloatingActionButton ) findViewById(R.id.fyi_button);
         fyr = (FloatingActionButton ) findViewById(R.id.fyr_button);
         request = (FloatingActionButton ) findViewById(R.id.request_button);
+        dash=(FloatingActionButton) findViewById(R.id.dashboard);
+        dashboard=(LinearLayout) findViewById(R.id.linear_dash);
 
         SharedPreferences sharedprefSignup = getSharedPreferences("SignupPref", Context.MODE_PRIVATE);
 
@@ -42,12 +47,12 @@ public class DashboardGridFab extends AppCompatActivity {
          name=sharedprefSignup.getString("emailKey", "save user id");
         token=sharedprefSignup.getString("token", "save user id");
 
-
-
+  //      Toast.makeText(this, "before:"+ userID, Toast.LENGTH_SHORT).show();
         userID=getIntent().getStringExtra("userID");
         instanceStr=getIntent().getStringExtra("instance");
         token=getIntent().getStringExtra("token");
         name=getIntent().getStringExtra("name");
+    //    Toast.makeText(this, "after:"+ name+"token="+token, Toast.LENGTH_SHORT).show();
         initToolbar();
 
         profile.setOnClickListener(new View.OnClickListener()
@@ -61,8 +66,6 @@ public class DashboardGridFab extends AppCompatActivity {
                 intent.putExtra("token",token);
                 intent.putExtra("instance", instanceStr);
                 startActivity(intent);
-
-
 
             }
         });
@@ -124,6 +127,32 @@ public class DashboardGridFab extends AppCompatActivity {
             }
         });
 
+        dash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(DashboardGridFab.this, DashboardOptions.class);
+                intent.putExtra("userID",userID);
+                intent.putExtra("token",token);
+                intent.putExtra("instance", instanceStr);
+
+                startActivity(intent);
+
+            }
+        });
+
+        dashboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(DashboardGridFab.this, DashboardOptions.class);
+                intent.putExtra("userID",userID);
+                intent.putExtra("token",token);
+                intent.putExtra("instance", instanceStr);
+
+                startActivity(intent);
+
+            }
+        });
+
     }
 
     private void initToolbar() {
@@ -133,6 +162,17 @@ public class DashboardGridFab extends AppCompatActivity {
         Tools.setSystemBarColor(this, R.color.colorPrimary);
 
         getSupportActionBar().setTitle("Hi,"+name);
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              //  Toast.makeText(DashboardGridFab.this, "click", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(DashboardGridFab.this, ProfilePurple.class);
+                intent.putExtra("userID",userID);
+                intent.putExtra("token",token);
+                intent.putExtra("instance", instanceStr);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

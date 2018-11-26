@@ -315,6 +315,13 @@
     <color name="grey_900">#212121</color>
     <color name="grey_1000">#1a1a1a</color>
 
+    <color name="dash_green">#BBE269</color>
+    <color name="dash_blue">#89D3F8</color>
+    <color name="dash_orange">#FEB449</color>
+    <color name="dash_peach">#F8825E</color>
+    <color name="dash_red">#EF5150</color>
+    <color name="dash_sky">#54C7FE</color>
+
 
     <!--for random color generator -->
     <array name="mdcolor_random">

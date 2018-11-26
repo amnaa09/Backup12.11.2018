@@ -36,6 +36,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.sammrabatool.solutions5d.PrefManager;
 import com.example.sammrabatool.solutions5d.R;
 import com.example.sammrabatool.solutions5d.dashboard.DashboardGridFab;
+import com.example.sammrabatool.solutions5d.dialog.Agreement;
 import com.example.sammrabatool.solutions5d.profile.ProfilePurple;
 import com.example.sammrabatool.solutions5d.utils.Tools;
 import com.example.sammrabatool.solutions5d.verification.VerificationCode;
@@ -56,6 +57,7 @@ public class LoginCardOverlap extends AppCompatActivity {
     boolean user_valid=false;
     public static final String UNAME = "username";
     public static final String TOKEN = "token";
+    SharedPreferences Prefs;
 
 
     @Override
@@ -67,7 +69,9 @@ public class LoginCardOverlap extends AppCompatActivity {
         Tools.setSystemBarColor(this);
         final SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
-
+        Prefs = this.getSharedPreferences("com.example.sammrabatool.solutions5d.dialog", Context.MODE_PRIVATE);
+       final String keyTutorial = Prefs.getString("keyTutorial", "NullTutorial");
+     //   Toast.makeText(this, "agrrement="+keyTutorial, Toast.LENGTH_SHORT).show();
         signin=(Button)findViewById(R.id.signin);
         uname=(TextInputEditText)findViewById(R.id.uname);
         password=(TextInputEditText)findViewById(R.id.password);
@@ -78,8 +82,8 @@ public class LoginCardOverlap extends AppCompatActivity {
 
         userID=sharedprefSignup.getString("userID", "save user id");//getIntent().getStringExtra("userID");
         instanceStr=sharedprefSignup.getString("instance", "save user id");//getIntent().getStringExtra("instance");
-        userName=sharedpreferences.getString("uname","save user name");
-        userToken=sharedpreferences.getString("token","save token");
+        userName=sharedprefSignup.getString("uname","save user name");
+        userToken=sharedprefSignup.getString("token","save token");
         uname.setText(sharedprefSignup.getString("emailKey", "save user id"));
 
         password.setOnEditorActionListener(new TextView.OnEditorActionListener()
@@ -99,13 +103,14 @@ public class LoginCardOverlap extends AppCompatActivity {
 
         final SharedPreferences sharedPreferencesLogin = getBaseContext().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
 
-        if (!sharedPreferencesLogin.getString("Email", "").isEmpty())
+        if (!sharedPreferencesLogin.getString("Email", "").isEmpty() &&  !(keyTutorial.contains("NullTutorial")))
         {
             Intent intent = new Intent(getBaseContext(), DashboardGridFab.class);//Listviewactivity if there is data in user
             intent.putExtra("userID",userID);
             intent.putExtra("token",userToken);
             intent.putExtra("instance", instanceStr);
             intent.putExtra("name", userName);
+       //     Toast.makeText(LoginCardOverlap.this, "from and statement sending to agreement name=" + userName + "token=" + userToken, Toast.LENGTH_SHORT).show();
             startActivity(intent);
             finish();
         }
@@ -172,13 +177,28 @@ public class LoginCardOverlap extends AppCompatActivity {
                                 user_valid=false;
                                 //==============shared pref
                                 attemptLogin();
-                                Intent intent=new Intent(LoginCardOverlap.this, DashboardGridFab.class);
-                                intent.putExtra("userID",userID);
-                                intent.putExtra("token",userToken);
-                                intent.putExtra("instance", instanceStr);
-                                intent.putExtra("name", userName);
-                                startActivity(intent);
-                                finish();
+
+                               if( (keyTutorial.contains("NullTutorial"))) {
+                                   Intent intent = new Intent(LoginCardOverlap.this, Agreement.class);
+                                   intent.putExtra("userID", userID);
+                                   intent.putExtra("token", userToken);
+                                   intent.putExtra("instance", instanceStr);
+                                   intent.putExtra("name", userName);
+                                   intent.putExtra("activity", "login");
+  //                                 Toast.makeText(LoginCardOverlap.this, "from if sending to agreement name=" + userName + "token=" + userToken, Toast.LENGTH_LONG).show();
+                                   startActivity(intent);
+                               }
+                               else
+                               {
+                                   Intent intent = new Intent(LoginCardOverlap.this, DashboardGridFab.class);//Listviewactivity if there is data in user
+                                   intent.putExtra("userID",userID);
+                                   intent.putExtra("token",userToken);
+                                   intent.putExtra("instance", instanceStr);
+                                   intent.putExtra("name", userName);
+    //                               Toast.makeText(LoginCardOverlap.this, "from else sending to agreement name=" + userName + "token=" + userToken, Toast.LENGTH_SHORT).show();
+                                   startActivity(intent);
+                               }
+                              //  finish();
                             }
                             else
                             {
@@ -291,6 +311,10 @@ public class LoginCardOverlap extends AppCompatActivity {
 
     private void startHomeActivity() {
         Intent intent = new Intent(this, LoginCardOverlap.class);//linking profile not yet pasted
+        intent.putExtra("userID",userID);
+        intent.putExtra("token",userToken);
+        intent.putExtra("instance", instanceStr);
+        intent.putExtra("name", userName);
         startActivity(intent);
     }
 

@@ -1,6 +1,8 @@
 package com.example.sammrabatool.solutions5d.verification;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
@@ -43,13 +45,15 @@ public class VerificationCode extends AppCompatActivity {
     TextInputEditText otp_code1,otp_code2, otp_code3,otp_code4,otp_code5;
     AppCompatButton verify;
     String userID,instanceStr,otpCode="", message;
+    SharedPreferences prefs;
     boolean user_valid=false;
+    public static final String VERIFYCODE = "false";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verification_code);
         initToolbar();
-
+        prefs = getSharedPreferences("SignupPref", Context.MODE_PRIVATE);
         userID=getIntent().getStringExtra("userID");
         instanceStr=getIntent().getStringExtra("instance");
        // Toast.makeText(this, "data="+userID, Toast.LENGTH_SHORT).show();
@@ -206,6 +210,10 @@ public class VerificationCode extends AppCompatActivity {
                         //     userId.setText(age);
                         if(user_valid==true) {
                             user_valid=false;
+                            SharedPreferences.Editor editor=prefs.edit();
+                            editor.putString(VERIFYCODE,"true");
+                            editor.commit();
+                            Toast.makeText(VerificationCode.this, "verified"+prefs.getString(VERIFYCODE,"false"), Toast.LENGTH_SHORT).show();
                             Intent intent=new Intent(VerificationCode.this, LoginCardOverlap.class);
                             intent.putExtra("userID",userID);
                             intent.putExtra("instance",instanceStr);

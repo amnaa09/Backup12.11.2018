@@ -1,4 +1,4 @@
-package com.example.sammrabatool.solutions5d;
+package com.example.sammrabatool.solutions5d.list;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,13 +8,14 @@ import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import com.example.sammrabatool.solutions5d.list.CircleTransform;
+import com.example.sammrabatool.solutions5d.R;
 import com.example.sammrabatool.solutions5d.model.Notification;
 import com.example.sammrabatool.solutions5d.utils.Tools;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -85,16 +86,19 @@ public class AdapterListInbox extends RecyclerView.Adapter<AdapterListInbox.View
         try {
             URL url = new URL(obj.imagelist);
 
-            try {
-                //  Toast.makeText(ListMultiSelection.this, "in try", Toast.LENGTH_SHORT).show();
-                Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                holder.image.setImageBitmap(bmp);
-                holder.imaget1.setVisibility(View.GONE);
-                //  holder.imaget2.setVisibility(View.GONE);
-            }
-            catch (IOException error){
+         //   try {
 
-            }
+                Picasso.get().load(obj.imagelist).transform(new CircleTransform()).into(holder.image);
+
+                //  Toast.makeText(ListMultiSelection.this, "in try", Toast.LENGTH_SHORT).show();
+            //    Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+             //   holder.image.setImageBitmap(bmp);
+              //  holder.imaget1.setVisibility(View.GONE);
+                //  holder.imaget2.setVisibility(View.GONE);
+         //   }
+          //  catch (IOException error){
+
+            //}
         }
         catch (MalformedURLException error) {
             //  Toast.makeText(ListMultiSelection.this, "Error:"+error.toString(), Toast.LENGTH_SHORT).show();

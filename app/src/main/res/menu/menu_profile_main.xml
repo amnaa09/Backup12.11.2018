@@ -10,9 +10,9 @@
         android:icon="@drawable/log"
         app:showAsAction="always"
         android:id="@+id/logout"/>
-    <item
+ <!--   <item
         android:id="@+id/action_settings"
         android:orderInCategory="101"
         android:title="@string/action_settings"
-        app:showAsAction="never" />
+        app:showAsAction="never" />   -->
 </menu>
