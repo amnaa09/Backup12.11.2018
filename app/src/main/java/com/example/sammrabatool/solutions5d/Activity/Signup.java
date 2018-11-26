@@ -29,6 +29,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.sammrabatool.solutions5d.PrefManager;
 import com.example.sammrabatool.solutions5d.R;
+import com.example.sammrabatool.solutions5d.dialog.Agreement;
+import com.example.sammrabatool.solutions5d.dialog.LockError;
 import com.example.sammrabatool.solutions5d.verification.VerificationCode;
 
 import org.json.JSONException;
@@ -47,24 +49,38 @@ public class Signup extends AppCompatActivity
     String userStr, companyStr, instanceStr, message, userID;
     boolean user_valid=false;
     public static final String mypreference = "SignupPref";
-    public static final String CID = "userid";
+    public static final String CID = "companyid";
     public static final String UID = "emailKey";
     public static final String INST = "name";
     public static final String VERIFYCODE = "false";
+    int count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        final SharedPreferences sharedpreferences;
+        final SharedPreferences sharedpreferences, prefLockError;
 
+        count=0;
         signup=(Button)findViewById(R.id.signup);
         userId=(TextInputEditText)findViewById(R.id.SignUp_userid);
         company=(TextInputEditText)findViewById(R.id.SignUp_company);
         instance=(TextInputEditText)findViewById(R.id.SignUp_instance);
 
         sharedpreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+        prefLockError=getSharedPreferences("LockError",Context.MODE_PRIVATE);
+
+
+     //   Toast.makeText(this, "counter="+prefLockError.getInt("lockCounter",0), Toast.LENGTH_SHORT).show();
+
+
+        if(prefLockError.getInt("lockCounter",0)==3) {
+
+            Intent intent=new Intent(Signup.this,LockError.class);
+            startActivity(intent);
+        }
+
         if (sharedpreferences.contains(CID))
         {
             company.setText(sharedpreferences.getString(CID, "save company"));
@@ -88,8 +104,9 @@ public class Signup extends AppCompatActivity
             {
                 Toast.makeText(this, "Please verify your email first", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Signup.this, VerificationCode.class);
-                intent.putExtra("userID", sharedpreferences.getString(UID, "save user id"));
+                intent.putExtra("emailKey", sharedpreferences.getString(UID, "save user id"));
                 intent.putExtra("instance", sharedpreferences.getString(INST, "save instance"));
+                intent.putExtra("companyID", sharedpreferences.getString(CID, "save company"));
                 startActivity(intent);
                 finish();
             }
@@ -124,6 +141,7 @@ public class Signup extends AppCompatActivity
                             if(user_valid==true)
                             {
                                 user_valid=false;
+
                                 //-----------------sharer ppref
 
 
@@ -145,6 +163,8 @@ public class Signup extends AppCompatActivity
                                 Intent intent=new Intent(Signup.this, VerificationCode.class);
                                 intent.putExtra("userID",userID);
                                 intent.putExtra("instance",instanceStr);
+                                intent.putExtra("companyID",companyStr);
+                                intent.putExtra("name",userStr);
                                 String c = company.getText().toString();
                                 String u = userId.getText().toString();
                                 String i = instance.getText().toString();
@@ -154,13 +174,25 @@ public class Signup extends AppCompatActivity
                                 editor.putString(INST, i);
                                 editor.putString("userID", userID);
                                 editor.putString("instance", instanceStr);
+                                editor.putString("companyID", companyStr);
+                                editor.putString("name",userStr);
                                 editor.commit();
                                 startActivity(intent);
                                 finish();
                             }
                             else
                             {
+                                count++;
                                 Toast.makeText(Signup.this, message, Toast.LENGTH_SHORT).show();
+                                if(count==3)
+                                {
+                                    SharedPreferences.Editor editor = prefLockError.edit();
+                                    editor.putInt("lockCounter", count);
+                                    editor.commit();
+                                    Intent intent=new Intent(Signup.this,LockError.class);
+                                    startActivity(intent);
+
+                                }
                             }
                         }
                         catch (JSONException e)

@@ -31,6 +31,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
 import com.example.sammrabatool.solutions5d.Activity.Signup;
 import com.example.sammrabatool.solutions5d.R;
+import com.example.sammrabatool.solutions5d.dialog.LockError;
 import com.example.sammrabatool.solutions5d.utils.Tools;
 
 import org.json.JSONException;
@@ -43,21 +44,32 @@ import java.util.Map;
 public class VerificationCode extends AppCompatActivity {
 
     TextInputEditText otp_code1,otp_code2, otp_code3,otp_code4,otp_code5;
-    AppCompatButton verify;
-    String userID,instanceStr,otpCode="", message;
-    SharedPreferences prefs;
+    AppCompatButton verify, resend;
+    String userID,instanceStr,otpCode="", message,companyStr,name;
+    SharedPreferences prefs,prefLockError;
     boolean user_valid=false;
     public static final String VERIFYCODE = "false";
+    int count;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verification_code);
         initToolbar();
+
+        count=0;
         prefs = getSharedPreferences("SignupPref", Context.MODE_PRIVATE);
         userID=getIntent().getStringExtra("userID");
+        name=getIntent().getStringExtra("name");
         instanceStr=getIntent().getStringExtra("instance");
+        companyStr=getIntent().getStringExtra("companyID");
+
+        prefLockError=getSharedPreferences("LockError",Context.MODE_PRIVATE);
+
        // Toast.makeText(this, "data="+userID, Toast.LENGTH_SHORT).show();
         verify=(AppCompatButton)findViewById(R.id.verify);
+        resend=(AppCompatButton)findViewById(R.id.resend);
         otp_code1=(TextInputEditText)findViewById(R.id.otp1);
         otp_code2=(TextInputEditText)findViewById(R.id.otp2);
         otp_code3=(TextInputEditText)findViewById(R.id.otp3);
@@ -180,6 +192,70 @@ public class VerificationCode extends AppCompatActivity {
             }
         });*/
 
+        if(prefLockError.getInt("lockCounter",0)==3) {
+
+            Intent intent=new Intent(VerificationCode.this,LockError.class);
+            startActivity(intent);
+        }
+
+
+    resend.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            count++;
+         //   Toast.makeText(VerificationCode.this, message, Toast.LENGTH_SHORT).show();
+            if(count==3)
+            {
+                SharedPreferences.Editor editor = prefLockError.edit();
+                editor.putInt("lockCounter", count);
+                editor.commit();
+                Intent intent=new Intent(VerificationCode.this,LockError.class);
+                startActivity(intent);
+
+            }
+
+
+            companyStr=prefs.getString("companyID","0");
+            name=prefs.getString("emailKey","");
+            instanceStr=prefs.getString("instance","");
+            RequestQueue MyRequestQueue = Volley.newRequestQueue(VerificationCode.this);
+       //     Toast.makeText(VerificationCode.this, "values="+instanceStr+" "+name+" "+companyStr, Toast.LENGTH_SHORT).show();
+
+            String url = "http://"+instanceStr+".5dsurf.com/app/webservice/verifiyuserfirsttime/"+name+"/"+companyStr;
+            StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                 //   Toast.makeText(VerificationCode.this, "response="+response, Toast.LENGTH_SHORT).show();
+
+                }
+
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    if (error instanceof NetworkError) {
+                        message = "Cannot connect to Internet...Please check your connection!";
+                    } else if (error instanceof ServerError) {
+                        message = "The server could not be found. Please try again after some time!!";
+                    } else if (error instanceof AuthFailureError) {
+                        message = "Cannot connect to Internet...Please check your connection!";
+                    } else if (error instanceof ParseError) {
+                        message = "Parsing error! Please try again after some time!!";
+                    } else if (error instanceof NoConnectionError) {
+                        message = "Cannot connect to Internet...Please check your connection!";
+                    } else if (error instanceof TimeoutError) {
+                        message = "Connection TimeOut! Please check your internet connection.";
+                    }
+
+                }
+            });
+
+                    MyStringRequest.setShouldCache(false);
+            MyRequestQueue.add(MyStringRequest);
+
+        }
+    });
 
     verify.setOnClickListener(new View.OnClickListener() {
         @Override
