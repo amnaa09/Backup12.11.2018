@@ -1,16 +1,15 @@
 package com.example.sammrabatool.solutions5d.list;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +20,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -38,9 +38,8 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.sammrabatool.solutions5d.AdapterListInbox;
+import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
 import com.example.sammrabatool.solutions5d.R;
-import com.example.sammrabatool.solutions5d.data.DataGenerator;
 import com.example.sammrabatool.solutions5d.model.Notification;
 import com.example.sammrabatool.solutions5d.utils.Tools;
 import com.example.sammrabatool.solutions5d.widget.LineItemDecoration;
@@ -49,9 +48,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +65,7 @@ public class ListMultiSelection extends AppCompatActivity  {
     static String userToken;
     String messagename, tousername,subject,remarks,Status,begindate,workFlowID,messagehtml;
     private static boolean user_valid=false;
+    LinearLayout list;
 
 
 
@@ -77,7 +74,7 @@ public class ListMultiSelection extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_multi_selection);
         parent_view = findViewById(R.id.lyt_parent);
-
+        list=(LinearLayout) findViewById(R.id.Linear_list);
         userID=getIntent().getStringExtra("userID");
         instanceStr=getIntent().getStringExtra("instance");
         userToken=getIntent().getStringExtra("token");
@@ -88,24 +85,15 @@ public class ListMultiSelection extends AppCompatActivity  {
      //   Toast.makeText(this, "Long press for multi selection", Toast.LENGTH_SHORT).show();
     }
 
-  /*  @Override
-    public void onItemClick(View view, Inbox obj, int pos) {
-        // The onClick implementation of the RecyclerView item click
-        //ur intent code here
-        Toast.makeText(this, "click", Toast.LENGTH_SHORT).show();
-        showCustomDialog();
-    } */
-
-
-
     private void initToolbar(String type) {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_menu);
         setSupportActionBar(toolbar);
-        if(type=="1")
-            getSupportActionBar().setTitle("FYI");
+      //  Toast.makeText(this, "type="+type, Toast.LENGTH_SHORT).show();
+        if(type.equals("1"))
+            getSupportActionBar().setTitle("For Your Information");
         else
-            getSupportActionBar().setTitle("FYR");
+            getSupportActionBar().setTitle("For Your Response");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Tools.setSystemBarColor(this, R.color.colorPrimary);
     }
@@ -115,14 +103,19 @@ public class ListMultiSelection extends AppCompatActivity  {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new LineItemDecoration(this, LinearLayout.VERTICAL));
         recyclerView.setHasFixedSize(true);
-
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setItemViewCacheSize(200);
+       // recyclerView.setDrawingCacheEnabled(true);
+        LinearLayoutManager llm = new LinearLayoutManager(ListMultiSelection.this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(llm);
 
        getNotificationData(ListMultiSelection.this);
 
 
 
 
-        actionModeCallback = new ActionModeCallback();
+       // actionModeCallback = new ActionModeCallback();
 
     }
 
@@ -187,18 +180,36 @@ public class ListMultiSelection extends AppCompatActivity  {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search_setting, menu);
+        getMenuInflater().inflate(R.menu.menu_profile_main, menu);
+
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+      /*  if (item.getItemId() == android.R.id.home) {
             finish();
         } else {
             Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
 
            // showCustomDialog();
+        }
+        return super.onOptionsItemSelected(item); */
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        } else if (id == R.id.logout){
+            Toast.makeText(this,"logout is clicked",Toast.LENGTH_LONG).show();
+            SharedPreferences preferences =getSharedPreferences("LoginDetails",Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.clear();
+            editor.commit();
+            Intent intent=new Intent(ListMultiSelection.this,LoginCardOverlap.class);
+            startActivity(intent);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -222,7 +233,12 @@ public class ListMultiSelection extends AppCompatActivity  {
         //   RequestFuture<JSONObject> future = RequestFuture.newFuture();
 
         String url = "http://"+instanceStr+".5dsurf.com/app/webservice/getusernotifications/"+userID+"/"+userToken+"/"+type;
-
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+     /*   final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("Loading...");
+        progressDialog.setMessage("Please wait");
+        progressDialog.show();   */
         StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -241,43 +257,71 @@ public class ListMultiSelection extends AppCompatActivity  {
                         for(int i =0; i<not_data.length(); i++) {
                             Notification obj = new Notification();
                             JSONObject not_obj= (JSONObject)not_data.get(i);
+
                             notification_count = not_obj.getString("notification_count");
                             notification_id = not_obj.getString("notification_id");
                             obj.id=notification_id;
                             message_type = not_obj.getString("message_type");
-                            message_name=not_obj.getString("message_name");
-                            obj.message_name=message_name;
+                            if(not_obj.getString("message_name").trim().equals(""))
+                            {
+                                obj.message_name="No name";
+                            }
+                            else {
+                                message_name = not_obj.getString("message_name");
+                                obj.message_name = message_name;
+                            }
                             status=not_obj.getString("status");
-                            message_subject=not_obj.getString("message_subject");
-                            obj.message_subject=message_subject;
+                            if(not_obj.getString("message_subject").trim().equals(""))
+                            {
+                                obj.message_subject="No subject";
+                            }
+                            else
+                                {
+                                message_subject = not_obj.getString("message_subject");
+                                obj.message_subject = message_subject;
+                            }
                             date=not_obj.getString("date");
                             obj.date=date;
-                            touser=not_obj.getString("touser");
-                            obj.touser=touser;
+                            if (not_obj.getString("touser").trim().equals(""))
+                            {
+                                obj.touser="Unknown";
+                            }
+                            else
+                            {
+                                touser=not_obj.getString("touser");
+                                obj.touser=touser;
+                            }
+                           touser=not_obj.getString("touser");
+
                             pic=not_obj.getString("pic");
                             obj.imagelist=pic;
                             items.add(obj);
 
                             }
-
                         mAdapter = new AdapterListInbox(ListMultiSelection.this, items);
                         recyclerView.setAdapter(mAdapter);
-                        mAdapter.setOnClickListener(new AdapterListInbox.OnClickListener() {
-                            @Override
-                            public void onItemClick(View view, Notification obj, int pos) {
-                                if (mAdapter.getSelectedItemCount() > 0) {
-                                    enableActionMode(pos);
-                                } else {
-                                    // read the inbox which removes bold from the row
-                                    Notification objNot = mAdapter.getItem(pos);
-                                    Toast.makeText(getApplicationContext(), "Read: " + objNot.message_subject, Toast.LENGTH_SHORT).show();
-                                    showCustomDialog(notification_id, ctx);
+                        mAdapter.notifyDataSetChanged();
+                            //   ViewCompat.setNestedScrollingEnabled(recyclerView, false);
+                        if ( progressDialog.isShowing())
+                            progressDialog.hide();
+                            mAdapter.setOnClickListener(new AdapterListInbox.OnClickListener() {
+                                @Override
+                                public void onItemClick(View view, Notification obj, int pos) {
+                                    if (mAdapter.getSelectedItemCount() > 0) {
+                                        enableActionMode(pos);
+                                    } else {
+                                        // read the inbox which removes bold from the row
+                                        Notification objNot = mAdapter.getItem(pos);
+                                        //   Toast.makeText(getApplicationContext(), "Read: " + objNot.message_subject, Toast.LENGTH_SHORT).show();
+                                        showCustomDialog(objNot.id,message_type, ctx,items,pos);
+                                    }
                                 }
-                            }
 
 
 
-                        });
+                            });
+                     //       Toast.makeText(ctx, "Download completed successfully", Toast.LENGTH_SHORT).show();
+                   //     }
 
 
                     }
@@ -286,6 +330,13 @@ public class ListMultiSelection extends AppCompatActivity  {
                     {
                         message = data.getString("message");
                         Toast.makeText(ctx, message, Toast.LENGTH_SHORT).show();
+                        SharedPreferences preferences =getSharedPreferences("LoginDetails",Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.clear();
+                        editor.commit();
+                        Intent intent=new Intent(ListMultiSelection.this,LoginCardOverlap.class);
+                        startActivity(intent);
+
                     }
 
                 } catch (JSONException e) {
@@ -320,12 +371,50 @@ public class ListMultiSelection extends AppCompatActivity  {
 
             }
         });
-        MyStringRequest.setShouldCache(false);
+        MyStringRequest.setShouldCache(true);
         MyRequestQueue.add(MyStringRequest);
 
+
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("Loading...");
+        progressDialog.setMessage("Please wait");
+        progressDialog.show();
+/*
+        MyRequestQueue.addRequestFinishedListener(new RequestQueue.RequestFinishedListener<StringRequest>() {
+            @Override
+            public void onRequestFinished(Request<StringRequest> request) {
+                if ( progressDialog.isShowing()) {
+                    progressDialog.hide();
+                    mAdapter = new AdapterListInbox(ListMultiSelection.this, items);
+                    LinearLayoutManager llm = new LinearLayoutManager(ListMultiSelection.this);
+                    llm.setOrientation(LinearLayoutManager.VERTICAL);
+                    recyclerView.setLayoutManager(llm);
+                    recyclerView.setAdapter(mAdapter);
+                    //   ViewCompat.setNestedScrollingEnabled(recyclerView, false);
+                    mAdapter.setOnClickListener(new AdapterListInbox.OnClickListener() {
+                        @Override
+                        public void onItemClick(View view, Notification obj, int pos) {
+                            if (mAdapter.getSelectedItemCount() > 0) {
+                                enableActionMode(pos);
+                            } else {
+                                // read the inbox which removes bold from the row
+                                Notification objNot = mAdapter.getItem(pos);
+                                //   Toast.makeText(getApplicationContext(), "Read: " + objNot.message_subject, Toast.LENGTH_SHORT).show();
+                                showCustomDialog(notification_id,message_type, ctx);
+                            }
+                        }
+
+
+
+                    });
+                    Toast.makeText(ctx, "Download completed successfully", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+*/
     }
 
-    private void showCustomDialog(String notification_id, Context ctx) {
+    private void showCustomDialog(final String notification_id, String message_type, Context ctx, final List<Notification> items,final int pos) {
 
 
         final Dialog dialog = new Dialog(ctx);
@@ -338,23 +427,274 @@ public class ListMultiSelection extends AppCompatActivity  {
         final  TextView not_subject=(TextView) dialog.findViewById(R.id.not_subject);
         final   TextView not_status=(TextView) dialog.findViewById(R.id.not_status);
         final   TextView not_begin_date=(TextView) dialog.findViewById(R.id.not_begin_date);
-        final   TextView not_remarks=(TextView) dialog.findViewById(R.id.not_remarks);
+        final   EditText not_remarks=(EditText) dialog.findViewById(R.id.not_remarks);
+        final ImageButton close=(ImageButton) dialog.findViewById(R.id.bt_Close);
+         String remarks="";
+        final int message_type_int;
+        final int message_url_flag;
+        if(message_type.equals("FYI")) {
+            message_type_int = 1;
+            message_url_flag=4;
+        }
+        else {
+            message_type_int = 2;
+            message_url_flag=3;
+        }
 
+       final RequestQueue MyRequestQueue1 = Volley.newRequestQueue(ListMultiSelection.this);
 
-
-        ((AppCompatButton) dialog.findViewById(R.id.bt_cancel)).setOnClickListener(new View.OnClickListener() {
+        close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
         });
+        if(message_type.equals("FYI"))
+        {
+            ((AppCompatButton) dialog.findViewById(R.id.bt_approve)).setVisibility(View.INVISIBLE);
+            ((AppCompatButton) dialog.findViewById(R.id.bt_reject)).setVisibility(View.INVISIBLE);
+            dialog.findViewById(R.id.not_remarks).setVisibility(View.INVISIBLE);
+            ((AppCompatButton) dialog.findViewById(R.id.bt_cancel)).setGravity(View.FOCUS_RIGHT);
+            ((AppCompatButton)dialog.findViewById(R.id.view_html)).setVisibility(View.INVISIBLE);
 
-        ((AppCompatButton) dialog.findViewById(R.id.bt_submit)).setOnClickListener(new View.OnClickListener() {
+        }
+
+
+        ((AppCompatButton) dialog.findViewById(R.id.view_html)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Intent intent=new Intent(ListMultiSelection.this, ViewHtml.class);
+                intent.putExtra("userID",userID);
+                intent.putExtra("instance",instanceStr);
+                intent.putExtra("token",userToken);
+                intent.putExtra("Notification_id", notification_id) ;
+                startActivity(intent);
+            }
+        });
+
+
+        ((AppCompatButton) dialog.findViewById(R.id.bt_cancel)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                dialog.dismiss();
-                Toast.makeText(getApplicationContext(), "Submitted", Toast.LENGTH_SHORT).show();
+                //  dialog.dismiss();
+                //remarks=not_remarks.getText().toString();
+                String url = "http://"+instanceStr+".5dsurf.com/app/webservice/respondwf/"+userID+"/"+userToken+"/"+message_type_int+"/"+notification_id+"/"+message_url_flag+"/"+not_remarks.getText().toString();
+                StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject data = new JSONObject(response.toString());
+                            user_valid = data.getBoolean("valid_user");
+                            if(user_valid==true) {
+                                message = data.getString("message");
+
+                                user_valid=false;
+                                items.remove(pos);
+                                mAdapter.notifyDataSetChanged();
+                                Toast.makeText(ListMultiSelection.this, message.toString(), Toast.LENGTH_LONG).show();
+                                dialog.dismiss();
+                            }
+
+                            else
+                            {
+                                message = data.getString("message");
+                                Toast.makeText(ListMultiSelection.this, message.toString(), Toast.LENGTH_LONG).show();
+                                dialog.dismiss();
+                            }
+
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            //
+                            //                            //  instance.setText("error= " + e.getMessage());
+                            Toast.makeText(ListMultiSelection.this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            //                            // tx.setText( "Error: " + e.getMessage());
+                            dialog.dismiss();
+                        }
+                    }
+
+                }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //This code is executed if there is an error.
+
+                        String message = null;
+                        if (error instanceof NetworkError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ServerError) {
+                            message = "The server could not be found. Please try again after some time!!";
+                        } else if (error instanceof AuthFailureError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ParseError) {
+                            message = "Parsing error! Please try again after some time!!";
+                        } else if (error instanceof NoConnectionError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof TimeoutError) {
+                            message = "Connection TimeOut! Please check your internet connection.";
+                        }
+                        Toast.makeText(ListMultiSelection.this, message, Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                })
+                {
+                };
+
+                MyStringRequest.setShouldCache(false);
+                MyRequestQueue1.add(MyStringRequest);
+
+            }
+        });
+
+        ((AppCompatButton) dialog.findViewById(R.id.bt_reject)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // dialog.dismiss();
+                String url = "http://"+instanceStr+".5dsurf.com/app/webservice/respondwf/"+userID+"/"+userToken+"/"+message_type_int+"/"+notification_id+"/2";
+
+
+                StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject data = new JSONObject(response.toString());
+                            user_valid = data.getBoolean("valid_user");
+                            if(user_valid==true) {
+                                message = data.getString("message");
+                                user_valid=false;
+
+                                Toast.makeText(ListMultiSelection.this, message, Toast.LENGTH_LONG).show();
+                                items.remove(pos);
+                                mAdapter.notifyDataSetChanged();
+                                dialog.dismiss();
+
+                            }
+
+                            else
+                            {
+                                message = data.getString("message");
+                                Toast.makeText(ListMultiSelection.this, message, Toast.LENGTH_LONG).show();
+                                dialog.dismiss();
+                            }
+
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            //
+                            //                            //  instance.setText("error= " + e.getMessage());
+                            Toast.makeText(ListMultiSelection.this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            //                            // tx.setText( "Error: " + e.getMessage());
+                            dialog.dismiss();
+                        }
+                    }
+
+                }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //This code is executed if there is an error.
+
+                        String message = null;
+                        if (error instanceof NetworkError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ServerError) {
+                            message = "The server could not be found. Please try again after some time!!";
+                        } else if (error instanceof AuthFailureError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ParseError) {
+                            message = "Parsing error! Please try again after some time!!";
+                        } else if (error instanceof NoConnectionError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof TimeoutError) {
+                            message = "Connection TimeOut! Please check your internet connection.";
+                        }
+                        Toast.makeText(ListMultiSelection.this, message, Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                })
+                {
+                };
+
+                MyStringRequest.setShouldCache(false);
+                MyRequestQueue1.add(MyStringRequest);
+            }
+        });
+
+        ((AppCompatButton) dialog.findViewById(R.id.bt_approve)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+              //  dialog.dismiss();
+                //remarks=not_remarks.getText().toString();
+                String url = "http://"+instanceStr+".5dsurf.com/app/webservice/respondwf/"+userID+"/"+userToken+"/"+message_type_int+"/"+notification_id+"/1"+not_remarks.getText().toString();
+                StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject data = new JSONObject(response.toString());
+                            user_valid = data.getBoolean("valid_user");
+                            if(user_valid==true) {
+                                message = data.getString("message");
+
+                                user_valid=false;
+                                items.remove(pos);
+                                mAdapter.notifyDataSetChanged();
+                                Toast.makeText(ListMultiSelection.this, message.toString(), Toast.LENGTH_LONG).show();
+                                dialog.dismiss();
+                            }
+
+                            else
+                            {
+                                message = data.getString("message");
+                                Toast.makeText(ListMultiSelection.this, message.toString(), Toast.LENGTH_LONG).show();
+                                dialog.dismiss();
+                            }
+
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            //
+                            //                            //  instance.setText("error= " + e.getMessage());
+                            Toast.makeText(ListMultiSelection.this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            //                            // tx.setText( "Error: " + e.getMessage());
+                            dialog.dismiss();
+                        }
+                    }
+
+                }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //This code is executed if there is an error.
+
+                        String message = null;
+                        if (error instanceof NetworkError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ServerError) {
+                            message = "The server could not be found. Please try again after some time!!";
+                        } else if (error instanceof AuthFailureError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ParseError) {
+                            message = "Parsing error! Please try again after some time!!";
+                        } else if (error instanceof NoConnectionError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof TimeoutError) {
+                            message = "Connection TimeOut! Please check your internet connection.";
+                        }
+                        Toast.makeText(ListMultiSelection.this, message, Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                })
+                {
+                };
+
+                MyStringRequest.setShouldCache(false);
+                MyRequestQueue1.add(MyStringRequest);
+
             }
         });
 
@@ -382,10 +722,14 @@ public class ListMultiSelection extends AppCompatActivity  {
                         JSONObject not_obj=new JSONObject(notification);
 
                         messagename = not_obj.getString("messagename");
+                        if(not_obj.getString("tousername").trim().equals("")) {
+                            tousername ="Unknown";
+                        }
+                        else
                         tousername = not_obj.getString("tousername");
 
                         subject = not_obj.getString("subject");
-                        remarks=not_obj.getString("remarks");
+                      //  remarks=not_obj.getString("remarks");
 
                         Status=not_obj.getString("status");
                         begindate=not_obj.getString("begindate");
@@ -400,7 +744,7 @@ public class ListMultiSelection extends AppCompatActivity  {
                          not_subject.setText("Subject: "+subject);
                          not_status.setText("Status: "+Status);
                          not_begin_date.setText("Begin Date: "+begindate);
-                         not_remarks.setText("Remarks: "+remarks);
+                     //    not_remarks.setText("Remarks: "+remarks);
 
                         lp.copyFrom(dialog.getWindow().getAttributes());
                         lp.width = WindowManager.LayoutParams.WRAP_CONTENT;

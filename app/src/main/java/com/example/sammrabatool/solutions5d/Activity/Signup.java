@@ -50,6 +50,7 @@ public class Signup extends AppCompatActivity
     public static final String CID = "userid";
     public static final String UID = "emailKey";
     public static final String INST = "name";
+    public static final String VERIFYCODE = "false";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -76,12 +77,22 @@ public class Signup extends AppCompatActivity
         if (sharedpreferences.contains(INST))
         {
             instance.setText(sharedpreferences.getString(INST, "save instance"));
-
-            Intent intent=new Intent(Signup.this, LoginCardOverlap.class);
-            intent.putExtra("userID", sharedpreferences.getString(UID, "save user id"));
-            intent.putExtra("instance",sharedpreferences.getString(INST, "save instance"));
-            startActivity(intent);
-            finish();
+            if(sharedpreferences.getString(VERIFYCODE,"false").contains("true")) {
+                Intent intent = new Intent(Signup.this, LoginCardOverlap.class);
+                intent.putExtra("userID", sharedpreferences.getString(UID, "save user id"));
+                intent.putExtra("instance", sharedpreferences.getString(INST, "save instance"));
+                startActivity(intent);
+                finish();
+            }
+            else
+            {
+                Toast.makeText(this, "Please verify your email first", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Signup.this, VerificationCode.class);
+                intent.putExtra("userID", sharedpreferences.getString(UID, "save user id"));
+                intent.putExtra("instance", sharedpreferences.getString(INST, "save instance"));
+                startActivity(intent);
+                finish();
+            }
 
         }
 

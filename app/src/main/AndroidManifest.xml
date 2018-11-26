@@ -2,11 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.sammrabatool.solutions5d">
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
+        android:hardwareAccelerated="false"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -18,16 +22,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".verification.VerificationCode"></activity>
-        <activity android:name=".Activity.LoginCardOverlap"></activity>
-        <activity android:name=".profile.ProfilePurple"></activity>
-        <activity android:name=".dashboard.DashboardGridFab"></activity>
-        <activity android:name=".list.ListMultiSelection"></activity>
-
-
-
-
-
+        <activity android:name=".verification.VerificationCode" />
+        <activity android:name=".Activity.LoginCardOverlap" />
+        <activity android:name=".profile.ProfilePurple" />
+        <activity android:name=".dashboard.DashboardGridFab" />
+        <activity android:name=".list.ListMultiSelection" />
+        <activity android:name=".dialog.Agreement"></activity>
+        <activity android:name=".list.ViewHtml" />
+        <activity android:name=".DashboardOptions.DashboardOptions" />
+        <activity android:name=".DashboardOptions.DashFinance" />
+        <activity android:name=".DashboardOptions.DashInsurance" />
+        <activity android:name=".DashboardOptions.DashProject" />
+        <activity android:name=".DashboardOptions.DashProcurement" />
     </application>
 
 </manifest>

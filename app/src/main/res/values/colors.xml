@@ -7,6 +7,12 @@
     <color name="colorAccentDark">#F50057</color>
     <color name="colorAccentLight">#FF80AB</color>
     <color name="colorAccentold">#FF4081</color>
+    <color name="yell">#BBE269</color>
+    <color name="asman">#89D3F8</color>
+    <color name="malta">#FEB449</color>
+    <color name="tea">#F8825E</color>
+    <color name="gajar">#EF5150</color>
+    <color name="asmani">#54C7FE</color>
 
     <color name="overlay_dark_10">#1A000000</color>
     <color name="overlay_dark_20">#33000000</color>
@@ -314,6 +320,13 @@
     <color name="grey_800">#424242</color>
     <color name="grey_900">#212121</color>
     <color name="grey_1000">#1a1a1a</color>
+
+    <color name="dash_green">#BBE269</color>
+    <color name="dash_blue">#89D3F8</color>
+    <color name="dash_orange">#FEB449</color>
+    <color name="dash_peach">#F8825E</color>
+    <color name="dash_red">#EF5150</color>
+    <color name="dash_sky">#54C7FE</color>
 
 
     <!--for random color generator -->

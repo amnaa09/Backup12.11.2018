@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">PROJECT</string>
     <string name="RETRY">RETRY</string>
+    <string name="and"> HR &amp; PAYROLL </string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur ipsum in placerat molestie.  Fusce quis mauris a enim sollicitudin
@@ -11,4 +12,36 @@
     <string name="error_field_required">Field required</string>
     <string name="error_invalid_password">Invalid password</string>
     <string name="action_settings">Settings</string>
+    <string name="agreement">Dear User,
+
+\n\nWe strongly recommend acquaint yourself carefully with Terms and Conditions (“Terms” or “Agreement”) before using the services, provided by 5D Solutions. By accepting, you agree that 5D-SURf Application will store your credentials in the database on the server. We will not share your private and confidential information with any other third persons or third-party services. You agree to respect the services and follow the Terms and Conditions, prepared by 5D Solutions. Additional Agreement can be applied for services and products that will be launched in future, so for your best experience, it is important to become familiar with all of these Terms of Conditions.
+\n\n1) not try to break the security of 5D-SURF ERP Services and software, computing networks or systems;
+
+\n\n2) not use the Services provided to you by 5D-SURF ERP in any way that can damage the proper stable work of Services, systems, software or website;
+
+\n\n3) not use any services, software to or other programming tools to weaken the ability of any other user to use the Services or website;
+
+\n\n4) not misuse the Services in a manner that exceeds reasonable usage;
+
+\n\n5) not use the Services in a malicious, fraudulent or unlawful manner;
+        \n\n6) not try to get unauthorized access to any data other than that to what you have been given access or to the system where are hosted EasyERP Services;
+
+\n\n7) not upload any files or input any kind of information into the Website that can damage the software, networks, systems or devices or Govt Rules &amp; Regulations;
+
+\n\n8) not upload any material or data protected by copyright or commercial know-how which you don’t have the right to use;
+
+\n\n9) not upload any offensive data or images related to racism, fascism, pornography, religion and so on;
+
+\n\n10) not try to disassemble or decompile any computer software used to deliver the Services by 5D-SURF ERP, hack into the computer networks and systems.
+
+\n\n11) The content and features of 5D-SURf Application is on SaaS Model and 5D Solution retain the right to change without or with notice.
+
+\n\n12) 5D Solutions maintain the right to terminate the access of any user in case of falling in above clause or Clauses.
+
+\n\n13) Your use of any information or materials on this application is entirely at your own risk, for which we shall not be liable. It shall be your own responsibility to ensure, scrutinize and verified the information and present.
+
+
+
+
+    </string>
 </resources>

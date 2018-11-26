@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,8 +29,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
 import com.example.sammrabatool.solutions5d.R;
+import com.example.sammrabatool.solutions5d.list.CircleTransform;
 import com.example.sammrabatool.solutions5d.list.ListMultiSelection;
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,7 +44,7 @@ import java.net.URL;
 
 public class ProfilePurple extends AppCompatActivity {
     TextView name, job, directCount, fyrCount, fyiCount, userName,company, email, location;
-    CircularImageView  profileImage;
+    ImageView profileImage;
     String   instanceStr, message, userID, token, details, image;
     boolean user_valid=false;
     @Override
@@ -51,6 +54,7 @@ public class ProfilePurple extends AppCompatActivity {
 //        initToolbar();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Profile");
         initComponent();
 
 
@@ -63,7 +67,7 @@ public class ProfilePurple extends AppCompatActivity {
         email=(TextView) findViewById(R.id.profileEmail);
         company=(TextView) findViewById(R.id.profileCompany);
         location=(TextView) findViewById(R.id.profileLocation);
-        profileImage=(CircularImageView) findViewById(R.id.Profileimage);
+        profileImage=(ImageView) findViewById(R.id.Profileimage);
 
 
 
@@ -126,15 +130,10 @@ public class ProfilePurple extends AppCompatActivity {
                             StrictMode.setThreadPolicy(policy);
                             //your codes here
                             try {
-                                URL url = new URL("http://dev.5dsurf.com//application//template//aceadmin//assets//avatars//person-icon.png");
+                                URL url = new URL(dataDetails.getString("pic"));
+                            //    Toast.makeText(ProfilePurple.this, "picccc", Toast.LENGTH_SHORT).show();
 
-                                try {
-                                    Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                                    profileImage.setImageBitmap(bmp);
-                                }
-                                catch (IOException error) {
-                                    Toast.makeText(ProfilePurple.this, "Error:"+error.toString(), Toast.LENGTH_SHORT).show();
-                                }
+                                Picasso.get().load(dataDetails.getString("pic")).transform(new CircleTransform()).into(profileImage);
 
                             }
                             catch (MalformedURLException error) {
@@ -153,6 +152,13 @@ public class ProfilePurple extends AppCompatActivity {
                     {
                         message = data.getString("message");
                         Toast.makeText(ProfilePurple.this, message, Toast.LENGTH_LONG).show();
+
+                        SharedPreferences preferences =getSharedPreferences("LoginDetails",Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.clear();
+                        editor.commit();
+                        Intent intent=new Intent(ProfilePurple.this,LoginCardOverlap.class);
+                        startActivity(intent);
                     }
                     //  tx.setText("response== " + name+ age);
                     //    Toast.makeText(Signup.this, "result="+user_valid, Toast.LENGTH_SHORT).show();
