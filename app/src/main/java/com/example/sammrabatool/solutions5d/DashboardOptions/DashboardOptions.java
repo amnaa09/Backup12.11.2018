@@ -20,14 +20,15 @@ import com.example.sammrabatool.solutions5d.Tools;
 
 public class DashboardOptions extends AppCompatActivity {
    // CardView finnace,isure,pro,projec;
-    LinearLayout finance,insurance,procurement,project;
+    LinearLayout finance,insurance,procurement,project,hrpay,profile;
     private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_options);
-
+        profile=(LinearLayout)findViewById(R.id.profile_card);
+hrpay=(LinearLayout)findViewById(R.id.HR_card);
         finance=(LinearLayout) findViewById(R.id.dash_finance);
         insurance=(LinearLayout) findViewById(R.id.dash_insurance);
         project=(LinearLayout)findViewById(R.id.dash_project);
@@ -67,6 +68,20 @@ public class DashboardOptions extends AppCompatActivity {
             public void onClick(View v) {
            //     Toast.makeText(DashboardOptions.this, "click", Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(DashboardOptions.this, DashProcurement.class);
+                startActivity(intent);
+            }
+        });
+        hrpay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(DashboardOptions.this, HRpayroll.class);
+                startActivity(intent);
+            }
+        });
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(DashboardOptions.this, DashProfile.class);
                 startActivity(intent);
             }
         });

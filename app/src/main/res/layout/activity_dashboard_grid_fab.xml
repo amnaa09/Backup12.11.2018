@@ -696,6 +696,7 @@
                                             android:textColor="@color/grey_60" />
 
                                         <TextView
+                                            android:id="@+id/lpo"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="20"
@@ -730,6 +731,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="10"
+                                            android:id="@+id/grn"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
                                             android:textColor="@color/grey_40" />
 
@@ -761,6 +763,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="30"
+                                            android:id="@+id/supplier"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
                                             android:textColor="@color/grey_40" />
 
@@ -792,6 +795,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="50"
+                                            android:id="@+id/payment"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
                                             android:textColor="@color/grey_40" />
 
@@ -823,6 +827,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="10"
+                                            android:id="@+id/receipt"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
                                             android:textColor="@color/grey_40" />
 
@@ -853,6 +858,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="10"
+                                            android:id="@+id/customer"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
                                             android:textColor="@color/grey_40" />
 
@@ -883,6 +889,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="10"
+                                            android:id="@+id/requisition"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
                                             android:textColor="@color/grey_40" />
 

@@ -5,5 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".dialog.Agreement">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:contentInsetStartWithNavigation="0dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+
+        app:subtitleTextAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+        app:subtitleTextColor="@color/grey_10"
+        app:title="AGREEMENT"
+        android:background="@color/colorPrimary"/>
 
 </android.support.constraint.ConstraintLayout>

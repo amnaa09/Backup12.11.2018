@@ -40,7 +40,7 @@ import com.example.sammrabatool.solutions5d.dialog.Agreement;
 import com.example.sammrabatool.solutions5d.dialog.LockError;
 import com.example.sammrabatool.solutions5d.profile.ProfilePurple;
 import com.example.sammrabatool.solutions5d.utils.Tools;
-import com.example.sammrabatool.solutions5d.verification.VerificationCode;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -3,14 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.unknown.material_design_mobile.profileMain">
     <item
+        android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:icon="@drawable/ic_power_settings_new_black_24dp"
         android:orderInCategory="100"
         android:title="Logout"
-        android:iconTint="@color/grey_3"
-        android:icon="@drawable/log"
-        app:showAsAction="always"
-        android:id="@+id/logout"/>
+        app:showAsAction="always" />
  <!--   <item
         android:id="@+id/action_settings"
         android:orderInCategory="101"

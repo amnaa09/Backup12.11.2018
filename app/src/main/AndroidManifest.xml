@@ -7,15 +7,15 @@
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:hardwareAccelerated="false"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".dashboard.DashboardGridFab">
+        <activity android:name=".Activity.Signup">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,16 +25,18 @@
         <activity android:name=".verification.VerificationCode" />
         <activity android:name=".Activity.LoginCardOverlap" />
         <activity android:name=".profile.ProfilePurple" />
-        <activity android:name=".Activity.Signup" />
+
         <activity android:name=".list.ListMultiSelection" />
-        <activity android:name=".dialog.Agreement"></activity>
-        <activity android:name=".dialog.LockError"></activity>
+        <activity android:name=".dialog.Agreement" />
+        <activity android:name=".dialog.LockError" />
         <activity android:name=".list.ViewHtml" />
         <activity android:name=".DashboardOptions.DashboardOptions" />
         <activity android:name=".DashboardOptions.DashFinance" />
         <activity android:name=".DashboardOptions.DashInsurance" />
         <activity android:name=".DashboardOptions.DashProject" />
         <activity android:name=".DashboardOptions.DashProcurement" />
+        <activity android:name=".DashboardOptions.HRpayroll" />
+        <activity android:name=".DashboardOptions.DashProfile"></activity>
     </application>
 
 </manifest>

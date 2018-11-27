@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
@@ -26,6 +27,7 @@ public class DashboardGridFab extends AppCompatActivity {
     FloatingActionButton profile, team, fyi, fyr, request, dash;
     String   instanceStr, message, userID, token, details, image, name="Unknown";
     LinearLayout dashboard;
+    TextView lpo,grn,supplier,payment,receipt,customer,requisition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,13 @@ public class DashboardGridFab extends AppCompatActivity {
         request = (FloatingActionButton ) findViewById(R.id.request_button);
         dash=(FloatingActionButton) findViewById(R.id.dashboard);
         dashboard=(LinearLayout) findViewById(R.id.linear_dash);
+        lpo=(TextView)findViewById(R.id.lpo);
+        grn=(TextView)findViewById(R.id.grn);
+        supplier=(TextView)findViewById(R.id.supplier);
+        payment=(TextView)findViewById(R.id.payment);
+        receipt=(TextView)findViewById(R.id.receipt);
+        customer=(TextView)findViewById(R.id.customer);
+        requisition=(TextView)findViewById(R.id.requisition);
 
         SharedPreferences sharedprefSignup = getSharedPreferences("SignupPref", Context.MODE_PRIVATE);
 

@@ -17,7 +17,9 @@
         <item name="colorControlNormal">@color/grey_40</item>
     </style>
     <style name="Button.Primary.Borderless" parent="@style/Widget.AppCompat.Button.Borderless.Colored"></style>
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+        <item name="actionMenuTextColor">@color/grey_3</item>
+    </style>
     <!--<style name="TextAppearance.Subhead.Bold" parent="@style/TextAppearance.AppCompat.Subhead">-->
         <!--<item name="android:textStyle">bold</item>-->
         <!--<string name="middle_lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur ipsum in placerat molestie.  Fusce quis mauris a enim sollicitudin</string>-->
