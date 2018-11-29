@@ -66,6 +66,9 @@ public class ListMultiSelection extends AppCompatActivity  {
     String messagename, tousername,subject,remarks,Status,begindate,workFlowID,messagehtml;
     private static boolean user_valid=false;
     LinearLayout list;
+    int redirection;
+    int message_type_int;
+    int message_url_flag;
 
 
 
@@ -202,7 +205,7 @@ public class ListMultiSelection extends AppCompatActivity  {
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.logout){
-            Toast.makeText(this,"logout is clicked",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"You have successfully logged out",Toast.LENGTH_LONG).show();
             SharedPreferences preferences =getSharedPreferences("LoginDetails",Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
             editor.clear();
@@ -414,11 +417,12 @@ public class ListMultiSelection extends AppCompatActivity  {
 */
     }
 
-    private void showCustomDialog(final String notification_id, String message_type, Context ctx, final List<Notification> items,final int pos) {
-
+    private void showCustomDialog(final String notification_id, final String message_type, Context ctx, final List<Notification> items,final int pos)
+    {
 
         final Dialog dialog = new Dialog(ctx);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
+        final ProgressDialog progressDialog = new ProgressDialog(this);
         dialog.setContentView(R.layout.dialog_notification_detail);
         dialog.setCancelable(true);
 
@@ -429,9 +433,10 @@ public class ListMultiSelection extends AppCompatActivity  {
         final   TextView not_begin_date=(TextView) dialog.findViewById(R.id.not_begin_date);
         final   EditText not_remarks=(EditText) dialog.findViewById(R.id.not_remarks);
         final ImageButton close=(ImageButton) dialog.findViewById(R.id.bt_Close);
+
+
          String remarks="";
-        final int message_type_int;
-        final int message_url_flag;
+
         if(message_type.equals("FYI")) {
             message_type_int = 1;
             message_url_flag=4;
@@ -460,6 +465,8 @@ public class ListMultiSelection extends AppCompatActivity  {
         }
 
 
+
+
         ((AppCompatButton) dialog.findViewById(R.id.view_html)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -480,6 +487,8 @@ public class ListMultiSelection extends AppCompatActivity  {
                 //  dialog.dismiss();
                 //remarks=not_remarks.getText().toString();
                 String url = "http://"+instanceStr+".5dsurf.com/app/webservice/respondwf/"+userID+"/"+userToken+"/"+message_type_int+"/"+notification_id+"/"+message_url_flag+"/"+not_remarks.getText().toString();
+                if(redirection==1)
+                    redirection=0;
                 StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -737,6 +746,8 @@ public class ListMultiSelection extends AppCompatActivity  {
                         workFlowID=not_obj.getString("ID");
 
                         messagehtml=not_obj.getString("messagehtml");
+                        redirection=not_obj.getInt("redirectionflag");
+                      //  Toast.makeText(ListMultiSelection.this, "redir="+redirection, Toast.LENGTH_SHORT).show();
 
 
                          not_from_user.setText("From User: "+tousername);
@@ -745,6 +756,19 @@ public class ListMultiSelection extends AppCompatActivity  {
                          not_status.setText("Status: "+Status);
                          not_begin_date.setText("Begin Date: "+begindate);
                      //    not_remarks.setText("Remarks: "+remarks);
+
+                        if(message_type.equals("FYR") && redirection==1)
+                        {
+
+                            ((AppCompatButton) dialog.findViewById(R.id.bt_approve)).setVisibility(View.INVISIBLE);
+                            ((AppCompatButton) dialog.findViewById(R.id.bt_reject)).setVisibility(View.INVISIBLE);
+                            dialog.findViewById(R.id.not_remarks).setVisibility(View.INVISIBLE);
+                            ((AppCompatButton) dialog.findViewById(R.id.bt_cancel)).setGravity(View.FOCUS_RIGHT);
+                            message_type_int = 1;
+                        }
+
+                        if ( progressDialog.isShowing())
+                            progressDialog.hide();
 
                         lp.copyFrom(dialog.getWindow().getAttributes());
                         lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
@@ -757,11 +781,15 @@ public class ListMultiSelection extends AppCompatActivity  {
 
                     else
                     {
+                        if ( progressDialog.isShowing())
+                            progressDialog.hide();
                         message = data.getString("message");
                         Toast.makeText(ListMultiSelection.this, message, Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {
+                    if ( progressDialog.isShowing())
+                        progressDialog.hide();
                     e.printStackTrace();
                     //
                     //                            //  instance.setText("error= " + e.getMessage());
@@ -795,6 +823,11 @@ public class ListMultiSelection extends AppCompatActivity  {
         });
         MyStringRequest.setShouldCache(false);
         MyRequestQueue.add(MyStringRequest);
+
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("Loading...");
+        progressDialog.setMessage("Please wait");
+        progressDialog.show();
 
 
 

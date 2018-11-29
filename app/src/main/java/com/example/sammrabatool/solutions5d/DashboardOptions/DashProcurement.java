@@ -227,7 +227,7 @@ public class DashProcurement extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.logout) {
-            Toast.makeText(this, "logout is clicked", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "You have successfully logged out", Toast.LENGTH_LONG).show();
             SharedPreferences preferences = getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
             editor.clear();

@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".verification.VerificationCode" />
+        <activity android:name=".dashboard.DashboardGridFab" />
         <activity android:name=".Activity.LoginCardOverlap" />
         <activity android:name=".profile.ProfilePurple" />
 
@@ -36,6 +37,7 @@
         <activity android:name=".DashboardOptions.DashProject" />
         <activity android:name=".DashboardOptions.DashProcurement" />
         <activity android:name=".DashboardOptions.HRpayroll" />
+        <activity android:name=".profile.HrProfile" />
         <activity android:name=".DashboardOptions.DashProfile"></activity>
     </application>
 
