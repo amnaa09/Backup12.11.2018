@@ -1,140 +1,81 @@
 package com.example.sammrabatool.solutions5d.DashboardOptions;
-
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
-import com.anychart.charts.Radar;
-import com.anychart.core.radar.series.Line;
-import com.anychart.data.Mapping;
-import com.anychart.data.Set;
-import com.anychart.enums.Align;
-import com.anychart.enums.MarkerType;
-import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
+
+
+import com.anychart.charts.Pareto;
+import com.anychart.core.cartesian.series.Base;
+import com.anychart.enums.Anchor;
+import com.anychart.graphics.vector.StrokeLineCap;
+import com.anychart.graphics.vector.StrokeLineJoin;
+import com.anychart.enums.Orientation;
+import com.anychart.enums.ScaleStackMode;
+
+import com.anychart.scales.Linear;
 import com.example.sammrabatool.solutions5d.R;
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DashProject extends AppCompatActivity {
-    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.project);
+
         AnyChartView anyChartView = findViewById(R.id.any_chart_view);
         anyChartView.setProgressBar(findViewById(R.id.progress_bar));
 
-        Radar radar = AnyChart.radar();
-
-//        radar.title("WoW base stats comparison radar chart: Shaman vs Warrior vs Priest");
-
-        radar.yScale().minimum(0d);
-        radar.yScale().minimumGap(0d);
-        radar.yScale().ticks().interval(50d);
-
-        radar.xAxis().labels().padding(5d, 5d, 5d, 5d);
-
-        radar.legend()
-                .align(Align.CENTER)
-                .enabled(true);
+        Pareto pareto = AnyChart.pareto();
 
         List<DataEntry> data = new ArrayList<>();
-        data.add(new CustomDataEntry("Strength", 136, 199, 43));
-        data.add(new CustomDataEntry("Agility", 79, 125, 56));
-        data.add(new CustomDataEntry("Stamina", 149, 173, 101));
-        data.add(new CustomDataEntry("Intellect", 135, 33, 202));
-        data.add(new CustomDataEntry("Spirit", 158, 64, 196));
 
-        Set set = Set.instantiate();
-        set.data(data);
-        Mapping shamanData = set.mapAs("{ x: 'x', value: 'value' }");
-        Mapping warriorData = set.mapAs("{ x: 'x', value: 'value2' }");
-        Mapping priestData = set.mapAs("{ x: 'x', value: 'value3' }");
+        data.add(new ValueDataEntry("Food is tasteless", 65));
+        data.add(new ValueDataEntry("Wait time", 109));
+        data.add(new ValueDataEntry("Unfriendly staff", 12.5));
+        data.add(new ValueDataEntry("Not clean", 45));
+        data.add(new ValueDataEntry("Overpriced", 250));
+        data.add(new ValueDataEntry("To noisy", 27));
+        data.add(new ValueDataEntry("Food not fresh", 35));
+        data.add(new ValueDataEntry("Small portions", 170));
+        data.add(new ValueDataEntry("Not atmosphere", 35));
+        data.add(new ValueDataEntry("Food is to salty", 35));
 
-        Line shamanLine = radar.line(shamanData);
-        shamanLine.name("Shaman");
-        shamanLine.markers()
-                .enabled(true)
-                .type(MarkerType.CIRCLE)
-                .size(3d);
+        pareto.data(data);
 
-        Line warriorLine = radar.line(warriorData);
-        warriorLine.name("Warrior");
-        warriorLine.markers()
-                .enabled(true)
-                .type(MarkerType.CIRCLE)
-                .size(3d);
+        pareto.title("Pareto Chart of Restaurant Complaints");
 
-        Line priestLine = radar.line(priestData);
-        priestLine.name("Priest");
-        priestLine.markers()
-                .enabled(true)
-                .type(MarkerType.CIRCLE)
-                .size(3d);
+        pareto.yAxis(0d).title("Defect frequency");
 
-        radar.tooltip().format("Value: {%Value}");
+        pareto.yAxis(1d).title("Cumulative Percentage");
 
-        anyChartView.setChart(radar);
-    }
+        pareto.animation(true);
 
-    private class CustomDataEntry extends ValueDataEntry {
-        public CustomDataEntry(String x, Number value, Number value2, Number value3) {
-            super(x, value);
-            setValue("value2", value2);
-            setValue("value3", value3);
-        }
-    }
+        pareto.lineMarker(0)
+                .value(80d)
+                .axis(pareto.yAxis(1d))
+                .stroke("#A5B3B3", 1d, "5 2", StrokeLineJoin.ROUND, StrokeLineCap.ROUND);
 
-    private void initToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        toolbar.setNavigationIcon(R.drawable.ic_menu);
-//        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.indigo_500), PorterDuff.Mode.SRC_ATOP);
-        setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        Tools.setSystemBarColor(this, android.R.color.white);
-//        Tools.setSystemBarLight(this);
-    }
+        pareto.getSeries(0d).tooltip().format("Value: {%Value}");
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_profile_main, menu);
-        return true;
-    }
+        Base line = pareto.getSeries(1d);
+        line.seriesType("spline")
+                .markers(true);
+        line.labels().enabled(true);
+        line.labels()
+                .anchor(Anchor.RIGHT_BOTTOM)
+                .format("{%CF}%");
+        line.tooltip().format("Cumulative Frequency: {%CF}% \\n Relative Frequency: {%RF}%");
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+        pareto.crosshair().enabled(true);
+        pareto.crosshair().xLabel(true);
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        } else if (id == R.id.logout) {
-            Toast.makeText(this, "logout is clicked", Toast.LENGTH_LONG).show();
-            SharedPreferences preferences = getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.clear();
-            editor.commit();
-            Intent intent = new Intent(DashProject.this, LoginCardOverlap.class);
-            startActivity(intent);
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
+        anyChartView.setChart(pareto);
     }
 }

@@ -20,7 +20,7 @@ import com.example.sammrabatool.solutions5d.Tools;
 
 public class DashboardOptions extends AppCompatActivity {
    // CardView finnace,isure,pro,projec;
-    LinearLayout finance,insurance,procurement,project,hrpay,profile;
+    LinearLayout finance,insurance,procurement,project,hrpay,profile,property,sale;
     private Toolbar toolbar;
 
     @Override
@@ -28,7 +28,9 @@ public class DashboardOptions extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_options);
         profile=(LinearLayout)findViewById(R.id.profile_card);
+        property=(LinearLayout)findViewById(R.id.PROPERTY);
 hrpay=(LinearLayout)findViewById(R.id.HR_card);
+sale=(LinearLayout)findViewById(R.id.SALE_card);
         finance=(LinearLayout) findViewById(R.id.dash_finance);
         insurance=(LinearLayout) findViewById(R.id.dash_insurance);
         project=(LinearLayout)findViewById(R.id.dash_project);
@@ -82,6 +84,20 @@ hrpay=(LinearLayout)findViewById(R.id.HR_card);
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(DashboardOptions.this, DashProfile.class);
+                startActivity(intent);
+            }
+        });
+        property.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(DashboardOptions.this, DashProperty.class);
+                startActivity(intent);
+            }
+        });
+        sale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(DashboardOptions.this, DashSale.class);
                 startActivity(intent);
             }
         });

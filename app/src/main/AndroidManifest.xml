@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.Signup">
+        <activity android:name=".dashboard.DashboardGridFab">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,7 +25,6 @@
         <activity android:name=".verification.VerificationCode" />
         <activity android:name=".Activity.LoginCardOverlap" />
         <activity android:name=".profile.ProfilePurple" />
-
         <activity android:name=".list.ListMultiSelection" />
         <activity android:name=".dialog.Agreement" />
         <activity android:name=".dialog.LockError" />
@@ -36,7 +35,9 @@
         <activity android:name=".DashboardOptions.DashProject" />
         <activity android:name=".DashboardOptions.DashProcurement" />
         <activity android:name=".DashboardOptions.HRpayroll" />
-        <activity android:name=".DashboardOptions.DashProfile"></activity>
+        <activity android:name=".DashboardOptions.DashProfile" />
+        <activity android:name=".DashboardOptions.DashProperty" />
+        <activity android:name=".DashboardOptions.DashSale"></activity>
     </application>
 
 </manifest>

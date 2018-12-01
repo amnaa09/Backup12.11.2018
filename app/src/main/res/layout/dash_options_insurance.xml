@@ -20,19 +20,6 @@
         />
 
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="34dp"
-        android:layout_alignBottom="@+id/text2"
-        android:layout_marginStart="175dp"
-        android:layout_marginLeft="175dp"
-        android:layout_marginBottom="-13dp"
-        android:layout_toEndOf="@+id/text2"
-        android:layout_toRightOf="@+id/text2"
-        android:paddingLeft="20dp"
-        app:srcCompat="@drawable/ic_file_download"
-        tools:ignore="VectorDrawableCompat" />
-
     <!--<ImageView-->
     <!--android:id="@+id/imageView"-->
     <!--android:layout_width="wrap_content"-->
@@ -46,19 +33,6 @@
     <!--android:paddingLeft="20dp"-->
     <!--app:srcCompat="@drawable/ic_file_download"-->
     <!--tools:ignore="VectorDrawableCompat" />-->
-
-    <ImageView
-        android:layout_width="23dp"
-        android:layout_height="23dp"
-        android:layout_alignTop="@+id/text2"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="76dp"
-        android:layout_marginRight="76dp"
-        android:paddingLeft="10dp"
-        app:srcCompat="@drawable/ref"
-        tools:ignore="VectorDrawableCompat" />
 
     <!--<ImageView-->
     <!--android:id="@+id/imageView2"-->
@@ -450,31 +424,72 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/text2"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/dashboard_buttons"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/firstlin"
-        android:layout_alignStart="@+id/firstlin"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="265dp"
-        android:text="Supplierwise Outstanding Amount"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        tools:ignore="InvalidId"></TextView>
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="-19dp"
+        android:orientation="horizontal"
+        android:paddingTop="0dp">
+
+        <View
+            android:layout_width="@dimen/spacing_middle"
+            android:layout_height="0dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/spacing_large" />
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/dashboard_buttons"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:paddingRight="60dp"
+            android:text="Supplierwise Outstanding Amount"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            tools:ignore="InvalidId"></TextView>
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="20dp"
+            android:layout_alignRight="@+id/refresh"
+
+            android:layout_gravity="left"
+            android:layout_marginTop="4dp"
+            app:srcCompat="@drawable/ic_file_download"
+            tools:ignore="VectorDrawableCompat" />
+
+        <ImageView
+            android:id="@+id/refresh"
+            android:layout_width="36dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="2dp"
+            android:paddingRight="0dp"
+            app:srcCompat="@drawable/ref"
+            tools:ignore="VectorDrawableCompat" />
+    </LinearLayout>
 
 
     <com.anychart.AnyChartView
         android:id="@+id/any_chart_view"
-        android:layout_width="379dp"
-        android:layout_height="558dp"
-        android:layout_below="@+id/text2"
+        android:layout_width="match_parent"
+        android:layout_height="256dp"
+        android:layout_below="@+id/dashboard_buttons"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="57dp"
-        android:layout_marginBottom="23dp" />
+        android:layout_marginTop="-6dp"
+        android:layout_marginBottom="8dp" />
 
     <ProgressBar
         android:id="@+id/progress_bar"

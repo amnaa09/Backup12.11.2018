@@ -20,61 +20,7 @@
         app:title="FINANCE"
         android:background="@color/colorPrimary"/>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_below="@+id/firstlin"
-        android:layout_marginStart="211dp"
-        android:layout_marginLeft="211dp"
 
-        android:layout_marginTop="-40dp"
-        android:layout_toEndOf="@+id/text2"
-        android:layout_toRightOf="@+id/text2"
-        android:paddingLeft="20dp"
-        app:srcCompat="@drawable/ic_file_download"
-        tools:ignore="VectorDrawableCompat" />
-
-    <!--<ImageView-->
-    <!--android:id="@+id/imageView"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="34dp"-->
-
-    <!--android:layout_alignBottom="@+id/text3"-->
-    <!--android:layout_marginStart="15dp"-->
-    <!--android:layout_marginLeft="15dp"-->
-    <!--android:layout_toEndOf="@+id/text2"-->
-    <!--android:layout_toRightOf="@+id/text2"-->
-    <!--android:paddingLeft="20dp"-->
-    <!--app:srcCompat="@drawable/ic_file_download"-->
-    <!--tools:ignore="VectorDrawableCompat" />-->
-
-    <!--<ImageView-->
-        <!--android:layout_width="23dp"-->
-        <!--android:layout_height="23dp"-->
-        <!--android:layout_alignTop="@+id/text2"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_marginEnd="28dp"-->
-        <!--android:layout_marginRight="59dp"-->
-        <!--android:paddingLeft="10dp"-->
-        <!--android:ut_alignParentEnd="true"-->
-        <!--app:srcCompat="@drawable/ref"-->
-        <!--tools:ignore="VectorDrawableCompat"-->
-        <!--android:layout_alignParentEnd="true"-->
-        <!--android:contentDescription="TODO" />-->
-
-    <!--<ImageView-->
-    <!--android:id="@+id/imageView2"-->
-    <!--android:layout_width="23dp"-->
-    <!--android:layout_height="23dp"-->
-    <!--android:layout_alignTop="@+id/text2"-->
-    <!--android:layout_alignParentEnd="true"-->
-    <!--android:layout_alignParentRight="true"-->
-    <!--android:layout_marginTop="161dp"-->
-    <!--android:layout_marginEnd="30dp"-->
-    <!--android:layout_marginRight="30dp"-->
-    <!--android:paddingLeft="10dp"-->
-    <!--app:srcCompat="@drawable/ref"-->
-    <!--tools:ignore="VectorDrawableCompat" />-->
 
 
 
