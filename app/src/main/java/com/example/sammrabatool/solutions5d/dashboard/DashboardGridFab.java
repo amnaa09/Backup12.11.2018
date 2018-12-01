@@ -18,15 +18,23 @@ import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
 import com.example.sammrabatool.solutions5d.DashboardOptions.DashboardOptions;
 import com.example.sammrabatool.solutions5d.R;
 import com.example.sammrabatool.solutions5d.list.ListMultiSelection;
+import com.example.sammrabatool.solutions5d.profile.HrProfile;
 import com.example.sammrabatool.solutions5d.profile.ProfilePurple;
 import com.example.sammrabatool.solutions5d.utils.Tools;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class DashboardGridFab extends AppCompatActivity {
 
     FloatingActionButton profile, team, fyi, fyr, request, dash;
     String   instanceStr, message, userID, token, details, image, name="Unknown";
-    LinearLayout dashboard;
+    LinearLayout dashboard, recent;
+    int super_user,lg,bg;
+    String recent_activity[];
+    int lenght;
+
     TextView lpo,grn,supplier,payment,receipt,customer,requisition;
 
     @Override
@@ -40,6 +48,7 @@ public class DashboardGridFab extends AppCompatActivity {
         request = (FloatingActionButton ) findViewById(R.id.request_button);
         dash=(FloatingActionButton) findViewById(R.id.dashboard);
         dashboard=(LinearLayout) findViewById(R.id.linear_dash);
+        recent=(LinearLayout) findViewById(R.id.recent);
         lpo=(TextView)findViewById(R.id.lpo);
         grn=(TextView)findViewById(R.id.grn);
         supplier=(TextView)findViewById(R.id.supplier);
@@ -61,6 +70,34 @@ public class DashboardGridFab extends AppCompatActivity {
         instanceStr=getIntent().getStringExtra("instance");
         token=getIntent().getStringExtra("token");
         name=getIntent().getStringExtra("name");
+
+        //recent_activity[]
+
+        super_user=getIntent().getIntExtra("super_user",0);
+        lg=getIntent().getIntExtra("lg",0);
+        bg=getIntent().getIntExtra("bg",0);
+     //   super_user=0;
+      //  Toast.makeText(this, "length="+lenght, Toast.LENGTH_SHORT).show();
+        if(super_user==1) {
+            lenght = getIntent().getIntExtra("length", 0);
+            recent_activity = new String[lenght];
+            recent_activity = getIntent().getStringArrayExtra("recent_activity");
+        //    Toast.makeText(this, "activity=" + recent_activity[0] + " " + recent_activity[1], Toast.LENGTH_SHORT).show();
+            lpo.setText(recent_activity[0]);
+            grn.setText(recent_activity[1]);
+            supplier.setText(recent_activity[2]);
+            payment.setText(recent_activity[3]);
+            receipt.setText(recent_activity[4]);
+            customer.setText(recent_activity[5]);
+            requisition.setText(recent_activity[6]);
+        }
+        else {
+            recent.setVisibility(LinearLayout.GONE);
+            dashboard.setVisibility(LinearLayout.GONE);
+
+        }
+
+
     //    Toast.makeText(this, "after:"+ name+"token="+token, Toast.LENGTH_SHORT).show();
         initToolbar();
 
@@ -70,7 +107,7 @@ public class DashboardGridFab extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent=new Intent(DashboardGridFab.this, ProfilePurple.class);
+                Intent intent=new Intent(DashboardGridFab.this, HrProfile.class);
                 intent.putExtra("userID",userID);
                 intent.putExtra("token",token);
                 intent.putExtra("instance", instanceStr);
@@ -198,7 +235,7 @@ public class DashboardGridFab extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.logout){
-            Toast.makeText(this,"logout is clicked",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"You have successfully logged out",Toast.LENGTH_LONG).show();
             SharedPreferences preferences =getSharedPreferences("LoginDetails",Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
             editor.clear();

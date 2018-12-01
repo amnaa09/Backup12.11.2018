@@ -21,7 +21,8 @@ import com.example.sammrabatool.solutions5d.dashboard.DashboardGridFab;
 public class Agreement extends AppCompatActivity {
     private static final String TAG ="yes" ;
     private SharedPreferences Prefs;
-    String userID,instanceStr, message, userName,token,name,activity;
+    String userID,instanceStr, message, userName,token,name,activity, recent_activity[];
+    int lg, bg, super_user, length;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +45,14 @@ public class Agreement extends AppCompatActivity {
             instanceStr = extras.getString("instance");
             token = extras.getString("token");
             name = extras.getString("name");
-            activity = extras.getString("activity");
+            lg=extras.getInt("lg");
+            bg=extras.getInt("bg");
+            super_user=extras.getInt("super_user");
+            if(super_user==1) {
+                recent_activity = extras.getStringArray("recent_activity");
+                length = extras.getInt("length");
+            }
+
           // Toast.makeText(Agreement.this, "in agreement  activity="+activity+" name="+name+"token="+token, Toast.LENGTH_SHORT).show();
         }
 
@@ -89,6 +97,14 @@ public class Agreement extends AppCompatActivity {
                 intent.putExtra("token",token);
                 intent.putExtra("instance", instanceStr);
                 intent.putExtra("name", name);
+
+                intent.putExtra("super_user",super_user);
+                intent.putExtra("lg",lg);
+                intent.putExtra("bg",bg);
+                if(super_user==1) {
+                    intent.putExtra("length", length);
+                    intent.putExtra("recent_activity", recent_activity);
+                }
             //    Toast.makeText(getApplicationContext(),"Read: " + token,Toast.LENGTH_SHORT).show();
                startActivity(intent);
              //   finish();

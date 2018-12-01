@@ -1,5 +1,6 @@
 package com.example.sammrabatool.solutions5d.profile;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -56,6 +57,7 @@ public class ProfilePurple extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Profile");
         initComponent();
+        final ProgressDialog progressDialog = new ProgressDialog(this);
 
 
         name=(TextView) findViewById(R.id.profileName);
@@ -143,13 +145,16 @@ public class ProfilePurple extends AppCompatActivity {
 
                         }
 
-
+                        if ( progressDialog.isShowing())
+                            progressDialog.hide();
 
                         //Toast.makeText(ProfilePurple.this, "details="+dataDetails.getString("name"), Toast.LENGTH_LONG).show();
                     }
 
                     else
                     {
+                        if ( progressDialog.isShowing())
+                            progressDialog.hide();
                         message = data.getString("message");
                         Toast.makeText(ProfilePurple.this, message, Toast.LENGTH_LONG).show();
 
@@ -217,6 +222,11 @@ public class ProfilePurple extends AppCompatActivity {
         MyStringRequest.setShouldCache(false);
         MyRequestQueue.add(MyStringRequest);
 
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("Loading...");
+        progressDialog.setMessage("Please wait");
+        progressDialog.show();
+
 
     }
 
@@ -247,7 +257,7 @@ public class ProfilePurple extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.logout){
-            Toast.makeText(this,"logout is clicked",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"You have successfully logged out",Toast.LENGTH_LONG).show();
             SharedPreferences preferences =getSharedPreferences("LoginDetails",Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
             editor.clear();

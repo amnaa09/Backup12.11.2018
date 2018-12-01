@@ -1,5 +1,6 @@
 package com.example.sammrabatool.solutions5d.verification;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -57,6 +58,7 @@ public class VerificationCode extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verification_code);
         initToolbar();
+        final ProgressDialog progressDialog = new ProgressDialog(this);
 
         count=0;
         prefs = getSharedPreferences("SignupPref", Context.MODE_PRIVATE);
@@ -289,7 +291,11 @@ public class VerificationCode extends AppCompatActivity {
                             SharedPreferences.Editor editor=prefs.edit();
                             editor.putString(VERIFYCODE,"true");
                             editor.commit();
-                            Toast.makeText(VerificationCode.this, "verified"+prefs.getString(VERIFYCODE,"false"), Toast.LENGTH_SHORT).show();
+                         //   Toast.makeText(VerificationCode.this, "verified"+prefs.getString(VERIFYCODE,"false"), Toast.LENGTH_SHORT).show();
+
+                            if ( progressDialog.isShowing())
+                                progressDialog.hide();
+
                             Intent intent=new Intent(VerificationCode.this, LoginCardOverlap.class);
                             intent.putExtra("userID",userID);
                             intent.putExtra("instance",instanceStr);
@@ -297,6 +303,8 @@ public class VerificationCode extends AppCompatActivity {
                         }
 
                         else {
+                            if ( progressDialog.isShowing())
+                                progressDialog.hide();
 
                             Toast.makeText(VerificationCode.this, message, Toast.LENGTH_SHORT).show();
                         }
@@ -340,6 +348,11 @@ public class VerificationCode extends AppCompatActivity {
 
             MyStringRequest.setShouldCache(false);
             MyRequestQueue.add(MyStringRequest);
+
+            progressDialog.setCancelable(false);
+            progressDialog.setTitle("Loading...");
+            progressDialog.setMessage("Please wait");
+            progressDialog.show();
 
         }
     });

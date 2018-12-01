@@ -1,5 +1,6 @@
 package com.example.sammrabatool.solutions5d.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -61,6 +62,7 @@ public class Signup extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         final SharedPreferences sharedpreferences, prefLockError;
+        final ProgressDialog progressDialog = new ProgressDialog(this);
 
         count=0;
         signup=(Button)findViewById(R.id.signup);
@@ -159,7 +161,8 @@ public class Signup extends AppCompatActivity
                                     startActivity(intent);
                                     finish();
                                 }*/
-
+                                if ( progressDialog.isShowing())
+                                    progressDialog.hide();
                                 Intent intent=new Intent(Signup.this, VerificationCode.class);
                                 intent.putExtra("userID",userID);
                                 intent.putExtra("instance",instanceStr);
@@ -182,6 +185,8 @@ public class Signup extends AppCompatActivity
                             }
                             else
                             {
+                                if ( progressDialog.isShowing())
+                                    progressDialog.hide();
                                 count++;
                                 Toast.makeText(Signup.this, message, Toast.LENGTH_SHORT).show();
                                 if(count==3)
@@ -254,6 +259,11 @@ public class Signup extends AppCompatActivity
 
                 MyStringRequest.setShouldCache(false);
                 MyRequestQueue.add(MyStringRequest);
+
+                progressDialog.setCancelable(false);
+                progressDialog.setTitle("Loading...");
+                progressDialog.setMessage("Please wait");
+                progressDialog.show();
 
             }
         });

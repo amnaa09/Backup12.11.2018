@@ -19,6 +19,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:orientation="vertical"
+        android:id="@+id/login_layout"
         android:padding="@dimen/spacing_mlarge">
 
         <ImageView

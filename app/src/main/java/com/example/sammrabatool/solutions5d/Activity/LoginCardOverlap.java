@@ -1,5 +1,6 @@
 package com.example.sammrabatool.solutions5d.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +19,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +44,7 @@ import com.example.sammrabatool.solutions5d.profile.ProfilePurple;
 import com.example.sammrabatool.solutions5d.utils.Tools;
 
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -60,7 +63,10 @@ public class LoginCardOverlap extends AppCompatActivity {
     public static final String UNAME = "username";
     public static final String TOKEN = "token";
     SharedPreferences Prefs,prefLockError;
-    int count;
+    int count, super_user, lg, bg;
+    JSONArray recent_activity=null;
+    String[] arr;
+    LinearLayout login_layout;
 
 
     @Override
@@ -70,6 +76,8 @@ public class LoginCardOverlap extends AppCompatActivity {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         parent_view = findViewById(android.R.id.content);
         Tools.setSystemBarColor(this);
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        login_layout=(LinearLayout) findViewById(R.id.login_layout) ;
 
 
         count=0;
@@ -94,12 +102,16 @@ public class LoginCardOverlap extends AppCompatActivity {
 
 
         final SharedPreferences sharedprefSignup = getSharedPreferences("SignupPref", Context.MODE_PRIVATE);
+        final SharedPreferences sharedprefLogin = getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
 
-        userID=sharedprefSignup.getString("userID", "save user id");//getIntent().getStringExtra("userID");
-        instanceStr=sharedprefSignup.getString("instance", "save user id");//getIntent().getStringExtra("instance");
-        userName=sharedprefSignup.getString("uname","save user name");
-        userToken=sharedprefSignup.getString("token","save token");
-        uname.setText(sharedprefSignup.getString("emailKey", "save user id"));
+        userID=sharedprefSignup.getString("userID", "user id");//getIntent().getStringExtra("userID");
+        instanceStr=sharedprefSignup.getString("instance", "instance");//getIntent().getStringExtra("instance");
+        userName=sharedprefSignup.getString("uname","user name");
+        userToken=sharedprefSignup.getString("token","token");
+        uname.setText(sharedprefSignup.getString("emailKey", "email"));
+        super_user=sharedprefSignup.getInt("super_user", 0);
+        Passowrd=sharedprefLogin.getString("Password", "");
+//        Password=sharedprefLogin.getString("Password", "");
 
         password.setOnEditorActionListener(new TextView.OnEditorActionListener()
         {
@@ -120,15 +132,114 @@ public class LoginCardOverlap extends AppCompatActivity {
 
         if (!sharedPreferencesLogin.getString("Email", "").isEmpty() &&  !(keyTutorial.contains("NullTutorial")) && agreement==true)
         {
+            login_layout.setVisibility(LinearLayout.GONE);
+            RequestQueue MyRequestQueue = Volley.newRequestQueue(LoginCardOverlap.this);
+            String url = "http://"+instanceStr+".5dsurf.com/app/webservice/verifyuser/"+userID+"/"+userName+"/"+Passowrd;
+            StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>()
+            {
+                @Override
+                public void onResponse(String response)
+                {
+                    //This code is executed if the server responds, whether or not the response contains data.
+                    //The String 'response' contains the server's response.
+                    // tx.setText("response: " + response.toString());
+                    //  Toast.makeText(Signup.this, "reponse=" + response, Toast.LENGTH_SHORT).show();
+                    try {
+                        JSONObject data = new JSONObject(response.toString());
+                        user_valid = data.getBoolean("valid_user");
+                        if (user_valid == true) {
+                            message = data.getString("message");
+                            userID = data.getString("user_id");
+                            userToken = data.getString("user_token");
+                            super_user = data.getInt("superuser");
+                            lg = data.getInt("lg");
+                            bg = data.getInt("bg");
+                            if (super_user == 1) {
+                                recent_activity = data.getJSONArray("recentactivity");
+                                arr = new String[recent_activity.length()];
+                                for (int i = 0; i < recent_activity.length(); i++)
+                                    arr[i] = recent_activity.getString(i);
+                            }
 
-                Intent intent = new Intent(getBaseContext(), DashboardGridFab.class);//Listviewactivity if there is data in user
-                intent.putExtra("userID", userID);
-                intent.putExtra("token", userToken);
-                intent.putExtra("instance", instanceStr);
-                intent.putExtra("name", userName);
-                //     Toast.makeText(LoginCardOverlap.this, "from and statement sending to agreement name=" + userName + "token=" + userToken, Toast.LENGTH_SHORT).show();
-                startActivity(intent);
-                finish();
+
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            editor.putString(TOKEN, userToken);
+                            editor.putString(UNAME, userName);
+                            editor.putString("token", userToken);
+                            editor.putString("uname", userName);
+                            editor.putInt("super_user", super_user);
+                            editor.commit();
+
+                            if ( progressDialog.isShowing())
+                                progressDialog.hide();
+                            Intent intent = new Intent(getBaseContext(), DashboardGridFab.class);//Listviewactivity if there is data in user
+                            intent.putExtra("userID", userID);
+                            intent.putExtra("token", userToken);
+                            intent.putExtra("instance", instanceStr);
+                            intent.putExtra("name", userName);
+                            intent.putExtra("super_user", super_user);
+                            intent.putExtra("lg",lg);
+                            intent.putExtra("bg",bg);
+                            if(super_user==1) {
+                                if(recent_activity!=null)
+                                    intent.putExtra("length", recent_activity.length());
+                                intent.putExtra("recent_activity", arr);
+                            }
+                            //     Toast.makeText(LoginCardOverlap.this, "from and statement sending to agreement name=" + userName + "token=" + userToken, Toast.LENGTH_SHORT).show();
+                            startActivity(intent);
+                            finish();
+
+                        } else {
+                            if ( progressDialog.isShowing())
+                                progressDialog.hide();
+                            message = data.getString("message");
+                            Toast.makeText(LoginCardOverlap.this, message, Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e)
+                    {
+                        if ( progressDialog.isShowing())
+                            progressDialog.hide();
+                        e.printStackTrace();
+                        //
+                        //                            //  instance.setText("error= " + e.getMessage());
+                        Toast.makeText(LoginCardOverlap.this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+            }
+
+
+
+        }, new Response.ErrorListener()
+            { //Create an error listener to handle errors appropriately.
+                @Override
+                public void onErrorResponse(VolleyError error)
+                {
+                    //This code is executed if there is an error.
+                    String message = null;
+                    if (error instanceof NetworkError) {
+                        message = "Cannot connect to Internet...Please check your connection!";
+                    } else if (error instanceof ServerError) {
+                        message = "The server could not be found. Please try again after some time!!";
+                    } else if (error instanceof AuthFailureError) {
+                        message = "Cannot connect to Internet...Please check your connection!";
+                    } else if (error instanceof ParseError) {
+                        message = "Parsing error! Please try again after some time!!";
+                    } else if (error instanceof NoConnectionError) {
+                        message = "Cannot connect to Internet...Please check your connection!";
+                    } else if (error instanceof TimeoutError) {
+                        message = "Connection TimeOut! Please check your internet connection.";
+                    }
+                    Toast.makeText(LoginCardOverlap.this, message, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            MyStringRequest.setShouldCache(false);
+            MyRequestQueue.add(MyStringRequest);
+
+            progressDialog.setCancelable(false);
+            progressDialog.setTitle("Loading...");
+            progressDialog.setMessage("Please wait");
+            progressDialog.show();
+
 
         }
         else
@@ -188,12 +299,23 @@ public class LoginCardOverlap extends AppCompatActivity {
                                 message = data.getString("message");
                                 userID = data.getString("user_id");
                                 userToken = data.getString("user_token");
+                                super_user=data.getInt("superuser");
+                                lg=data.getInt("lg");
+                                bg=data.getInt("bg");
+                                if(super_user==1) {
+                                    recent_activity = data.getJSONArray("recentactivity");
+                                    arr = new String[recent_activity.length()];
+                                    for (int i = 0; i < recent_activity.length(); i++)
+                                        arr[i] = recent_activity.getString(i);
+                                }
+
 
                                 SharedPreferences.Editor editor = sharedpreferences.edit();
                                 editor.putString(TOKEN, userToken);
                                 editor.putString(UNAME,userName);
                                 editor.putString("token", userToken);
                                 editor.putString("uname", userName);
+                                editor.putInt("super_user", super_user);
                                 editor.commit();
 
                             }
@@ -213,22 +335,44 @@ public class LoginCardOverlap extends AppCompatActivity {
                                 attemptLogin();
 
                                if( (keyTutorial.contains("NullTutorial"))) {
+
+                                   if ( progressDialog.isShowing())
+                                       progressDialog.hide();
                                    Intent intent = new Intent(LoginCardOverlap.this, Agreement.class);
                                    intent.putExtra("userID", userID);
                                    intent.putExtra("token", userToken);
                                    intent.putExtra("instance", instanceStr);
                                    intent.putExtra("name", userName);
-                                   intent.putExtra("activity", "login");
+
+                                   intent.putExtra("super_user",super_user);
+                                   intent.putExtra("lg",lg);
+                                   intent.putExtra("bg",bg);
+                                   if(super_user==1) {
+                                       intent.putExtra("length", recent_activity.length());
+                                       intent.putExtra("recent_activity", arr);
+                                   }
+
   //                                 Toast.makeText(LoginCardOverlap.this, "from if sending to agreement name=" + userName + "token=" + userToken, Toast.LENGTH_LONG).show();
                                    startActivity(intent);
                                }
                                else
                                {
+                                   if ( progressDialog.isShowing())
+                                       progressDialog.hide();
                                    Intent intent = new Intent(LoginCardOverlap.this, DashboardGridFab.class);//Listviewactivity if there is data in user
                                    intent.putExtra("userID",userID);
                                    intent.putExtra("token",userToken);
                                    intent.putExtra("instance", instanceStr);
                                    intent.putExtra("name", userName);
+
+                                   intent.putExtra("super_user",super_user);
+                                   intent.putExtra("lg",lg);
+                                   intent.putExtra("bg",bg);
+                                   if(super_user==1) {
+                                       intent.putExtra("length", recent_activity.length());
+                                       intent.putExtra("recent_activity", arr);
+                                   }
+
     //                               Toast.makeText(LoginCardOverlap.this, "from else sending to agreement name=" + userName + "token=" + userToken, Toast.LENGTH_SHORT).show();
                                    startActivity(intent);
                                }
@@ -236,6 +380,8 @@ public class LoginCardOverlap extends AppCompatActivity {
                             }
                             else
                             {
+                                if ( progressDialog.isShowing())
+                                    progressDialog.hide();
                                 Toast.makeText(LoginCardOverlap.this, message, Toast.LENGTH_SHORT).show();
                                 count++;
 
@@ -295,6 +441,11 @@ public class LoginCardOverlap extends AppCompatActivity {
                     Toast.makeText(LoginCardOverlap.this, "This Username was not registered", Toast.LENGTH_LONG).show();
                 }
 
+
+                progressDialog.setCancelable(false);
+                progressDialog.setTitle("Loading...");
+                progressDialog.setMessage("Please wait");
+                progressDialog.show();
 
             }
         });
