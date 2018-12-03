@@ -132,7 +132,7 @@ public class ProfilePurple extends AppCompatActivity {
                             StrictMode.setThreadPolicy(policy);
                             //your codes here
                             try {
-                                URL url = new URL(dataDetails.getString("pic"));
+                                URL url = new URL(dataDetails.getString(""));
                             //    Toast.makeText(ProfilePurple.this, "picccc", Toast.LENGTH_SHORT).show();
 
                                 Picasso.get().load(dataDetails.getString("pic")).transform(new CircleTransform()).into(profileImage);

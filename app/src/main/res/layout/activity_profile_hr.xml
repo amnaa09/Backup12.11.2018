@@ -75,14 +75,14 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/profileName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                        <TextView
+                            android:id="@+id/profileName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
 
-                android:text="Unknown"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-                android:textColor="@color/grey_90" />
+                            android:text="Unknown"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                            android:textColor="@color/grey_90" />
 
             <TextView
                 android:id="@+id/profileJob"
@@ -224,88 +224,103 @@ Steve Jobs"
                             android:weightSum="2"
                             android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/spacing_smlarge"
-                            android:text="Employee Number: "
-                            android:layout_weight="1"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@color/grey_60" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/spacing_smlarge"
-                            android:layout_weight="1"
-                            android:text="Hire Date: "
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@color/grey_60" />
+                            <TextView
+                                android:id="@+id/emplyno"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/spacing_smlarge"
+                                android:text="Employee Number: "
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/grey_60" />
+
+                            <TextView
+                                android:id="@+id/hired"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/spacing_smlarge"
+                                android:text="Hire Date: "
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/grey_60" />
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:weightSum="2"
                             android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/spacing_smlarge"
-                            android:layout_weight="1"
-                            android:text="Gender: "
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@color/grey_60" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:padding="@dimen/spacing_smlarge"
-                            android:text="Birth Date: "
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@color/grey_60" />
+
+                            <TextView
+                                android:id="@+id/gend"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/spacing_smlarge"
+                                android:text="Gender: "
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/grey_60" />
+
+                            <TextView
+                                android:id="@+id/bithd"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/spacing_smlarge"
+                                android:text="Birth Date: "
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/grey_60" />
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:weightSum="2"
                             android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:padding="@dimen/spacing_smlarge"
-                            android:text="Marital Status: "
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@color/grey_60" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/spacing_smlarge"
-                            android:layout_weight="1"
-                            android:text="Nationality: "
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@color/grey_60" />
+
+                            <TextView
+                                android:id="@+id/martilstat"
+                                android:layout_width="111dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/spacing_smlarge"
+                                android:text="Marital Status: "
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/grey_60" />
+
+                            <TextView
+                                android:id="@+id/national"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/spacing_smlarge"
+                                android:text="Nationality: "
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/grey_60" />
                         </LinearLayout>
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:weightSum="2"
                                 android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/spacing_smlarge"
-                            android:layout_weight="1"
-                            android:text="Email: "
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@color/grey_60" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/spacing_smlarge"
-                            android:layout_weight="1"
-                            android:text="Phone number(office): "
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@color/grey_60" />
+
+                                <TextView
+                                    android:id="@+id/EMAIL"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:padding="@dimen/spacing_smlarge"
+                                    android:text="Email: "
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                    android:textColor="@color/grey_60" />
+
+                                <TextView
+                                    android:id="@+id/phoneno"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:padding="@dimen/spacing_smlarge"
+                                    android:text="Phone number(office): "
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                    android:textColor="@color/grey_60" />
                             </LinearLayout>
 
 
@@ -396,22 +411,25 @@ Steve Jobs"
                             android:weightSum="2"
                             android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:padding="@dimen/spacing_smlarge"
-                            android:text="Organization: "
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@color/grey_60" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/spacing_smlarge"
-                            android:layout_weight="1"
-                            android:text="Job: "
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@color/grey_60" />
+                            <TextView
+                                android:id="@+id/organ"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/spacing_smlarge"
+                                android:text="Organization: "
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/grey_60" />
+
+                            <TextView
+                                android:id="@+id/JOB"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/spacing_smlarge"
+                                android:text="Job: "
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/grey_60" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -419,22 +437,26 @@ Steve Jobs"
                             android:layout_height="wrap_content"
                             android:weightSum="2"
                             android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:padding="@dimen/spacing_smlarge"
-                            android:text="Grade: "
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@color/grey_60" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:padding="@dimen/spacing_smlarge"
-                            android:text="Location: "
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@color/grey_60" />
+
+                            <TextView
+                                android:id="@+id/grad"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/spacing_smlarge"
+                                android:text="Grade: "
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/grey_60" />
+
+                            <TextView
+                                android:id="@+id/loc"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/spacing_smlarge"
+                                android:text="Location: "
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/grey_60" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -442,22 +464,26 @@ Steve Jobs"
                             android:layout_height="wrap_content"
                             android:weightSum="2"
                             android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/spacing_smlarge"
-                            android:text="Status: "
-                            android:layout_weight="1"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@color/grey_60" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:padding="@dimen/spacing_smlarge"
-                            android:text="Manager: "
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@color/grey_60" />
+
+                            <TextView
+                                android:id="@+id/stat"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/spacing_smlarge"
+                                android:text="Status: "
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/grey_60" />
+
+                            <TextView
+                                android:id="@+id/mang"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/spacing_smlarge"
+                                android:text="Manager: "
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/grey_60" />
                         </LinearLayout>
 
 
@@ -555,21 +581,33 @@ Steve Jobs"
                             android:orientation="horizontal">
 
                             <TextView
+                                android:id="@+id/passportno"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:padding="@dimen/spacing_smlarge"
                                 android:layout_weight="1"
+                                android:padding="@dimen/spacing_smlarge"
                                 android:text="Passport Number: "
                                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/grey_60" />
                             <TextView
+                                android:id="@+id/passpinsuan"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:padding="@dimen/spacing_smlarge"
                                 android:layout_weight="1"
-                                android:text="Passport Expire Date: "
+                                android:padding="@dimen/spacing_smlarge"
+                                android:text="Passport Insuuance: "
                                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/grey_60" />
+
+                            <!--<TextView-->
+                                <!--android:id="@+id/passpoexpire"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_weight="1"-->
+                                <!--android:padding="@dimen/spacing_smlarge"-->
+                                <!--android:text="Passport Expire Date: "-->
+                                <!--android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
+                                <!--android:textColor="@color/grey_60" />-->
                         </LinearLayout>
 
                         <LinearLayout
@@ -578,14 +616,53 @@ Steve Jobs"
                             android:weightSum="2"
                             android:orientation="horizontal">
                             <TextView
+                                android:id="@+id/passpoexpire"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:padding="@dimen/spacing_smlarge"
-                                android:text="Visa Number: "
                                 android:layout_weight="1"
+                                android:padding="@dimen/spacing_smlarge"
+                                android:text="Passport Expire Date: "
                                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/grey_60" />
                             <TextView
+                                android:id="@+id/visano"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/spacing_smlarge"
+                                android:text="Visa Number: "
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/grey_60" />
+
+                            <!--<TextView-->
+                                <!--android:id="@+id/visaexpiredate"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_weight="1"-->
+                                <!--android:padding="@dimen/spacing_smlarge"-->
+                                <!--android:text="Visa Expire Date: "-->
+                                <!--android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
+                                <!--android:textColor="@color/grey_60" />-->
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="2"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/visainsuance"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/spacing_smlarge"
+                                android:text="Visa Insuance: "
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/grey_60" />
+
+                            <TextView
+                                android:id="@+id/visaexpiredate"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -593,22 +670,50 @@ Steve Jobs"
                                 android:text="Visa Expire Date: "
                                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/grey_60" />
-                        </LinearLayout>
 
+                            <!--<TextView-->
+                                <!--android:id="@+id/emirateid"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_weight="1"-->
+                                <!--android:padding="@dimen/spacing_smlarge"-->
+                                <!--android:text="Emirate ID: "-->
+                                <!--android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
+                                <!--android:textColor="@color/grey_60" />-->
+                        </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:weightSum="2"
                             android:orientation="horizontal">
-                        <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="@dimen/spacing_smlarge"
-                                android:text="Labor card: "
-                            android:layout_weight="1"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                                android:textColor="@color/grey_60" />
+
+                            <!--<TextView-->
+                                <!--android:id="@+id/passpinsuan"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_weight="1"-->
+                                <!--android:padding="@dimen/spacing_smlarge"-->
+                                <!--android:text="Passport Insuuance: "-->
+                                <!--android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
+                                <!--android:textColor="@color/grey_60" />-->
+
+                            <!--<TextView-->
+                                <!--android:id="@+id/visainsuance"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_weight="1"-->
+                                <!--android:padding="@dimen/spacing_smlarge"-->
+                                <!--android:text="Visa Insuance: "-->
+                                <!--android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
+                                <!--android:textColor="@color/grey_60" />-->
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="2"
+                            android:orientation="horizontal">
                             <TextView
+                                android:id="@+id/emirateid"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -616,9 +721,95 @@ Steve Jobs"
                                 android:text="Emirate ID: "
                                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/grey_60" />
+                            <!--<TextView-->
+                                <!--android:id="@+id/laborcard"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_weight="1"-->
+                                <!--android:padding="@dimen/spacing_smlarge"-->
+                                <!--android:text="Labor card: "-->
+                                <!--android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
+                                <!--android:textColor="@color/grey_60" />-->
+
+                            <TextView
+                                android:id="@+id/nidno"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/spacing_smlarge"
+                                android:text="NId No: "
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/grey_60" />
                         </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="2"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/nidinsuan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/spacing_smlarge"
+                                android:text="NId Inssuance: "
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/grey_60" />
+
+                            <TextView
+                                android:id="@+id/nidexpiry"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/spacing_smlarge"
+                                android:text="NId Expiry: "
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/grey_60" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="2"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/laborcard"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/spacing_smlarge"
+                                android:text="Labor card: "
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/grey_60" />
+
+                            <TextView
+                                android:id="@+id/labourinsuan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/spacing_smlarge"
+                                android:text="Labour Inssuance: "
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/grey_60" />
 
 
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="2"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/labourexpiry"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/spacing_smlarge"
+                                android:text="Labour Expiry: "
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/grey_60" />
+
+                        </LinearLayout>
                     </LinearLayout>
 
                 </LinearLayout>

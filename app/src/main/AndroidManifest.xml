@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".dashboard.DashboardGridFab">
+        <activity android:name=".Activity.Signup">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,7 +29,9 @@
         <activity android:name=".dialog.Agreement" />
         <activity android:name=".dialog.LockError" />
         <activity android:name=".list.ViewHtml" />
+        <activity android:name=".profile.HrProfile"/>
         <activity android:name=".DashboardOptions.DashboardOptions" />
+        <activity android:name=".dashboard.DashboardGridFab" />
         <activity android:name=".DashboardOptions.DashFinance" />
         <activity android:name=".DashboardOptions.DashInsurance" />
         <activity android:name=".DashboardOptions.DashProject" />

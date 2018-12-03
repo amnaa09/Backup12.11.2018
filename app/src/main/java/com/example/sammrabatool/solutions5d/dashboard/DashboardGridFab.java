@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
 import com.example.sammrabatool.solutions5d.DashboardOptions.DashboardOptions;
 import com.example.sammrabatool.solutions5d.R;
+import com.example.sammrabatool.solutions5d.dialog.Agreement;
 import com.example.sammrabatool.solutions5d.list.ListMultiSelection;
 import com.example.sammrabatool.solutions5d.profile.HrProfile;
 import com.example.sammrabatool.solutions5d.profile.ProfilePurple;
@@ -76,6 +77,14 @@ public class DashboardGridFab extends AppCompatActivity {
         super_user=getIntent().getIntExtra("super_user",0);
         lg=getIntent().getIntExtra("lg",0);
         bg=getIntent().getIntExtra("bg",0);
+
+        SharedPreferences.Editor editor = sharedprefSignup.edit();
+        editor.putInt("LG", lg);
+        editor.putInt("BG",bg);
+        editor.commit();
+
+
+
      //   super_user=0;
       //  Toast.makeText(this, "length="+lenght, Toast.LENGTH_SHORT).show();
         if(super_user==1) {
@@ -111,6 +120,8 @@ public class DashboardGridFab extends AppCompatActivity {
                 intent.putExtra("userID",userID);
                 intent.putExtra("token",token);
                 intent.putExtra("instance", instanceStr);
+                intent.putExtra("lg",lg);
+                intent.putExtra("bg",bg);
                 startActivity(intent);
 
             }
