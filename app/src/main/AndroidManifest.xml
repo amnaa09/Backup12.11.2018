@@ -39,6 +39,7 @@
         <activity android:name=".DashboardOptions.HRpayroll" />
         <activity android:name=".DashboardOptions.DashProfile" />
         <activity android:name=".DashboardOptions.DashProperty" />
+        <activity android:name=".profile.ProfileFabMenu" />
         <activity android:name=".DashboardOptions.DashSale"></activity>
     </application>
 

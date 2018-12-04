@@ -20,6 +20,7 @@ import com.example.sammrabatool.solutions5d.R;
 import com.example.sammrabatool.solutions5d.dialog.Agreement;
 import com.example.sammrabatool.solutions5d.list.ListMultiSelection;
 import com.example.sammrabatool.solutions5d.profile.HrProfile;
+import com.example.sammrabatool.solutions5d.profile.ProfileFabMenu;
 import com.example.sammrabatool.solutions5d.profile.ProfilePurple;
 import com.example.sammrabatool.solutions5d.utils.Tools;
 
@@ -116,7 +117,7 @@ public class DashboardGridFab extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent=new Intent(DashboardGridFab.this, HrProfile.class);
+                Intent intent=new Intent(DashboardGridFab.this, ProfileFabMenu.class);
                 intent.putExtra("userID",userID);
                 intent.putExtra("token",token);
                 intent.putExtra("instance", instanceStr);

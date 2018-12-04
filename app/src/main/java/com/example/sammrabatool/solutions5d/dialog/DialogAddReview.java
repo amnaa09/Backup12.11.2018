@@ -89,7 +89,7 @@ public class DialogAddReview extends AppCompatActivity {
         lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
 
-        final EditText et_post = (EditText) dialog.findViewById(R.id.et_post);
+      //  final EditText et_post = (EditText) dialog.findViewById(R.id.et_post);
 
         ((AppCompatButton) dialog.findViewById(R.id.bt_cancel)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +97,11 @@ public class DialogAddReview extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+
+
+
+            dialog.show();
+        dialog.getWindow().setAttributes(lp);
 
 //        ((AppCompatButton) dialog.findViewById(R.id.bt_submit)).setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -116,7 +121,5 @@ public class DialogAddReview extends AppCompatActivity {
 //            }
 //        });
 
-        dialog.show();
-        dialog.getWindow().setAttributes(lp);
     }
 }
