@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -102,10 +103,10 @@ Labor=(LinearLayout)findViewById(R.id.labor);
                         JSONObject dataDetails = new JSONObject(profile.toString());
 
                         if(dataDetails.getString("employeeNo").equals("")) {
-                            employee_number="Employee Number: --";
+                            employee_number="<b>" + "Employee Number: " + "</b> "+ "--";
                         }
                         else {
-                            employee_number="Employee Number: "+dataDetails.getString("employeeNo");
+                            employee_number= "<b>" + "Employee Number: " + "</b> "+dataDetails.getString("employeeNo");
 
                         }
 
@@ -422,7 +423,7 @@ basi.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         Toast.makeText(ProfileFabMenu.this, "employee num: "+employee_number, Toast.LENGTH_SHORT).show();
-        showCustomDialog(ProfileFabMenu.this, "Basic information",employee_number, gender, maritalStatus, email, hireDate, dob, nationality, officeNum);
+        showCustomDialog(ProfileFabMenu.this, "Basic information",employee_number, gender, maritalStatus, email, hireDate, dob, nationality, officeNum, "", "", "", "", "");
 
 
     }
@@ -431,7 +432,7 @@ basi.setOnClickListener(new View.OnClickListener() {
 Employee.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        showCustomDialog(ProfileFabMenu.this, "Employment information",employee_number, gender, maritalStatus, email, hireDate, dob, nationality, officeNum);
+        showCustomDialog(ProfileFabMenu.this, "Employment information",employee_number, gender, maritalStatus, email, hireDate, dob, nationality, officeNum,"", "", "", "", "");
 
     }
 });
@@ -439,7 +440,7 @@ Employee.setOnClickListener(new View.OnClickListener() {
 Passport.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        showCustomDialog(ProfileFabMenu.this, "Passport information",employee_number, gender, maritalStatus, email, hireDate, dob, nationality, officeNum);
+        showCustomDialog(ProfileFabMenu.this, "Passport information",employee_number, gender, maritalStatus, email, hireDate, dob, nationality, officeNum, "", "", "", "", "");
 
     }
 });
@@ -447,7 +448,7 @@ Passport.setOnClickListener(new View.OnClickListener() {
 Visa.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        showCustomDialog(ProfileFabMenu.this, "Visa information",employee_number, gender, maritalStatus, email, hireDate, dob, nationality, officeNum);
+        showCustomDialog(ProfileFabMenu.this, "Visa information",employee_number, gender, maritalStatus, email, hireDate, dob, nationality, officeNum, "", "", "", "", "");
 
     }
 });
@@ -455,7 +456,7 @@ Visa.setOnClickListener(new View.OnClickListener() {
 National.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        showCustomDialog(ProfileFabMenu.this, "National ID information",employee_number, gender, maritalStatus, email, hireDate, dob, nationality, officeNum);
+        showCustomDialog(ProfileFabMenu.this, "National ID information",employee_number, gender, maritalStatus, email, hireDate, dob, nationality, officeNum, "", "", "", "", "");
 
     }
 });
@@ -463,7 +464,7 @@ National.setOnClickListener(new View.OnClickListener() {
         Labor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showCustomDialog(ProfileFabMenu.this, "Labor Card information",employee_number, gender, maritalStatus, email, hireDate, dob, nationality, officeNum);
+                showCustomDialog(ProfileFabMenu.this, "Labor Card information",employee_number, gender, maritalStatus, email, hireDate, dob, nationality, officeNum, "", "", "", "", "");
 
             }
         });
@@ -471,7 +472,7 @@ National.setOnClickListener(new View.OnClickListener() {
        initToolbar();
     }
 
-    private void showCustomDialog(Context ctx, String heading,String employee_number1, String gender1, String maritalStatus1, String email1, String hireDate1, String dob1, String nationality1, String officeNum1)
+    private void showCustomDialog(Context ctx, String heading,String text1, String text2, String text3, String text4, String text5, String text6, String text7, String text8,  String text9,  String text10, String text11, String text12, String text13)
     {
 
         final TextView headingText,t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13;
@@ -510,20 +511,43 @@ National.setOnClickListener(new View.OnClickListener() {
 
 
         headingText.setText(heading);
-        t1.setText(employee_number1);
-        t2. setText(gender1);
-        t3. setText(maritalStatus1);
-        t4. setText(email1);
-        t5. setText(hireDate1);
-        t6. setText(dob1);
-        t7.setText(nationality1);
-        t8.setText(officeNum1);
+        t1.setText(Html.fromHtml(text1));
+        t2. setText(text2);
+        t3. setText(text3);
+        t4. setText(text4);
+        t5. setText(text5);
+        t6. setText(text6);
+        t7.setText(text7);
+        t8.setText(text8);
+        t9.setText(text9);
+        t10.setText(text10);
+        t11.setText(text11);
+        t12.setText(text12);
+        t13.setText(text13);
 
-        t9.setVisibility(View.GONE);
-        t10.setVisibility(View.GONE);
-        t11.setVisibility(View.GONE);
-        t12.setVisibility(View.GONE);
-        t13.setVisibility(View.GONE);
+        if(t4.getText().equals(""))
+            t4.setVisibility(View.GONE);
+        if(t5.getText().equals(""))
+            t5.setVisibility(View.GONE);
+        if(t6.getText().equals(""))
+            t6.setVisibility(View.GONE);
+        if(t7.getText().equals(""))
+            t7.setVisibility(View.GONE);
+        if(t8.getText().equals(""))
+            t8.setVisibility(View.GONE);
+        if(t9.getText().equals(""))
+            t9.setVisibility(View.GONE);
+        if(t10.getText().equals(""))
+            t10.setVisibility(View.GONE);
+        if(t11.getText().equals(""))
+            t11.setVisibility(View.GONE);
+        if(t12.getText().equals(""))
+            t12.setVisibility(View.GONE);
+        if(t13.getText().equals(""))
+            t13.setVisibility(View.GONE);
+
+
+
 
         final WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(dialog.getWindow().getAttributes());
