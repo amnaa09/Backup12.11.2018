@@ -17,11 +17,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sammrabatool.solutions5d.R;
+//import com.example.sammrabatool.solutions5d.R;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/*
 public class DialogAddReview extends AppCompatActivity {
 
     private ListView listView;
@@ -123,3 +123,4 @@ public class DialogAddReview extends AppCompatActivity {
 
     }
 }
+*/

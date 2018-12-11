@@ -41,7 +41,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
 import com.example.sammrabatool.solutions5d.R;
 import com.example.sammrabatool.solutions5d.Tools;
-import com.example.sammrabatool.solutions5d.dialog.DialogAddReview;
+//import com.example.sammrabatool.solutions5d.dialog.DialogAddReview;
 import com.example.sammrabatool.solutions5d.list.CircleTransform;
 import com.example.sammrabatool.solutions5d.list.ListMultiSelection;
 import com.example.sammrabatool.solutions5d.list.ViewHtml;
@@ -65,9 +65,9 @@ public class ProfileFabMenu extends AppCompatActivity {
     ImageView profimg;
 
     String instanceStr, message, userID, token, profile, text;
-    String picture,employee_number,employee_p, hireDate,hire_date,gender_fm, gender,martial_mu, dob,dob_full,email_com, maritalStatus, nationality,nationality_p,
-            email, officeNum,office_phone, org,org_organization, job, grade, location,loaction_d, status,status_t, manager,manager_d, passNum,pass_num, passIssue,pass_issue, passexpire,pass_expire, visaNum,visa_num, visaIssue,visa_issue, visaExpire,visa_expire, laborNum,labor_num,
-            laborIssue,labor_issue, laborExpire,labor_expire, nationalId,national_id, nationalIdIssue,national_issue, nationalIdExpire,national_expire, pic;
+    String picture,employee_number,employee_heading, hireDate,hiredate_heading,gender_heading, gender,martial_heading, dob,dob_heading,email_heading, maritalStatus, nationality,nationality_heading,
+            email, officeNum,officeNum_heading, org,org_heading, job,job_heading, grade,grade_heading, location,location_heading, status,status_heading, manager,manager_heading, passNum,passnum_heading, passIssue,passissue_heading, passexpire,passexpire_heading, visaNum,visanum_heading, visaIssue,visaissue_heading, visaExpire,visaexpire_heading, laborNum,labornum_heading,
+            laborIssue,laborissue_heading, laborExpire,laborexpire_heading, nationalId,nationalid_heading, nationalIdIssue,nationalIDissue_heading, nationalIdExpire,nationalIDexpire_heading, pic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,211 +106,215 @@ public class ProfileFabMenu extends AppCompatActivity {
                         profile = data.getString("profile");
                         JSONObject dataDetails = new JSONObject(profile.toString());
 
+                        employee_heading="<b>" + "Employee Number: " + "</b> ";
+
                         if (dataDetails.getString("employeeNo").equals("")) {
-                            employee_number = "<b>" + "Employee Number: " + "</b> ";
-                            employee_p="--";
+
+                            employee_number = "--";
+
                         } else {
-                            employee_number = "<b>" + "Employee Number: " + "</b> " + dataDetails.getString("employeeNo");
+                            employee_number =  dataDetails.getString("employeeNo");
                             //employee_p.setText(text);
                         }
-
+                        hiredate_heading="<b>" + "Hire Date: " + "</b> ";
                         if (dataDetails.getString("hireDate").equals("")) {
-                            hireDate = "<b>" + "Hire Date: " + "</b> " + "--";
+                            hireDate =   "--";
                         }
                         // hire_date.setText("Unknown");
                         else {
-                            hireDate = "<b>" + "Hire Date: " + "</b> " + dataDetails.getString("hireDate");
+                            hireDate = dataDetails.getString("hireDate");
 
                         }
+                        gender_heading="<b>" + "Gender: " + "</b> ";
                         if (dataDetails.getString("gender").equals("")) {
-                            gender = "<b>" + "Gender: " + "</b> " + "--";
+                            gender =   "--";
 
                         } else {
-                            gender = "<b>" + "Gender: " + "</b> " + dataDetails.getString("gender");
+                            gender = dataDetails.getString("gender");
 
                         }
-
+                        dob_heading="<b>" + "Date Of Birth: " + "</b> ";
                         if (dataDetails.getString("dateOfBirth").equals("")) {
-                            dob = "<b>" + "Date Of Birth: " + "</b> " + "--";
+                            dob =   "--";
 
                         } else {
-                            dob = "<b>" + "Date Of Birth: " + "</b> " + dataDetails.getString("dateOfBirth");
+                            dob = dataDetails.getString("dateOfBirth");
 
                         }
-
+                        martial_heading="<b>" + "Martial Status: " + "</b> ";
                         if (dataDetails.getString("maritalStatus").equals("")) {
-                            maritalStatus = "<b>" + "Martial Status: " + "</b> " + "--";
+                            maritalStatus =  "--";
 
                         } else {
-                            maritalStatus = "<b>" + "Martial Status: " + "</b> " + dataDetails.getString("maritalStatus");
+                            maritalStatus =  dataDetails.getString("maritalStatus");
 
                         }
-
+                        nationality_heading= "<b>" + "Nationality:" + "</b> ";
                         if (dataDetails.getString("nationality").equals("")) {
-                            nationality = "<b>" + "Nationality:" + "</b> " + "--";
+                            nationality =   "--";
 
                         } else {
-                            nationality = "<b>" + "Nationality:" + "</b> " + dataDetails.getString("nationality");
+                            nationality =  dataDetails.getString("nationality");
 
                         }
-
+                        email_heading="<b>" + "Email: " + "</b> ";
                         if (dataDetails.getString("email").equals("")) {
-                            email = "<b>" + "Email: " + "</b> " + "--";
+                            email =   "--";
 
                         } else {
-                            email = "<b>" + "Email:" + "</b> " + dataDetails.getString("email");
+                            email =  dataDetails.getString("email");
 
                         }
-
+                        officeNum_heading="<b>" + "Phone No:" + "</b> ";
                         if (dataDetails.getString("officeNumber").equals("")) {
-                            officeNum = "<b>" + "Phone No:" + "</b> " + "--";
+                            officeNum =   "--";
 
                         } else {
-                            officeNum = "<b>" + "Phone No:" + "</b> " + dataDetails.getString("officeNumber");
+                            officeNum =  dataDetails.getString("officeNumber");
 
                         }
-
+                        org_heading= "<b>" + "Organization:" + "</b> ";
                         if (dataDetails.getString("organization").equals("")) {
-                            org = "<b>" + "Organization:" + "</b> " + "--";
+                            org =  "--";
 
                         } else {
-                            org = "<b>" + "Organization:" + "</b> " + dataDetails.getString("organization");
+                            org = dataDetails.getString("organization");
 
                         }
-
+                        job_heading="<b>" + "Job:" + "</b> ";
                         if (dataDetails.getString("job").equals("")) {
-                            job = "<b>" + "Job:" + "</b> " + "Unknown";
+                            job = "Unknown";
 
                         } else {
-                            job = "<b>" + "Job:" + "</b> " + dataDetails.getString("job");
+                            job = dataDetails.getString("job");
 
                         }
-
+                        grade_heading="<b>" + "Grade :" + "</b> ";
                         if (dataDetails.getString("grade").equals("")) {
-                            grade = "<b>" + "Grade :" + "</b> " + "--";
+                            grade =   "--";
 
                         } else {
-                            grade = "<b>" + "Grade :" + "</b> " + dataDetails.getString("grade");
+                            grade = dataDetails.getString("grade");
 
                         }
-
+                        location_heading="<b>" + "Location :" + "</b> ";
                         if (dataDetails.getString("location").equals("")) {
-                            location = "<b>" + "Location :" + "</b> " + "--";
+                            location =  "--";
 
                         } else {
-                            location = "<b>" + "Location :" + "</b> " + dataDetails.getString("location");
+                            location =  dataDetails.getString("location");
 
                         }
-
+                        status_heading= "<b>" + "Status :" + "</b> ";
                         if (dataDetails.getString("status").equals("")) {
-                            status = "<b>" + "Status :" + "</b> " + "unknown";
+                            status =   "unknown";
 
                         } else {
-                            status = "<b>" + "Status :" + "</b> " + dataDetails.getString("status");
+                            status = dataDetails.getString("status");
 
                         }
-
+                        manager_heading= "<b>" + "Manager :" + "</b> ";
                         if (dataDetails.getString("manager").equals("")) {
-                            manager = "<b>" + "Manager :" + "</b> " + "unknown";
+                            manager =  "unknown";
 
                         } else {
-                            manager = "<b>" + "Manager :" + "</b> " + dataDetails.getString("manager");
+                            manager =  dataDetails.getString("manager");
 
                         }
-
+                        passnum_heading= "<b>" + "PassPort No :" + "</b> ";
                         if (dataDetails.getString("passportno").equals("")) {
-                            passNum = "<b>" + "PassPort No :" + "</b> " + "--";
+                            passNum =   "--";
 
                         } else {
-                            passNum = "<b>" + "PassPort No :" + "</b> " + dataDetails.getString("passportno");
+                            passNum =  dataDetails.getString("passportno");
 
                         }
 
-
+                        passissue_heading= "<b>" + "PassPort Issuance :" + "</b> ";
                         if (dataDetails.getString("passport_issuance").equals("")) {
-                            passIssue = "<b>" + "PassPort Issuance :" + "</b> " + "--";
+                            passIssue =  "--";
 
                         } else {
-                            passIssue = "<b>" + "PassPort Issuance :" + "</b>" + dataDetails.getString("passport_issuance");
+                            passIssue = dataDetails.getString("passport_issuance");
 
                         }
-
+                        passexpire_heading= "<b>" + "PassPort Expiry :" + " </b>";
                         if (dataDetails.getString("passport_expiry").equals("")) {
-                            passexpire = "<b>" + "PassPort Expiry :" + " </b>" + "--";
+                            passexpire =  "--";
 
                         } else {
-                            passexpire = "<b>" + "PassPort Expiry :" + " </b>" + dataDetails.getString("passport_expiry");
+                            passexpire =  dataDetails.getString("passport_expiry");
 
                         }
-
+                        visanum_heading= "<b>" + "Visa No :" + " </b>";
                         if (dataDetails.getString("visano").equals("")) {
-                            visaNum = "<b>" + "Visa No :" + " </b>" + "--";
+                            visaNum =  "--";
 
                         } else {
-                            visaNum = "<b>" + "Visa No :" + " </b>" + dataDetails.getString("visano");
+                            visaNum =  dataDetails.getString("visano");
 
                         }
-
+                        visaissue_heading= "<b>" + "Visa Issuance :" + " </b>";
                         if (dataDetails.getString("visa_issuance").equals("")) {
-                            visaIssue = "<b>" + "Visa Issuance :" + " </b>" + "--";
+                            visaIssue =   "--";
 
                         } else {
-                            visaIssue += "<b>" + "Visa Issuance :" + " </b>" + dataDetails.getString("visa_issuance");
+                            visaIssue = dataDetails.getString("visa_issuance");
 
                         }
-
+                        visaexpire_heading="<b>" + "Visa Expiry :" + " </b>";
                         if (dataDetails.getString("visa_expiry").equals("")) {
-                            visaExpire = "<b>" + "Visa Expiry :" + " </b>" + "--";
+                            visaExpire =  "--";
 
                         } else {
-                            visaExpire = "<b>" + "Visa Expiry :" + " </b>" + dataDetails.getString("visa_expiry");
+                            visaExpire = dataDetails.getString("visa_expiry");
 
                         }
-
+                        labornum_heading= "<b>" + "Lanour No :" + " </b>";
                         if (dataDetails.getString("labourno").equals("")) {
-                            laborNum = "<b>" + "Lanour No :" + " </b>" + "--";
+                            laborNum =   "--";
 
                         } else {
-                            laborNum = "<b>" + "Lanour No :" + " </b>" + dataDetails.getString("labourno");
+                            laborNum = dataDetails.getString("labourno");
 
                         }
-
+                        laborissue_heading= "<b>" + "Lanour Issuance :" + " </b>";
                         if (dataDetails.getString("labour_issuance").equals("")) {
-                            laborIssue = "<b>" + "Lanour Issuance :" + " </b>" + "--";
+                            laborIssue =  "--";
 
                         } else {
-                            laborIssue = "<b>" + "Lanour Issuance :" + " </b>" + dataDetails.getString("labour_issuance");
+                            laborIssue =  dataDetails.getString("labour_issuance");
                         }
-
+                        laborexpire_heading= "<b>" + "Lanour Expiry :" + " </b>";
                         if (dataDetails.getString("labour_expiry").equals("")) {
-                            laborExpire = "<b>" + "Lanour Expiry :" + " </b>" + "--";
+                            laborExpire =  "--";
 
                         } else {
-                            laborExpire = "<b>" + "Lanour Expiry :" + " </b>" + dataDetails.getString("labour_expiry");
+                            laborExpire =  dataDetails.getString("labour_expiry");
 
                         }
-
+                        nationalid_heading= "<b>" + "National Id No :" + " </b>";
                         if (dataDetails.getString("nIdno").equals("")) {
-                            nationalId = "<b>" + "National Id No :" + " </b>" + "--";
+                            nationalId =  "--";
 
                         } else {
-                            nationalId = "<b>" + "National Id No :" + " </b>" + dataDetails.getString("nIdno");
+                            nationalId =  dataDetails.getString("nIdno");
 
                         }
-
+                        nationalIDissue_heading= "<b>" + "National Id Issuance :" + " </b>";
                         if (dataDetails.getString("nId_issuance").equals("")) {
-                            nationalIdIssue = "<b>" + "National Id Issuance :" + " </b>" + "--";
+                            nationalIdIssue = "--";
 
                         } else {
-                            nationalIdIssue = "<b>" + "National Id Issuance :" + " </b>" + dataDetails.getString("nId_issuance");
+                            nationalIdIssue = dataDetails.getString("nId_issuance");
 
                         }
-
+                        nationalIDexpire_heading= "<b>" + "National Id Expiry :" + " </b>";
                         if (dataDetails.getString("nId_expiry").equals("")) {
-                            nationalIdExpire = "<b>" + "National Id Expiry :" + " </b>" + "--";
+                            nationalIdExpire =   "--";
 
                         } else {
-                            nationalIdExpire = "<b>" + "National Id Expiry :" + dataDetails.getString("nId_expiry");
+                            nationalIdExpire = dataDetails.getString("nId_expiry");
 
                         }
                         int SDK_INT = Build.VERSION.SDK_INT;
@@ -399,7 +403,7 @@ public class ProfileFabMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ProfileFabMenu.this, "employee num: " + employee_number, Toast.LENGTH_SHORT).show();
-                showCustomDialog(ProfileFabMenu.this, "Basic information", employee_number,employee_p, gender,gender_fm, maritalStatus,martial_mu, email,email_com, hireDate,hire_date, dob,dob_full, nationality,nationality_p, officeNum,office_phone,"", "", "", "",picture);
+                showCustomDialog(ProfileFabMenu.this, "Basic information" ,employee_heading,employee_number, gender_heading,gender, martial_heading,maritalStatus, email_heading, email,hiredate_heading, hireDate,dob_heading, dob,nationality_heading, nationality,officeNum_heading, officeNum,"", "", "", "",picture);
 
 
             }
@@ -408,7 +412,7 @@ public class ProfileFabMenu extends AppCompatActivity {
         Employee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showCustomDialog(ProfileFabMenu.this, "Employment information", employee_number,employee_p, location,loaction_d, status,status_t, org,org_organization, manager,manager_d, "", "", "", "", "", "", "", "","","",picture);
+            //    showCustomDialog(ProfileFabMenu.this, "Employment information", employee_number,employee_p, location,loaction_d, status,status_t, org,org_organization, manager,manager_d, "", "", "", "", "", "", "", "","","",picture);
 
             }
         });
@@ -416,7 +420,7 @@ public class ProfileFabMenu extends AppCompatActivity {
         Passport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showCustomDialog(ProfileFabMenu.this, "Passport information", passNum,pass_num, passIssue,pass_issue, passexpire,pass_expire, "", "", "", "", "", "", "", "", "", "","","","","",picture);
+              //  showCustomDialog(ProfileFabMenu.this, "Passport information", passNum,pass_num, passIssue,pass_issue, passexpire,pass_expire, "", "", "", "", "", "", "", "", "", "","","","","",picture);
 
             }
         });
@@ -424,7 +428,7 @@ public class ProfileFabMenu extends AppCompatActivity {
         Visa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showCustomDialog(ProfileFabMenu.this, "Visa information", visaNum,visa_num, visaIssue,visa_issue, visaExpire,visa_expire,"", "", "", "", "", "", "", "", "", "","","","","",picture);
+               // showCustomDialog(ProfileFabMenu.this, "Visa information", visaNum,visa_num, visaIssue,visa_issue, visaExpire,visa_expire,"", "", "", "", "", "", "", "", "", "","","","","",picture);
 
             }
         });
@@ -432,7 +436,7 @@ public class ProfileFabMenu extends AppCompatActivity {
         National.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showCustomDialog(ProfileFabMenu.this, "National ID information", nationalId,national_id, nationalIdIssue,national_issue, nationalIdExpire,national_issue ,"", "", "", "", "", "", "", "", "", "","","","","",picture);
+             //   showCustomDialog(ProfileFabMenu.this, "National ID information", nationalId,national_id, nationalIdIssue,national_issue, nationalIdExpire,national_issue ,"", "", "", "", "", "", "", "", "", "","","","","",picture);
 
             }
         });
@@ -440,7 +444,7 @@ public class ProfileFabMenu extends AppCompatActivity {
         Labor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showCustomDialog(ProfileFabMenu.this, "Labor Card information", laborNum,labor_num,laborIssue,labor_issue, laborExpire,labor_expire, "", "", "", "", "", "", "", "", "", "","","","","",picture);
+               // showCustomDialog(ProfileFabMenu.this, "Labor Card information", laborNum,labor_num,laborIssue,labor_issue, laborExpire,labor_expire, "", "", "", "", "", "", "", "", "", "","","","","",picture);
 
             }
         });
@@ -526,13 +530,13 @@ if(!(pic12.equals(""))){
             t11.setText(Html.fromHtml(text11));
             t12.setText(Html.fromHtml(text12));
             t13.setText(Html.fromHtml(text13));
-    t14.setText(Html.fromHtml(text14));
-    t15.setText(Html.fromHtml(text15));
-    t16.setText(Html.fromHtml(text16));
-    t17.setText(Html.fromHtml(text17));
-    t18.setText(Html.fromHtml(text18));
-    t19.setText(Html.fromHtml(text19));
-    t20.setText(Html.fromHtml(text20));
+            t14.setText(Html.fromHtml(text14));
+            t15.setText(Html.fromHtml(text15));
+            t16.setText(Html.fromHtml(text16));
+            t17.setText(Html.fromHtml(text17));
+            t18.setText(Html.fromHtml(text18));
+            t19.setText(Html.fromHtml(text19));
+            t20.setText(Html.fromHtml(text20));
 
             if (t4.getText().equals(""))
                 t4.setVisibility(View.GONE);
