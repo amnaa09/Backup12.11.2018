@@ -13,7 +13,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="50dp"
             android:background="@color/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:contentInsetStartWithNavigation="0dp"
@@ -38,7 +38,7 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="203dp"
                 android:foreground="@color/overlay_dark_30"
                 android:scaleType="centerCrop"
                 android:src="@drawable/image_19" />
@@ -66,21 +66,6 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="@dimen/spacing_large"
-                    android:layout_height="@dimen/spacing_large"
-                    android:layout_marginEnd="@dimen/spacing_medium"
-                    android:layout_marginRight="@dimen/spacing_medium"
-                    android:tint="@color/grey_40"
-                    app:srcCompat="@drawable/ic_location"
-                    tools:ignore="VectorDrawableCompat" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Far Rockaway, NY"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textColor="@color/grey_40" />
             </LinearLayout>
 
             <View
@@ -108,12 +93,13 @@
                         android:layout_height="wrap_content"
                         android:clickable="true"
                         android:id="@+id/basicc"
-                        android:tint="@color/grey_80"
-                        app:backgroundTint="@android:color/white"
+                        android:tint="@color/mdtp_white"
+
                         app:elevation="1dp"
                         app:fabSize="normal"
-                        app:rippleColor="@color/deep_orange_400"
-                        app:srcCompat="@drawable/ic_chat"
+                        app:backgroundTint="@color/asmani"
+                        app:rippleColor="@android:color/white"
+                        app:srcCompat="@drawable/ic_person"
                         tools:ignore="VectorDrawableCompat" />
 
                     <TextView
@@ -138,12 +124,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:clickable="true"
-                        android:tint="@color/grey_80"
-                        app:backgroundTint="@android:color/white"
+                        android:tint="@color/mdtp_white"
+
                         app:elevation="1dp"
                         app:fabSize="normal"
-                        app:rippleColor="@color/deep_orange_400"
-                        app:srcCompat="@drawable/ic_data_usage"
+                        app:rippleColor="@color/mdtp_white"
+                        app:srcCompat="@drawable/ic_employemnt"
+                        app:backgroundTint="@color/malta"
                         tools:ignore="VectorDrawableCompat" />
 
                     <TextView
@@ -169,12 +156,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:clickable="true"
-                        android:tint="@color/grey_80"
-                        app:backgroundTint="@android:color/white"
+                        android:tint="@color/mdtp_white"
+
                         app:elevation="1dp"
                         app:fabSize="normal"
-                        app:rippleColor="@color/deep_orange_400"
-                        app:srcCompat="@drawable/ic_location"
+                        app:rippleColor="@color/mdtp_white"
+                        app:srcCompat="@drawable/passp"
+                       app:backgroundTint="@color/tea"
                         tools:ignore="VectorDrawableCompat" />
 
                     <TextView
@@ -208,12 +196,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:clickable="true"
-                        android:tint="@color/grey_80"
-                        app:backgroundTint="@android:color/white"
+                        android:tint="@color/mdtp_white"
+
                         app:elevation="1dp"
                         app:fabSize="normal"
-                        app:rippleColor="@color/deep_orange_400"
-                        app:srcCompat="@drawable/ic_peoples"
+                        app:backgroundTint="@color/yell"
+                        app:rippleColor="@color/mdtp_white"
+                        app:srcCompat="@drawable/vissa"
                         tools:ignore="VectorDrawableCompat" />
 
                     <TextView
@@ -238,12 +227,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:clickable="true"
-                        android:tint="@color/grey_80"
-                        app:backgroundTint="@android:color/white"
+                        android:tint="@color/mdtp_white"
+app:backgroundTint="@color/blue_A100"
                         app:elevation="1dp"
                         app:fabSize="normal"
-                        app:rippleColor="@color/deep_orange_400"
-                        app:srcCompat="@drawable/ic_whatshot"
+                        app:rippleColor="@color/mdtp_white"
+                        app:srcCompat="@drawable/natio"
                         tools:ignore="VectorDrawableCompat" />
 
                     <TextView
@@ -268,12 +257,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:clickable="true"
-                        android:tint="@color/grey_80"
-                        app:backgroundTint="@android:color/white"
+                        android:tint="@color/mdtp_white"
+
                         app:elevation="1dp"
                         app:fabSize="normal"
-                        app:rippleColor="@color/deep_orange_400"
-                        app:srcCompat="@drawable/ic_notifications"
+                        app:rippleColor="@color/asmani"
+                        app:srcCompat="@drawable/labou"
                         tools:ignore="VectorDrawableCompat" />
 
                     <TextView

@@ -21,6 +21,7 @@ import com.example.sammrabatool.solutions5d.dialog.Agreement;
 import com.example.sammrabatool.solutions5d.list.ListMultiSelection;
 import com.example.sammrabatool.solutions5d.profile.HrProfile;
 import com.example.sammrabatool.solutions5d.profile.ProfileFabMenu;
+import com.example.sammrabatool.solutions5d.profile.ProfilePolygon;
 import com.example.sammrabatool.solutions5d.profile.ProfilePurple;
 import com.example.sammrabatool.solutions5d.utils.Tools;
 

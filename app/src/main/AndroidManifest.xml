@@ -40,6 +40,7 @@
         <activity android:name=".DashboardOptions.DashProfile" />
         <activity android:name=".DashboardOptions.DashProperty" />
         <activity android:name=".profile.ProfileFabMenu" />
+        <activity android:name=".profile.ProfilePolygon"></activity>
         <activity android:name=".DashboardOptions.DashSale"></activity>
     </application>
 

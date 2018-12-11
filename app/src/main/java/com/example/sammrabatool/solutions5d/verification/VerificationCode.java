@@ -198,6 +198,7 @@ public class VerificationCode extends AppCompatActivity {
 
             Intent intent=new Intent(VerificationCode.this,LockError.class);
             startActivity(intent);
+            finish();
         }
 
 
@@ -214,7 +215,7 @@ public class VerificationCode extends AppCompatActivity {
                 editor.commit();
                 Intent intent=new Intent(VerificationCode.this,LockError.class);
                 startActivity(intent);
-
+finish();
             }
 
 
@@ -300,6 +301,7 @@ public class VerificationCode extends AppCompatActivity {
                             intent.putExtra("userID",userID);
                             intent.putExtra("instance",instanceStr);
                             startActivity(intent);
+                            finish();
                         }
 
                         else {

@@ -354,6 +354,7 @@ public class LoginCardOverlap extends AppCompatActivity {
 
   //                                 Toast.makeText(LoginCardOverlap.this, "from if sending to agreement name=" + userName + "token=" + userToken, Toast.LENGTH_LONG).show();
                                    startActivity(intent);
+                                   finish();
                                }
                                else
                                {
@@ -375,6 +376,7 @@ public class LoginCardOverlap extends AppCompatActivity {
 
     //                               Toast.makeText(LoginCardOverlap.this, "from else sending to agreement name=" + userName + "token=" + userToken, Toast.LENGTH_SHORT).show();
                                    startActivity(intent);
+                                   finish();
                                }
                               //  finish();
                             }

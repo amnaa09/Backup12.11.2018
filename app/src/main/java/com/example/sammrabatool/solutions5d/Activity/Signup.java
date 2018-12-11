@@ -196,6 +196,7 @@ public class Signup extends AppCompatActivity
                                     editor.commit();
                                     Intent intent=new Intent(Signup.this,LockError.class);
                                     startActivity(intent);
+                                    finish();
 
                                 }
                             }

@@ -107,7 +107,7 @@ public class Agreement extends AppCompatActivity {
                 }
             //    Toast.makeText(getApplicationContext(),"Read: " + token,Toast.LENGTH_SHORT).show();
                startActivity(intent);
-             //   finish();
+                finish();
                 // Toast.makeText(getApplicationContext(), "Button Accept Clicked", Toast.LENGTH_SHORT).show();
             }
         });
@@ -127,6 +127,7 @@ public class Agreement extends AppCompatActivity {
                 intent.putExtra("instance",instanceStr);
                 intent.putExtra("agreement","decline");
                 startActivity(intent);
+                finish();
             }
         });
 
