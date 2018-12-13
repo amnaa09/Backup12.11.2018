@@ -22,6 +22,8 @@ public class DashboardOptions extends AppCompatActivity {
    // CardView finnace,isure,pro,projec;
     LinearLayout finance,insurance,procurement,project,hrpay,profile,property,sale;
     private Toolbar toolbar;
+    String   instanceStr,  userID, token;
+    int lg,bg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,18 +31,29 @@ public class DashboardOptions extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard_options);
         profile=(LinearLayout)findViewById(R.id.profile_card);
         property=(LinearLayout)findViewById(R.id.PROPERTY);
-hrpay=(LinearLayout)findViewById(R.id.HR_card);
-sale=(LinearLayout)findViewById(R.id.SALE_card);
+        hrpay=(LinearLayout)findViewById(R.id.HR_card);
+        sale=(LinearLayout)findViewById(R.id.SALE_card);
         finance=(LinearLayout) findViewById(R.id.dash_finance);
         insurance=(LinearLayout) findViewById(R.id.dash_insurance);
         project=(LinearLayout)findViewById(R.id.dash_project);
         procurement=(LinearLayout)findViewById(R.id.dash_procurement);
+
+        userID=getIntent().getStringExtra("userID");
+        instanceStr=getIntent().getStringExtra("instance");
+        token=getIntent().getStringExtra("token");
+        lg=getIntent().getIntExtra("lg",0);
+        bg=getIntent().getIntExtra("bg",0);
 
         finance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
              //   Toast.makeText(DashboardOptions.this, "click fin", Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(DashboardOptions.this, DashFinance.class);
+                intent.putExtra("userID",userID);
+                intent.putExtra("token",token);
+                intent.putExtra("instance", instanceStr);
+                intent.putExtra("lg",lg);
+                intent.putExtra("bg",bg);
                 startActivity(intent);
             }
         });

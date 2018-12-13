@@ -50,7 +50,7 @@ public class DashboardGridFab extends AppCompatActivity {
         fyr = (FloatingActionButton ) findViewById(R.id.fyr_button);
         request = (FloatingActionButton ) findViewById(R.id.request_button);
         dash=(FloatingActionButton) findViewById(R.id.dashboard);
-        dashboard=(LinearLayout) findViewById(R.id.linear_dash);
+       // dashboard=(LinearLayout) findViewById(R.id.linear_dash);
         recent=(LinearLayout) findViewById(R.id.recent);
         lpo=(TextView)findViewById(R.id.lpo);
         grn=(TextView)findViewById(R.id.grn);
@@ -193,24 +193,15 @@ public class DashboardGridFab extends AppCompatActivity {
                 intent.putExtra("userID",userID);
                 intent.putExtra("token",token);
                 intent.putExtra("instance", instanceStr);
+                intent.putExtra("lg",lg);
+                intent.putExtra("bg",bg);
 
                 startActivity(intent);
 
             }
         });
 
-        dashboard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(DashboardGridFab.this, DashboardOptions.class);
-                intent.putExtra("userID",userID);
-                intent.putExtra("token",token);
-                intent.putExtra("instance", instanceStr);
 
-                startActivity(intent);
-
-            }
-        });
 
     }
 

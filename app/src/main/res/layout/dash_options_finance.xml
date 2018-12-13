@@ -155,6 +155,7 @@
                                     android:orientation="vertical">
 
                                     <TextView
+                                        android:id="@+id/count0"
                                         android:layout_width="wrap_content"
                                         android:layout_height="0dp"
                                         android:layout_weight="1"
@@ -618,7 +619,7 @@
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/barchart1"
-                    android:layout_width="365dp"
+                    android:layout_width="match_parent"
                     android:layout_height="179dp"
                     android:layout_below="@id/dashboard_buttons"
                     android:layout_alignParentEnd="true"

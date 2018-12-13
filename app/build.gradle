@@ -18,6 +18,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+    }
 }
 configurations.all {
     exclude group: 'com.android.support', module: 'support-v13'
@@ -40,7 +43,7 @@ dependencies {
     implementation 'com.mikhaellopez:circularimageview:3.2.0'          // circle image view
     implementation 'com.wdullaer:materialdatetimepicker:3.2.0'         // date & time picker
     implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'com.github.PhilJay:MPAndroidChart:v2.2.0'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
     implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
     implementation 'com.github.AnyChart:AnyChart-Android:1.0.6'
     implementation 'com.android.support:multidex:1.0.3'
