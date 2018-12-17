@@ -103,8 +103,8 @@ public class DashboardOptions extends AppCompatActivity {
         property.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(DashboardOptions.this, DashProperty.class);
-                startActivity(intent);
+                //Intent intent=new Intent(DashboardOptions.this, DashProperty.class);
+                //startActivity(intent);
             }
         });
         sale.setOnClickListener(new View.OnClickListener() {

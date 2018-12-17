@@ -562,7 +562,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/dashboard_buttons"
+                android:id="@+id/dashboard_buttons1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dashboard_cards"
@@ -600,7 +600,7 @@
                     tools:ignore="VectorDrawableCompat" />
 
                 <ImageView
-                    android:id="@+id/refresh"
+                    android:id="@+id/refresh1"
                     android:layout_width="36dp"
                     android:layout_height="20dp"
                     android:layout_alignParentEnd="true"
@@ -628,6 +628,76 @@
                     android:layout_marginEnd="3dp"
                     android:layout_marginRight="3dp"
                     android:layout_marginBottom="75dp"></com.github.mikephil.charting.charts.BarChart>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/dashboard_buttons2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dashboard_cards"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/spacing_middle"
+                    android:layout_height="0dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/spacing_large" />
+
+                <TextView
+                    android:id="@+id/text33"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp"
+                    android:text="Supplierwise Outstanding Amount"
+                    android:textSize="15dp"
+                    android:paddingRight="60dp"
+                    android:textStyle="bold"
+                    tools:ignore="InvalidId">
+                </TextView>
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="20dp"
+                    android:layout_alignRight="@+id/refresh"
+
+                    android:layout_gravity="left"
+                    android:layout_marginTop="4dp"
+                    app:srcCompat="@drawable/ic_file_download"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <ImageView
+                    android:id="@+id/refresh3"
+                    android:layout_width="36dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="2dp"
+                    android:paddingRight="0dp"
+                    app:srcCompat="@drawable/ref"
+                    tools:ignore="VectorDrawableCompat" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="196dp">
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/linechart1"
+                    android:layout_width="match_parent"
+                    android:layout_height="179dp"
+                    android:layout_below="@id/dashboard_buttons"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="3dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginBottom="75dp"></com.github.mikephil.charting.charts.LineChart>
 
 
             </LinearLayout>
@@ -714,6 +784,7 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:id="@+id/count00"
                                     android:layout_width="wrap_content"
                                     android:layout_height="0dp"
                                     android:layout_weight="1"
@@ -1119,11 +1190,12 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/dashboard_buttons2"
+                android:id="@+id/dashboard_buttons3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dashboard_cards"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:ignore="DuplicateIds">
 
                 <View
                     android:layout_width="@dimen/spacing_middle"
@@ -1178,15 +1250,87 @@
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/barchart2"
-                    android:layout_width="365dp"
+                    android:layout_width="match_parent"
                     android:layout_height="179dp"
-                    android:layout_below="@id/dashboard_buttons"
+                    android:layout_below="@id/dashboard_buttons3"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginEnd="3dp"
                     android:layout_marginRight="3dp"
-                    android:layout_marginBottom="75dp"></com.github.mikephil.charting.charts.BarChart>
+                    android:layout_marginBottom="75dp">
+                </com.github.mikephil.charting.charts.BarChart>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/dashboard_buttons4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dashboard_cards"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/spacing_middle"
+                    android:layout_height="0dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/spacing_large" />
+
+                <TextView
+                    android:id="@+id/text34"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp"
+                    android:text="Supplierwise Outstanding Amount"
+                    android:textSize="15dp"
+                    android:paddingRight="60dp"
+                    android:textStyle="bold"
+                    tools:ignore="InvalidId">
+                </TextView>
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="20dp"
+                    android:layout_alignRight="@+id/refresh"
+
+                    android:layout_gravity="left"
+                    android:layout_marginTop="4dp"
+                    app:srcCompat="@drawable/ic_file_download"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <ImageView
+                    android:id="@+id/refresh4"
+                    android:layout_width="36dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="2dp"
+                    android:paddingRight="0dp"
+                    app:srcCompat="@drawable/ref"
+                    tools:ignore="VectorDrawableCompat" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="196dp">
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/linechart2"
+                    android:layout_width="match_parent"
+                    android:layout_height="179dp"
+                    android:layout_below="@id/dashboard_buttons4"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="3dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginBottom="75dp">
+                </com.github.mikephil.charting.charts.LineChart>
+
+
             </LinearLayout>
 
 
