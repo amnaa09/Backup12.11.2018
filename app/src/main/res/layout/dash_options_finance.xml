@@ -977,14 +977,11 @@
                     tools:ignore="VectorDrawableCompat" />
             </LinearLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:id="@+id/guage1_layout"
-                android:layout_height="600dp"
+                android:layout_height="250dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:orientation="vertical">
@@ -1000,13 +997,9 @@
                 app:unitOfMeasurementTextSize="15dp"
                 app:unitOfMeasurement="Unsettled Prepayments"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
 
-                    android:text="hellloooo"/>
             </LinearLayout>
-            </RelativeLayout>
+
 
             <TextView
                 android:id="@+id/text1"
