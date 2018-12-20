@@ -16,6 +16,7 @@ import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Funnel;
+import com.anychart.charts.Pie;
 import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
 import com.example.sammrabatool.solutions5d.R;
 import com.example.sammrabatool.solutions5d.Tools;
@@ -38,17 +39,17 @@ public class DashInsurance extends AppCompatActivity {
         Funnel funnel = AnyChart.funnel();
 
         List<DataEntry> data = new ArrayList<>();
-        data.add(new ValueDataEntry("Website Visits", 528756));
-        data.add(new ValueDataEntry("Downloads", 164052));
-        data.add(new ValueDataEntry("Valid Contacts", 112167));
-        data.add(new ValueDataEntry("Interested to Buy", 79128));
-        data.add(new ValueDataEntry("Purchased", 79128));
+        data.add(new ValueDataEntry("Website Visits", 10000));
+        data.add(new ValueDataEntry("Downloads", 6052));
+        data.add(new ValueDataEntry("Valid Contacts", 2167));
+        data.add(new ValueDataEntry("Interested to Buy", 7128));
+        data.add(new ValueDataEntry("Purchased", 12028));
 
         funnel.data(data);
 
         funnel.margin(new String[]{"10", "20%", "10", "20%"});
-        funnel.baseWidth("70%")
-                .neckWidth("17%");
+     //   funnel.baseWidth("70%")
+       //         .neckWidth("17%");
 
         funnel.labels()
                 .position("outsideleft")

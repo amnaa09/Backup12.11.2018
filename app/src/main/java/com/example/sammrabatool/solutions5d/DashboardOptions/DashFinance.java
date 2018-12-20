@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,13 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.anychart.AnyChart;
+import com.anychart.AnyChartView;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.charts.Funnel;
+import com.anychart.charts.Pie;
+import com.anychart.standalones.markersfactory.Marker;
 import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
 import com.example.sammrabatool.solutions5d.R;
 import com.example.sammrabatool.solutions5d.Tools;
@@ -32,6 +40,7 @@ import com.example.sammrabatool.solutions5d.dashboard.DashboardGridFab;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -53,15 +62,23 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.unicodelabs.kdgaugeview.KdGaugeView;
+
+
 public class DashFinance extends AppCompatActivity {
     private Toolbar toolbar;
-    String instanceStr, userID, token, count1, count2, count3, count4, count5, count6, countr_1, countr_2, countr_3, countr_4, countr_5, countr_6;
-    JSONArray count_7 = null, count_71 = null, count_72 = null, count_73 = null, count_8 = null, count_81 = null, count_82 = null, count_83 = null, countarray_7 = null, countarray_71 = null, countarray_72 = null, countarray_73 = null, countarray_8 = null, countarray_81 = null, countarray_82 = null, countarray_83 = null;
+    String   instanceStr,  userID, token, count1,count2,count3,count4,count5,count6;
+    JSONArray  count_7=null, count_71=null, count_72=null, count_73=null, count_8=null, count_81=null, count_82=null, count_83=null, count_9=null, count_91=null, count_92=null, count_93=null, count_10=null, count_101=null, count_102=null;
+    JSONObject count101[], count102[];
+    String  countr_1, countr_2, countr_3, countr_4, countr_5, countr_6;
+    int count11, count12;
+    JSONArray countarray_7 = null, countarray_71 = null, countarray_72 = null, countarray_73 = null, countarray_8 = null, countarray_81 = null, countarray_82 = null, countarray_83 = null;
 
-    double arr7[], arr71[], arr72[], arr8[], arr81[], arr82[], array7[], array71[], array72[], array8[], array81[], array82[];
-    String arr73[], arr83[], array73[], array83[];
+    double arr7[], arr71[], arr72[], arr8[], arr81[], arr82[], arr9[], arr91[], arr92[],arr10a1[],arr10b1[], array7[], array71[], array72[], array8[], array81[], array82[];
+    String arr73[], arr83[], arr93[],arr10a2[], arr10b2[], array73[], array83[];
     int lg, bg;
     TextView count0, count00;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,10 +98,18 @@ public class DashFinance extends AppCompatActivity {
 
         initToolbar();
 
-        final BarChart barChart = (BarChart) findViewById(R.id.barchart1);
-        final BarChart barChart2 = (BarChart) findViewById(R.id.barchart2);
-        final LineChart linechart1 = (LineChart) findViewById(R.id.linechart1);
-        final LineChart linechart2 = (LineChart) findViewById(R.id.linechart2);
+        final BarChart barchartPayable1 = (BarChart) findViewById(R.id.barchartPayable1);
+        final BarChart barchartReceivable1 = (BarChart) findViewById(R.id.barchartReceivable1);
+        final LineChart linechartPayable1 = (LineChart) findViewById(R.id.linechartPayable1);
+        final LineChart linechartPayable2 = (LineChart) findViewById(R.id.linechartPayable2);
+        final LineChart linechartPayable3 = (LineChart) findViewById(R.id.linechartPayable3);
+        final LineChart linechartReceivable1 = (LineChart) findViewById(R.id.linechartReceivable1);
+        final AnyChartView funnelchartPayable1= (AnyChartView) findViewById(R.id.funnelchart1);
+        final Pie funnel1 = AnyChart.pie();
+        final KdGaugeView gauge1= findViewById(R.id.gauge1);
+
+        final CustomMarkerView mv = new CustomMarkerView(this, R.layout.tv_content);
+
 
         RequestQueue MyRequestQueue = Volley.newRequestQueue(DashFinance.this);
         String urlrecv = "http://" + instanceStr + ".5dsurf.com/app/webservice/getReceivableStatictics/" + bg + "/" + lg + "/" + userID + "/" + token;
@@ -119,7 +144,7 @@ public class DashFinance extends AppCompatActivity {
                         array72[i]=countarray_72.getDouble(i);
                         //  Toast.makeText(DashFinance.this, "value="+arr72[i], Toast.LENGTH_SHORT).show();
                     }
-                    countarray_73=countarray_7.getJSONArray(1);
+                    countarray_73=countarray_7.getJSONArray(2);
                     array73= new String[countarray_73.length()];
                     for(int i=0;i<countarray_73.length();i++)
                     {
@@ -156,13 +181,13 @@ public class DashFinance extends AppCompatActivity {
 
                     BarData datarcv1 = new BarData(dataSets);
                     datarcv1.setBarWidth(0.45f);
-                    barChart2.setData(datarcv1);
-                    barChart2.groupBars(0.001f, 0.06f, 0.02f); // perform the "explicit" grouping
+                    barchartReceivable1.setData(datarcv1);
+                    barchartReceivable1.groupBars(0.001f, 0.06f, 0.02f); // perform the "explicit" grouping
                     // barChart.invalidate(); // refresh
-                    barChart2.getDescription().setText("Set Bar Chart Description");  // set the description
-                    barChart2.animateY(5000);
+                    barchartReceivable1.getDescription().setText("Set Bar Chart Description");  // set the description
+                    barchartReceivable1.animateY(5000);
 
-                    YAxis yAxis = barChart2.getAxisLeft();
+                    YAxis yAxis = barchartReceivable1.getAxisLeft();
                     yAxis.setValueFormatter(new IAxisValueFormatter() {
                         @Override
                         public String getFormattedValue(float value, AxisBase axis) {
@@ -175,13 +200,14 @@ public class DashFinance extends AppCompatActivity {
                     yAxis.setGranularity(1f);
                     yAxis.setGranularityEnabled(true);
 
-                    barChart2.getAxisRight().setEnabled(false);
+                    barchartReceivable1.getAxisRight().setEnabled(false);
 
-                    XAxis xAxis = barChart2.getXAxis();
+                    XAxis xAxis = barchartReceivable1.getXAxis();
                     xAxis.setGranularity(1f);
                     xAxis.setGranularityEnabled(true);
                     xAxis.setCenterAxisLabels(true);
                     xAxis.setDrawGridLines(true);
+                    xAxis.setAxisMaximum(5);
 
                     xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                     xAxis.setValueFormatter(new IndexAxisValueFormatter(labels_graphrcv1));
@@ -249,8 +275,8 @@ public class DashFinance extends AppCompatActivity {
 
 
                     LineData line_data1 = new LineData(line_dataSets1);
-                    linechart2.setData(line_data1);
-                    linechart2.invalidate(); // refresh
+                    linechartReceivable1.setData(line_data1);
+                    linechartReceivable1.invalidate(); // refresh
 
                     IAxisValueFormatter formatter = new IAxisValueFormatter() {
 
@@ -264,7 +290,7 @@ public class DashFinance extends AppCompatActivity {
                         public int getDecimalDigits() {  return 0; }
                     };
 
-                    XAxis xAxis_line1 = linechart2.getXAxis();
+                    XAxis xAxis_line1 = linechartReceivable1.getXAxis();
                     xAxis_line1.setGranularity(1f); // minimum axis-step (interval) is 1
                     xAxis_line1.setValueFormatter(formatter);
 
@@ -395,6 +421,8 @@ public class DashFinance extends AppCompatActivity {
 
                     bardataset.setColors(new int[]{R.color.blue_500});
                     bardataset2.setColors(new int[]{R.color.red_500});
+                    bardataset.setDrawValues(false);
+                    bardataset2.setDrawValues(false);
 
                     ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
                     dataSets.add(bardataset);
@@ -402,16 +430,16 @@ public class DashFinance extends AppCompatActivity {
 
                     BarData data1 = new BarData(dataSets);
                     data1.setBarWidth(0.45f);
-                    barChart.setData(data1);
-                    barChart.groupBars(0.001f, 0.06f, 0.02f); // perform the "explicit" grouping
+                    barchartPayable1.setData(data1);
+                    barchartPayable1.groupBars(0.001f, 0.06f, 0.02f); // perform the "explicit" grouping
                    // barChart.invalidate(); // refresh
 
                  //   barChart.setData(dataBar); // set the data and list of lables into chart
 
-                   barChart.getDescription().setText("Set Bar Chart Description");  // set the description
-                    barChart.animateY(5000);
+                    barchartPayable1.getDescription().setText("Set Bar Chart Description");  // set the description
+                    barchartPayable1.animateY(5000);
 
-                    YAxis yAxis = barChart.getAxisLeft();
+                    YAxis yAxis = barchartPayable1.getAxisLeft();
                     yAxis.setValueFormatter(new IAxisValueFormatter() {
                         @Override
                         public String getFormattedValue(float value, AxisBase axis) {
@@ -425,16 +453,20 @@ public class DashFinance extends AppCompatActivity {
                     yAxis.setGranularity(1f);
                     yAxis.setGranularityEnabled(true);
 
-                    barChart.getAxisRight().setEnabled(false);
+                    barchartPayable1.getAxisRight().setEnabled(false);
 
-                    XAxis xAxis = barChart.getXAxis();
+                    XAxis xAxis = barchartPayable1.getXAxis();
                     xAxis.setGranularity(1f);
                     xAxis.setGranularityEnabled(true);
                     xAxis.setCenterAxisLabels(true);
                     xAxis.setDrawGridLines(true);
+                    xAxis.setAxisMaximum(7);
 
                     xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                     xAxis.setValueFormatter(new IndexAxisValueFormatter(labels_graph1));
+
+                    barchartPayable1.setTouchEnabled(true);
+                    barchartPayable1.setMarker(mv);
 
 
                  //------------------------------------------------------------------------------
@@ -488,13 +520,24 @@ public class DashFinance extends AppCompatActivity {
 
                     LineDataSet setComp1 = new LineDataSet(valsComp1, "Payable");
                     setComp1.setAxisDependency(YAxis.AxisDependency.LEFT);
+                    setComp1.setDrawValues(false);
 
-                    setComp1.setColor(R.color.red_500);
+
+                    setComp1.setColor(Color.BLUE);
+                    setComp1.setFillColor(Color.BLUE);
+                    setComp1.setCircleColor(Color.BLUE);
+                    setComp1.setDrawFilled(true);
+
 
                     LineDataSet setComp2 = new LineDataSet(valsComp2, "VAT");
                     setComp2.setAxisDependency(YAxis.AxisDependency.LEFT);
+                    setComp2.setDrawValues(false);
 
-                    setComp2.setColor(R.color.green_500);
+                    setComp2.setColor(Color.GREEN);
+                    setComp2.setFillColor(Color.GREEN);
+                    setComp2.setCircleColor(Color.GREEN);
+                    setComp2.setDrawFilled(true);
+
 
                     List<ILineDataSet> line_dataSets1 = new ArrayList<ILineDataSet>();
                     line_dataSets1.add(setComp1);
@@ -502,8 +545,8 @@ public class DashFinance extends AppCompatActivity {
 
 
                     LineData line_data1 = new LineData(line_dataSets1);
-                    linechart1.setData(line_data1);
-                    linechart1.invalidate(); // refresh
+                    linechartPayable1.setData(line_data1);
+                    linechartPayable1.invalidate(); // refresh
 
                     IAxisValueFormatter formatter = new IAxisValueFormatter() {
 
@@ -517,14 +560,253 @@ public class DashFinance extends AppCompatActivity {
                         public int getDecimalDigits() {  return 0; }
                     };
 
-                    XAxis xAxis_line1 = linechart1.getXAxis();
+                    XAxis xAxis_line1 = linechartPayable1.getXAxis();
                     xAxis_line1.setGranularity(1f); // minimum axis-step (interval) is 1
                     xAxis_line1.setValueFormatter(formatter);
+                    xAxis_line1.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+                    YAxis yAxisRight = linechartPayable1.getAxisRight();
+                    yAxisRight.setEnabled(false);
+
+                    linechartPayable1.setTouchEnabled(true);
+                    linechartPayable1.setMarker(mv);
+
+                    //------------------------------------------------------------------------------
+                    count_9=data.getJSONArray("count_09");
+
+                    //for(int i=0;i<count_7.length();i++)
+                    //  {
+                    count_91=count_9.getJSONArray(1);
+                    arr91=new double[count_91.length()];
+                    for(int i=0;i<count_91.length();i++)
+                    {
+                        arr91[i]=count_91.getDouble(i);
+                        // Toast.makeText(DashFinance.this, "value="+arr71[i], Toast.LENGTH_SHORT).show();
+                    }
+
+                    count_92=count_9.getJSONArray(2);
+                    arr92=new double[count_92.length()];
+                    for(int i=0;i<count_92.length();i++)
+                    {
+                        arr92[i]=count_92.getDouble(i);
+                         // Toast.makeText(DashFinance.this, "value="+arr92[i], Toast.LENGTH_SHORT).show();
+                    }
+
+                    count_93=count_9.getJSONArray(0);
+                    arr93=new String[count_93.length()];
+                    for(int i=0;i<count_93.length();i++)
+                    {
+                        arr93[i]=count_93.getString(i);
+                        //   Toast.makeText(DashFinance.this, "value="+arr73[i], Toast.LENGTH_SHORT).show();
+                    }
+
+
+                    List<Entry> valsComp3 = new ArrayList<Entry>();
+                    List<Entry> valsComp4 = new ArrayList<Entry>();
+
+                    for(int i=0;i<count_91.length();i++)
+                    {
+                        Entry e=new Entry(i, (float)arr91[i]);
+                        valsComp3.add(e);
+                        //arr82[i]=count_82.getDouble(i);
+                        //  Toast.makeText(DashFinance.this, "value="+arr72[i], Toast.LENGTH_SHORT).show();
+                    }
+
+                    for(int i=0;i<count_92.length();i++)
+                    {
+                        Entry e=new Entry(i, (float)arr92[i]);
+                        valsComp4.add(e);
+                        //arr82[i]=count_82.getDouble(i);
+                        //  Toast.makeText(DashFinance.this, "value="+arr72[i], Toast.LENGTH_SHORT).show();
+                    }
+
+                    LineDataSet setComp3 = new LineDataSet(valsComp3, "Payable Invoice");
+                    setComp3.setAxisDependency(YAxis.AxisDependency.LEFT);
+                    setComp3.setDrawValues(false);
+
+                    setComp3.setColor(Color.BLUE);
+                    setComp3.setFillColor(Color.BLUE);
+                    setComp3.setCircleColor(Color.BLUE);
+                    setComp3.setDrawFilled(true);
+
+                    LineDataSet setComp4 = new LineDataSet(valsComp4, "Payment Voucher");
+                    setComp4.setAxisDependency(YAxis.AxisDependency.LEFT);
+                    setComp4.setDrawValues(false);
+
+                    setComp4.setColor(Color.GREEN);
+                    setComp4.setFillColor(Color.GREEN);
+                    setComp4.setDrawFilled(true);
+                    setComp4.setCircleColor(Color.GREEN);
+
+                    List<ILineDataSet> line_dataSets2 = new ArrayList<ILineDataSet>();
+                    line_dataSets2.add(setComp3);
+                    line_dataSets2.add(setComp4);
+
+
+                    LineData line_data2 = new LineData(line_dataSets2);
+                    linechartPayable2.setData(line_data2);
+                    linechartPayable2.invalidate(); // refresh
+
+                    linechartPayable2.setTouchEnabled(true);
+                    linechartPayable2.setMarker(mv);
+
+                    IAxisValueFormatter formatter2 = new IAxisValueFormatter() {
+
+                        @Override
+                        public String getFormattedValue(float value, AxisBase axis) {
+                            return arr93[(int) value];
+                        }
+
+                        // we don't draw numbers, so no decimal digits needed
+                        //   @Override
+                        public int getDecimalDigits() {  return 0; }
+                    };
+
+                    XAxis xAxis_line2 = linechartPayable2.getXAxis();
+                    xAxis_line2.setGranularity(1f); // minimum axis-step (interval) is 1
+                    xAxis_line2.setValueFormatter(formatter);
+                    xAxis_line2.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+
+                    YAxis yAxisRight2 = linechartPayable2.getAxisRight();
+                    yAxisRight2.setEnabled(false);
+
+
+                    //------------------------------------------------------------------------------
+                    count_10=data.getJSONArray("count_10");
+
+                    //for(int i=0;i<count_7.length();i++)
+                    //  {
+
+                    count_101=count_10.getJSONArray(0);
+                    count101=new JSONObject[count_101.length()];
+
+                    arr10a1=new double[count_101.length()];
+                    arr10a2=new String[count_101.length()];
+                    for(int i=0;i<count_101.length();i++)
+                    {
+                       count101[i]=count_101.getJSONObject(i);
+                       arr10a1[i]=count101[i].getInt("value");
+                       arr10a2[i]=count101[i].getString("Ages");
+                       //  Toast.makeText(DashFinance.this, "age="+arr10a2[i]+"value="+ arr10a1[i], Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    List<Entry> valsComp5 = new ArrayList<Entry>();
+
+                    for(int i=0;i<count_101.length();i++)
+                    {
+                        Entry e=new Entry(i, (float)arr10a1[i]);
+                        valsComp5.add(e);
+                        //arr82[i]=count_82.getDouble(i);
+                        //  Toast.makeText(DashFinance.this, "value="+arr10a1[i], Toast.LENGTH_SHORT).show();
+                    }
+
+
+                    LineDataSet setComp5 = new LineDataSet(valsComp5, "");
+                    setComp5.setAxisDependency(YAxis.AxisDependency.LEFT);
+                   // setComp5.setDrawValues(false);
+
+                    setComp5.setColor(Color.BLUE);
+                 //   setComp5.setFillColor(Color.BLUE);
+                    setComp5.setCircleColor(Color.BLUE);
+                 //   setComp5.setDrawFilled(true);
+
+                    List<ILineDataSet> line_dataSets3 = new ArrayList<ILineDataSet>();
+                    line_dataSets3.add(setComp5);
+
+                    LineData line_data3 = new LineData(line_dataSets3);
+                    linechartPayable3.setData(line_data3);
+                    linechartPayable3.invalidate(); // refresh
+
+                    IAxisValueFormatter formatter3 = new IAxisValueFormatter() {
+
+                        @Override
+                        public String getFormattedValue(float value, AxisBase axis) {
+                            return arr10a2[(int) value];
+                        }
+
+                        // we don't draw numbers, so no decimal digits needed
+                        //   @Override
+                        public int getDecimalDigits() {  return 0; }
+                    };
+
+                    XAxis xAxis_line3 = linechartPayable3.getXAxis();
+                    xAxis_line3.setGranularity(1f); // minimum axis-step (interval) is 1
+                    xAxis_line3.setValueFormatter(formatter3);
+                    xAxis_line3.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+
+                    YAxis yAxisRight3 = linechartPayable3.getAxisRight();
+                    yAxisRight3.setEnabled(false);
+
+                //    linechartPayable3.setTouchEnabled(true);
+                 //   linechartPayable3.setMarker(mv);
+
+                    count_102=count_10.getJSONArray(1);
+                    count102=new JSONObject[count_102.length()];
+
+                    arr10b1=new double[count_102.length()];
+                    arr10b2=new String[count_102.length()];
+                    for(int i=0;i<count_102.length();i++)
+                    {
+                        count102[i]=count_102.getJSONObject(i);
+                        arr10b1[i]=count102[i].getInt("value");
+                        arr10b2[i]=count102[i].getString("name");
+
+                    }
+
+                    List<DataEntry> funnelData = new ArrayList<>();
+                    for(int i=0;i<count_102.length();i++) {
+                        funnelData.add(new ValueDataEntry(arr10b2[i], arr10b1[i]));
+                        Toast.makeText(DashFinance.this, "name="+arr10b2[i]+"value="+ arr10b1[i], Toast.LENGTH_SHORT).show();
+
+                    }
+
+             //       funnel1.data(funnelData);
+             //       funnel1.margin(new String[]{"10", "20%", "10", "20%"});
+                 //   funnel1.baseWidth("70%")
+                   //         .neckWidth("17%");
+
+               //     funnel1.labels()
+                   //         .position("outsideleft")
+                    //        .format("{%X} - {%Value}");
+
+                 //   funnel1.animation(true);
+
+                  //  funnelchartPayable1.setChart(funnel1);
+
+                    List<DataEntry> dataf = new ArrayList<>();
+                    dataf.add(new ValueDataEntry("Website Visits", 528756));
+                    dataf.add(new ValueDataEntry("Downloads", 164052));
+                    dataf.add(new ValueDataEntry("Valid Contacts", 112167));
+                    dataf.add(new ValueDataEntry("Interested to Buy", 79128));
+                    dataf.add(new ValueDataEntry("Purchased", 79128));
+
+                    funnel1.data(dataf);
+                    funnel1.margin(new String[]{"10", "20%", "10", "20%"});
+                 //   funnel1.baseWidth("70%")
+                   //         .neckWidth("17%");
+
+                    funnel1.labels()
+                            .position("outsideleft")
+                            .format("{%X} - {%Value}");
+                    funnel1.animation(true, 800);
+                    funnelchartPayable1.setChart(funnel1);
+
+
+                    count11 = data.getInt("count_11");
+                    count12=data.getInt("count_12");
+                 //   gauge1.setMinValue(0);
+                 //   gauge1.setMaxValue(100);
+                    gauge1.setSpeed(count11);
 
 
 
 
-                } catch (JSONException e)
+                } //end try
+
+                catch (JSONException e)
                 {
                     if ( progressDialog.isShowing())
                         progressDialog.hide();
