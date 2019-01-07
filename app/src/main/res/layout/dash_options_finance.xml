@@ -66,7 +66,7 @@
             <LinearLayout
                 android:id="@+id/dashboard_cards"
                 android:layout_width="match_parent"
-                android:layout_height="320dp"
+                android:layout_height="322dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -700,7 +700,8 @@
                     android:layout_alignParentBottom="true"
 
                     android:layout_marginRight="3dp"
-                    ></com.github.mikephil.charting.charts.LineChart>
+                    >
+                </com.github.mikephil.charting.charts.LineChart>
 
 
             </LinearLayout>
@@ -999,6 +1000,7 @@
 
 
             </LinearLayout>
+
 
 
             <TextView
@@ -1628,6 +1630,373 @@
                     android:layout_marginRight="3dp"
                     android:layout_marginBottom="75dp">
                 </com.github.mikephil.charting.charts.LineChart>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/dashboard_buttons5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dashboard_cards"
+                android:orientation="horizontal"
+                tools:ignore="DuplicateIds">
+
+                <View
+                    android:layout_width="@dimen/spacing_middle"
+                    android:layout_height="0dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/spacing_large" />
+
+                <TextView
+                    android:id="@+id/text35"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp"
+                    android:text="Supplierwise Outstanding Amount"
+                    android:textSize="15dp"
+                    android:paddingRight="60dp"
+                    android:textStyle="bold"
+                    tools:ignore="InvalidId">
+                </TextView>
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="20dp"
+                    android:layout_alignRight="@+id/refresh"
+
+                    android:layout_gravity="left"
+                    android:layout_marginTop="4dp"
+                    app:srcCompat="@drawable/ic_file_download"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <ImageView
+                    android:id="@+id/refresh5"
+                    android:layout_width="36dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="2dp"
+                    android:paddingRight="0dp"
+                    app:srcCompat="@drawable/ref"
+                    tools:ignore="VectorDrawableCompat" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="196dp">
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/linechartReceivable2"
+                    android:layout_width="match_parent"
+                    android:layout_height="179dp"
+                    android:layout_below="@id/dashboard_buttons5"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="3dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginBottom="75dp">
+                </com.github.mikephil.charting.charts.LineChart>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/dashboard_buttons6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dashboard_cards"
+                android:orientation="horizontal"
+                tools:ignore="DuplicateIds">
+
+                <View
+                    android:layout_width="@dimen/spacing_middle"
+                    android:layout_height="0dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/spacing_large" />
+
+                <TextView
+                    android:id="@+id/text35"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp"
+                    android:text="Supplierwise Outstanding Amount"
+                    android:textSize="15dp"
+                    android:paddingRight="60dp"
+                    android:textStyle="bold"
+                    tools:ignore="InvalidId">
+                </TextView>
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="20dp"
+                    android:layout_alignRight="@+id/refresh"
+
+                    android:layout_gravity="left"
+                    android:layout_marginTop="4dp"
+                    app:srcCompat="@drawable/ic_file_download"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <ImageView
+                    android:id="@+id/refresh5"
+                    android:layout_width="36dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="2dp"
+                    android:paddingRight="0dp"
+                    app:srcCompat="@drawable/ref"
+                    tools:ignore="VectorDrawableCompat" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="196dp">
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/linechartReceivable3"
+                    android:layout_width="match_parent"
+                    android:layout_height="179dp"
+                    android:layout_below="@id/dashboard_buttons6"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="3dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginBottom="75dp">
+                </com.github.mikephil.charting.charts.LineChart>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/dashboard_buttons8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/payLine3_layout"
+                android:orientation="horizontal"
+                >
+
+                <View
+                    android:layout_width="@dimen/spacing_middle"
+                    android:layout_height="0dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/spacing_large" />
+
+                <TextView
+                    android:id="@+id/text53"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/dashboard_buttons6"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp"
+                    android:paddingRight="60dp"
+                    android:text="Supplierwise Outstanding Amount"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    tools:ignore="InvalidId"></TextView>
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="20dp"
+                    android:layout_alignRight="@+id/refresh"
+
+                    android:layout_gravity="left"
+                    android:layout_marginTop="4dp"
+                    app:srcCompat="@drawable/ic_file_download"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <ImageView
+                    android:id="@+id/refreshh"
+                    android:layout_width="36dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="2dp"
+                    android:paddingRight="0dp"
+                    app:srcCompat="@drawable/ref"
+                    tools:ignore="VectorDrawableCompat" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/funnel1_layoutt"
+                android:layout_height="600dp"
+                android:orientation="vertical">
+
+                <com.anychart.AnyChartView
+                    android:id="@+id/funnelchart2"
+                    android:layout_width="match_parent"
+                    android:layout_height="550dp"
+                    android:layout_below="@+id/dashboard_buttons8"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="-6dp"
+                    android:layout_marginBottom="8dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:text="hellloooo"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/dashboard_buttons9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/payLine3_layout"
+                android:orientation="horizontal"
+                >
+
+                <View
+                    android:layout_width="@dimen/spacing_middle"
+                    android:layout_height="0dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/spacing_large" />
+
+                <TextView
+                    android:id="@+id/text61"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/dashboard_buttons6"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp"
+                    android:paddingRight="60dp"
+                    android:text="Supplierwise Outstanding Amount"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    tools:ignore="InvalidId"></TextView>
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="20dp"
+                    android:layout_alignRight="@+id/refresh"
+
+                    android:layout_gravity="left"
+                    android:layout_marginTop="4dp"
+                    app:srcCompat="@drawable/ic_file_download"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <ImageView
+                    android:id="@+id/refresh7"
+                    android:layout_width="36dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="2dp"
+                    android:paddingRight="0dp"
+                    app:srcCompat="@drawable/ref"
+                    tools:ignore="VectorDrawableCompat" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/guage2_layout"
+                android:layout_height="250dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <in.unicodelabs.kdgaugeview.KdGaugeView
+                    android:id="@+id/gauge2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="300dp"
+                    android:layout_gravity="center"
+                    app:maxSpeed="100"
+                    app:speed_limit="75"
+                    app:speedTextSize="70dp"
+                    app:unitOfMeasurementTextSize="15dp"
+                    app:unitOfMeasurement="Unsettled Prepayments"/>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/dashboard_buttonsrcv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/payLine3_layout"
+                android:orientation="horizontal"
+                >
+
+                <View
+                    android:layout_width="@dimen/spacing_middle"
+                    android:layout_height="0dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/spacing_large" />
+
+                <TextView
+                    android:id="@+id/text600"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/dashboard_buttons6"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp"
+                    android:paddingRight="60dp"
+                    android:text="Supplierwise Outstanding Amount"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    tools:ignore="InvalidId"></TextView>
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="20dp"
+                    android:layout_alignRight="@+id/refresh"
+
+                    android:layout_gravity="left"
+                    android:layout_marginTop="4dp"
+                    app:srcCompat="@drawable/ic_file_download"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <ImageView
+                    android:id="@+id/refreshrecv"
+                    android:layout_width="36dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="2dp"
+                    android:paddingRight="0dp"
+                    app:srcCompat="@drawable/ref"
+                    tools:ignore="VectorDrawableCompat" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/guage_layout2"
+                android:layout_height="250dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <in.unicodelabs.kdgaugeview.KdGaugeView
+                    android:id="@+id/gaugerecv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="300dp"
+                    android:layout_gravity="center"
+                    app:maxSpeed="100"
+                    app:speed_limit="75"
+                    app:speedTextSize="70dp"
+                    app:unitOfMeasurementTextSize="15dp"
+                    app:unitOfMeasurement="Unsettled Prepayments"/>
 
 
             </LinearLayout>

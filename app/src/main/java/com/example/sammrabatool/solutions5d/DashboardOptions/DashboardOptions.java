@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
 import com.example.sammrabatool.solutions5d.R;
-import com.example.sammrabatool.solutions5d.Tools;
+
 
 public class DashboardOptions extends AppCompatActivity {
    // CardView finnace,isure,pro,projec;
@@ -111,6 +111,11 @@ public class DashboardOptions extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(DashboardOptions.this, DashSale.class);
+                intent.putExtra("userID",userID);
+                intent.putExtra("token",token);
+                intent.putExtra("instance", instanceStr);
+                intent.putExtra("lg",lg);
+                intent.putExtra("bg",bg);
                 startActivity(intent);
             }
         });

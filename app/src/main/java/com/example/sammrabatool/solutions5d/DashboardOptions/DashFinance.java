@@ -35,7 +35,7 @@ import com.anychart.charts.Pie;
 import com.anychart.standalones.markersfactory.Marker;
 import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
 import com.example.sammrabatool.solutions5d.R;
-import com.example.sammrabatool.solutions5d.Tools;
+
 import com.example.sammrabatool.solutions5d.dashboard.DashboardGridFab;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -71,11 +71,14 @@ public class DashFinance extends AppCompatActivity {
     JSONArray  count_7=null, count_71=null, count_72=null, count_73=null, count_8=null, count_81=null, count_82=null, count_83=null, count_9=null, count_91=null, count_92=null, count_93=null, count_10=null, count_101=null, count_102=null;
     JSONObject count101[], count102[];
     String  countr_1, countr_2, countr_3, countr_4, countr_5, countr_6;
-    int count11, count12;
-    JSONArray countarray_7 = null, countarray_71 = null, countarray_72 = null, countarray_73 = null, countarray_8 = null, countarray_81 = null, countarray_82 = null, countarray_83 = null;
-
-    double arr7[], arr71[], arr72[], arr8[], arr81[], arr82[], arr9[], arr91[], arr92[],arr10a1[],arr10b1[], array7[], array71[], array72[], array8[], array81[], array82[];
-    String arr73[], arr83[], arr93[],arr10a2[], arr10b2[], array73[], array83[];
+    int count11;
+    int count12;
+    JSONArray countarray11;
+    int countarray12;
+    JSONArray countarray_7 = null, countarray_71 = null, countarray_72 = null, countarray_73 = null, countarray_8 = null, countarray_81 = null, countarray_82 = null, countarray_83 = null,countarray_9=null,countarray_91=null,countarray_92=null,countarray_93=null,countarray_10=null,countarray_101=null,countarray_102=null;
+JSONObject countarray101[],countarray102[];
+    double arr7[], arr71[], arr72[], arr8[], arr81[], arr82[], arr9[], arr91[], arr92[],arr10a1[],arr10b1[], array7[], array71[], array72[], array8[], array81[], array82[],array9[],array91[],array92[],array10a1[],array10b1[];
+    String arr73[], arr83[], arr93[],arr10a2[], arr10b2[], array73[], array83[],array93[],array10a2[],array10b2[],array11[];
     int lg, bg;
     TextView count0, count00;
 
@@ -104,10 +107,16 @@ public class DashFinance extends AppCompatActivity {
         final LineChart linechartPayable2 = (LineChart) findViewById(R.id.linechartPayable2);
         final LineChart linechartPayable3 = (LineChart) findViewById(R.id.linechartPayable3);
         final LineChart linechartReceivable1 = (LineChart) findViewById(R.id.linechartReceivable1);
+        final LineChart lineChartReceivable2=(LineChart)findViewById(R.id.linechartReceivable2);
+        final LineChart lineChartReceivable3=(LineChart)findViewById(R.id.linechartReceivable3);
         final AnyChartView funnelchartPayable1= (AnyChartView) findViewById(R.id.funnelchart1);
-        final Pie funnel1 = AnyChart.pie();
-        final KdGaugeView gauge1= findViewById(R.id.gauge1);
+        final AnyChartView funnelchartReceivable2= (AnyChartView) findViewById(R.id.funnelchart2);
 
+        final Pie funnel1 = AnyChart.pie();
+        final Pie funnel2 = AnyChart.pie();
+        final KdGaugeView gauge1= findViewById(R.id.gauge1);
+        final KdGaugeView gauge2= findViewById(R.id.gauge2);
+        final KdGaugeView gauge3= findViewById(R.id.gaugerecv);
         final CustomMarkerView mv = new CustomMarkerView(this, R.layout.tv_content);
 
 
@@ -137,34 +146,31 @@ public class DashFinance extends AppCompatActivity {
                         array71[i] = countarray_71.getDouble(i);
                         // Toast.makeText(DashFinance.this, "value="+arr71[i], Toast.LENGTH_SHORT).show();
                     }
-                    countarray_72=countarray_7.getJSONArray(1);
-                    array72=new double[countarray_72.length()];
-                    for(int i=0;i<countarray_72.length();i++)
-                    {
-                        array72[i]=countarray_72.getDouble(i);
+                    countarray_72 = countarray_7.getJSONArray(1);
+                    array72 = new double[countarray_72.length()];
+                    for (int i = 0; i < countarray_72.length(); i++) {
+                        array72[i] = countarray_72.getDouble(i);
                         //  Toast.makeText(DashFinance.this, "value="+arr72[i], Toast.LENGTH_SHORT).show();
                     }
-                    countarray_73=countarray_7.getJSONArray(2);
-                    array73= new String[countarray_73.length()];
-                    for(int i=0;i<countarray_73.length();i++)
-                    {
-                        array73[i]=countarray_73.getString(i);
+                    countarray_73 = countarray_7.getJSONArray(2);
+                    array73 = new String[countarray_73.length()];
+                    for (int i = 0; i < countarray_73.length(); i++) {
+                        array73[i] = countarray_73.getString(i);
                         //  Toast.makeText(DashFinance.this, "value="+arr72[i], Toast.LENGTH_SHORT).show();
                     }
 
-                    ArrayList<BarEntry> graphrcv1=new ArrayList<>();
-                    for(int i=0;i<array71.length;i++) {
+                    ArrayList<BarEntry> graphrcv1 = new ArrayList<>();
+                    for (int i = 0; i < array71.length; i++) {
                         graphrcv1.add(new BarEntry(i, (float) array71[i]));
                         //   Toast.makeText(DashFinance.this, "data="+ arr71[i], Toast.LENGTH_SHORT).show();
                     }
-                    ArrayList<BarEntry> graphrcv2=new ArrayList<>();
-                    for(int i=0;i<array72.length;i++)
-                        graphrcv2.add(new BarEntry(i,(float)array72[i]));
-
+                    ArrayList<BarEntry> graphrcv2 = new ArrayList<>();
+                    for (int i = 0; i < array72.length; i++)
+                        graphrcv2.add(new BarEntry(i, (float) array72[i]));
 
 
                     ArrayList<String> labels_graphrcv1 = new ArrayList<String>();
-                    for(int i=0;i<array73.length;i++)
+                    for (int i = 0; i < array73.length; i++)
                         labels_graphrcv1.add(array73[i]);
 
 
@@ -212,48 +218,43 @@ public class DashFinance extends AppCompatActivity {
                     xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                     xAxis.setValueFormatter(new IndexAxisValueFormatter(labels_graphrcv1));
                     //------------------------------------------------------------------------------
-                    countarray_8=data.getJSONArray("count_08");
-                    array8=new double[countarray_8.length()];
+                    countarray_8 = data.getJSONArray("count_08");
+                    array8 = new double[countarray_8.length()];
                     //for(int i=0;i<count_7.length();i++)
                     //  {
-                    countarray_81=countarray_8.getJSONArray(1);
-                    array81=new double[countarray_81.length()];
-                    for(int i=0;i<countarray_81.length();i++)
-                    {
-                        array81[i]=countarray_81.getDouble(i);
+                    countarray_81 = countarray_8.getJSONArray(1);
+                    array81 = new double[countarray_81.length()];
+                    for (int i = 0; i < countarray_81.length(); i++) {
+                        array81[i] = countarray_81.getDouble(i);
                         // Toast.makeText(DashFinance.this, "value="+arr71[i], Toast.LENGTH_SHORT).show();
                     }
 
-                    countarray_82=countarray_8.getJSONArray(2);
-                    array82=new double[countarray_82.length()];
-                    for(int i=0;i<countarray_82.length();i++)
-                    {
-                        array82[i]=countarray_82.getDouble(i);
+                    countarray_82 = countarray_8.getJSONArray(2);
+                    array82 = new double[countarray_82.length()];
+                    for (int i = 0; i < countarray_82.length(); i++) {
+                        array82[i] = countarray_82.getDouble(i);
                         //  Toast.makeText(DashFinance.this, "value="+arr72[i], Toast.LENGTH_SHORT).show();
                     }
 
-                    countarray_83=countarray_8.getJSONArray(0);
-                    array83=new String[countarray_83.length()];
-                    for(int i=0;i<countarray_83.length();i++)
-                    {
-                        array83[i]=countarray_83.getString(i);
+                    countarray_83 = countarray_8.getJSONArray(0);
+                    array83 = new String[countarray_83.length()];
+                    for (int i = 0; i < countarray_83.length(); i++) {
+                        array83[i] = countarray_83.getString(i);
                         //   Toast.makeText(DashFinance.this, "value="+arr73[i], Toast.LENGTH_SHORT).show();
                     }
 
                     List<Entry> valsComp1 = new ArrayList<Entry>();
                     List<Entry> valsComp2 = new ArrayList<Entry>();
 
-                    for(int i=0;i<countarray_81.length();i++)
-                    {
-                        Entry e=new Entry(i, (float)array81[i]);
+                    for (int i = 0; i < countarray_81.length(); i++) {
+                        Entry e = new Entry(i, (float) array81[i]);
                         valsComp1.add(e);
                         //arr82[i]=count_82.getDouble(i);
                         //  Toast.makeText(DashFinance.this, "value="+arr72[i], Toast.LENGTH_SHORT).show();
                     }
 
-                    for(int i=0;i<countarray_82.length();i++)
-                    {
-                        Entry e=new Entry(i, (float)array82[i]);
+                    for (int i = 0; i < countarray_82.length(); i++) {
+                        Entry e = new Entry(i, (float) array82[i]);
                         valsComp2.add(e);
                         //arr82[i]=count_82.getDouble(i);
                         //  Toast.makeText(DashFinance.this, "value="+arr72[i], Toast.LENGTH_SHORT).show();
@@ -287,12 +288,232 @@ public class DashFinance extends AppCompatActivity {
 
                         // we don't draw numbers, so no decimal digits needed
                         //   @Override
-                        public int getDecimalDigits() {  return 0; }
+                        public int getDecimalDigits() {
+                            return 0;
+                        }
                     };
 
                     XAxis xAxis_line1 = linechartReceivable1.getXAxis();
                     xAxis_line1.setGranularity(1f); // minimum axis-step (interval) is 1
                     xAxis_line1.setValueFormatter(formatter);
+                    //.......................................................................................................................
+                    countarray_9 = data.getJSONArray("count_09");
+
+                    //for(int i=0;i<count_7.length();i++)
+                    //  {
+                    countarray_91 = countarray_9.getJSONArray(1);
+                    array91 = new double[countarray_91.length()];
+                    for (int i = 0; i < countarray_91.length(); i++) {
+                        array91[i] = countarray_91.getDouble(i);
+                        // Toast.makeText(DashFinance.this, "value="+array91[i], Toast.LENGTH_SHORT).show();
+                    }
+
+                    countarray_92 = countarray_9.getJSONArray(2);
+                    array92 = new double[countarray_92.length()];
+                    for (int i = 0; i < countarray_92.length(); i++) {
+                        array92[i] = countarray_92.getDouble(i);
+                        // Toast.makeText(DashFinance.this, "value="+arr92[i], Toast.LENGTH_SHORT).show();
+                    }
+
+                    countarray_93 = countarray_9.getJSONArray(0);
+                    array93 = new String[countarray_93.length()];
+                    for (int i = 0; i < countarray_93.length(); i++) {
+                        array93[i] = countarray_93.getString(i);
+                        //   Toast.makeText(DashFinance.this, "value="+arr73[i], Toast.LENGTH_SHORT).show();
+                    }
+//
+//
+                    List<Entry> valsComp3 = new ArrayList<Entry>();
+                    List<Entry> valsComp4 = new ArrayList<Entry>();
+
+                    for (int i = 0; i < countarray_91.length(); i++) {
+                        Entry e = new Entry(i, (float) array91[i]);
+                        valsComp3.add(e);
+                        //arr82[i]=count_82.getDouble(i);
+                        //  Toast.makeText(DashFinance.this, "value="+arr72[i], Toast.LENGTH_SHORT).show();
+                    }
+//
+                    for (int i = 0; i < countarray_92.length(); i++) {
+                        Entry e = new Entry(i, (float) array92[i]);
+                        valsComp4.add(e);
+                        //arr82[i]=count_82.getDouble(i);
+                        //  Toast.makeText(DashFinance.this, "value="+arr72[i], Toast.LENGTH_SHORT).show();
+                    }
+//
+                    LineDataSet setComp3 = new LineDataSet(valsComp3, "Receiveable Invoice");
+                    setComp3.setAxisDependency(YAxis.AxisDependency.LEFT);
+                    setComp3.setDrawValues(false);
+
+                    setComp3.setColor(Color.BLUE);
+                    setComp3.setFillColor(Color.BLUE);
+                    setComp3.setCircleColor(Color.BLUE);
+                    setComp3.setDrawFilled(true);
+//
+                    LineDataSet setComp4 = new LineDataSet(valsComp4, "Payment Voucher");
+                    setComp4.setAxisDependency(YAxis.AxisDependency.LEFT);
+                    setComp4.setDrawValues(false);
+//
+                    setComp4.setColor(Color.GREEN);
+                    setComp4.setFillColor(Color.GREEN);
+                    setComp4.setDrawFilled(true);
+                    setComp4.setCircleColor(Color.GREEN);
+
+                    List<ILineDataSet> line_dataSets2 = new ArrayList<ILineDataSet>();
+                    line_dataSets2.add(setComp3);
+                    line_dataSets2.add(setComp4);
+
+//
+                    LineData line_data2 = new LineData(line_dataSets2);
+                    lineChartReceivable2.setData(line_data2);
+                    lineChartReceivable2.invalidate(); // refresh
+
+                    lineChartReceivable2.setTouchEnabled(true);
+                    lineChartReceivable2.setMarker(mv);
+//
+                    IAxisValueFormatter formatter2 = new IAxisValueFormatter() {
+
+                        @Override
+                        public String getFormattedValue(float value, AxisBase axis) {
+                            return arr93[(int) value];
+                        }
+
+                        // we don't draw numbers, so no decimal digits needed
+                        //   @Override
+                        public int getDecimalDigits() {
+                            return 0;
+                        }
+                    };
+
+                    XAxis xAxis_line2 = lineChartReceivable2.getXAxis();
+                    xAxis_line2.setGranularity(1f); // minimum axis-step (interval) is 1
+                    xAxis_line2.setValueFormatter(formatter);
+                    xAxis_line2.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+
+                    YAxis yAxisRight2 = lineChartReceivable2.getAxisRight();
+                    yAxisRight2.setEnabled(false);
+
+                    //.................................................................................................
+                    countarray_10 = data.getJSONArray("count_10");
+                    countarray_101 = countarray_10.getJSONArray(0);
+                    countarray101 = new JSONObject[countarray_101.length()];
+
+                    array10a1 = new double[countarray_101.length()];
+                    array10a2 = new String[countarray_101.length()];
+                    for (int i = 0; i < countarray_101.length(); i++) {
+                        countarray101[i] = countarray_101.getJSONObject(i);
+                        array10a1[i] = countarray101[i].getInt("value");
+                        array10a2[i] = countarray101[i].getString("Ages");
+                        //  Toast.makeText(DashFinance.this, "age="+arr10a2[i]+"value="+ arr10a1[i], Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    List<Entry> valsComp5 = new ArrayList<Entry>();
+
+                    for (int i = 0; i < countarray_101.length(); i++) {
+                        Entry e = new Entry(i, (float) array10a1[i]);
+                        valsComp5.add(e);
+                        //arr82[i]=count_82.getDouble(i);
+                        //  Toast.makeText(DashFinance.this, "value="+arr10a1[i], Toast.LENGTH_SHORT).show();
+                    }
+
+//
+                    LineDataSet setComp5 = new LineDataSet(valsComp5, "");
+                    setComp5.setAxisDependency(YAxis.AxisDependency.LEFT);
+                    // setComp5.setDrawValues(false);
+
+                    setComp5.setColor(Color.BLUE);
+                    //   setComp5.setFillColor(Color.BLUE);
+                    setComp5.setCircleColor(Color.BLUE);
+                    //   setComp5.setDrawFilled(true);
+
+                    List<ILineDataSet> line_dataSets3 = new ArrayList<ILineDataSet>();
+                    line_dataSets3.add(setComp5);
+
+                    LineData line_data3 = new LineData(line_dataSets3);
+                    lineChartReceivable3.setData(line_data3);
+                    lineChartReceivable3.invalidate(); // refresh
+
+                    IAxisValueFormatter formatter3 = new IAxisValueFormatter() {
+
+                        @Override
+                        public String getFormattedValue(float value, AxisBase axis) {
+                            return array10a2[(int) value];
+                        }
+
+                        // we don't draw numbers, so no decimal digits needed
+                        //   @Override
+                        public int getDecimalDigits() {
+                            return 0;
+                        }
+                    };
+
+                    XAxis xAxis_line3 = lineChartReceivable3.getXAxis();
+                    xAxis_line3.setGranularity(1f); // minimum axis-step (interval) is 1
+                    xAxis_line3.setValueFormatter(formatter3);
+                    xAxis_line3.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+
+                    YAxis yAxisRight3 = lineChartReceivable3.getAxisRight();
+                    yAxisRight3.setEnabled(false);
+
+                    //    linechartPayable3.setTouchEnabled(true);
+                    //   linechartPayable3.setMarker(mv);
+
+                    countarray_102 = countarray_10.getJSONArray(1);
+                    countarray102 = new JSONObject[countarray_102.length()];
+
+                    array10b1 = new double[countarray_102.length()];
+                    array10b2 = new String[countarray_102.length()];
+                    for (int i = 0; i < countarray_102.length(); i++) {
+                        countarray102[i] = countarray_102.getJSONObject(i);
+                        array10b1[i] = countarray102[i].getInt("value");
+                        array10b2[i] = countarray102[i].getString("name");
+
+                    }
+
+                    List<DataEntry> funnelData = new ArrayList<>();
+                    for (int i = 0; i < countarray_102.length(); i++) {
+                        funnelData.add(new ValueDataEntry(array10b2[i], array10b1[i]));
+                        Toast.makeText(DashFinance.this, "name=" + array10b2[i] + "value=" + array10b1[i], Toast.LENGTH_SHORT).show();
+
+                    }
+                    List<DataEntry> dataf = new ArrayList<>();
+                    dataf.add(new ValueDataEntry("Website Visits", 528756));
+                    dataf.add(new ValueDataEntry("Downloads", 164052));
+                    dataf.add(new ValueDataEntry("Valid Contacts", 112167));
+                    dataf.add(new ValueDataEntry("Interested to Buy", 79128));
+                    dataf.add(new ValueDataEntry("Purchased", 79128));
+
+                    funnel2.data(dataf);
+                    funnel2.margin(new String[]{"10", "20%", "10", "20%"});
+                    //   funnel1.baseWidth("70%")
+                    //         .neckWidth("17%");
+
+                    funnel2.labels()
+                            .position("outsideleft")
+                            .format("{%X} - {%Value}");
+                    funnel2.animation(true, 800);
+                    funnelchartReceivable2.setChart(funnel2);
+
+
+                    countarray11 = data.getJSONArray("count_11");
+                    array11 = new String[countarray11.length()];
+                    for (int i = 0; i < countarray11.length(); i++)
+                        array11[i] = countarray11.getString(i);
+                    Float temp=Float.valueOf(array11[0].toString());
+
+                    gauge1.setSpeed(temp);
+                    countarray12 = data.getInt("count_12");
+                    //   gauge1.setMinValue(0);
+                    //   gauge1.setMaxValue(100);
+                    gauge3.setSpeed(countarray12);
+
+
+
+
+
+
 
 
 
