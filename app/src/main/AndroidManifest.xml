@@ -29,7 +29,6 @@
         <activity android:name=".dialog.Agreement" />
         <activity android:name=".dialog.LockError" />
         <activity android:name=".list.ViewHtml" />
-        <activity android:name=".profile.HrProfile"/>
         <activity android:name=".DashboardOptions.DashboardOptions" />
         <activity android:name=".dashboard.DashboardGridFab" />
         <activity android:name=".DashboardOptions.DashFinance" />

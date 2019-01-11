@@ -36,7 +36,7 @@ public class DashInsurance extends AppCompatActivity {
         AnyChartView anyChartView = findViewById(R.id.any_chart_view);
         anyChartView.setProgressBar(findViewById(R.id.progress_bar));
 
-        Funnel funnel = AnyChart.funnel();
+        Pie funnel = AnyChart.pie();
 
         List<DataEntry> data = new ArrayList<>();
         data.add(new ValueDataEntry("Website Visits", 10000));

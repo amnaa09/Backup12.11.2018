@@ -112,7 +112,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                  android:id="@+id/employeemnt"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -125,7 +125,7 @@
                         android:layout_height="wrap_content"
                         android:clickable="true"
                         android:tint="@color/mdtp_white"
-
+                        android:id="@+id/employeemnt"
                         app:elevation="1dp"
                         app:fabSize="normal"
                         app:rippleColor="@color/mdtp_white"
@@ -147,12 +147,13 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:minWidth="100dp"
-                  android:id="@+id/passport"
+
                     android:clickable="true"
                     android:orientation="vertical"
                     tools:ignore="InvalidId">
 
                     <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/passport"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:clickable="true"
@@ -185,7 +186,7 @@
 
                 <LinearLayout
                     android:clickable="true"
-                    android:id="@+id/visa"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -197,7 +198,7 @@
                         android:layout_height="wrap_content"
                         android:clickable="true"
                         android:tint="@color/mdtp_white"
-
+                        android:id="@+id/visa"
                         app:elevation="1dp"
                         app:fabSize="normal"
                         app:backgroundTint="@color/yell"
@@ -215,7 +216,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/national"
+
                     android:clickable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -228,7 +229,8 @@
                         android:layout_height="wrap_content"
                         android:clickable="true"
                         android:tint="@color/mdtp_white"
-app:backgroundTint="@color/blue_A100"
+                        app:backgroundTint="@color/blue_A100"
+                        android:id="@+id/national"
                         app:elevation="1dp"
                         app:fabSize="normal"
                         app:rippleColor="@color/mdtp_white"
@@ -245,7 +247,7 @@ app:backgroundTint="@color/blue_A100"
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/labor"
+
                     android:clickable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -258,7 +260,7 @@ app:backgroundTint="@color/blue_A100"
                         android:layout_height="wrap_content"
                         android:clickable="true"
                         android:tint="@color/mdtp_white"
-
+                        android:id="@+id/labor"
                         app:elevation="1dp"
                         app:fabSize="normal"
                         app:rippleColor="@color/asmani"
@@ -269,7 +271,7 @@ app:backgroundTint="@color/blue_A100"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_medium"
-                        android:text="LABOUR CARD"
+                        android:text="LABOR CARD"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2" />
 
                 </LinearLayout>
