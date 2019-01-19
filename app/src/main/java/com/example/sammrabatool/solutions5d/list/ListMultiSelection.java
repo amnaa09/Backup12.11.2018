@@ -231,6 +231,8 @@ public class ListMultiSelection extends AppCompatActivity  {
         // image = (ImageView) itemView.findViewById(R.id.list_image);
 
         final   List<Notification> items = new ArrayList<>();
+
+
         RequestQueue MyRequestQueue = Volley.newRequestQueue(ctx);
         //  JSONObject response;
         //   RequestFuture<JSONObject> future = RequestFuture.newFuture();
@@ -333,12 +335,7 @@ public class ListMultiSelection extends AppCompatActivity  {
                     {
                         message = data.getString("message");
                         Toast.makeText(ctx, message, Toast.LENGTH_SHORT).show();
-                        SharedPreferences preferences =getSharedPreferences("LoginDetails",Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.clear();
-                        editor.commit();
-                        Intent intent=new Intent(ListMultiSelection.this,LoginCardOverlap.class);
-                        startActivity(intent);
+
 
                     }
 

@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.sammrabatool.solutions5d.list.CircleTransform;
 import com.example.sammrabatool.solutions5d.R;
 import com.example.sammrabatool.solutions5d.model.Notification;
@@ -90,7 +92,7 @@ public class AdapterListInbox extends RecyclerView.Adapter<AdapterListInbox.View
 
                 Picasso.get().load(obj.imagelist).transform(new CircleTransform()).into(holder.image);
 
-                //  Toast.makeText(ListMultiSelection.this, "in try", Toast.LENGTH_SHORT).show();
+            //      Toast.makeText(AdapterListInbox.this, "in try", Toast.LENGTH_SHORT).show();
             //    Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
              //   holder.image.setImageBitmap(bmp);
               //  holder.imaget1.setVisibility(View.GONE);

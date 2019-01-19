@@ -58,8 +58,8 @@ import java.util.List;
 
 
 public class ProfileFabMenu extends AppCompatActivity {
-    LinearLayout Basic, Employee, Passport, Visa, National, Labor;
-    FloatingActionButton basi;
+    FloatingActionButton Basic, Employee, Passport, Visa, National, Labor;
+    FloatingActionButton basic;
     int lg, bg;
     boolean user_valid;
     ImageView profimg;
@@ -73,14 +73,14 @@ public class ProfileFabMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_fab_menu);
-        basi = (FloatingActionButton) findViewById(R.id.basicc);
+        basic = (FloatingActionButton) findViewById(R.id.basicc);
         profimg = (ImageView) findViewById(R.id.image);
-        Basic = (LinearLayout) findViewById(R.id.basic);
-        Employee = (LinearLayout) findViewById(R.id.employeemnt);
-        Passport = (LinearLayout) findViewById(R.id.passport);
-        Visa = (LinearLayout) findViewById(R.id.visa);
-        National = (LinearLayout) findViewById(R.id.national);
-        Labor = (LinearLayout) findViewById(R.id.labor);
+       // Basic = (FloatingActionButton) findViewById(R.id.basic);
+        Employee = (FloatingActionButton) findViewById(R.id.employeemnt);
+        Passport = (FloatingActionButton) findViewById(R.id.passport);
+        Visa = (FloatingActionButton) findViewById(R.id.visa);
+        National = (FloatingActionButton) findViewById(R.id.national);
+        Labor = (FloatingActionButton) findViewById(R.id.labor);
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
         lg = getIntent().getIntExtra("lg", 0);
@@ -141,7 +141,7 @@ public class ProfileFabMenu extends AppCompatActivity {
                             dob = dataDetails.getString("dateOfBirth");
 
                         }
-                        martial_heading="<b>" + "Martial Status: " + "</b> ";
+                        martial_heading="<b>" + "Marital Status: " + "</b> ";
                         if (dataDetails.getString("maritalStatus").equals("")) {
                             maritalStatus =  "--";
 
@@ -270,7 +270,7 @@ public class ProfileFabMenu extends AppCompatActivity {
                             visaExpire = dataDetails.getString("visa_expiry");
 
                         }
-                        labornum_heading= "<b>" + "Lanour No :" + " </b>";
+                        labornum_heading= "<b>" + "Labour No :" + " </b>";
                         if (dataDetails.getString("labourno").equals("")) {
                             laborNum =   "--";
 
@@ -278,14 +278,14 @@ public class ProfileFabMenu extends AppCompatActivity {
                             laborNum = dataDetails.getString("labourno");
 
                         }
-                        laborissue_heading= "<b>" + "Lanour Issuance :" + " </b>";
+                        laborissue_heading= "<b>" + "Labour Issuance :" + " </b>";
                         if (dataDetails.getString("labour_issuance").equals("")) {
                             laborIssue =  "--";
 
                         } else {
                             laborIssue =  dataDetails.getString("labour_issuance");
                         }
-                        laborexpire_heading= "<b>" + "Lanour Expiry :" + " </b>";
+                        laborexpire_heading= "<b>" + "Labour Expiry :" + " </b>";
                         if (dataDetails.getString("labour_expiry").equals("")) {
                             laborExpire =  "--";
 
@@ -326,7 +326,7 @@ public class ProfileFabMenu extends AppCompatActivity {
                             try {
                                 URL url = new URL(dataDetails.getString("pic"));
                                 picture=dataDetails.getString("pic");
-                                Toast.makeText(ProfileFabMenu.this, "picccc", Toast.LENGTH_SHORT).show();
+                          //      Toast.makeText(ProfileFabMenu.this, "picccc", Toast.LENGTH_SHORT).show();
 
                                 Picasso.get().load(dataDetails.getString("pic")).transform(new CircleTransform()).into(profimg);
 
@@ -399,7 +399,7 @@ public class ProfileFabMenu extends AppCompatActivity {
         progressDialog.setMessage("Please wait");
         progressDialog.show();
 
-        basi.setOnClickListener(new View.OnClickListener() {
+        basic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ProfileFabMenu.this, "employee num: " + employee_number, Toast.LENGTH_SHORT).show();
@@ -412,7 +412,7 @@ public class ProfileFabMenu extends AppCompatActivity {
         Employee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            //    showCustomDialog(ProfileFabMenu.this, "Employment information", employee_number,employee_p, location,loaction_d, status,status_t, org,org_organization, manager,manager_d, "", "", "", "", "", "", "", "","","",picture);
+                showCustomDialog(ProfileFabMenu.this, "Employment information", employee_heading,employee_number, location_heading,location,status_heading, status, org_heading,org, manager_heading,manager, job_heading, job, grade_heading, grade, "", "", "", "","","",picture);
 
             }
         });
@@ -420,7 +420,8 @@ public class ProfileFabMenu extends AppCompatActivity {
         Passport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //  showCustomDialog(ProfileFabMenu.this, "Passport information", passNum,pass_num, passIssue,pass_issue, passexpire,pass_expire, "", "", "", "", "", "", "", "", "", "","","","","",picture);
+                showCustomDialog(ProfileFabMenu.this, "Passport information", passnum_heading,passNum, passissue_heading,passIssue, passexpire_heading, passexpire, "", "", "", "", "", "", "", "", "", "","","","","",picture);
+
 
             }
         });
@@ -428,15 +429,15 @@ public class ProfileFabMenu extends AppCompatActivity {
         Visa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // showCustomDialog(ProfileFabMenu.this, "Visa information", visaNum,visa_num, visaIssue,visa_issue, visaExpire,visa_expire,"", "", "", "", "", "", "", "", "", "","","","","",picture);
-
+                showCustomDialog(ProfileFabMenu.this, "Visa information",visanum_heading, visaNum, visaissue_heading,visaIssue, visaexpire_heading,visaExpire,"", "", "", "", "", "", "", "", "", "","","","","",picture);
             }
         });
 
         National.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             //   showCustomDialog(ProfileFabMenu.this, "National ID information", nationalId,national_id, nationalIdIssue,national_issue, nationalIdExpire,national_issue ,"", "", "", "", "", "", "", "", "", "","","","","",picture);
+                showCustomDialog(ProfileFabMenu.this, "National ID information", nationalid_heading,nationalId, nationalIDissue_heading,nationalIdIssue, nationalIDexpire_heading,nationalIdExpire ,"", "", "", "", "", "", "", "", "", "","","","","",picture);
+
 
             }
         });
@@ -444,7 +445,8 @@ public class ProfileFabMenu extends AppCompatActivity {
         Labor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // showCustomDialog(ProfileFabMenu.this, "Labor Card information", laborNum,labor_num,laborIssue,labor_issue, laborExpire,labor_expire, "", "", "", "", "", "", "", "", "", "","","","","",picture);
+                showCustomDialog(ProfileFabMenu.this, "Labour Card information", labornum_heading,laborNum,laborissue_heading,laborIssue,laborexpire_heading, laborExpire, "", "", "", "", "", "", "", "", "", "","","","","",picture);
+
 
             }
         });
@@ -453,7 +455,7 @@ public class ProfileFabMenu extends AppCompatActivity {
     }
     private void showCustomDialog(Context ctx, String heading, String text1, String text2, String text3, String text4, String text5, String text6, String text7, String text8, String text9, String text10, String text11, String text12, String text13,String text14,String text15,String text16,String text17,String text18,String text19,String text20, String pic12) {
 
-        final TextView headingText, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20;
+        final TextView headingHide, headingText, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20;
         final ImageView img;
 
         final Dialog dialog = new Dialog(ctx);
@@ -462,7 +464,8 @@ public class ProfileFabMenu extends AppCompatActivity {
         dialog.setContentView(R.layout.activity_ploygon_profile);
         dialog.setCancelable(true);
 
-        headingText = (TextView) dialog.findViewById(R.id.unknown);
+
+        headingText = (TextView) dialog.findViewById(R.id.heading);
         t1 = (TextView) dialog.findViewById(R.id.text1);
         t2 = (TextView) dialog.findViewById(R.id.text2);
         t3 = (TextView) dialog.findViewById(R.id.text3);
@@ -481,8 +484,7 @@ public class ProfileFabMenu extends AppCompatActivity {
         t16=(TextView)dialog.findViewById(R.id.text16);
         t17=(TextView)dialog.findViewById(R.id.text17);
         t18=(TextView)dialog.findViewById(R.id.text18);
-        t19=(TextView)dialog.findViewById(R.id.text19);
-        t20=(TextView)dialog.findViewById(R.id.text20);
+
         img = (ImageView) dialog.findViewById(R.id.image);
 
         Toast.makeText(ctx, "url="+pic12, Toast.LENGTH_SHORT).show();
@@ -535,8 +537,7 @@ if(!(pic12.equals(""))){
             t16.setText(Html.fromHtml(text16));
             t17.setText(Html.fromHtml(text17));
             t18.setText(Html.fromHtml(text18));
-            t19.setText(Html.fromHtml(text19));
-            t20.setText(Html.fromHtml(text20));
+
 
             if (t4.getText().equals(""))
                 t4.setVisibility(View.GONE);
@@ -568,10 +569,7 @@ if(!(pic12.equals(""))){
         t17.setVisibility(View.GONE);
     if (t18.getText().equals(""))
         t18.setVisibility(View.GONE);
-    if (t19.getText().equals(""))
-        t19.setVisibility(View.GONE);
-    if (t20.getText().equals(""))
-        t20.setVisibility(View.GONE);
+
 
 
             final WindowManager.LayoutParams lp = new WindowManager.LayoutParams();

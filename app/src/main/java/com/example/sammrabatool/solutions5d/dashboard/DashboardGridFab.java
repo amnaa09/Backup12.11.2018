@@ -17,16 +17,10 @@ import android.widget.Toast;
 import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
 import com.example.sammrabatool.solutions5d.DashboardOptions.DashboardOptions;
 import com.example.sammrabatool.solutions5d.R;
-import com.example.sammrabatool.solutions5d.dialog.Agreement;
 import com.example.sammrabatool.solutions5d.list.ListMultiSelection;
-import com.example.sammrabatool.solutions5d.profile.HrProfile;
 import com.example.sammrabatool.solutions5d.profile.ProfileFabMenu;
-import com.example.sammrabatool.solutions5d.profile.ProfilePolygon;
 import com.example.sammrabatool.solutions5d.profile.ProfilePurple;
 import com.example.sammrabatool.solutions5d.utils.Tools;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 
 public class DashboardGridFab extends AppCompatActivity {

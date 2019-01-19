@@ -47,7 +47,7 @@
 
         </LinearLayout>
 
-        <ImageButton
+        <Button
             android:id="@+id/bt_download"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="?attr/actionBarSize"
@@ -56,7 +56,7 @@
             app:srcCompat="@drawable/ic_file_download"
             tools:ignore="VectorDrawableCompat" />
 
-        <ImageButton
+        <Button
             android:id="@+id/bt_close"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="?attr/actionBarSize"
@@ -114,7 +114,6 @@
 
         <Button
             android:id="@+id/bt_accept"
-            style="@style/Button.Primary.Borderless"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -124,6 +123,8 @@
             android:textStyle="bold"
             android:textColor="@android:color/white"
             app:fontFamily="serif" />
+     <!--       style="@style/Button.Primary.Borderless" -->
+
 
         <View
             android:layout_width="@dimen/spacing_large"
@@ -131,7 +132,6 @@
 
         <Button
             android:id="@+id/bt_decline"
-            style="@style/Button.Primary.Borderless"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -141,6 +141,8 @@
             android:textAllCaps="false"
             android:textColor="@color/teal_500"
             app:fontFamily="serif" />
+       <!--     style="@style/Button.Primary.Borderless"  -->
+
 
     </LinearLayout>
 </LinearLayout>

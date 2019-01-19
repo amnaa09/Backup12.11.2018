@@ -48,6 +48,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import static com.example.sammrabatool.solutions5d.Activity.Signup.mypreference;
 
 
@@ -111,6 +114,12 @@ public class LoginCardOverlap extends AppCompatActivity {
         uname.setText(sharedprefSignup.getString("emailKey", "email"));
         super_user=sharedprefSignup.getInt("super_user", 0);
         Passowrd=sharedprefLogin.getString("Password", "");
+//        String encodePassword="";
+  //      try {
+    //        encodePassword = URLEncoder.encode(Passowrd, "UTF-8");
+      //  }catch(UnsupportedEncodingException e){
+        //    Toast.makeText(this, "Error: Please try again", Toast.LENGTH_SHORT).show();
+        //}
 //        Password=sharedprefLogin.getString("Password", "");
 
         password.setOnEditorActionListener(new TextView.OnEditorActionListener()
@@ -130,16 +139,16 @@ public class LoginCardOverlap extends AppCompatActivity {
 
         final SharedPreferences sharedPreferencesLogin = getBaseContext().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
 
-        if (!sharedPreferencesLogin.getString("Email", "").isEmpty() &&  !(keyTutorial.contains("NullTutorial")) && agreement==true)
-        {
+        if (!sharedPreferencesLogin.getString("Email", "").isEmpty() &&  !(keyTutorial.contains("NullTutorial")) && agreement==true) {
             login_layout.setVisibility(LinearLayout.GONE);
             RequestQueue MyRequestQueue = Volley.newRequestQueue(LoginCardOverlap.this);
-            String url = "http://"+instanceStr+".5dsurf.com/app/webservice/verifyuser/"+userID+"/"+userName+"/"+Passowrd;
-            StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>()
-            {
+
+
+            Toast.makeText(this, "pass if1=" + Passowrd, Toast.LENGTH_SHORT).show();
+            String url = "http://" + instanceStr + ".5dsurf.com/app/webservice/verifyuser/" + userID + "/" + Passowrd + "/" + userName;
+            StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                 @Override
-                public void onResponse(String response)
-                {
+                public void onResponse(String response) {
                     //This code is executed if the server responds, whether or not the response contains data.
                     //The String 'response' contains the server's response.
                     // tx.setText("response: " + response.toString());
@@ -170,7 +179,7 @@ public class LoginCardOverlap extends AppCompatActivity {
                             editor.putInt("super_user", super_user);
                             editor.commit();
 
-                            if ( progressDialog.isShowing())
+                            if (progressDialog.isShowing())
                                 progressDialog.hide();
                             Intent intent = new Intent(getBaseContext(), DashboardGridFab.class);//Listviewactivity if there is data in user
                             intent.putExtra("userID", userID);
@@ -178,10 +187,10 @@ public class LoginCardOverlap extends AppCompatActivity {
                             intent.putExtra("instance", instanceStr);
                             intent.putExtra("name", userName);
                             intent.putExtra("super_user", super_user);
-                            intent.putExtra("lg",lg);
-                            intent.putExtra("bg",bg);
-                            if(super_user==1) {
-                                if(recent_activity!=null)
+                            intent.putExtra("lg", lg);
+                            intent.putExtra("bg", bg);
+                            if (super_user == 1) {
+                                if (recent_activity != null)
                                     intent.putExtra("length", recent_activity.length());
                                 intent.putExtra("recent_activity", arr);
                             }
@@ -190,29 +199,25 @@ public class LoginCardOverlap extends AppCompatActivity {
                             finish();
 
                         } else {
-                            if ( progressDialog.isShowing())
+                            if (progressDialog.isShowing())
                                 progressDialog.hide();
                             message = data.getString("message");
                             Toast.makeText(LoginCardOverlap.this, message, Toast.LENGTH_SHORT).show();
                         }
-                    } catch (JSONException e)
-                    {
-                        if ( progressDialog.isShowing())
+                    } catch (JSONException e) {
+                        if (progressDialog.isShowing())
                             progressDialog.hide();
                         e.printStackTrace();
                         //
                         //                            //  instance.setText("error= " + e.getMessage());
                         Toast.makeText(LoginCardOverlap.this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-            }
 
 
-
-        }, new Response.ErrorListener()
-            { //Create an error listener to handle errors appropriately.
+                }
+            }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
                 @Override
-                public void onErrorResponse(VolleyError error)
-                {
+                public void onErrorResponse(VolleyError error) {
                     //This code is executed if there is an error.
                     String message = null;
                     if (error instanceof NetworkError) {
@@ -231,7 +236,6 @@ public class LoginCardOverlap extends AppCompatActivity {
                     Toast.makeText(LoginCardOverlap.this, message, Toast.LENGTH_SHORT).show();
                 }
             });
-
             MyStringRequest.setShouldCache(false);
             MyRequestQueue.add(MyStringRequest);
 
@@ -274,186 +278,176 @@ public class LoginCardOverlap extends AppCompatActivity {
         signin.setOnClickListener(new View.OnClickListener()
         {
             @Override
-            public void onClick(View v)
-            {
-                userName=uname.getText().toString();
-                Passowrd=password.getText().toString();
-
-                RequestQueue MyRequestQueue = Volley.newRequestQueue(LoginCardOverlap.this);
-                String url = "http://"+instanceStr+".5dsurf.com/app/webservice/verifyuser/"+userID+"/"+userName+"/"+Passowrd;
-                StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response)
-                    {
-                        //This code is executed if the server responds, whether or not the response contains data.
-                        //The String 'response' contains the server's response.
-                        // tx.setText("response: " + response.toString());
-                        //  Toast.makeText(Signup.this, "reponse=" + response, Toast.LENGTH_SHORT).show();
-                        try
-                        {
-                            JSONObject data = new JSONObject(response.toString());
-                            user_valid = data.getBoolean("valid_user");
-                            if(user_valid==true)
-                            {
-                                message = data.getString("message");
-                                userID = data.getString("user_id");
-                                userToken = data.getString("user_token");
-                                super_user=data.getInt("superuser");
-                                lg=data.getInt("lg");
-                                bg=data.getInt("bg");
-                                if(super_user==1) {
-                                    recent_activity = data.getJSONArray("recentactivity");
-                                    arr = new String[recent_activity.length()];
-                                    for (int i = 0; i < recent_activity.length(); i++)
-                                        arr[i] = recent_activity.getString(i);
-                                }
+            public void onClick(View v) {
+                userName = uname.getText().toString();
+                Passowrd = password.getText().toString();
+                try {
+                    String encodePassword = URLEncoder.encode(Passowrd, "UTF-8");
+                    Toast.makeText(LoginCardOverlap.this, "pass signin=" + encodePassword, Toast.LENGTH_SHORT).show();
+                    RequestQueue MyRequestQueue = Volley.newRequestQueue(LoginCardOverlap.this);
+                    String url = "http://" + instanceStr + ".5dsurf.com/app/webservice/verifyuser/" + userID + "/" + encodePassword + "/" + userName;
+                    StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            //This code is executed if the server responds, whether or not the response contains data.
+                            //The String 'response' contains the server's response.
+                            // tx.setText("response: " + response.toString());
+                            //  Toast.makeText(Signup.this, "reponse=" + response, Toast.LENGTH_SHORT).show();
+                            try {
+                                JSONObject data = new JSONObject(response.toString());
+                                user_valid = data.getBoolean("valid_user");
+                                if (user_valid == true) {
+                                    message = data.getString("message");
+                                    userID = data.getString("user_id");
+                                    userToken = data.getString("user_token");
+                                    super_user = data.getInt("superuser");
+                                    lg = data.getInt("lg");
+                                    bg = data.getInt("bg");
+                                    if (super_user == 1) {
+                                        recent_activity = data.getJSONArray("recentactivity");
+                                        arr = new String[recent_activity.length()];
+                                        for (int i = 0; i < recent_activity.length(); i++)
+                                            arr[i] = recent_activity.getString(i);
+                                    }
 
 
-                                SharedPreferences.Editor editor = sharedpreferences.edit();
-                                editor.putString(TOKEN, userToken);
-                                editor.putString(UNAME,userName);
-                                editor.putString("token", userToken);
-                                editor.putString("uname", userName);
-                                editor.putInt("super_user", super_user);
-                                editor.commit();
-
-                            }
-                            else
-                            {
-
-                                message = data.getString("message");
-                            }
-                            //  tx.setText("response== " + name+ age);
-                            //    Toast.makeText(Signup.this, "result="+user_valid, Toast.LENGTH_SHORT).show();
-                            //   company.setText(name);
-                            //     userId.setText(age);
-                            if(user_valid==true)
-                            {
-                                user_valid=false;
-                                //==============shared pref
-                                attemptLogin();
-
-                               if( (keyTutorial.contains("NullTutorial"))) {
-
-                                   if ( progressDialog.isShowing())
-                                       progressDialog.hide();
-                                   Intent intent = new Intent(LoginCardOverlap.this, Agreement.class);
-                                   intent.putExtra("userID", userID);
-                                   intent.putExtra("token", userToken);
-                                   intent.putExtra("instance", instanceStr);
-                                   intent.putExtra("name", userName);
-
-                                   intent.putExtra("super_user",super_user);
-                                   intent.putExtra("lg",lg);
-                                   intent.putExtra("bg",bg);
-                                   if(super_user==1) {
-                                       intent.putExtra("length", recent_activity.length());
-                                       intent.putExtra("recent_activity", arr);
-                                   }
-
-  //                                 Toast.makeText(LoginCardOverlap.this, "from if sending to agreement name=" + userName + "token=" + userToken, Toast.LENGTH_LONG).show();
-                                   startActivity(intent);
-                                   finish();
-                               }
-                               else
-                               {
-                                   if ( progressDialog.isShowing())
-                                       progressDialog.hide();
-                                   Intent intent = new Intent(LoginCardOverlap.this, DashboardGridFab.class);//Listviewactivity if there is data in user
-                                   intent.putExtra("userID",userID);
-                                   intent.putExtra("token",userToken);
-                                   intent.putExtra("instance", instanceStr);
-                                   intent.putExtra("name", userName);
-
-                                   intent.putExtra("super_user",super_user);
-                                   intent.putExtra("lg",lg);
-                                   intent.putExtra("bg",bg);
-                                   if(super_user==1) {
-                                       intent.putExtra("length", recent_activity.length());
-                                       intent.putExtra("recent_activity", arr);
-                                   }
-
-    //                               Toast.makeText(LoginCardOverlap.this, "from else sending to agreement name=" + userName + "token=" + userToken, Toast.LENGTH_SHORT).show();
-                                   startActivity(intent);
-                                   finish();
-                               }
-                              //  finish();
-                            }
-                            else
-                            {
-                                if ( progressDialog.isShowing())
-                                    progressDialog.hide();
-                                Toast.makeText(LoginCardOverlap.this, message, Toast.LENGTH_SHORT).show();
-                                count++;
-
-                                if(count==3)
-                                {
-                                    SharedPreferences.Editor editor = prefLockError.edit();
-                                    editor.putInt("lockCounter", count);
+                                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                                    editor.putString(TOKEN, userToken);
+                                    editor.putString(UNAME, userName);
+                                    editor.putString("token", userToken);
+                                    editor.putString("uname", userName);
+                                    editor.putInt("super_user", super_user);
                                     editor.commit();
-                                    Intent intent=new Intent(LoginCardOverlap.this,LockError.class);
-                                    startActivity(intent);
+
+                                } else {
+
+                                    message = data.getString("message");
+                                }
+                                //  tx.setText("response== " + name+ age);
+                                //    Toast.makeText(Signup.this, "result="+user_valid, Toast.LENGTH_SHORT).show();
+                                //   company.setText(name);
+                                //     userId.setText(age);
+                                if (user_valid == true) {
+                                    user_valid = false;
+                                    //==============shared pref
+                                    attemptLogin();
+
+                                    if ((keyTutorial.contains("NullTutorial"))) {
+
+                                        if (progressDialog.isShowing())
+                                            progressDialog.hide();
+                                        Intent intent = new Intent(LoginCardOverlap.this, Agreement.class);
+                                        intent.putExtra("userID", userID);
+                                        intent.putExtra("token", userToken);
+                                        intent.putExtra("instance", instanceStr);
+                                        intent.putExtra("name", userName);
+
+                                        intent.putExtra("super_user", super_user);
+                                        intent.putExtra("lg", lg);
+                                        intent.putExtra("bg", bg);
+                                        if (super_user == 1) {
+                                            intent.putExtra("length", recent_activity.length());
+                                            intent.putExtra("recent_activity", arr);
+                                        }
+
+                                        //                                 Toast.makeText(LoginCardOverlap.this, "from if sending to agreement name=" + userName + "token=" + userToken, Toast.LENGTH_LONG).show();
+                                        startActivity(intent);
+                                        finish();
+                                    } else {
+                                        if (progressDialog.isShowing())
+                                            progressDialog.hide();
+                                        Intent intent = new Intent(LoginCardOverlap.this, DashboardGridFab.class);//Listviewactivity if there is data in user
+                                        intent.putExtra("userID", userID);
+                                        intent.putExtra("token", userToken);
+                                        intent.putExtra("instance", instanceStr);
+                                        intent.putExtra("name", userName);
+
+                                        intent.putExtra("super_user", super_user);
+                                        intent.putExtra("lg", lg);
+                                        intent.putExtra("bg", bg);
+                                        if (super_user == 1) {
+                                            intent.putExtra("length", recent_activity.length());
+                                            intent.putExtra("recent_activity", arr);
+                                        }
+
+                                        //                               Toast.makeText(LoginCardOverlap.this, "from else sending to agreement name=" + userName + "token=" + userToken, Toast.LENGTH_SHORT).show();
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                    //  finish();
+                                } else {
+                                    if (progressDialog.isShowing())
+                                        progressDialog.hide();
+                                    Toast.makeText(LoginCardOverlap.this, message, Toast.LENGTH_SHORT).show();
+                                    count++;
+
+                                    if (count == 3) {
+                                        SharedPreferences.Editor editor = prefLockError.edit();
+                                        editor.putInt("lockCounter", count);
+                                        editor.commit();
+                                        Intent intent = new Intent(LoginCardOverlap.this, LockError.class);
+                                        startActivity(intent);
+
+                                    }
 
                                 }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                //
+                                //                            //  instance.setText("error= " + e.getMessage());
+                                Toast.makeText(LoginCardOverlap.this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                //                            // tx.setText( "Error: " + e.getMessage());
 
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            //
-                            //                            //  instance.setText("error= " + e.getMessage());
-                            Toast.makeText(LoginCardOverlap.this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            //                            // tx.setText( "Error: " + e.getMessage());
-
                         }
-                    }
-                }, new Response.ErrorListener()
-                { //Create an error listener to handle errors appropriately.
-                    @Override
-                    public void onErrorResponse(VolleyError error)
-                    {
-                        //This code is executed if there is an error.
-                        String message = null;
-                        if (error instanceof NetworkError) {
-                            message = "Cannot connect to Internet...Please check your connection!";
-                        } else if (error instanceof ServerError) {
-                            message = "The server could not be found. Please try again after some time!!";
-                        } else if (error instanceof AuthFailureError) {
-                            message = "Cannot connect to Internet...Please check your connection!";
-                        } else if (error instanceof ParseError) {
-                            message = "Parsing error! Please try again after some time!!";
-                        } else if (error instanceof NoConnectionError) {
-                            message = "Cannot connect to Internet...Please check your connection!";
-                        } else if (error instanceof TimeoutError) {
-                            message = "Connection TimeOut! Please check your internet connection.";
+                    }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            //This code is executed if there is an error.
+                            String message = null;
+                            if (error instanceof NetworkError) {
+                                message = "Cannot connect to Internet...Please check your connection!";
+                            } else if (error instanceof ServerError) {
+                                message = "The server could not be found. Please try again after some time!!";
+                            } else if (error instanceof AuthFailureError) {
+                                message = "Cannot connect to Internet...Please check your connection!";
+                            } else if (error instanceof ParseError) {
+                                message = "Parsing error! Please try again after some time!!";
+                            } else if (error instanceof NoConnectionError) {
+                                message = "Cannot connect to Internet...Please check your connection!";
+                            } else if (error instanceof TimeoutError) {
+                                message = "Connection TimeOut! Please check your internet connection.";
+                            }
+                            Toast.makeText(LoginCardOverlap.this, message, Toast.LENGTH_SHORT).show();
                         }
-                        Toast.makeText(LoginCardOverlap.this, message, Toast.LENGTH_SHORT).show();
+                    });
+
+                    MyStringRequest.setShouldCache(false);
+                    SharedPreferences sharedprefSignup = getSharedPreferences("SignupPref", Context.MODE_PRIVATE);
+
+                    if (userName.equals(sharedprefSignup.getString("emailKey", ""))) {
+                        MyRequestQueue.add(MyStringRequest);
+                    } else {
+                        Toast.makeText(LoginCardOverlap.this, "This Username was not registered", Toast.LENGTH_LONG).show();
                     }
-                });
 
-                MyStringRequest.setShouldCache(false);
-                SharedPreferences sharedprefSignup = getSharedPreferences("SignupPref", Context.MODE_PRIVATE);
 
-                if (userName.equals(sharedprefSignup.getString("emailKey","")))
-                {
-                    MyRequestQueue.add(MyStringRequest);
+                    progressDialog.setCancelable(false);
+                    progressDialog.setTitle("Loading...");
+                    progressDialog.setMessage("Please wait");
+                    progressDialog.show();
+
+
+                } catch (UnsupportedEncodingException e) {
+
                 }
-                else
-                {
-                    Toast.makeText(LoginCardOverlap.this, "This Username was not registered", Toast.LENGTH_LONG).show();
-                }
-
-
-                progressDialog.setCancelable(false);
-                progressDialog.setTitle("Loading...");
-                progressDialog.setMessage("Please wait");
-                progressDialog.show();
-
             }
         });
 
     }
-    private void attemptLogin() {
+
+
+    private void attemptLogin(){
         // Reset errors.
         uname.setError(null);
         password.setError(null);
@@ -461,12 +455,18 @@ public class LoginCardOverlap extends AppCompatActivity {
         // Store values at the time of the login attempt.
         String email = uname.getText().toString();
         String passwordd = password.getText().toString();
-
+        String encodePassword="";
+        try {
+        encodePassword = URLEncoder.encode(passwordd, "UTF-8");
+            Toast.makeText(this, "attempt login pass="+encodePassword, Toast.LENGTH_SHORT).show();
+        }catch(UnsupportedEncodingException e){
+        Toast.makeText(this, "Error: Please try again", Toast.LENGTH_SHORT).show();
+        }
         boolean cancel = false;
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(passwordd) && !isPasswordValid(passwordd))
+        if (!TextUtils.isEmpty(encodePassword) && !isPasswordValid(encodePassword))
         {
             password.setError(getString(R.string.error_invalid_password));
             focusView = password;
@@ -497,7 +497,7 @@ public class LoginCardOverlap extends AppCompatActivity {
             // save data in local shared preferences
             if (checkBoxRememberMe.isChecked())
             {
-                saveLoginDetails(email, passwordd);
+                saveLoginDetails(email, encodePassword);
             }
             //startHomeActivity();
         }
