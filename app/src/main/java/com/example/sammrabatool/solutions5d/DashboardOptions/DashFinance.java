@@ -39,6 +39,7 @@ import com.example.sammrabatool.solutions5d.R;
 import com.example.sammrabatool.solutions5d.dashboard.DashboardGridFab;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
@@ -63,6 +64,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.unicodelabs.kdgaugeview.KdGaugeView;
+import lecho.lib.hellocharts.model.PieChartData;
+import lecho.lib.hellocharts.model.SliceValue;
+import lecho.lib.hellocharts.view.PieChartView;
 
 
 public class DashFinance extends AppCompatActivity {
@@ -109,11 +113,10 @@ JSONObject countarray101[],countarray102[];
         final LineChart linechartReceivable1 = (LineChart) findViewById(R.id.linechartReceivable1);
         final LineChart lineChartReceivable2=(LineChart)findViewById(R.id.linechartReceivable2);
         final LineChart lineChartReceivable3=(LineChart)findViewById(R.id.linechartReceivable3);
-        final AnyChartView funnelchartPayable1= (AnyChartView) findViewById(R.id.funnelchart1);
-        final AnyChartView funnelchartReceivable2= (AnyChartView) findViewById(R.id.funnelchart2);
+        final PieChartView pieChartpayable= (PieChartView) findViewById(R.id.piechartpay);
+        final PieChartView pieChartrcv= (PieChartView) findViewById(R.id.piechartrecv);
 
-        final Pie funnel1 = AnyChart.pie();
-        final Pie funnel2 = AnyChart.pie();
+
         final KdGaugeView gauge1= findViewById(R.id.gauge1);
         final KdGaugeView gauge2= findViewById(R.id.gauge2);
         final KdGaugeView gauge3= findViewById(R.id.gaugerecv);
@@ -472,30 +475,28 @@ JSONObject countarray101[],countarray102[];
 
                     }
 
-                    List<DataEntry> funnelData = new ArrayList<>();
-                    for (int i = 0; i < countarray_102.length(); i++) {
-                        funnelData.add(new ValueDataEntry(array10b2[i], array10b1[i]));
-                        Toast.makeText(DashFinance.this, "name=" + array10b2[i] + "value=" + array10b1[i], Toast.LENGTH_SHORT).show();
+
+                       // Toast.makeText(DashFinance.this, "name=" + array10b2[i] + "value=" + array10b1[i], Toast.LENGTH_SHORT).show();
+
+
+                    List<SliceValue> pieData = new ArrayList<>();
+                    for (int i=0; i<countarray_102.length(); i++){
+                        pieData.add(new SliceValue((float) array10b1[i], R.color.deep_orange_200).setLabel(array10b2[i]));
 
                     }
-                    List<DataEntry> dataf = new ArrayList<>();
-                    dataf.add(new ValueDataEntry("Website Visits", 528756));
-                    dataf.add(new ValueDataEntry("Downloads", 164052));
-                    dataf.add(new ValueDataEntry("Valid Contacts", 112167));
-                    dataf.add(new ValueDataEntry("Interested to Buy", 79128));
-                    dataf.add(new ValueDataEntry("Purchased", 79128));
+//                    pieData.add(new SliceValue(15, R.color.colorAccentLight));
+//                    pieData.add(new SliceValue(25, Color.LTGRAY));
+//                    pieData.add(new SliceValue(10, Color.GREEN));
+//                    pieData.add(new SliceValue(60, Color.CYAN));
+//
+                    PieChartData pieChartData = new PieChartData(pieData);
 
-                    funnel2.data(dataf);
-                    funnel2.margin(new String[]{"10", "20%", "10", "20%"});
-                    //   funnel1.baseWidth("70%")
-                    //         .neckWidth("17%");
-
-                    funnel2.labels()
-                            .position("outsideleft")
-                            .format("{%X} - {%Value}");
-                    funnel2.animation(true, 800);
-                    funnelchartReceivable2.setChart(funnel2);
-
+//                    pieData.add(new SliceValue(15, Color.BLUE).setLabel("Q1: $10"));
+//                    pieData.add(new SliceValue(25, Color.GRAY).setLabel("Q2: $4"));
+//                    pieData.add(new SliceValue(10, Color.CYAN).setLabel("Q3: $18"));
+//                    pieData.add(new SliceValue(60, Color.MAGENTA).setLabel("Q4: $28"));
+                    pieChartData.setHasLabels(true);
+                    pieChartrcv.setPieChartData(pieChartData);
 
                     countarray11 = data.getJSONArray("count_11");
                     array11 = new String[countarray11.length()];
@@ -976,44 +977,26 @@ JSONObject countarray101[],countarray102[];
                         arr10b2[i]=count102[i].getString("name");
 
                     }
-
-                    List<DataEntry> funnelData = new ArrayList<>();
-                    for(int i=0;i<count_102.length();i++) {
-                        funnelData.add(new ValueDataEntry(arr10b2[i], arr10b1[i]));
-                        Toast.makeText(DashFinance.this, "name="+arr10b2[i]+"value="+ arr10b1[i], Toast.LENGTH_SHORT).show();
+                    List<SliceValue> pieData = new ArrayList<>();
+                    for (int i=0; i<count_102.length(); i++){
+                        pieData.add(new SliceValue((float) arr10b1[i], R.color.deep_orange_200).setLabel(arr10b2[i]));
 
                     }
+//                    pieData.add(new SliceValue(15, R.color.colorAccentLight));
+//                    pieData.add(new SliceValue(25, Color.LTGRAY));
+//                    pieDataadd(new SliceValue(10, Color.GREEN));
+//                    pieData.add(new SliceValue(60, Color.CYAN));
+//
+                    PieChartData pieChartData = new PieChartData(pieData);
 
-             //       funnel1.data(funnelData);
-             //       funnel1.margin(new String[]{"10", "20%", "10", "20%"});
-                 //   funnel1.baseWidth("70%")
-                   //         .neckWidth("17%");
+//                    pieData.add(new SliceValue(15, Color.BLUE).setLabel("Q1: $10"));
+//                    pieData.add(new SliceValue(25, Color.GRAY).setLabel("Q2: $4"));
+//                    pieData.add(new SliceValue(10, Color.CYAN).setLabel("Q3: $18"));
+//                    pieData.add(new SliceValue(60, Color.MAGENTA).setLabel("Q4: $28"));
+                    pieChartData.setHasLabels(true);
+                    pieChartpayable.setPieChartData(pieChartData);
 
-               //     funnel1.labels()
-                   //         .position("outsideleft")
-                    //        .format("{%X} - {%Value}");
 
-                 //   funnel1.animation(true);
-
-                  //  funnelchartPayable1.setChart(funnel1);
-
-                    List<DataEntry> dataf = new ArrayList<>();
-                    dataf.add(new ValueDataEntry("Website Visits", 528756));
-                    dataf.add(new ValueDataEntry("Downloads", 164052));
-                    dataf.add(new ValueDataEntry("Valid Contacts", 112167));
-                    dataf.add(new ValueDataEntry("Interested to Buy", 79128));
-                    dataf.add(new ValueDataEntry("Purchased", 79128));
-
-                    funnel1.data(dataf);
-                    funnel1.margin(new String[]{"10", "20%", "10", "20%"});
-                 //   funnel1.baseWidth("70%")
-                   //         .neckWidth("17%");
-
-                    funnel1.labels()
-                            .position("outsideleft")
-                            .format("{%X} - {%Value}");
-                    funnel1.animation(true, 800);
-                    funnelchartPayable1.setChart(funnel1);
 
 
                     count11 = data.getInt("count_11");

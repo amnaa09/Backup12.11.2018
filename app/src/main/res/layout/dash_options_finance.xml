@@ -905,19 +905,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:id="@+id/funnel1_layout"
-                android:layout_height="600dp"
+                android:layout_height="400dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:orientation="vertical">
 
-                <com.anychart.AnyChartView
-                    android:id="@+id/funnelchart1"
-                    android:layout_width="match_parent"
-                    android:layout_height="550dp"
-                    android:layout_below="@+id/dashboard_buttons6"
-                    android:layout_alignParentStart="true"
+                <lecho.lib.hellocharts.view.PieChartView
+                    android:id="@+id/piechartpay"
+                    android:layout_width="350dp"
+                    android:layout_height="365dp"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="-6dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="36dp" />
                     />
                 <TextView
                     android:layout_width="match_parent"
@@ -982,7 +981,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:id="@+id/guage1_layout"
-                android:layout_height="250dp"
+                android:layout_height="300dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:orientation="vertical">
@@ -990,13 +989,13 @@
                 <in.unicodelabs.kdgaugeview.KdGaugeView
                     android:id="@+id/gauge1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="300dp"
                     android:layout_gravity="center"
                     app:maxSpeed="100"
                     app:speed_limit="75"
                     app:speedTextSize="70dp"
-                app:unitOfMeasurementTextSize="15dp"
-                app:unitOfMeasurement="Unsettled Prepayments"/>
+                    app:unitOfMeasurementTextSize="15dp"
+                    app:unitOfMeasurement="Unsettled Prepayments"/>
 
 
             </LinearLayout>
@@ -1832,14 +1831,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:id="@+id/funnel1_layoutt"
-                android:layout_height="600dp"
+                android:layout_height="400dp"
                 android:orientation="vertical">
 
-                <com.anychart.AnyChartView
-                    android:id="@+id/funnelchart2"
-                    android:layout_width="match_parent"
-                    android:layout_height="550dp"
-                    android:layout_below="@+id/dashboard_buttons8"
+                <lecho.lib.hellocharts.view.PieChartView
+                    android:id="@+id/piechartrecv"
+                    android:layout_width="350dp"
+                    android:layout_height="365dp"
+                    android:layout_below="@+id/dashboard_buttons6"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="0dp"
@@ -1908,7 +1907,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:id="@+id/guage2_layout"
-                android:layout_height="250dp"
+                android:layout_height="300dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:orientation="vertical">
@@ -1982,7 +1981,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:id="@+id/guage_layout2"
-                android:layout_height="250dp"
+                android:layout_height="300dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:orientation="vertical">

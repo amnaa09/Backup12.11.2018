@@ -20,11 +20,11 @@
                 android:background="@color/colorPrimary">
 
                 <!--<ImageView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:scaleType="centerCrop"-->
-                    <!--android:src="@drawable/world_map"-->
-                    <!--android:tint="@color/overlay_light_30" />-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:scaleType="centerCrop"-->
+                <!--android:src="@drawable/world_map"-->
+                <!--android:tint="@color/overlay_light_30" />-->
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
