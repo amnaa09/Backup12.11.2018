@@ -5,9 +5,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
@@ -29,12 +32,14 @@ import com.example.sammrabatool.solutions5d.OTL.Utils;
 import com.example.sammrabatool.solutions5d.OTL.SignatureUpload.UploadSignature;
 
 import com.example.sammrabatool.solutions5d.R;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.net.URL;
 
 public class OTLDialogActivity extends Activity {
     TextView txt,empNameText;
@@ -44,6 +49,10 @@ public class OTLDialogActivity extends Activity {
     private static int picCounter=0;
     ImageView profileImage;
     EditText txt1;
+    double latitude;
+    double longitude;
+    String instanceStr,  userID, token, empPicture, empName;
+    int lg,bg;
     ImageView imageview1, imageview2,imageview3,imageview4,imageview5,imageview6,imageview7;
     Button upload_img, upload_signature, submit;
   //  public static Bitmap bm1,bm2,bm3,bm4,bm5,bm6,bm7;
@@ -52,12 +61,49 @@ public class OTLDialogActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_otl_remarks);
 
-        final double longitude = getIntent().getDoubleExtra("Longitude", 0);
-        final double latitude = getIntent().getDoubleExtra("Latitude", 0);
-        int attendence = getIntent().getIntExtra("Attendence", 0);
-        final String time = getIntent().getStringExtra("Time");
+    //    final double longitude = getIntent().getDoubleExtra("Longitude", 0);
+     //   final double latitude = getIntent().getDoubleExtra("Latitude", 0);
+    //    int attendence = getIntent().getIntExtra("Attendence", 0);
+    //   final String time = getIntent().getStringExtra("Time");
 
 
+        instanceStr=getIntent().getStringExtra("instanceStr");
+        token=getIntent().getStringExtra("token");
+        lg=getIntent().getIntExtra("lg", 0);
+        bg=getIntent().getIntExtra("bg", 0);
+        userID=getIntent().getStringExtra("userID");
+        longitude=getIntent().getDoubleExtra("longitude", 0);
+        latitude=getIntent().getDoubleExtra("latitude", 0);
+        empName=getIntent().getStringExtra("empName");
+        empPicture=getIntent().getStringExtra("empPic");
+        if(empName.compareTo("")==0)
+            empNameText.setText("Unknown");
+        else
+            empNameText.setText(empName);
+
+        if(empPicture.compareTo("")!=0)
+        {
+            int SDK_INT = Build.VERSION.SDK_INT;
+            if (SDK_INT > 8)
+            {
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                        .permitAll().build();
+                StrictMode.setThreadPolicy(policy);
+                //your codes here
+           //     try {
+                   //    URL url = new URL(data.getString(""));
+                    //    Toast.makeText(ProfilePurple.this, "picccc", Toast.LENGTH_SHORT).show();
+
+                    Picasso.get().load(empPicture).transform(new CircleTransform()).into(profileImage);
+
+              //  }
+            //    catch ( ) {
+             //       Toast.makeText(OTLDialogActivity.this, "Error:"+error.toString(), Toast.LENGTH_SHORT).show();
+
+             //   }
+
+            }
+        }
         picCounter=0;
         counterImages=0;
         jsonObject = new JSONObject();
@@ -85,6 +131,17 @@ public class OTLDialogActivity extends Activity {
         imageview6.setVisibility(View.GONE);
         imageview7.setVisibility(View.GONE);
 
+
+        byte[] byteArray = getIntent().getByteArrayExtra("image");
+        if(byteArray!=null) {
+            Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+            imageview1.setVisibility(View.VISIBLE);
+            imageview1.setImageBitmap(bmp);
+            int counterFlag = getIntent().getIntExtra("fromSignature", 0);
+            if (counterFlag == 1)
+                picCounter = 1;
+        }
+
 upload_img.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
@@ -109,6 +166,7 @@ upload_img.setOnClickListener(new View.OnClickListener() {
                     //  intent.putExtra("lg",lg);
                     //  intent.putExtra("bg",bg);
                     startActivity(intent);
+                    finish();
 
 
                 }
@@ -252,6 +310,8 @@ upload_img.setOnClickListener(new View.OnClickListener() {
                                 progressDialog.dismiss();
                                 //     messageText.setText("Image Uploaded Successfully");
                                 Toast.makeText(getApplication(), "Image Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                                Intent i=new Intent(OTLDialogActivity.this, MainActivityOut.class);
+                                startActivity(i);
                             }
                         }, new Response.ErrorListener() {
                     @Override

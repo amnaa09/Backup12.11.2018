@@ -24,10 +24,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.sammrabatool.solutions5d.OTL.CheckIn;
+import com.example.sammrabatool.solutions5d.OTL.OTLDialogActivity;
 import com.example.sammrabatool.solutions5d.R;
 import com.example.sammrabatool.solutions5d.OTL.SignatureUpload.Utils;
 
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -143,19 +145,38 @@ public class UploadSignature extends AppCompatActivity {
 
             // Create a new bitmap
             Bitmap bitmap = Bitmap.createBitmap(drawingCacheBitmap);
-
+            String imageArray[]=new String[1];
            // Bitmap image = ((BitmapDrawable) imageview.getDrawable()).getBitmap();
-            dialog.show();
+         //   dialog.show();
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-            String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
+
+
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
+
+            Intent in1 = new Intent(this, OTLDialogActivity.class);
+            in1.putExtra("image",byteArray);
+            in1.putExtra("fromSignature", 1);
+            startActivity(in1);
+            finish();
+
+
+
+       /*     String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
+            imageArray[0]=encodedImage;
+
+            JSONArray imgArray=new JSONArray();
+            for(int i=0;i<1;i++)
+                imgArray.put(imageArray[i]);
             try {
                 jsonObject.put(Utils.imageName, "Signature"+imgCounter++);
 
                         //etxtUpload.getText().toString().trim());
                 Log.e("Image name", "Signature"+imgCounter++);
+                jsonObject.put("picCounter", 1);
                         //etxtUpload.getText().toString().trim());
-                jsonObject.put(Utils.image, encodedImage);
+                Log.e("Image=", imageArray[0]);
+                jsonObject.put(Utils.image, imgArray);
             } catch (JSONException e) {
                 Log.e("JSONObject Here", e.toString());
             }
@@ -179,7 +200,7 @@ public class UploadSignature extends AppCompatActivity {
             jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(5000,
                     DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            Volley.newRequestQueue(this).add(jsonObjectRequest);
+            Volley.newRequestQueue(this).add(jsonObjectRequest);*/
 
 
 
@@ -213,15 +234,15 @@ public class UploadSignature extends AppCompatActivity {
             // Close the output stream.
             fileOutputStream.close();
 
-            Toast.makeText(getApplicationContext(), "Signature file is saved to " + filePath, Toast.LENGTH_LONG).show(); */
-            Intent intent=new Intent(UploadSignature.this, CheckIn.class);
+         //   Toast.makeText(getApplicationContext(), "Signature file is saved to " + filePath, Toast.LENGTH_LONG).show(); */
+       //     Intent intent=new Intent(UploadSignature.this, CheckIn.class);
             //  intent.putExtra("userID",userID);
             //  intent.putExtra("token",token);
             //  intent.putExtra("instance", instanceStr);
             //  intent.putExtra("lg",lg);
             //  intent.putExtra("bg",bg);
             // intent.putExtra("type","in");
-            startActivity(intent);
+         //   startActivity(intent);
 
         } catch (Exception e) {
             Log.v("Signature Gestures", e.getMessage());
