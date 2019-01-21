@@ -6,6 +6,7 @@
     android:background="@color/grey_10"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
@@ -14,6 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
@@ -45,10 +47,10 @@
                 android:id="@+id/search_bar"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginBottom="@dimen/spacing_medium"
                 android:layout_marginLeft="@dimen/spacing_middle"
-                android:layout_marginRight="@dimen/spacing_middle"
                 android:layout_marginTop="-30dp"
+                android:layout_marginRight="@dimen/spacing_middle"
+                android:layout_marginBottom="@dimen/spacing_medium"
                 android:clipToPadding="false"
                 app:cardBackgroundColor="@android:color/white"
                 app:cardCornerRadius="4dp"
@@ -78,7 +80,6 @@
                         android:imeOptions="actionSearch"
                         android:maxLines="1"
                         android:singleLine="true">
-
 
 
                     </EditText>
@@ -123,7 +124,6 @@
                             android:padding="@dimen/spacing_middle">
 
 
-
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -138,10 +138,10 @@
                                     android:orientation="vertical">
 
                                     <android.support.design.widget.FloatingActionButton
+                                        android:id="@+id/profile_button"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:clickable="true"
-                                        android:id="@+id/profile_button"
                                         android:tint="@android:color/white"
                                         app:backgroundTint="@color/light_green_500"
                                         app:elevation="0dp"
@@ -154,9 +154,9 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="@dimen/spacing_medium"
                                         android:text="HR PROFILE"
-                                        android:textStyle="bold"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                                        android:textColor="@color/grey_40" />
+                                        android:textColor="@color/grey_40"
+                                        android:textStyle="bold" />
 
                                 </LinearLayout>
 
@@ -168,10 +168,10 @@
                                     android:orientation="vertical">
 
                                     <android.support.design.widget.FloatingActionButton
+                                        android:id="@+id/teammates_button"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:clickable="true"
-                                        android:id="@+id/teammates_button"
                                         android:tint="@android:color/white"
                                         app:backgroundTint="@color/yellow_600"
                                         app:elevation="0dp"
@@ -184,10 +184,11 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="@dimen/spacing_medium"
                                         android:text="TEAM MATES"
-                                        android:textStyle="bold"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                                        android:textColor="@color/grey_40" />
+                                        android:textColor="@color/grey_40"
+                                        android:textStyle="bold" />
                                 </LinearLayout>
+
                                 <LinearLayout
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
@@ -196,10 +197,10 @@
                                     android:orientation="vertical">
 
                                     <android.support.design.widget.FloatingActionButton
+                                        android:id="@+id/fyi_button"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:clickable="true"
-                                        android:id="@+id/fyi_button"
                                         android:tint="@android:color/white"
                                         app:backgroundTint="@color/orange_300"
                                         app:elevation="0dp"
@@ -212,10 +213,11 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="@dimen/spacing_medium"
                                         android:text="FYI"
-                                        android:textStyle="bold"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                                        android:textColor="@color/grey_40" />
+                                        android:textColor="@color/grey_40"
+                                        android:textStyle="bold" />
                                 </LinearLayout>
+
                                 <LinearLayout
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
@@ -224,10 +226,10 @@
                                     android:orientation="vertical">
 
                                     <android.support.design.widget.FloatingActionButton
+                                        android:id="@+id/fyr_button"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:clickable="true"
-                                        android:id="@+id/fyr_button"
                                         android:tint="@android:color/white"
                                         app:backgroundTint="@color/purple_400"
                                         app:elevation="0dp"
@@ -240,9 +242,9 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="@dimen/spacing_medium"
                                         android:text="FYR"
-                                        android:textStyle="bold"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                                        android:textColor="@color/grey_40" />
+                                        android:textColor="@color/grey_40"
+                                        android:textStyle="bold" />
                                 </LinearLayout>
 
                             </LinearLayout>
@@ -256,7 +258,6 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center_horizontal"
                                 android:orientation="horizontal">
-
 
 
                                 <LinearLayout
@@ -282,11 +283,11 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="@dimen/spacing_medium"
                                         android:text="LEAVE REQUEST"
-                                        android:textStyle="bold"
-                                        android:textSize="11dp"
                                         android:textAlignment="center"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                                        android:textColor="@color/grey_40" />
+                                        android:textColor="@color/grey_40"
+                                        android:textSize="11dp"
+                                        android:textStyle="bold" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -348,15 +349,16 @@
                                 </LinearLayout>
 
                                 <LinearLayout
+                                    android:id="@+id/linear_dash"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:id="@+id/linear_dash"
-                                    android:gravity="center"
                                     android:clickable="true"
+                                    android:gravity="center"
                                     android:orientation="vertical">
 
                                     <android.support.design.widget.FloatingActionButton
+                                        android:id="@+id/dashboard"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:clickable="true"
@@ -364,10 +366,8 @@
                                         app:backgroundTint="#008CE7"
                                         app:elevation="0dp"
                                         app:fabSize="mini"
-                                        android:id="@+id/dashboard"
                                         app:rippleColor="@android:color/white"
                                         app:srcCompat="@drawable/ic_description" />
-
 
 
                                     <TextView
@@ -375,9 +375,9 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="@dimen/spacing_medium"
                                         android:text="DASHBOARD"
-                                        android:textStyle="bold"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                                        android:textColor="@color/grey_40" />
+                                        android:textColor="@color/grey_40"
+                                        android:textStyle="bold" />
                                 </LinearLayout>
 
                                 <!--<LinearLayout-->
@@ -592,10 +592,9 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="564dp"
                         android:descendantFocusability="blocksDescendants"
                         android:orientation="vertical">
-
 
 
                         <LinearLayout
@@ -608,10 +607,10 @@
                             <android.support.v7.widget.CardView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/spacing_xsmall"
                                 android:layout_marginLeft="@dimen/spacing_xsmall"
-                                android:layout_marginRight="@dimen/spacing_xsmall"
                                 android:layout_marginTop="@dimen/spacing_xsmall"
+                                android:layout_marginRight="@dimen/spacing_xsmall"
+                                android:layout_marginBottom="@dimen/spacing_xsmall"
                                 android:layout_weight="1"
                                 android:visibility="visible"
                                 app:cardCornerRadius="2dp"
@@ -645,9 +644,9 @@
                                 app:cardElevation="2dp">
 
                                 <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="433dp"
                                     android:id="@+id/recent"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="396dp"
                                     android:orientation="vertical">
 
                                     <LinearLayout
@@ -731,10 +730,10 @@
                                             android:textColor="@color/grey_60" />
 
                                         <TextView
+                                            android:id="@+id/grn"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="10"
-                                            android:id="@+id/grn"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
                                             android:textColor="@color/grey_40" />
 
@@ -763,10 +762,10 @@
                                             android:textColor="@color/grey_60" />
 
                                         <TextView
+                                            android:id="@+id/supplier"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="30"
-                                            android:id="@+id/supplier"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
                                             android:textColor="@color/grey_40" />
 
@@ -795,10 +794,10 @@
                                             android:textColor="@color/grey_60" />
 
                                         <TextView
+                                            android:id="@+id/payment"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="50"
-                                            android:id="@+id/payment"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
                                             android:textColor="@color/grey_40" />
 
@@ -827,10 +826,10 @@
                                             android:textColor="@color/grey_60" />
 
                                         <TextView
+                                            android:id="@+id/receipt"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="10"
-                                            android:id="@+id/receipt"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
                                             android:textColor="@color/grey_40" />
 
@@ -839,6 +838,7 @@
                                             android:layout_height="0dp" />
 
                                     </LinearLayout>
+
                                     <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="@dimen/spacing_xmlarge"
@@ -858,10 +858,10 @@
                                             android:textColor="@color/grey_60" />
 
                                         <TextView
+                                            android:id="@+id/customer"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="10"
-                                            android:id="@+id/customer"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
                                             android:textColor="@color/grey_40" />
 
@@ -870,6 +870,7 @@
                                             android:layout_height="0dp" />
 
                                     </LinearLayout>
+
                                     <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="@dimen/spacing_xmlarge"
@@ -889,10 +890,10 @@
                                             android:textColor="@color/grey_60" />
 
                                         <TextView
+                                            android:id="@+id/requisition"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="10"
-                                            android:id="@+id/requisition"
                                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
                                             android:textColor="@color/grey_40" />
 
@@ -903,11 +904,9 @@
                                     </LinearLayout>
 
 
-
                                     <View
                                         android:layout_width="0dp"
                                         android:layout_height="@dimen/spacing_middle" />
-
 
 
                                     <!--    <LinearLayout
@@ -937,6 +936,57 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/spacing_middle" />
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="141dp"
+                            android:gravity="right|end|top"
+
+                            android:orientation="vertical">
+
+
+                            <RelativeLayout
+                                android:id="@+id/badge"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <RelativeLayout
+                                    android:id="@+id/relative_layout"
+                                    android:layout_width="99dp"
+                                    android:layout_height="wrap_content">
+
+                                    <pl.droidsonroids.gif.GifImageButton
+                                        android:id="@+id/APPLY"
+                                        android:layout_width="91dp"
+                                        android:layout_height="96dp"
+                                        android:layout_alignParentStart="true"
+                                        android:layout_alignParentTop="true"
+                                        android:layout_marginStart="0dp"
+                                        android:layout_marginTop="0dp"
+                                        android:background="@drawable/yesmove" />
+                                </RelativeLayout>
+
+
+                                <TextView
+                                    android:id="@+id/bagetext"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignRight="@+id/relative_layout"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginTop="0dp"
+                                    android:layout_marginRight="15dp"
+                                    android:background="@drawable/circle"
+                                    android:text="16"
+                                    android:textColor="#fff"
+                                    android:textSize="24dp"
+                                    android:textStyle="bold">
+
+                                </TextView>
+                                <!--/>-->
+
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
 
 
                         <View
