@@ -74,11 +74,11 @@ public class DashSale extends AppCompatActivity {
     String instanceStr, userID, token, count1, count2, count3, count4, count5, count6;
     JSONArray countarray_7 = null, countarray_71 = null, countarray_72 = null, countarray_73 = null,countarray_8 = null, countarray_81 = null, countarray_82 = null, countarray_83 = null,
     countarray_9=null,countarray_91=null,countarray_92=null,countarray_93=null,countarray_10=null,countarray_101=null,countarray_102=null,countarray_16=null,countarray_161=null,countarray_162=null,
-    countarray_11=null,countarray_12=null,countarray_121=null,countarray_122=null;
-    JSONObject countarray101[], countarray102[],countarray122[];
+    countarray_11=null,countarray_12=null,countarray_122=null,countarray_13=null,countarray_132=null;
+    JSONObject countarray101[], countarray102[],countarray122[],countarray132[];
 
-    double array71[],array72[],array7[],array81[],array82[],array8[],array9[],array91[],array92[],array10a1[],array10b1[],array16[],array162[],array12a[];
-    String array73[],array83[],array93[],array10a2[], array10b2[],array161[],array11[],array12[],array121[],array122[],array12b[];
+    double array71[],array72[],array7[],array81[],array82[],array8[],array9[],array91[],array92[],array10a1[],array10b1[],array16[],array162[],array12a[],array13a[];
+    String array73[],array83[],array93[],array10a2[], array10b2[],array161[],array11[],array12[],array121[],array122[],array12b[],array13b[];
     int lg, bg;
 
     @Override
@@ -101,7 +101,7 @@ public class DashSale extends AppCompatActivity {
         final CustomMarkerView mv = new CustomMarkerView(this, R.layout.tv_content);
         final KdGaugeView gauge1= findViewById(R.id.gauge1);
         final PieChartView pieChartView = findViewById(R.id.chart);
-
+        final PieChartView pieChartView1=findViewById(R.id.chart13);
 
 
         RequestQueue MyRequestQueue = Volley.newRequestQueue(DashSale.this);
@@ -589,6 +589,41 @@ public class DashSale extends AppCompatActivity {
                  pieChartView.setPieChartData(pieChartData);
 
 //...................................................Count13................................................................//
+                    countarray_13 = data.getJSONArray("count_13");
+                    countarray_132 = countarray_13.getJSONArray(1);
+                    Toast.makeText(DashSale.this, "arrayindex=" +countarray_132.length(), Toast.LENGTH_SHORT).show();
+                    countarray132 = new JSONObject[countarray_132.length()];
+//                    array122=new String[countarray_122.length()];
+                    array13a = new double[countarray_132.length()];
+                    array13b = new String[countarray_132.length()];
+
+                    for (int i = 0; i < countarray_132.length(); i++) {
+
+                        countarray132[i] = countarray_132.getJSONObject(i);
+                        array13a[i] = countarray132[i].getDouble("value");
+                        array13b[i] = countarray132[i].getString("name");
+                        Toast.makeText(DashSale.this, "name=" + array13b[i] + "value=" + array13a[i], Toast.LENGTH_SHORT).show();
+
+                    }
+                    List<SliceValue> pieData1 = new ArrayList<>();
+                    for (int i=0; i<countarray_132.length(); i++){
+                        pieData1.add(new SliceValue((float) array13a[i], R.color.deep_orange_200).setLabel(array13b[i]));
+
+                    }
+//                    pieData.add(new SliceValue(15, R.color.colorAccentLight));
+//                    pieData.add(new SliceValue(25, Color.LTGRAY));
+//                    pieData.add(new SliceValue(10, Color.GREEN));
+//                    pieData.add(new SliceValue(60, Color.CYAN));
+//
+                    PieChartData pieChartData1 = new PieChartData(pieData1);
+
+//                    pieData.add(new SliceValue(15, Color.BLUE).setLabel("Q1: $10"));
+//                    pieData.add(new SliceValue(25, Color.GRAY).setLabel("Q2: $4"));
+//                    pieData.add(new SliceValue(10, Color.CYAN).setLabel("Q3: $18"));
+//                    pieData.add(new SliceValue(60, Color.MAGENTA).setLabel("Q4: $28"));
+                    pieChartData1.setHasLabels(true);
+                    pieChartView1.setPieChartData(pieChartData1);
+
 
 
                 } catch (JSONException e) {

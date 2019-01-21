@@ -72,17 +72,22 @@ import lecho.lib.hellocharts.view.PieChartView;
 public class DashFinance extends AppCompatActivity {
     private Toolbar toolbar;
     String   instanceStr,  userID, token, count1,count2,count3,count4,count5,count6;
-    JSONArray  count_7=null, count_71=null, count_72=null, count_73=null, count_8=null, count_81=null, count_82=null, count_83=null, count_9=null, count_91=null, count_92=null, count_93=null, count_10=null, count_101=null, count_102=null;
-    JSONObject count101[], count102[];
+    JSONArray  count_7=null, count_71=null, count_72=null, count_73=null, count_8=null, count_81=null, count_82=null, count_83=null,
+            count_9=null, count_91=null, count_92=null, count_93=null, count_10=null, count_101=null, count_102=null,count_13=null,count_132=null;
+    JSONObject count101[], count102[],count132[];
     String  countr_1, countr_2, countr_3, countr_4, countr_5, countr_6;
     int count11;
     int count12;
     JSONArray countarray11;
     int countarray12;
-    JSONArray countarray_7 = null, countarray_71 = null, countarray_72 = null, countarray_73 = null, countarray_8 = null, countarray_81 = null, countarray_82 = null, countarray_83 = null,countarray_9=null,countarray_91=null,countarray_92=null,countarray_93=null,countarray_10=null,countarray_101=null,countarray_102=null;
-JSONObject countarray101[],countarray102[];
-    double arr7[], arr71[], arr72[], arr8[], arr81[], arr82[], arr9[], arr91[], arr92[],arr10a1[],arr10b1[], array7[], array71[], array72[], array8[], array81[], array82[],array9[],array91[],array92[],array10a1[],array10b1[];
-    String arr73[], arr83[], arr93[],arr10a2[], arr10b2[], array73[], array83[],array93[],array10a2[],array10b2[],array11[];
+    JSONArray countarray_7 = null, countarray_71 = null, countarray_72 = null, countarray_73 = null, countarray_8 = null,
+            countarray_81 = null, countarray_82 = null, countarray_83 = null,countarray_9=null,countarray_91=null,
+            countarray_92=null,countarray_93=null,countarray_10=null,countarray_101=null,countarray_102=null,countarray_13=null,countarray_132=null;
+JSONObject countarray101[],countarray102[],countarray132[];
+    double arr7[], arr71[], arr72[], arr8[], arr81[], arr82[], arr9[], arr91[], arr92[],arr10a1[],arr10b1[],arr13a[], array7[], array71[],
+            array72[], array8[], array81[], array82[],array9[],array91[],array92[],array10a1[],array10b1[],array13a[];
+    String arr73[], arr83[], arr93[],arr10a2[], arr10b2[],arr13b[], array73[], array83[],array93[],array10a2[],array10b2[],array11[],
+            array13b[];
     int lg, bg;
     TextView count0, count00;
 
@@ -115,8 +120,8 @@ JSONObject countarray101[],countarray102[];
         final LineChart lineChartReceivable3=(LineChart)findViewById(R.id.linechartReceivable3);
         final PieChartView pieChartpayable= (PieChartView) findViewById(R.id.piechartpay);
         final PieChartView pieChartrcv= (PieChartView) findViewById(R.id.piechartrecv);
-
-
+final PieChartView pieChartpayble1=(PieChartView)findViewById(R.id.chart13);
+final PieChartView pieChartrecv=(PieChartView)findViewById(R.id.chartrecv13);
         final KdGaugeView gauge1= findViewById(R.id.gauge1);
         final KdGaugeView gauge2= findViewById(R.id.gauge2);
         final KdGaugeView gauge3= findViewById(R.id.gaugerecv);
@@ -509,7 +514,40 @@ JSONObject countarray101[],countarray102[];
                     //   gauge1.setMinValue(0);
                     //   gauge1.setMaxValue(100);
                     gauge3.setSpeed(countarray12);
+//..................Count13..........................................................................//
+                    countarray_13=data.getJSONArray("count13");
+                    countarray_132=countarray_13.getJSONArray(1);
+                    Toast.makeText(DashFinance.this, "arrayindex=" +countarray_132.length(), Toast.LENGTH_SHORT).show();
+                    countarray132 = new JSONObject[countarray_132.length()];
+//                    array122=new String[countarray_122.length()];
+                    array13a = new double[countarray_132.length()];
+                    array13b = new String[countarray_132.length()];
+                    for (int i = 0; i < countarray_132.length(); i++) {
 
+                        countarray132[i] = countarray_132.getJSONObject(i);
+                        array13a[i] = countarray132[i].getDouble("value");
+                        array13b[i] = countarray132[i].getString("label");
+                        Toast.makeText(DashFinance.this, "label=" + array13b[i] + "value=" + array13a[i], Toast.LENGTH_SHORT).show();
+
+                    }
+                    List<SliceValue> pieData2 = new ArrayList<>();
+                    for (int i=0; i<countarray_132.length(); i++){
+                        pieData2.add(new SliceValue((float) array13a[i], R.color.deep_orange_200).setLabel(array13b[i]));
+
+                    }
+//                    pieData.add(new SliceValue(15, R.color.colorAccentLight));
+//                    pieData.add(new SliceValue(25, Color.LTGRAY));
+//                    pieDataadd(new SliceValue(10, Color.GREEN));
+//                    pieData.add(new SliceValue(60, Color.CYAN));
+//
+                    PieChartData pieChartData2 = new PieChartData(pieData2);
+
+//                    pieData.add(new SliceValue(15, Color.BLUE).setLabel("Q1: $10"));
+//                    pieData.add(new SliceValue(25, Color.GRAY).setLabel("Q2: $4"));
+//                    pieData.add(new SliceValue(10, Color.CYAN).setLabel("Q3: $18"));
+//                    pieData.add(new SliceValue(60, Color.MAGENTA).setLabel("Q4: $28"));
+                    pieChartData2.setHasLabels(true);
+                    pieChartrecv.setPieChartData(pieChartData2);
 
 
 
@@ -1005,8 +1043,40 @@ JSONObject countarray101[],countarray102[];
                  //   gauge1.setMaxValue(100);
                     gauge1.setSpeed(count11);
 
+//..................Count13..........................................................................//
+                    count_13=data.getJSONArray("count13");
+                    count_132=count_13.getJSONArray(1);
+                    Toast.makeText(DashFinance.this, "arrayindex=" +count_132.length(), Toast.LENGTH_SHORT).show();
+                    count132 = new JSONObject[count_132.length()];
+//                    array122=new String[countarray_122.length()];
+                    arr13a = new double[count_132.length()];
+                    arr13b = new String[count_132.length()];
+                    for (int i = 0; i < count_132.length(); i++) {
 
+                        count132[i] = count_132.getJSONObject(i);
+                        arr13a[i] = count132[i].getDouble("value");
+                        arr13b[i] = count132[i].getString("label");
+                        Toast.makeText(DashFinance.this, "label=" + arr13b[i] + "value=" + arr13a[i], Toast.LENGTH_SHORT).show();
 
+                    }
+                    List<SliceValue> pieData1 = new ArrayList<>();
+                    for (int i=0; i<count_132.length(); i++){
+                        pieData1.add(new SliceValue((float) arr13a[i], R.color.deep_orange_200).setLabel(arr13b[i]));
+
+                    }
+//                    pieData.add(new SliceValue(15, R.color.colorAccentLight));
+//                    pieData.add(new SliceValue(25, Color.LTGRAY));
+//                    pieDataadd(new SliceValue(10, Color.GREEN));
+//                    pieData.add(new SliceValue(60, Color.CYAN));
+//
+                    PieChartData pieChartData1 = new PieChartData(pieData1);
+
+//                    pieData.add(new SliceValue(15, Color.BLUE).setLabel("Q1: $10"));
+//                    pieData.add(new SliceValue(25, Color.GRAY).setLabel("Q2: $4"));
+//                    pieData.add(new SliceValue(10, Color.CYAN).setLabel("Q3: $18"));
+//                    pieData.add(new SliceValue(60, Color.MAGENTA).setLabel("Q4: $28"));
+                    pieChartData1.setHasLabels(true);
+                    pieChartpayble1.setPieChartData(pieChartData1);
 
                 } //end try
 
