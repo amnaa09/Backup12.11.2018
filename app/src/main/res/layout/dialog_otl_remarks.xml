@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/spacing_large">
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:layout_width="@dimen/spacing_xmlarge"
+            android:layout_height="@dimen/spacing_xmlarge"
+            android:src="@drawable/man"
+            app:civ_shadow="true"
+            app:civ_shadow_radius="0"
+            app:civ_border="false"
+            android:id="@+id/img"/>
+
+        <View
+            android:layout_width="@dimen/spacing_large"
+            android:layout_height="0dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dialog_profilename"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="David Park"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textColor="@color/grey_90"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:gravity="center_vertical"
+                android:text="Customer services"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/grey_40" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="@dimen/spacing_large"
+        android:layout_marginRight="@dimen/spacing_large"
+        android:background="@color/grey_10" />
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?attr/actionBarSize"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:orientation="vertical"-->
+        <!--android:paddingLeft="@dimen/spacing_large"-->
+        <!--android:paddingRight="@dimen/spacing_large">-->
+
+        <!--<android.support.v7.widget.AppCompatRatingBar-->
+            <!--style="@style/Yellow.AppCompatRatingBar"-->
+            <!--android:id="@+id/rating_bar"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:isIndicator="false"-->
+            <!--android:numStars="5"-->
+            <!--android:rating="5"-->
+            <!--android:stepSize="1"-->
+            <!--android:theme="@style/Yellow.AppCompatRatingBar" />-->
+
+    <!--</LinearLayout>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="@dimen/spacing_large"
+        android:orientation="vertical"
+        >
+
+        <EditText
+            android:id="@+id/et_post"
+            android:layout_width="331dp"
+            android:layout_height="49dp"
+            android:gravity="top"
+            android:hint="Initial Remarks"
+            android:lines="4"
+            android:padding="@dimen/spacing_middle"
+
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/imageView_pic"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_launcher" />
+        <View
+            android:layout_width="5dp"
+            android:layout_height="50dp" />
+
+        <ImageView
+            android:id="@+id/imageView_pic2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+
+            android:src="@mipmap/ic_launcher" />
+        <View
+            android:layout_width="5dp"
+            android:layout_height="50dp" />
+
+        <ImageView
+            android:id="@+id/imageView_pic3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+
+            android:src="@mipmap/ic_launcher" />
+        <View
+            android:layout_width="5dp"
+            android:layout_height="50dp" />
+
+        <ImageView
+            android:id="@+id/imageView_pic4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+
+            android:layout_weight="1"
+            android:src="@mipmap/ic_launcher" />
+        <View
+            android:layout_width="5dp"
+            android:layout_height="50dp" />
+
+        <ImageView
+            android:id="@+id/imageView_pic5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+
+            android:layout_weight="1"
+            android:src="@mipmap/ic_launcher" />
+        <View
+            android:layout_width="5dp"
+            android:layout_height="50dp" />
+
+        <ImageView
+            android:id="@+id/imageView_pic6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+
+            android:layout_weight="1"
+            android:src="@mipmap/ic_launcher" />
+        <View
+            android:layout_width="5dp"
+            android:layout_height="50dp" />
+        <ImageView
+            android:id="@+id/imageView_pic7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+
+            android:layout_weight="1"
+            android:src="@mipmap/ic_launcher" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:weightSum="3"
+        android:orientation="horizontal">
+
+
+
+
+        <Button
+
+            android:id="@+id/upload_image"
+            style="@style/Button.Accent.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_rounded_primary"
+            android:text="Upload Image"
+            android:layout_weight="1"
+            android:textColor="@color/grey_3" />
+
+
+
+
+        <Button
+            android:id="@+id/upload_signature"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_rounded_primary"
+            android:gravity="center"
+            android:text="Client Signature"
+            android:textColor="@color/grey_3" />
+
+
+
+
+        <Button
+            android:id="@+id/submit_checkin"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_rounded_primary"
+            android:gravity="center"
+            android:text="Submit"
+            android:layout_weight="1"
+            android:textColor="@color/grey_3" />
+
+    </LinearLayout>
+
+</LinearLayout>

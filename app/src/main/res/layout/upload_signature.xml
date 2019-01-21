@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".OTL.SignatureUpload.UploadSignature">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:contentInsetStartWithNavigation="0dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+
+        app:subtitleTextAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+        app:subtitleTextColor="@color/grey_10"
+        app:title="OTL"
+        android:background="@color/colorPrimary"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="Signature Here:"/>
+
+    <android.gesture.GestureOverlayView
+        android:id="@+id/sign_pad"
+        android:layout_width="match_parent"
+        android:layout_height="258dp"
+        android:layout_below="@id/save_button"
+        android:layout_marginBottom="11dp"
+        android:background="@drawable/dotted_border"
+        android:fadeEnabled="false"
+        android:fadeOffset="1000000"
+        android:gestureColor="@android:color/black"
+        android:gestureStrokeLengthThreshold="0.1"
+        android:gestureStrokeType="multiple"
+        android:gestureStrokeWidth="3"
+        android:orientation="vertical"
+        android:uncertainGestureColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/save_button"></android.gesture.GestureOverlayView>
+
+    <Button
+        android:id="@+id/redraw_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/button_border_white"
+        android:text="Redraw"
+        android:textColor="#FFFF"
+        app:layout_constraintBottom_toTopOf="@+id/save_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/redraw_button"
+        android:layout_marginBottom="34dp"
+        android:background="@drawable/button_border_white"
+        android:text="Upload Signature"
+        android:textColor="#FFFF"
+        app:layout_constraintBottom_toTopOf="@+id/sign_pad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/redraw_button" />
+
+</LinearLayout>
