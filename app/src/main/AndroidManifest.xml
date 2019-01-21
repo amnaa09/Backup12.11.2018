@@ -41,6 +41,7 @@
         <activity android:name=".profile.ProfileFabMenu" />
         <activity android:name=".profile.ProfilePolygon"></activity>
         <activity android:name=".DashboardOptions.DashSale"></activity>
+        <activity android:name=".Reminder.Recyclerview"></activity>
     </application>
 
 </manifest>

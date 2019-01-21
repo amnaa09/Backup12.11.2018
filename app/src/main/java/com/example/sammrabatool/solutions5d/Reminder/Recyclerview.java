@@ -8,18 +8,38 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.sammrabatool.solutions5d.R;
+import com.example.sammrabatool.solutions5d.dashboard.DashboardGridFab;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Recyclerview extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     public static ArrayList<Model> modelArrayList;
-    private CustomAdapter customAdapter;
+    private CustomAdapter mcustomAdapter;
     private Button btnnext;
-    private String[] reminder = new String[]{"FYR", "FYR", "FYR", "FYR", "FYI", "FYI", "FYR", "FYI", "FYI"};
+    String reminder, notification_id, messg, c, status, date, f, fy, h, k, l, m, n, text;
+    //    private String[] reminder = new String[]{"FYR", "FYR", "FYR", "FYR", "FYI", "FYI", "FYR", "FYI", "FYI"};
     private ProgressDialog progressDialog;
     boolean user_valid = false;
     String message;
@@ -38,20 +58,82 @@ public class Recyclerview extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         btnnext = (Button) findViewById(R.id.next);
 
-//        modelArrayList = getModel();
-        customAdapter = new CustomAdapter(this);
-        recyclerView.setAdapter(customAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+        final ArrayList<Model> list = new ArrayList<>();
 
-//        btnnext.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(Recyclerview.this,NextActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+
+        RequestQueue MyRequestQueue = Volley.newRequestQueue(Recyclerview.this);
+
+        String url = "http://" + instanceStr + ".5dsurf.com/app/webservice/getReminders/" + bg + "/" + lg + "/" + userID + "/" + token;
+        final ProgressDialog progressDialog = new ProgressDialog(Recyclerview.this);
+
+        StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                JSONObject data = null;
+                try {
+                    data = new JSONObject(response.toString());
+                    reminder = data.getString("reminder");
+                    JSONArray not_data = new JSONArray(reminder);
+                    for (int i = 0; i < not_data.length(); i++) {
+                        Model obj = new Model();
+                        JSONObject not_obj = (JSONObject) not_data.get(i);
+                        obj.setMessage(not_obj.getString("b"));
+                        obj.setNotifcation_id(not_obj.getString("a"));
+                        obj.setStatus(not_obj.getString("d"));
+                        obj.setDate(not_obj.getString("e"));
+                        obj.setFyr(not_obj.getString("g"));
+                        obj.setName(not_obj.getString("h"));
+                        list.add(obj);
+                    }
+                    mcustomAdapter = new CustomAdapter(Recyclerview.this, list);
+                    recyclerView.setAdapter(mcustomAdapter);
+                    mcustomAdapter.notifyDataSetChanged();
+
+
+                } catch (JSONException e1) {
+                    e1.printStackTrace();
+                    Toast.makeText(Recyclerview.this, "Error:" + e1.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                String message = null;
+                if (error instanceof NetworkError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof ServerError) {
+                    message = "The server could not be found. Please try again after some time!!";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof ParseError) {
+                    message = "Parsing error! Please try again after some time!!";
+                } else if (error instanceof NoConnectionError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof TimeoutError) {
+                    message = "Connection TimeOut! Please check your internet connection.";
+                }
+                Toast.makeText(Recyclerview.this, message, Toast.LENGTH_SHORT).show();
+
+            }
+        }
+        );
+        MyStringRequest.setShouldCache(true);
+        MyRequestQueue.add(MyStringRequest);
+
+
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("Loading...");
+        progressDialog.setMessage("Please wait");
+        progressDialog.show();
     }
+}
 
+////        modelArrayList = getModel();
+//        mcustomAdapter = new CustomAdapter(this, modelArrayList);
+//        recyclerView.setAdapter(mcustomAdapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+//
 //    private ArrayList<Model> getModel() {
 //        ArrayList<Model> list = new ArrayList<>();
 //        for(int i = 0; i < 9; i++){
@@ -67,6 +149,6 @@ public class Recyclerview extends AppCompatActivity {
 //            list.add(model);
 //        }
 //        return list
-    }
+
 
 
