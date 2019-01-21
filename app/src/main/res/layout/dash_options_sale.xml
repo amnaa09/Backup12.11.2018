@@ -794,7 +794,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:id="@+id/guage2_layout"
-                android:layout_height="350dp"
+                android:layout_height="300dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:orientation="vertical">

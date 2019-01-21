@@ -239,11 +239,6 @@ public class ListMultiSelection extends AppCompatActivity  {
 
         String url = "http://"+instanceStr+".5dsurf.com/app/webservice/getusernotifications/"+userID+"/"+userToken+"/"+type;
         final ProgressDialog progressDialog = new ProgressDialog(this);
-     /*   final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(false);
-        progressDialog.setTitle("Loading...");
-        progressDialog.setMessage("Please wait");
-        progressDialog.show();   */
         StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

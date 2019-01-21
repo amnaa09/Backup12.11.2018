@@ -43,6 +43,7 @@ dependencies {
     implementation 'com.mikhaellopez:circularimageview:3.2.0'          // circle image view
     implementation 'com.wdullaer:materialdatetimepicker:3.2.0'         // date & time picker
     implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'     //piechart
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.16'   //for gif image
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
     implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'

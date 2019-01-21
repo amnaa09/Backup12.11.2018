@@ -1,11 +1,13 @@
 package com.example.sammrabatool.solutions5d.dashboard;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,24 +16,51 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
 import com.example.sammrabatool.solutions5d.DashboardOptions.DashboardOptions;
 import com.example.sammrabatool.solutions5d.R;
+import com.example.sammrabatool.solutions5d.Reminder.CustomAdapter;
+import com.example.sammrabatool.solutions5d.Reminder.Model;
+import com.example.sammrabatool.solutions5d.list.AdapterListInbox;
 import com.example.sammrabatool.solutions5d.list.ListMultiSelection;
+import com.example.sammrabatool.solutions5d.model.Notification;
 import com.example.sammrabatool.solutions5d.profile.ProfileFabMenu;
 import com.example.sammrabatool.solutions5d.profile.ProfilePurple;
 import com.example.sammrabatool.solutions5d.utils.Tools;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import pl.droidsonroids.gif.GifImageButton;
+
 
 public class DashboardGridFab extends AppCompatActivity {
-
+    private CustomAdapter mcustomAdapter;
+    private RecyclerView recyclerView;
+    GifImageButton btnbell;
     FloatingActionButton profile, team, fyi, fyr, request, dash;
     String   instanceStr, message, userID, token, details, image, name="Unknown";
     LinearLayout dashboard, recent;
     int super_user,lg,bg;
     String recent_activity[];
+    String reminder,notification_id,messg,c,status,date,f,fy,h,k,l,m,n,text;
     int lenght;
-
     TextView lpo,grn,supplier,payment,receipt,customer,requisition;
 
     @Override
@@ -53,6 +82,7 @@ public class DashboardGridFab extends AppCompatActivity {
         receipt=(TextView)findViewById(R.id.receipt);
         customer=(TextView)findViewById(R.id.customer);
         requisition=(TextView)findViewById(R.id.requisition);
+        btnbell=(GifImageButton)findViewById(R.id.APPLY);
 
         SharedPreferences sharedprefSignup = getSharedPreferences("SignupPref", Context.MODE_PRIVATE);
 
@@ -194,7 +224,86 @@ public class DashboardGridFab extends AppCompatActivity {
 
             }
         });
+        btnbell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Intent intent=new Intent(DashboardGridFab.this,RecyclerView.class);
+                intent.putExtra("userID",userID);
+                intent.putExtra("token",token);
+                intent.putExtra("lg",lg);
+                intent.putExtra("bg",bg);
+                startActivity(intent);
+                final ArrayList<Model> list = new ArrayList<>();
+
+
+                RequestQueue MyRequestQueue = Volley.newRequestQueue(DashboardGridFab.this);
+
+                String url = "http://"+instanceStr+".5dsurf.com/app/webservice/getReminders/"+bg+"/"+lg+"/"+userID+"/"+token;
+                final ProgressDialog progressDialog = new ProgressDialog(DashboardGridFab.this);
+
+                StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject data = null;
+                        try {
+                            data = new JSONObject(response.toString());
+                            reminder = data.getString("reminder");
+                            JSONArray not_data = new JSONArray(reminder);
+                            for (int i = 0; i < not_data.length(); i++) {
+                                Model obj = new Model();
+                                JSONObject not_obj = (JSONObject) not_data.get(i);
+                                obj.setMessage(not_obj.getString("b"));
+                                obj.setNotifcation_id(not_obj.getString("a"));
+                                obj.setStatus(not_obj.getString("d"));
+                                obj.setDate(not_obj.getString("e"));
+                                obj.setFyr(not_obj.getString("g"));
+                                obj.setName(not_obj.getString("h"));
+                                list.add(obj);
+                            }
+                           mcustomAdapter = new CustomAdapter(DashboardGridFab.this, list);
+                            recyclerView.setAdapter(mcustomAdapter);
+                            mcustomAdapter.notifyDataSetChanged();
+
+
+                        } catch (JSONException e1) {
+                            e1.printStackTrace();
+                            Toast.makeText(DashboardGridFab.this, "Error:" + e1.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        String message = null;
+                        if (error instanceof NetworkError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ServerError) {
+                            message = "The server could not be found. Please try again after some time!!";
+                        } else if (error instanceof AuthFailureError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ParseError) {
+                            message = "Parsing error! Please try again after some time!!";
+                        } else if (error instanceof NoConnectionError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof TimeoutError) {
+                            message = "Connection TimeOut! Please check your internet connection.";
+                        }
+                        Toast.makeText(DashboardGridFab.this, message, Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+                );
+                MyStringRequest.setShouldCache(true);
+                MyRequestQueue.add(MyStringRequest);
+
+
+                progressDialog.setCancelable(false);
+                progressDialog.setTitle("Loading...");
+                progressDialog.setMessage("Please wait");
+                progressDialog.show();
+            }
+        });
 
 
     }
