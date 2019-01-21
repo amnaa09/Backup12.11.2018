@@ -151,11 +151,11 @@
                 android:layout_marginBottom="@dimen/spacing_medium"
                 android:orientation="horizontal">
 
-                <ImageView
+        <!--        <ImageView
                     android:id="@+id/list_image"
                     android:layout_width="@dimen/spacing_xmlarge"
                     android:layout_height="@dimen/spacing_xmlarge"
-                    android:src="@drawable/bul" />
+                    android:src="@drawable/bul" />   -->
 
                 <View
                     android:layout_width="@dimen/spacing_large"

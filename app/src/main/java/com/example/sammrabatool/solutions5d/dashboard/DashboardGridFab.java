@@ -30,9 +30,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
 import com.example.sammrabatool.solutions5d.DashboardOptions.DashboardOptions;
+import com.example.sammrabatool.solutions5d.OTL.CheckIn;
 import com.example.sammrabatool.solutions5d.R;
 import com.example.sammrabatool.solutions5d.Reminder.CustomAdapter;
 import com.example.sammrabatool.solutions5d.Reminder.Model;
+import com.example.sammrabatool.solutions5d.Reminder.Recyclerview;
 import com.example.sammrabatool.solutions5d.list.AdapterListInbox;
 import com.example.sammrabatool.solutions5d.list.ListMultiSelection;
 import com.example.sammrabatool.solutions5d.model.Notification;
@@ -54,7 +56,7 @@ public class DashboardGridFab extends AppCompatActivity {
     private CustomAdapter mcustomAdapter;
     private RecyclerView recyclerView;
     GifImageButton btnbell;
-    FloatingActionButton profile, team, fyi, fyr, request, dash;
+    FloatingActionButton profile, otl, fyi, fyr, request, dash;
     String   instanceStr, message, userID, token, details, image, name="Unknown";
     LinearLayout dashboard, recent;
     int super_user,lg,bg;
@@ -67,56 +69,57 @@ public class DashboardGridFab extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_grid_fab);
-        profile = (FloatingActionButton) findViewById(R.id.profile_button);
-        team = (FloatingActionButton) findViewById(R.id.teammates_button);
-        fyi = (FloatingActionButton) findViewById(R.id.fyi_button);
-        fyr = (FloatingActionButton) findViewById(R.id.fyr_button);
-        request = (FloatingActionButton) findViewById(R.id.request_button);
-        dash = (FloatingActionButton) findViewById(R.id.dashboard);
-        // dashboard=(LinearLayout) findViewById(R.id.linear_dash);
-        recent = (LinearLayout) findViewById(R.id.recent);
-        lpo = (TextView) findViewById(R.id.lpo);
-        grn = (TextView) findViewById(R.id.grn);
-        supplier = (TextView) findViewById(R.id.supplier);
-        payment = (TextView) findViewById(R.id.payment);
-        receipt = (TextView) findViewById(R.id.receipt);
-        customer = (TextView) findViewById(R.id.customer);
-        requisition = (TextView) findViewById(R.id.requisition);
-        btnbell = (GifImageButton) findViewById(R.id.APPLY);
+        profile = (FloatingActionButton ) findViewById(R.id.profile_button);
+        otl = (FloatingActionButton ) findViewById(R.id.otl_button);
+        fyi = (FloatingActionButton ) findViewById(R.id.fyi_button);
+        fyr = (FloatingActionButton ) findViewById(R.id.fyr_button);
+        request = (FloatingActionButton ) findViewById(R.id.request_button);
+        dash=(FloatingActionButton) findViewById(R.id.dashboard);
+       // dashboard=(LinearLayout) findViewById(R.id.linear_dash);
+        recent=(LinearLayout) findViewById(R.id.recent);
+        lpo=(TextView)findViewById(R.id.lpo);
+        grn=(TextView)findViewById(R.id.grn);
+        supplier=(TextView)findViewById(R.id.supplier);
+        payment=(TextView)findViewById(R.id.payment);
+        receipt=(TextView)findViewById(R.id.receipt);
+        customer=(TextView)findViewById(R.id.customer);
+        requisition=(TextView)findViewById(R.id.requisition);
+        btnbell=(GifImageButton)findViewById(R.id.APPLY);
 
         SharedPreferences sharedprefSignup = getSharedPreferences("SignupPref", Context.MODE_PRIVATE);
 
-        userID = sharedprefSignup.getString("userID", "save user id");//getIntent().getStringExtra("userID");
-        instanceStr = sharedprefSignup.getString("instance", "save user id");//getIntent().getStringExtra("instance");
+        userID=sharedprefSignup.getString("userID", "save user id");//getIntent().getStringExtra("userID");
+        instanceStr=sharedprefSignup.getString("instance", "save user id");//getIntent().getStringExtra("instance");
 
-        name = sharedprefSignup.getString("emailKey", "save user id");
-        token = sharedprefSignup.getString("token", "save user id");
+         name=sharedprefSignup.getString("emailKey", "save user id");
+        token=sharedprefSignup.getString("token", "save user id");
 
-        //      Toast.makeText(this, "before:"+ userID, Toast.LENGTH_SHORT).show();
-        userID = getIntent().getStringExtra("userID");
-        instanceStr = getIntent().getStringExtra("instance");
-        token = getIntent().getStringExtra("token");
-        name = getIntent().getStringExtra("name");
+  //      Toast.makeText(this, "before:"+ userID, Toast.LENGTH_SHORT).show();
+        userID=getIntent().getStringExtra("userID");
+        instanceStr=getIntent().getStringExtra("instance");
+        token=getIntent().getStringExtra("token");
+        name=getIntent().getStringExtra("name");
 
         //recent_activity[]
 
-        super_user = getIntent().getIntExtra("super_user", 0);
-        lg = getIntent().getIntExtra("lg", 0);
-        bg = getIntent().getIntExtra("bg", 0);
+        super_user=getIntent().getIntExtra("super_user",0);
+        lg=getIntent().getIntExtra("lg",0);
+        bg=getIntent().getIntExtra("bg",0);
 
         SharedPreferences.Editor editor = sharedprefSignup.edit();
         editor.putInt("LG", lg);
-        editor.putInt("BG", bg);
+        editor.putInt("BG",bg);
         editor.commit();
 
 
-        //   super_user=0;
-        //  Toast.makeText(this, "length="+lenght, Toast.LENGTH_SHORT).show();
-        if (super_user == 1) {
+
+     //   super_user=0;
+      //  Toast.makeText(this, "length="+lenght, Toast.LENGTH_SHORT).show();
+        if(super_user==1) {
             lenght = getIntent().getIntExtra("length", 0);
             recent_activity = new String[lenght];
             recent_activity = getIntent().getStringArrayExtra("recent_activity");
-            //    Toast.makeText(this, "activity=" + recent_activity[0] + " " + recent_activity[1], Toast.LENGTH_SHORT).show();
+        //    Toast.makeText(this, "activity=" + recent_activity[0] + " " + recent_activity[1], Toast.LENGTH_SHORT).show();
             lpo.setText(recent_activity[0]);
             grn.setText(recent_activity[1]);
             supplier.setText(recent_activity[2]);
@@ -124,14 +127,15 @@ public class DashboardGridFab extends AppCompatActivity {
             receipt.setText(recent_activity[4]);
             customer.setText(recent_activity[5]);
             requisition.setText(recent_activity[6]);
-        } else {
+        }
+        else {
             recent.setVisibility(LinearLayout.GONE);
             dashboard.setVisibility(LinearLayout.GONE);
 
         }
 
 
-        //    Toast.makeText(this, "after:"+ name+"token="+token, Toast.LENGTH_SHORT).show();
+    //    Toast.makeText(this, "after:"+ name+"token="+token, Toast.LENGTH_SHORT).show();
         initToolbar();
 
         profile.setOnClickListener(new View.OnClickListener()
@@ -140,22 +144,30 @@ public class DashboardGridFab extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(DashboardGridFab.this, ProfileFabMenu.class);
-                intent.putExtra("userID", userID);
-                intent.putExtra("token", token);
+                Intent intent=new Intent(DashboardGridFab.this, ProfileFabMenu.class);
+                intent.putExtra("userID",userID);
+                intent.putExtra("token",token);
                 intent.putExtra("instance", instanceStr);
-                intent.putExtra("lg", lg);
-                intent.putExtra("bg", bg);
+                intent.putExtra("lg",lg);
+                intent.putExtra("bg",bg);
                 startActivity(intent);
 
             }
         });
 
-        team.setOnClickListener(new View.OnClickListener()
+        otl.setOnClickListener(new View.OnClickListener()
 
         {
             @Override
             public void onClick(View v) {
+
+                Intent intent=new Intent(DashboardGridFab.this, CheckIn.class);
+                intent.putExtra("userID",userID);
+                intent.putExtra("token",token);
+                intent.putExtra("instance", instanceStr);
+                intent.putExtra("lg",lg);
+                intent.putExtra("bg",bg);
+                startActivity(intent);
 
 
             }
@@ -166,9 +178,9 @@ public class DashboardGridFab extends AppCompatActivity {
         {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DashboardGridFab.this, ListMultiSelection.class);
-                intent.putExtra("userID", userID);
-                intent.putExtra("token", token);
+                Intent intent=new Intent(DashboardGridFab.this, ListMultiSelection.class);
+                intent.putExtra("userID",userID);
+                intent.putExtra("token",token);
                 intent.putExtra("instance", instanceStr);
                 intent.putExtra("type", "1");
                 startActivity(intent);
@@ -183,9 +195,9 @@ public class DashboardGridFab extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(DashboardGridFab.this, ListMultiSelection.class);
-                intent.putExtra("userID", userID);
-                intent.putExtra("token", token);
+                Intent intent=new Intent(DashboardGridFab.this, ListMultiSelection.class);
+                intent.putExtra("userID",userID);
+                intent.putExtra("token",token);
                 intent.putExtra("instance", instanceStr);
                 intent.putExtra("type", "2");
                 startActivity(intent);
@@ -201,18 +213,20 @@ public class DashboardGridFab extends AppCompatActivity {
             public void onClick(View v) {
 
 
+
+
             }
         });
 
         dash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DashboardGridFab.this, DashboardOptions.class);
-                intent.putExtra("userID", userID);
-                intent.putExtra("token", token);
+                Intent intent=new Intent(DashboardGridFab.this, DashboardOptions.class);
+                intent.putExtra("userID",userID);
+                intent.putExtra("token",token);
                 intent.putExtra("instance", instanceStr);
-                intent.putExtra("lg", lg);
-                intent.putExtra("bg", bg);
+                intent.putExtra("lg",lg);
+                intent.putExtra("bg",bg);
 
                 startActivity(intent);
 
@@ -222,7 +236,7 @@ public class DashboardGridFab extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(DashboardGridFab.this, RecyclerView.class);
+                Intent intent = new Intent(DashboardGridFab.this, Recyclerview.class);
                 intent.putExtra("userID", userID);
                 intent.putExtra("token", token);
                 intent.putExtra("instance", instanceStr);
@@ -351,4 +365,3 @@ public class DashboardGridFab extends AppCompatActivity {
     }
 
 }
-

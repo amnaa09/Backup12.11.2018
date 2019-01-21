@@ -41,18 +41,18 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
-        holder.fyr.setText(Recyclerview.modelArrayList.get(position).getFyr());
-        holder.id.setText(String.valueOf(Recyclerview.modelArrayList.get(position).getNotifcation_id()));
-        holder.name.setText(Recyclerview.modelArrayList.get(position).getName());
-        holder.date.setText(String.valueOf(Recyclerview.modelArrayList.get(position).getDate()));
-        holder.status.setText(Recyclerview.modelArrayList.get(position).getStatus());
-        holder.msg.setText(String.valueOf(Recyclerview.modelArrayList.get(position).getMessage()));
+        holder.fyr.setText(list.get(position).getFyr());
+        holder.id.setText(String.valueOf(list.get(position).getNotifcation_id()));
+        holder.name.setText(list.get(position).getName());
+        holder.date.setText(String.valueOf(list.get(position).getDate()));
+        holder.status.setText(list.get(position).getStatus());
+        holder.msg.setText(String.valueOf(list.get(position).getMessage()));
 
     }
 
     @Override
     public int getItemCount() {
-        return Recyclerview.modelArrayList.size();
+        return list.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

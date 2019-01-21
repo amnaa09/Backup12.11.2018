@@ -5,6 +5,17 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE" ></uses-permission>
+
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE" ></uses-permission>
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="false"
@@ -41,6 +52,15 @@
         <activity android:name=".profile.ProfileFabMenu" />
         <activity android:name=".profile.ProfilePolygon"></activity>
         <activity android:name=".DashboardOptions.DashSale"></activity>
+        <activity android:name=".OTL.SignatureUpload.UploadSignature" />
+        <activity android:name=".OTL.MapAttendence" />
+        <activity android:name=".OTL.MainActivityOut" />
+        <activity android:name=".OTL.CheckIn" />
+
+        <activity android:name=".OTL.OTLDialogActivity" android:theme="@android:style/Theme.DeviceDefault.Dialog"/>
+
+        <meta-data android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyA_U_fzn3FZn12GeE1nK_D85xg1Ql1Ox2w" />
         <activity android:name=".Reminder.Recyclerview"></activity>
     </application>
 
