@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/grey_10"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
+
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -1000,5 +1002,20 @@
             </android.support.v4.widget.NestedScrollView>
         </LinearLayout>
     </ScrollView>
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--android:layout_margin="@dimen/fab_margin"-->
+        <!--app:backgroundTint="@color/light_green_500"-->
+        <!--app:elevation="0dp"-->
+        <!--app:fabSize="mini"-->
+        <!--app:rippleColor="@android:color/white"-->
+        <!--app:srcCompat="@drawable/bellnoti"-->
+        <!--android:clickable="true"-->
+        <!--android:tint="@android:color/white"-->
+        <!--tools:ignore="VectorDrawableCompat" />-->
 
 </LinearLayout>
+
