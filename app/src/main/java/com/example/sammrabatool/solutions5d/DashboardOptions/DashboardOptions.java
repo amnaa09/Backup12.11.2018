@@ -62,6 +62,11 @@ public class DashboardOptions extends AppCompatActivity {
             public void onClick(View v) {
              //   Toast.makeText(DashboardOptions.this, "click fin", Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(DashboardOptions.this, DashInsurance.class);
+                intent.putExtra("userID",userID);
+                intent.putExtra("token",token);
+                intent.putExtra("instance", instanceStr);
+                intent.putExtra("lg",lg);
+                intent.putExtra("bg",bg);
                 startActivity(intent);
             }
         });

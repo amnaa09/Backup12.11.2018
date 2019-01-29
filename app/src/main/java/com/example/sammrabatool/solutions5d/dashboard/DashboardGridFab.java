@@ -37,6 +37,7 @@ import com.example.sammrabatool.solutions5d.R;
 import com.example.sammrabatool.solutions5d.Reminder.CustomAdapter;
 import com.example.sammrabatool.solutions5d.Reminder.Model;
 import com.example.sammrabatool.solutions5d.Reminder.Recyclerview;
+import com.example.sammrabatool.solutions5d.leave.ExpansionPanelInvoice;
 import com.example.sammrabatool.solutions5d.list.AdapterListInbox;
 import com.example.sammrabatool.solutions5d.list.ListMultiSelection;
 import com.example.sammrabatool.solutions5d.model.Notification;
@@ -58,7 +59,7 @@ public class DashboardGridFab extends AppCompatActivity {
     private CustomAdapter mcustomAdapter;
     private RecyclerView recyclerView;
     GifImageButton btnbell;
-    FloatingActionButton profile, otl, fyi, fyr, request, dash;
+    FloatingActionButton profile, otl, fyi, fyr, request, dash,leave;
     String   instanceStr, message, userID, token, details, image, name="Unknown";
     LinearLayout dashboard, recent;
     int super_user,lg,bg;
@@ -78,6 +79,7 @@ public class DashboardGridFab extends AppCompatActivity {
         fyr = (FloatingActionButton ) findViewById(R.id.fyr_button);
         request = (FloatingActionButton ) findViewById(R.id.request_button);
         dash=(FloatingActionButton) findViewById(R.id.dashboard);
+        leave=(FloatingActionButton)findViewById(R.id.leavedetail);
        // dashboard=(LinearLayout) findViewById(R.id.linear_dash);
         recent=(LinearLayout) findViewById(R.id.recent);
         lpo=(TextView)findViewById(R.id.lpo);
@@ -151,6 +153,19 @@ public class DashboardGridFab extends AppCompatActivity {
 
     //    Toast.makeText(this, "after:"+ name+"token="+token, Toast.LENGTH_SHORT).show();
         initToolbar();
+
+        leave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(DashboardGridFab.this, ExpansionPanelInvoice.class);
+                intent.putExtra("userID",userID);
+                intent.putExtra("token",token);
+                intent.putExtra("instance", instanceStr);
+                intent.putExtra("lg",lg);
+                intent.putExtra("bg",bg);
+                startActivity(intent);
+            }
+        });
 
         profile.setOnClickListener(new View.OnClickListener()
 

@@ -304,7 +304,7 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
 
 
         RequestQueue MyRequestQueue = Volley.newRequestQueue(CheckIn.this);
-        String url = "http://" + instanceStr + ".5dsurf.com/app/webservice/getTimeAndAttendancePageOpeningDetail/" + bg + "/" + lg  + "/" + userID+"/"+token;
+        String url = "http://" + instanceStr + ".5dsurf.com/app/webservice//" + bg + "/" + lg  + "/" + userID+"/"+token;
         StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

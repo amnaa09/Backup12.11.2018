@@ -545,7 +545,7 @@ public class DashSale extends AppCompatActivity {
                     Float temp = Float.valueOf(array11[0].toString());
 
                     gauge1.setSpeed(temp);
-//...................................................................................................
+//................................................count12.................................................//
 
 
                     countarray_12 = data.getJSONArray("count_12");
