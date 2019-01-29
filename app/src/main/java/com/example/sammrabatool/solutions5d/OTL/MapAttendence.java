@@ -40,10 +40,13 @@ public class MapAttendence extends FragmentActivity implements
         OnMapReadyCallback {
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    boolean within500m=false;
 
     private GoogleMap mMap;
     Location loc=null;
     Double projectLat, projectLong;
+    String instanceStr,userID, token;
+    int lg, bg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,11 @@ public class MapAttendence extends FragmentActivity implements
 
         projectLong=getIntent().getDoubleExtra("projectLong",0);
         projectLat=getIntent().getDoubleExtra("projectLat",0);
+        instanceStr=getIntent().getStringExtra("instance");
+        userID=getIntent().getStringExtra("userID");
+        token=getIntent().getStringExtra("token");
+        lg=getIntent().getIntExtra("lg", 0);
+        bg=getIntent().getIntExtra("bg", 0);
 
         // Toolbar tb = findViewById(R.id.toolbar);
         //  (AppCompatActivity)getApplication().setSupportActionBar(tb);
@@ -60,8 +68,8 @@ public class MapAttendence extends FragmentActivity implements
         confirmLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if(loc!=null)
+                within500m=true;
+                if(loc!=null && within500m==true)
                 {
                     Calendar cal = Calendar.getInstance();
                     TimeZone tz = cal.getTimeZone();
@@ -69,14 +77,20 @@ public class MapAttendence extends FragmentActivity implements
                     SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd/ kk:mm:ss");
                     sdf.setTimeZone(tz);
                     String time= sdf.format(d);
-                    Toast.makeText(MapAttendence.this, "time="+loc.getLongitude(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(MapAttendence.this, "time="+time, Toast.LENGTH_LONG).show();
                     double lo=loc.getLongitude();
                     double la=loc.getLatitude();
                     Intent intent=new Intent(MapAttendence.this, CheckIn.class);
                     intent.putExtra("Longitude", lo);
                     intent.putExtra("Latitude", la);
                     intent.putExtra("Attendence", 1);
+                    intent.putExtra("userID",userID);
+                    intent.putExtra("token",token);
+                    intent.putExtra("instance", instanceStr);
+                    intent.putExtra("lg",lg);
+                    intent.putExtra("bg",bg);
                     intent.putExtra("Time", time);
+
                     startActivity(intent);
 
 
@@ -279,12 +293,12 @@ public class MapAttendence extends FragmentActivity implements
                     Location.distanceBetween(location.getLatitude(), location.getLongitude(), projectLat, projectLong, results);
                     float distanceInMeters = results[0];
                         Toast.makeText(MapAttendence.this, "result="+distanceInMeters, Toast.LENGTH_SHORT).show();
-                    boolean within500m = distanceInMeters < 500;
-                    if (within500m) {
-                        Toast.makeText(MapAttendence.this, "present", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(MapAttendence.this, "absent", Toast.LENGTH_SHORT).show();
-                    }
+                     within500m = distanceInMeters < 500;
+                        if (within500m) {
+                            Toast.makeText(MapAttendence.this, "Location confirmed", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(MapAttendence.this, "You are too far from the project site", Toast.LENGTH_SHORT).show();
+                        }
 
 
                     }
@@ -362,11 +376,11 @@ public class MapAttendence extends FragmentActivity implements
                     Location.distanceBetween(location.getLatitude(), location.getLongitude(), 33.5352, 73.1108, results);
                     float distanceInMeters = results[0];
                     //    Toast.makeText(MainActivity.this, "result="+distanceInMeters, Toast.LENGTH_SHORT).show();
-                    boolean within500m = distanceInMeters < 500;
+                     within500m = distanceInMeters < 500;
                     if (within500m) {
-                        Toast.makeText(MapAttendence.this, "present", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MapAttendence.this, "Location confirmed", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(MapAttendence.this, "absent", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MapAttendence.this, "You are too far from the project site", Toast.LENGTH_SHORT).show();
                     }
                 }
             };

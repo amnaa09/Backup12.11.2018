@@ -2,7 +2,9 @@ package com.example.sammrabatool.solutions5d.OTL;
 
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -48,6 +50,7 @@ public class MainActivityOut extends AppCompatActivity {
     Button in, out;
     CircularImageView map;
     //  public static final int GET_FROM_GALLERY = 3;
+    SharedPreferences checkin_preferences;
     private static int RESULT_LOAD_IMAGE = 1;
 
     //private static int SELECTED_PICTURE = 1;
@@ -55,7 +58,7 @@ public class MainActivityOut extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_out);
-
+        checkin_preferences = getSharedPreferences("checkin_preferences", Context.MODE_PRIVATE);
         toolbar= (Toolbar) findViewById(R.id.toolbar);
         txt = (TextView) findViewById(R.id.date);
         in=(Button) findViewById(R.id.attendenceIn);
@@ -129,8 +132,13 @@ public class MainActivityOut extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences.Editor editor = checkin_preferences.edit();
+                editor.putInt("Checkin", 0);
+             //   editor.putString("EmpName", empName);
+             //   editor.putString("EmpPicture", empPicture);
+                editor.commit();
 
-                showOTLDialog();
+             //   showOTLDialog();
             }
 
         });

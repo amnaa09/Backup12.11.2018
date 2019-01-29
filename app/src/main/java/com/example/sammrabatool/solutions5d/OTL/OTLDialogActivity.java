@@ -2,11 +2,14 @@ package com.example.sammrabatool.solutions5d.OTL;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,17 +19,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.sammrabatool.solutions5d.OTL.Utils;
 import com.example.sammrabatool.solutions5d.OTL.SignatureUpload.UploadSignature;
@@ -40,6 +52,10 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class OTLDialogActivity extends Activity {
     TextView txt,empNameText;
@@ -49,33 +65,67 @@ public class OTLDialogActivity extends Activity {
     private static int picCounter=0;
     ImageView profileImage;
     EditText txt1;
-    double latitude;
-    double longitude;
-    String instanceStr,  userID, token, empPicture, empName;
+    double user_latitude;
+    double user_longitude;
+    String instanceStr,note,  userID, token, empPicture, empName, timesheetID,personID,attendanceDate,type,  project, task, activity,checkinTime  ;
     int lg,bg;
-    ImageView imageview1, imageview2,imageview3,imageview4,imageview5,imageview6,imageview7;
+    ImageView imageview1, imageview2,imageview3,imageview4,imageview5;
     Button upload_img, upload_signature, submit;
+     SharedPreferences checkin_preferences;
   //  public static Bitmap bm1,bm2,bm3,bm4,bm5,bm6,bm7;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_otl_remarks);
+        progressDialog = new ProgressDialog(this);
+        // toolbar = (Toolbar) findViewById(R.id.toolbar);
+        profileImage=(ImageView) findViewById(R.id.img);
+        empNameText=(TextView) findViewById(R.id.dialog_profilename);
+        txt1 = (EditText) findViewById(R.id.et_post);
+        upload_img=(Button) findViewById(R.id.upload_image) ;
+        upload_signature=(Button) findViewById(R.id.upload_signature) ;
+        submit=(Button) findViewById(R.id.submit_checkin) ;
+        imageview1 = (ImageView)findViewById(R.id.imageView_pic);
+        imageview2 = (ImageView)findViewById(R.id.imageView_pic2);
+        imageview3 = (ImageView)findViewById(R.id.imageView_pic3);
+        imageview4 = (ImageView)findViewById(R.id.imageView_pic4);
+        imageview5 = (ImageView)findViewById(R.id.imageView_pic5);
+
+
+        imageview1.setVisibility(View.GONE);
+        imageview2.setVisibility(View.GONE);
+        imageview3.setVisibility(View.GONE);
+        imageview4.setVisibility(View.GONE);
+        imageview5.setVisibility(View.GONE);
 
     //    final double longitude = getIntent().getDoubleExtra("Longitude", 0);
      //   final double latitude = getIntent().getDoubleExtra("Latitude", 0);
     //    int attendence = getIntent().getIntExtra("Attendence", 0);
     //   final String time = getIntent().getStringExtra("Time");
-
-
+        empName="";
+        empPicture="";
+        checkin_preferences = getSharedPreferences("checkin_preferences", Context.MODE_PRIVATE);
         instanceStr=getIntent().getStringExtra("instanceStr");
         token=getIntent().getStringExtra("token");
         lg=getIntent().getIntExtra("lg", 0);
         bg=getIntent().getIntExtra("bg", 0);
         userID=getIntent().getStringExtra("userID");
-        longitude=getIntent().getDoubleExtra("longitude", 0);
-        latitude=getIntent().getDoubleExtra("latitude", 0);
+        user_longitude=getIntent().getDoubleExtra("longitude", 0);
+        user_latitude=getIntent().getDoubleExtra("latitude", 0);
         empName=getIntent().getStringExtra("empName");
         empPicture=getIntent().getStringExtra("empPic");
+        timesheetID=getIntent().getStringExtra("timesheetID");
+        personID=getIntent().getStringExtra("personID");
+        attendanceDate=getIntent().getStringExtra("attendanceDate");
+        type=getIntent().getStringExtra("type");
+        project=getIntent().getStringExtra("project");
+        task=getIntent().getStringExtra("task");
+        activity=getIntent().getStringExtra("activity");
+        checkinTime=getIntent().getStringExtra("checkinTime");
+
+
+     //   Toast.makeText(this, "name="+empName+"pic="+empPicture, Toast.LENGTH_SHORT).show();
         if(empName.compareTo("")==0)
             empNameText.setText("Unknown");
         else
@@ -94,7 +144,7 @@ public class OTLDialogActivity extends Activity {
                    //    URL url = new URL(data.getString(""));
                     //    Toast.makeText(ProfilePurple.this, "picccc", Toast.LENGTH_SHORT).show();
 
-                    Picasso.get().load(empPicture).transform(new CircleTransform()).into(profileImage);
+                   Picasso.get().load(empPicture).transform(new CircleTransform()).into(profileImage);
 
               //  }
             //    catch ( ) {
@@ -105,50 +155,57 @@ public class OTLDialogActivity extends Activity {
             }
         }
         picCounter=0;
-        counterImages=0;
+   //     counterImages=0;
         jsonObject = new JSONObject();
-        progressDialog = new ProgressDialog(this);
-       // toolbar = (Toolbar) findViewById(R.id.toolbar);
-        profileImage=(ImageView) findViewById(R.id.img);
-        empNameText=(TextView) findViewById(R.id.dialog_profilename);
-         txt1 = (EditText) findViewById(R.id.et_post);
-         upload_img=(Button) findViewById(R.id.upload_image) ;
-        upload_signature=(Button) findViewById(R.id.upload_signature) ;
-        submit=(Button) findViewById(R.id.submit_checkin) ;
-         imageview1 = (ImageView)findViewById(R.id.imageView_pic);
-         imageview2 = (ImageView)findViewById(R.id.imageView_pic2);
-         imageview3 = (ImageView)findViewById(R.id.imageView_pic3);
-         imageview4 = (ImageView)findViewById(R.id.imageView_pic4);
-         imageview5 = (ImageView)findViewById(R.id.imageView_pic5);
-         imageview6 = (ImageView)findViewById(R.id.imageView_pic6);
-         imageview7 = (ImageView)findViewById(R.id.imageView_pic7);
-
-        imageview1.setVisibility(View.GONE);
-        imageview2.setVisibility(View.GONE);
-        imageview3.setVisibility(View.GONE);
-        imageview4.setVisibility(View.GONE);
-        imageview5.setVisibility(View.GONE);
-        imageview6.setVisibility(View.GONE);
-        imageview7.setVisibility(View.GONE);
 
 
+
+//-------------getting signature image from signature activity-----------------------------------
         byte[] byteArray = getIntent().getByteArrayExtra("image");
         if(byteArray!=null) {
             Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-            imageview1.setVisibility(View.VISIBLE);
-            imageview1.setImageBitmap(bmp);
+           // imageview1.setVisibility(View.VISIBLE);
+          //  imageview1.setImageBitmap(bmp);
             int counterFlag = getIntent().getIntExtra("fromSignature", 0);
-            if (counterFlag == 1)
-                picCounter = 1;
+           // picCounter++;
+            if(picCounter==1) {
+                imageview1.setVisibility(View.VISIBLE);
+                imageview1.setImageBitmap(bmp);
+                picCounter++;
+            }
+            else if(picCounter==2) {
+                imageview2.setVisibility(View.VISIBLE);
+                imageview2.setImageBitmap(bmp);
+                picCounter++;
+            }
+            else if(picCounter==3) {
+                imageview3.setVisibility(View.VISIBLE);
+                imageview3.setImageBitmap(bmp);
+                picCounter++;
+            }
+            else if(picCounter==4) {
+                imageview4.setVisibility(View.VISIBLE);
+                imageview4.setImageBitmap(bmp);
+                picCounter++;
+            }
+            else if(picCounter==5) {
+                picCounter++;
+                imageview5.setVisibility(View.VISIBLE);
+                imageview5.setImageBitmap(bmp);
+            }
+          //  if (counterFlag == 1)
+            //    picCounter = 1;
         }
 
-upload_img.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, Utils.REQCODE);
-    }
-});
+        //----------------------------------end---------------------------------------
+
+            upload_img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, Utils.REQCODE);
+                    }
+            });
 
         upload_signature.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,13 +217,26 @@ upload_img.setOnClickListener(new View.OnClickListener() {
                 } else {
 
                     Intent intent=new Intent(OTLDialogActivity.this, UploadSignature.class);
-                    //  intent.putExtra("userID",userID);
-                    //  intent.putExtra("token",token);
-                    //  intent.putExtra("instance", instanceStr);
-                    //  intent.putExtra("lg",lg);
-                    //  intent.putExtra("bg",bg);
+
+                    intent.putExtra("instanceStr", instanceStr);
+                    intent.putExtra("lg", lg);
+                    intent.putExtra("bg", bg);
+                    intent.putExtra("userID", userID);
+                    intent.putExtra("token", token);
+                    intent.putExtra("timesheetID", timesheetID);
+                    intent.putExtra("personID", personID);
+                    intent.putExtra("attendanceDate", attendanceDate);
+                    intent.putExtra("type", type);
+                    intent.putExtra("project", project);
+                    intent.putExtra("task", task);
+                    intent.putExtra("activity", activity);
+                    intent.putExtra("checkinTime", checkinTime);
+                    intent.putExtra("longitude", user_longitude);
+                    intent.putExtra("latitude", user_latitude);
+                    intent.putExtra("empName", empName);
+                    intent.putExtra("empPic", empPicture);
                     startActivity(intent);
-                    finish();
+                   // finish();
 
 
                 }
@@ -278,18 +348,23 @@ upload_img.setOnClickListener(new View.OnClickListener() {
 
 
                 JSONArray imgArray=new JSONArray();
-                for(int i=0;i<picCounter;i++)
+                JSONArray nameArray=new JSONArray();
+                for(int i=0;i<picCounter;i++) {
                     imgArray.put(imageArray[i]);
+                    nameArray.put(userID+"_"+counterImages++);
+                }
                 //   String jsonObjectString = new Gson().toJson(imageArray);
 
 
 
                 try {
-                    jsonObject.put(Utils.imageName, "upload"+counterImages++);
+                  //  jsonObject.put(Utils.imageName, userID);
                     //   Log.e("Image name", etxtUpload.getText().toString().trim());
                     jsonObject.put("picCounter", picCounter);
+                //    jsonObject.put("titleCounter", counterImages);
                     //  jsonObject.put(Utils.image, tmp);
                     jsonObject.put(Utils.image, imgArray);
+                    jsonObject.put(Utils.imageName, nameArray);
 
 
                     //  messageText.setText(encodedImage1);
@@ -302,50 +377,88 @@ upload_img.setOnClickListener(new View.OnClickListener() {
                 } catch (JSONException e) {
                     Log.e("JSONObject Here", e.toString());
                 }
-                JsonObjectRequest jsonObjectRequest1 = new JsonObjectRequest(Request.Method.POST, Utils.urlUpload, jsonObject,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject jsonObject) {
-                                Log.e("Message from server", jsonObject.toString());
-                                progressDialog.dismiss();
-                                //     messageText.setText("Image Uploaded Successfully");
-                                Toast.makeText(getApplication(), "Image Uploaded Successfully", Toast.LENGTH_SHORT).show();
-                                Intent i=new Intent(OTLDialogActivity.this, MainActivityOut.class);
-                                startActivity(i);
-                            }
-                        }, new Response.ErrorListener() {
+
+                Location loc= new Location("");
+                loc.setLongitude((double)user_longitude);
+                loc.setLatitude((double)user_latitude);
+                Calendar cal = Calendar.getInstance();
+                TimeZone tz = cal.getTimeZone();
+                Date d = new Date(loc.getTime());
+                SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd/ kk:mm:ss");
+                sdf.setTimeZone(tz);
+                String time= sdf.format(d);
+
+                note=txt1.getText().toString();
+                //--------------------calling webservice for tasks-------------------------------
+
+
+                RequestQueue MyRequestQueue = Volley.newRequestQueue(OTLDialogActivity.this);
+               String url = "http://" + instanceStr + ".5dsurf.com/app/webservice/checkIn/" + bg + "/" + lg  + "/" + userID+"/"+token+"/"+timesheetID+"/"+personID+"/"+time+"/"+type+"/"+project+"/"+task+"/"+activity+"/"+note+"/"+time+"/"+"0/"+user_longitude+"/"+user_latitude+"/"+jsonObject;
+                StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                     @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Log.e("Message from server:   ", volleyError.toString());
-                        //  messageText.setText("Message from server:   "+ volleyError.toString());
-                        progressDialog.dismiss();
+                    public void onResponse(String response) {
+
+                        try {
+                            JSONObject data = new JSONObject(response.toString());
+
+                            Toast.makeText(OTLDialogActivity.this, "check in done", Toast.LENGTH_SHORT).show();
+                            if (progressDialog.isShowing())
+                                progressDialog.hide();
+                            //   message = data.getString("message");
+                            // Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                            // }
+
+                        }
+                        catch (JSONException e) {
+                            if (progressDialog.isShowing())
+                                progressDialog.hide();
+                            e.printStackTrace();
+                            //
+                            //                            //  instance.setText("error= " + e.getMessage());
+                            Toast.makeText(OTLDialogActivity.this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //This code is executed if there is an error.
+                        String message = null;
+                        if (error instanceof NetworkError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ServerError) {
+                            message = "The server could not be found. Please try again after some time!!";
+                        } else if (error instanceof AuthFailureError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ParseError) {
+                            message = "Parsing error! Please try again after some time!!";
+                        } else if (error instanceof NoConnectionError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof TimeoutError) {
+                            message = "Connection TimeOut! Please check your internet connection.";
+                        }
+                        Toast.makeText(OTLDialogActivity.this, message, Toast.LENGTH_SHORT).show();
+                        if (progressDialog.isShowing())
+                            progressDialog.hide();
+
                     }
                 });
-                jsonObjectRequest1.setRetryPolicy(new DefaultRetryPolicy(5000,
-                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-                Volley.newRequestQueue(OTLDialogActivity.this).add(jsonObjectRequest1);
+                MyStringRequest.setShouldCache(false);
+                MyRequestQueue.add(MyStringRequest);
+
+                progressDialog.setCancelable(false);
+                progressDialog.setTitle("Loading...");
+                progressDialog.setMessage("Please wait");
+                //    progressDialog.show();
+
+                //---------------------------end calling webservice--------------------
+
             }
         });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        picCounter++;
-        if(picCounter==1)
-            imageview1.setVisibility(View.VISIBLE);
-        else if(picCounter==2)
-            imageview2.setVisibility(View.VISIBLE);
-        else if(picCounter==3)
-            imageview3.setVisibility(View.VISIBLE);
-        else if(picCounter==4)
-            imageview4.setVisibility(View.VISIBLE);
-        else if(picCounter==5)
-            imageview5.setVisibility(View.VISIBLE);
-        else if(picCounter==6)
-            imageview6.setVisibility(View.VISIBLE);
-        else if(picCounter==7)
-            imageview7.setVisibility(View.VISIBLE);
+
 
         Uri selectedImageUri=null;
         if (requestCode == Utils.REQCODE && resultCode == RESULT_OK && data != null) {
@@ -366,35 +479,31 @@ upload_img.setOnClickListener(new View.OnClickListener() {
             //    String s= getRealPathFromURI(selectedImageUri);
             //  File f = new File("" + selectedImageUri);
             //  Utils.imageName=f.getName();
-            if(counterImages==0)
-            {   imageview1.setImageURI(selectedImageUri);
-                counterImages++;
+
+            picCounter++;
+            if(picCounter==1) {
+                imageview1.setVisibility(View.VISIBLE);
+                imageview1.setImageURI(selectedImageUri);
+            }
+            else if(picCounter==2) {
+                imageview2.setVisibility(View.VISIBLE);
+                imageview2.setImageURI(selectedImageUri);
+
+            }
+            else if(picCounter==3) {
+                imageview3.setVisibility(View.VISIBLE);
+                imageview3.setImageURI(selectedImageUri);
+            }
+            else if(picCounter==4) {
+                imageview4.setVisibility(View.VISIBLE);
+                imageview4.setImageURI(selectedImageUri);
+            }
+            else if(picCounter==5) {
+                imageview5.setImageURI(selectedImageUri);
+                imageview5.setVisibility(View.VISIBLE);
             }
 
-            else if(counterImages==1)
-            {   imageview2.setImageURI(selectedImageUri);
-                counterImages++;
-            }
-            else if(counterImages==2)
-            {   imageview3.setImageURI(selectedImageUri);
-                counterImages++;
-            }
-            else if(counterImages==3)
-            {   imageview4.setImageURI(selectedImageUri);
-                counterImages++;
-            }
-            else if(counterImages==4)
-            {   imageview5.setImageURI(selectedImageUri);
-                counterImages++;
-            }
-            else if(counterImages==5)
-            {   imageview6.setImageURI(selectedImageUri);
-                counterImages++;
-            }
-            else if(counterImages==6)
-            {   imageview7.setImageURI(selectedImageUri);
-                counterImages++;
-            }
+
 /*
 try {
     Bitmap image1 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);

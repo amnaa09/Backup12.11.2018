@@ -63,9 +63,10 @@ public class ProfileFabMenu extends AppCompatActivity {
     int lg, bg;
     boolean user_valid;
     ImageView profimg;
+    TextView pname;
 
     String instanceStr, message, userID, token, profile, text;
-    String picture,employee_number,employee_heading, hireDate,hiredate_heading,gender_heading, gender,martial_heading, dob,dob_heading,email_heading, maritalStatus, nationality,nationality_heading,
+    String picture,name, employee_number,employee_heading, hireDate,hiredate_heading,gender_heading, gender,martial_heading, dob,dob_heading,email_heading, maritalStatus, nationality,nationality_heading,
             email, officeNum,officeNum_heading, org,org_heading, job,job_heading, grade,grade_heading, location,location_heading, status,status_heading, manager,manager_heading, passNum,passnum_heading, passIssue,passissue_heading, passexpire,passexpire_heading, visaNum,visanum_heading, visaIssue,visaissue_heading, visaExpire,visaexpire_heading, laborNum,labornum_heading,
             laborIssue,laborissue_heading, laborExpire,laborexpire_heading, nationalId,nationalid_heading, nationalIdIssue,nationalIDissue_heading, nationalIdExpire,nationalIDexpire_heading, pic;
 
@@ -81,6 +82,7 @@ public class ProfileFabMenu extends AppCompatActivity {
         Visa = (FloatingActionButton) findViewById(R.id.visa);
         National = (FloatingActionButton) findViewById(R.id.national);
         Labor = (FloatingActionButton) findViewById(R.id.labor);
+        pname=(TextView) findViewById(R.id.profile_name);
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
         lg = getIntent().getIntExtra("lg", 0);
@@ -88,6 +90,8 @@ public class ProfileFabMenu extends AppCompatActivity {
         userID = getIntent().getStringExtra("userID");
         instanceStr = getIntent().getStringExtra("instance");
         token = getIntent().getStringExtra("token");
+        name=getIntent().getStringExtra("name");
+        pname.setText(name);
 
         RequestQueue MyRequestQueue = Volley.newRequestQueue(this);
 
@@ -487,7 +491,7 @@ public class ProfileFabMenu extends AppCompatActivity {
 
         img = (ImageView) dialog.findViewById(R.id.image);
 
-        Toast.makeText(ctx, "url="+pic12, Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(ctx, "url="+pic12, Toast.LENGTH_SHORT).show();
 if(!(pic12.equals(""))){
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
         if (SDK_INT > 8) {

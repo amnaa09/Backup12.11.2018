@@ -50,6 +50,11 @@ public class UploadSignature extends AppCompatActivity {
     private Button saveButton = null;
     private ProgressDialog dialog = null;
     private JSONObject jsonObject;
+    double latitude;
+    double longitude;
+    String instanceStr,  userID, token, empPicture, empName, timesheetID, personID, attendanceDate, type, project, task, activity, checkinTime;
+    Double user_longitude, user_latitude;
+    int lg,bg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +65,34 @@ public class UploadSignature extends AppCompatActivity {
         dialog = new ProgressDialog(this);
         dialog.setMessage("Uploading Image...");
         dialog.setCancelable(false);
+
+        instanceStr=getIntent().getStringExtra("instanceStr");
+        token=getIntent().getStringExtra("token");
+        lg=getIntent().getIntExtra("lg", 0);
+        bg=getIntent().getIntExtra("bg", 0);
+        userID=getIntent().getStringExtra("userID");
+        user_longitude=getIntent().getDoubleExtra("longitude", 0);
+        user_latitude=getIntent().getDoubleExtra("latitude", 0);
+        empName=getIntent().getStringExtra("empName");
+        empPicture=getIntent().getStringExtra("empPic");
+        timesheetID=getIntent().getStringExtra("timesheetID");
+        personID=getIntent().getStringExtra("personID");
+        attendanceDate=getIntent().getStringExtra("attendanceDate");
+        type=getIntent().getStringExtra("type");
+        project=getIntent().getStringExtra("project");
+        task=getIntent().getStringExtra("task");
+        activity=getIntent().getStringExtra("activity");
+        checkinTime=getIntent().getStringExtra("checkinTime");
+
+  /*      instanceStr=getIntent().getStringExtra("instanceStr");
+        token=getIntent().getStringExtra("token");
+        lg=getIntent().getIntExtra("lg", 0);
+        bg=getIntent().getIntExtra("bg", 0);
+        userID=getIntent().getStringExtra("userID");
+        longitude=getIntent().getDoubleExtra("longitude", 0);
+        latitude=getIntent().getDoubleExtra("latitude", 0);
+        empName=getIntent().getStringExtra("empName");
+        empPicture=getIntent().getStringExtra("empPic");*/
 
         jsonObject = new JSONObject();
         init();
@@ -154,10 +187,27 @@ public class UploadSignature extends AppCompatActivity {
 
             byte[] byteArray = byteArrayOutputStream.toByteArray();
 
-            Intent in1 = new Intent(this, OTLDialogActivity.class);
-            in1.putExtra("image",byteArray);
-            in1.putExtra("fromSignature", 1);
-            startActivity(in1);
+            Intent intent = new Intent(this, OTLDialogActivity.class);
+            intent.putExtra("image",byteArray);
+            intent.putExtra("fromSignature", 1);
+            intent.putExtra("instanceStr", instanceStr);
+            intent.putExtra("lg", lg);
+            intent.putExtra("bg", bg);
+            intent.putExtra("userID", userID);
+            intent.putExtra("token", token);
+            intent.putExtra("timesheetID", timesheetID);
+            intent.putExtra("personID", personID);
+            intent.putExtra("attendanceDate", attendanceDate);
+            intent.putExtra("type", type);
+            intent.putExtra("project", project);
+            intent.putExtra("task", task);
+            intent.putExtra("activity", activity);
+            intent.putExtra("checkinTime", checkinTime);
+            intent.putExtra("longitude", user_longitude);
+            intent.putExtra("latitude", user_latitude);
+            intent.putExtra("empName", empName);
+            intent.putExtra("empPic", empPicture);
+            startActivity(intent);
             finish();
 
 

@@ -31,6 +31,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
 import com.example.sammrabatool.solutions5d.DashboardOptions.DashboardOptions;
 import com.example.sammrabatool.solutions5d.OTL.CheckIn;
+import com.example.sammrabatool.solutions5d.OTL.MainActivityOut;
 import com.example.sammrabatool.solutions5d.R;
 import com.example.sammrabatool.solutions5d.Reminder.CustomAdapter;
 import com.example.sammrabatool.solutions5d.Reminder.Model;
@@ -63,8 +64,9 @@ public class DashboardGridFab extends AppCompatActivity {
     String recent_activity[];
     String reminder,notification_id,messg,c,status,date,f,fy,h,k,l,m,n,text;
     int lenght;
+    SharedPreferences checkin_preferences;
     TextView lpo,grn,supplier,payment,receipt,customer,requisition;
-
+    String emp_name, emp_pic;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +89,7 @@ public class DashboardGridFab extends AppCompatActivity {
         btnbell=(GifImageButton)findViewById(R.id.APPLY);
 
         SharedPreferences sharedprefSignup = getSharedPreferences("SignupPref", Context.MODE_PRIVATE);
+        checkin_preferences = getSharedPreferences("checkin_preferences", Context.MODE_PRIVATE);
 
         userID=sharedprefSignup.getString("userID", "save user id");//getIntent().getStringExtra("userID");
         instanceStr=sharedprefSignup.getString("instance", "save user id");//getIntent().getStringExtra("instance");
@@ -149,6 +152,7 @@ public class DashboardGridFab extends AppCompatActivity {
                 intent.putExtra("token",token);
                 intent.putExtra("instance", instanceStr);
                 intent.putExtra("lg",lg);
+                intent.putExtra("name",name);
                 intent.putExtra("bg",bg);
                 startActivity(intent);
 
@@ -161,13 +165,31 @@ public class DashboardGridFab extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent=new Intent(DashboardGridFab.this, CheckIn.class);
-                intent.putExtra("userID",userID);
-                intent.putExtra("token",token);
-                intent.putExtra("instance", instanceStr);
-                intent.putExtra("lg",lg);
-                intent.putExtra("bg",bg);
-                startActivity(intent);
+                emp_name=checkin_preferences.getString("EmpName", "");
+                emp_pic=checkin_preferences.getString("EmpPicture", "");
+                if(checkin_preferences.getInt("Checkin", 0)==1)
+                {
+                    Intent intent=new Intent(DashboardGridFab.this, MainActivityOut.class);
+                    intent.putExtra("userID",userID);
+                    intent.putExtra("token",token);
+                    intent.putExtra("instance", instanceStr);
+                    intent.putExtra("lg",lg);
+                    intent.putExtra("bg",bg);
+                    intent.putExtra("empName", emp_name);
+                    intent.putExtra("empPic", emp_pic);
+                    startActivity(intent);
+                //    finish();
+                }
+                else {
+                    Intent intent = new Intent(DashboardGridFab.this, CheckIn.class);
+                    intent.putExtra("userID", userID);
+                    intent.putExtra("token", token);
+                    intent.putExtra("instance", instanceStr);
+                    intent.putExtra("lg", lg);
+                    intent.putExtra("bg", bg);
+                    startActivity(intent);
+                 //   finish();
+                }
 
 
             }

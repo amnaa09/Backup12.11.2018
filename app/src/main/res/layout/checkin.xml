@@ -167,9 +167,6 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-
-
-
             <LinearLayout
                 android:id="@+id/info1"
                 android:layout_width="match_parent"
@@ -189,7 +186,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Type"
+                        android:text="Type    "
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                         android:textColor="@color/colorPrimaryDark"
                         android:textStyle="bold" />
@@ -198,6 +195,7 @@
                         android:id="@+id/spinnerType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="2"
 
                         />
 
@@ -234,6 +232,7 @@
                         android:id="@+id/spinnerProject"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="2"
 
                         />
 
@@ -261,7 +260,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Task"
+                    android:text="Task    "
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                     android:textColor="@color/colorPrimaryDark"
                     android:textStyle="bold" />
@@ -271,7 +270,7 @@
                     android:id="@+id/spinnerTask"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:layout_weight="2"
                     />
 
             </LinearLayout>
@@ -308,7 +307,7 @@
                         android:id="@+id/spinnerActivity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
+                        android:layout_weight="2"
                         />
 
                 </LinearLayout>

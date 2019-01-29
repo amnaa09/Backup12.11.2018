@@ -42,14 +42,7 @@
                 android:textColor="@color/grey_90"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_small"
-                android:gravity="center_vertical"
-                android:text="Customer services"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="@color/grey_40" />
+
 
         </LinearLayout>
 
@@ -107,6 +100,22 @@
 
     </LinearLayout>
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_medium"
+        android:orientation="vertical"
+        >
+
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Maximum 5 images can be selected*"
+       android:textAppearance="@style/TextAppearance.AppCompat.Small"
+       android:textColor="@color/grey_40"
+       android:textSize="12dp"/>
+
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -158,27 +167,7 @@
 
             android:layout_weight="1"
             android:src="@mipmap/ic_launcher" />
-        <View
-            android:layout_width="5dp"
-            android:layout_height="50dp" />
 
-        <ImageView
-            android:id="@+id/imageView_pic6"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-
-            android:layout_weight="1"
-            android:src="@mipmap/ic_launcher" />
-        <View
-            android:layout_width="5dp"
-            android:layout_height="50dp" />
-        <ImageView
-            android:id="@+id/imageView_pic7"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-
-            android:layout_weight="1"
-            android:src="@mipmap/ic_launcher" />
     </LinearLayout>
 
     <LinearLayout
@@ -189,20 +178,16 @@
         android:orientation="horizontal">
 
 
-
-
         <Button
 
             android:id="@+id/upload_image"
             style="@style/Button.Accent.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@drawable/btn_rounded_primary"
             android:text="Upload Image"
-            android:layout_weight="1"
             android:textColor="@color/grey_3" />
-
-
 
 
         <Button

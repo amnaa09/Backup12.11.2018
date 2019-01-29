@@ -82,8 +82,8 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
     private static final long MINIMUM_TIME_BETWEEN_UPDATES = 1000; // in Milliseconds
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     Location loc;
-    double latitude;
-    double longitude;
+    double user_latitude;
+    double user_longitude;
     protected LocationManager locationManager;
     TextView txt,empNameText;
     private static  int uploadCounter=0;
@@ -107,28 +107,28 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
     String message;
     String instanceStr,  userID, token;
     int lg,bg;
-    JSONObject otlProjectdetail[], otlTypedetail[], otlEmpDetail, otlProjectLocationDetail;
-    JSONArray otlPorjectArray, otltypeArray;
-    String projecrID, projectName, typeId, typeName, empId, empName, empGrade, empOrg, empPic, selectedProjectID;
+    JSONObject otlProjectdetail[], otlTypedetail[], otlEmpDetail,otlTimeSheetDetail, otlProjectLocationDetail, otlTaskdetail[], otlActivitydetail[];
+    JSONArray otlPorjectArray, otltypeArray, otlPorjectTaskArray, otlPorjectTaskActivityArray;
+    String projecrID, projectName,timePeriodID,timePeriodCurrentMonth,timePeriodCurrentYear,timePeriodStartDate, timePeriodEndDate,typeId, typeName, empId, empName, empGrade, empOrg, empPic, selectedTypeID="0",selectedProjectID="0", taskID, taskName, selectedTaskID="0", activityID, activityName, selectedActivityID="0";
     ImageView profileImage;
     Double projectLong, projectLat;
-    Boolean locationBasedProject=false;
+    String locationBasedProject;
     private JSONObject jsonObject;
     private static int counterImages=0;
     private static int picCounter=0;
    public static Bitmap bm1,bm2,bm3,bm4,bm5,bm6,bm7;
+    int attendence=0;
+    String time;
 
-
-    //private static int SELECTED_PICTURE = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.checkin);
 
-        final double longitude = getIntent().getDoubleExtra("Longitude", 0);
-        final double latitude = getIntent().getDoubleExtra("Latitude", 0);
-        int attendence = getIntent().getIntExtra("Attendence", 0);
-        final String time = getIntent().getStringExtra("Time");
+        user_longitude = getIntent().getDoubleExtra("Longitude", 0);
+        user_latitude = getIntent().getDoubleExtra("Latitude", 0);
+         attendence = getIntent().getIntExtra("Attendence", 0);
+         time = getIntent().getStringExtra("Time");
         picCounter=0;
         counterImages=0;
         instanceStr=getIntent().getStringExtra("instance");
@@ -155,9 +155,13 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
         profileImage=(ImageView) findViewById(R.id.profileImage);
 //-----------------------------------setting spinners--------------------------------------
         listtype.add("Select type");
+        hashSpinnerType.put(0, "0");
         listtask.add("Select task");
+        hashSpinnerTask.put(0,"0");
         listproject.add("Select project");
+        hashSpinnerProject.put(0,"0");
         listactivity.add("Select activity");
+        hashSpinnerActivity.put(0,"0");
 
         type.setOnItemSelectedListener(this);
         task.setOnItemSelectedListener(this);
@@ -219,11 +223,11 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
                 // Toast.makeText(MainActivity.this, "map", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(CheckIn.this, MapAttendence.class);
-                //  intent.putExtra("userID",userID);
-                //  intent.putExtra("token",token);
-                //  intent.putExtra("instance", instanceStr);
-                //  intent.putExtra("lg",lg);
-                //  intent.putExtra("bg",bg);
+                  intent.putExtra("userID",userID);
+                  intent.putExtra("token",token);
+                  intent.putExtra("instance", instanceStr);
+                  intent.putExtra("lg",lg);
+                  intent.putExtra("bg",bg);
                 intent.putExtra("projectLong",projectLong);
                 intent.putExtra("projectLat",projectLat);
                 startActivity(intent);
@@ -234,7 +238,7 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
         in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(CheckIn.this, "innnnn", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(CheckIn.this, "type="+selectedTypeID+"project="+selectedProjectID+"task="+selectedTaskID+"activity="+selectedActivityID, Toast.LENGTH_SHORT).show();
                 //  Toast.makeText(MainActivity.this, "date="+new GetDateAndTime().execute(""), Toast.LENGTH_SHORT).show();
             }
         });
@@ -264,18 +268,22 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.ACCESS_FINE_LOCATION},
                     LOCATION_PERMISSION_REQUEST_CODE);
+
+            locationManager.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER,
+                    MINIMUM_TIME_BETWEEN_UPDATES,
+                    MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
+                    new MyLocationListener()
+            );
         }
-        locationManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER,
-                MINIMUM_TIME_BETWEEN_UPDATES,
-                MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
-                new MyLocationListener()
-        );
+
       //  Toast.makeText(MainActivity.this, "back in hceckin", Toast.LENGTH_SHORT).show();
         checkin = (Button) findViewById(R.id.checkin);
         checkin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(CheckIn.this, "type="+selectedTypeID+"project="+selectedProjectID+"task="+selectedTaskID+"activity="+selectedActivityID, Toast.LENGTH_SHORT).show();
+
                 progressDialog.setCancelable(false);
                 progressDialog.setTitle("Loading...");
                 progressDialog.setMessage("Please wait");
@@ -307,69 +315,82 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
                    // user_valid = data.getBoolean("valid_user");
                   //  if(user_valid==true) {}
                   //  else {
-                    otlPorjectArray=data.getJSONArray("proj" +
-                            "ect");
-                    otlProjectdetail=new JSONObject[otlPorjectArray.length()];
-                    for(int i=0;i<otlPorjectArray.length();i++)
-                    {
-                        otlProjectdetail[i]=otlPorjectArray.getJSONObject(i);
-                        projecrID=otlProjectdetail[i].getString("projecrID");
-                        projectName=otlProjectdetail[i].getString("ProjectName");
-                        listproject.add(projectName);
-                        hashSpinnerProject.put(i+1,projecrID);
-                        //Toast.makeText(MainActivity.this, "id="+projecrID+"name="+projectName, Toast.LENGTH_SHORT).show();
+                    if(data.getJSONArray("project")!=null){
+                    otlPorjectArray=data.getJSONArray("project");
+                  //  if(otlPorjectArray!=null) {
+                        otlProjectdetail = new JSONObject[otlPorjectArray.length()];
+                        for (int i = 0; i < otlPorjectArray.length(); i++) {
+                            otlProjectdetail[i] = otlPorjectArray.getJSONObject(i);
+                            projecrID = otlProjectdetail[i].getString("projecrID");
+                            projectName = otlProjectdetail[i].getString("ProjectName");
+                            listproject.add(projectName);
+                            hashSpinnerProject.put(i + 1, projecrID);
+                            //Toast.makeText(MainActivity.this, "id="+projecrID+"name="+projectName, Toast.LENGTH_SHORT).show();
+                        }
+
+                        //-------setting data to spinner----------------
+                        ArrayAdapter projectAdapter = new ArrayAdapter(CheckIn.this, android.R.layout.simple_spinner_item, listproject);
+                        projectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        //Setting the ArrayAdapter data on the Spinner
+                        project.setAdapter(projectAdapter);
+                        //--------------------------------------------------------------------------
                     }
-
-                    //-------setting data to spinner----------------
-                    ArrayAdapter projectAdapter = new ArrayAdapter(CheckIn.this,android.R.layout.simple_spinner_item,listproject);
-                    projectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    //Setting the ArrayAdapter data on the Spinner
-                    project.setAdapter(projectAdapter);
-                    //--------------------------------------------------------------------------
-
+                    if(data.getJSONArray("type")!=null){
                     otltypeArray=data.getJSONArray("type");
-                    otlTypedetail=new JSONObject[otltypeArray.length()];
-                    for(int i=0;i<otltypeArray.length();i++)
-                    {
-                        otlTypedetail[i]=otltypeArray.getJSONObject(i);
-                        typeId=otlTypedetail[i].getString("id");
-                        typeName=otlTypedetail[i].getString("name");
-                        listtype.add(typeName);
-                        hashSpinnerType.put(i+1,typeId);
-                          }
-                          //-------setting data to spinner----------------
-                    ArrayAdapter typeAdapter = new ArrayAdapter(CheckIn.this,android.R.layout.simple_spinner_item,listtype);
-                    typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    //Setting the ArrayAdapter data on the Spinner
-                    type.setAdapter(typeAdapter);
-                    //--------------------------------------------------------------------------
+                   // if(otltypeArray!=null) {
+                        otlTypedetail = new JSONObject[otltypeArray.length()];
+                        for (int i = 0; i < otltypeArray.length(); i++) {
+                            otlTypedetail[i] = otltypeArray.getJSONObject(i);
+                            typeId = otlTypedetail[i].getString("id");
+                            typeName = otlTypedetail[i].getString("name");
+                            listtype.add(typeName);
+                            hashSpinnerType.put(i + 1, typeId);
+                        }
+                        //-------setting data to spinner----------------
+                        ArrayAdapter typeAdapter = new ArrayAdapter(CheckIn.this, android.R.layout.simple_spinner_item, listtype);
+                        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        //Setting the ArrayAdapter data on the Spinner
+                        type.setAdapter(typeAdapter);
+                        //--------------------------------------------------------------------------
+                    }
                     otlEmpDetail=data.getJSONObject("employeeDetail");
-                    empName=otlEmpDetail.getString("employeeName");
-                    empPic=otlEmpDetail.getString("employeePic");
-                  //  Toast.makeText(CheckIn.this, "pic="+empPic, Toast.LENGTH_SHORT).show();
+                    if(otlEmpDetail!=null) {
+                        empId = otlEmpDetail.getString("personID");
+                        empName = otlEmpDetail.getString("employeeName");
+                        empPic = otlEmpDetail.getString("employeePic");
+                        //  Toast.makeText(CheckIn.this, "pic="+empPic, Toast.LENGTH_SHORT).show();
 
-                    empNameText.setText(empName);
-                    int SDK_INT = Build.VERSION.SDK_INT;
-                    if (SDK_INT > 8)
-                    {
-                        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                                .permitAll().build();
-                        StrictMode.setThreadPolicy(policy);
-                        //your codes here
-                       try {
-                         //   URL url = new URL(data.getString(""));
-                            //    Toast.makeText(ProfilePurple.this, "picccc", Toast.LENGTH_SHORT).show();
+                        empNameText.setText(empName);
+                        int SDK_INT = Build.VERSION.SDK_INT;
+                        if (SDK_INT > 8) {
+                            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                                    .permitAll().build();
+                            StrictMode.setThreadPolicy(policy);
+                            //your codes here
+                            try {
+                                //   URL url = new URL(data.getString(""));
+                                //    Toast.makeText(ProfilePurple.this, "picccc", Toast.LENGTH_SHORT).show();
 
-                            Picasso.get().load(otlEmpDetail.getString("employeePic")).transform(new CircleTransform()).into(profileImage);
+                                Picasso.get().load(otlEmpDetail.getString("employeePic")).transform(new CircleTransform()).into(profileImage);
+
+                            } catch (JSONException error) {
+                                Toast.makeText(CheckIn.this, "Error:" + error.toString(), Toast.LENGTH_SHORT).show();
+
+                            }
 
                         }
-                      catch ( JSONException error) {
-                            Toast.makeText(CheckIn.this, "Error:"+error.toString(), Toast.LENGTH_SHORT).show();
-
-                        }
-
                     }
 
+                    otlTimeSheetDetail=data.getJSONObject("timeSheetDetail");
+                    if(otlTimeSheetDetail!=null) {
+                        timePeriodID = otlTimeSheetDetail.getString("timePeriodID");
+                        timePeriodCurrentMonth = otlTimeSheetDetail.getString("timePeriodCurrentMonth");
+                        timePeriodCurrentYear = otlTimeSheetDetail.getString("timePeriodCurrentYear");
+                        timePeriodStartDate = otlTimeSheetDetail.getString("timePeriodStartDate");
+                        timePeriodEndDate = otlTimeSheetDetail.getString("timePeriodEndDate");
+                   //     Toast.makeText(CheckIn.this, "timedetail="+timePeriodID+timePeriodCurrentMonth+timePeriodCurrentYear+timePeriodStartDate+timePeriodEndDate, Toast.LENGTH_SHORT).show();
+
+                    }
                         if (progressDialog.isShowing())
                             progressDialog.hide();
                      //   message = data.getString("message");
@@ -383,7 +404,7 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
                     e.printStackTrace();
                     //
                     //                            //  instance.setText("error= " + e.getMessage());
-                    Toast.makeText(CheckIn.this, "Error 123:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CheckIn.this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
@@ -428,25 +449,22 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
    public void onItemSelected(AdapterView<?> parent, View arg1, int position, long id) {
        String text=parent.getItemAtPosition(position).toString();
 
-
        if (parent.getId() == R.id.spinnerType && position!=0) {
-          // Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
-           //  List<String> list3 = new ArrayList<String>();
-           // list3.add("Select Activity");
-         //  listtask.add("list 11");
-         //  listtask.add("list 12");
-        //   listtask.add("list 13");
-        //   ArrayAdapter aa2 = new ArrayAdapter(this,android.R.layout.simple_spinner_item,listtask);
-        //   aa2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-           //Setting the ArrayAdapter data on the Spinner
-        //   task.setAdapter(aa2);
-           Toast.makeText(this, "id="+hashSpinnerType.get(type.getSelectedItemPosition())+"name="+type.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+           selectedTypeID=hashSpinnerType.get(type.getSelectedItemPosition());
+
+       }
+       if (parent.getId() == R.id.spinnerType && position==0) {
+           selectedTypeID="0";
+
+       }
+       if (parent.getId() == R.id.spinnerProject && position==0) {
+           selectedProjectID="0";
 
        }
        if (parent.getId() == R.id.spinnerProject && position!=0) {
 
-           Toast.makeText(this, "id="+hashSpinnerProject.get(project.getSelectedItemPosition())+"name="+project.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
-//--------------------calling webservice-------------------------------
+     //      Toast.makeText(this, "id="+hashSpinnerProject.get(project.getSelectedItemPosition())+"name="+project.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+//--------------------calling webservice for tasks-------------------------------
 
            selectedProjectID=hashSpinnerProject.get(project.getSelectedItemPosition());
 
@@ -463,38 +481,58 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
                        // user_valid = data.getBoolean("valid_user");
                        //  if(user_valid==true) {}
                        //  else {
+                       listtask.clear();
+                       hashSpinnerTask.clear();
+                       listtask.add("Select task");
+                       hashSpinnerTask.put(0,"0");
+
+                       listactivity.clear();
+                       hashSpinnerActivity.clear();
+                       listactivity.add("Select activity");
+                       hashSpinnerActivity.put(0,"0");
+
+                        if(data.getString("tasks")!="null"){
+
+                       otlPorjectTaskArray=data.getJSONArray("tasks");
+                      // if(otlPorjectTaskArray!=null) {
+                           otlTaskdetail = new JSONObject[otlPorjectTaskArray.length()];
+                           for (int i = 0; i < otlPorjectTaskArray.length(); i++) {
+                               otlTaskdetail[i] = otlPorjectTaskArray.getJSONObject(i);
+                               taskID = otlTaskdetail[i].getString("TaskActivityid");
+                               taskName = otlTaskdetail[i].getString("TaskActivityNAME");
+                               listtask.add(taskName);
+                               hashSpinnerTask.put(i + 1, taskID);
+                               //Toast.makeText(MainActivity.this, "id="+projecrID+"name="+projectName, Toast.LENGTH_SHORT).show();
+                           }
+
+                           //-------setting data to spinner----------------
+                        }
+
+                           ArrayAdapter taskAdapter1 = new ArrayAdapter(CheckIn.this, android.R.layout.simple_spinner_item, listtask);
+                            taskAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            //Setting the ArrayAdapter data on the Spinner
+                            task.setAdapter(taskAdapter1);
+                            taskAdapter1.notifyDataSetChanged();
+
+                       ArrayAdapter activityAdapter1 = new ArrayAdapter(CheckIn.this, android.R.layout.simple_spinner_item, listactivity);
+                       activityAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                       //Setting the ArrayAdapter data on the Spinner
+                       activity.setAdapter(activityAdapter1);
+                       activityAdapter1.notifyDataSetChanged();
+
 
                        otlProjectLocationDetail=data.getJSONObject("projectDetail");
-                       locationBasedProject=otlProjectLocationDetail.getBoolean("locationBasedEntry");
-                       projectLat=otlProjectLocationDetail.getDouble("latitude");
-                       projectLong=otlProjectLocationDetail.getDouble("longitude");
+                       if(otlProjectLocationDetail!=null) {
+                          // if((otlProjectLocationDetail.getBoolean("locationBasedEntry"))=="")
+                           if(otlProjectLocationDetail.getString("locationBasedEntry")!="")
+                           locationBasedProject = otlProjectLocationDetail.getString("locationBasedEntry");
+                           if(otlProjectLocationDetail.getString("latitude")!="null")
+                           projectLat = otlProjectLocationDetail.getDouble("latitude");
+                           if(otlProjectLocationDetail.getString("longitude")!="null")
+                           projectLong = otlProjectLocationDetail.getDouble("longitude");
 
-                       Toast.makeText(CheckIn.this, "long="+projectLong+"lat="+projectLat, Toast.LENGTH_SHORT).show();
-
-                  /*
-                       otlPorjectArray=data.getJSONArray("project");
-                       otlProjectdetail=new JSONObject[otlPorjectArray.length()];
-                       for(int i=0;i<otlPorjectArray.length();i++)
-                       {
-                           otlProjectdetail[i]=otlPorjectArray.getJSONObject(i);
-                           projecrID=otlProjectdetail[i].getString("projecrID");
-                           projectName=otlProjectdetail[i].getString("ProjectName");
-                           listproject.add(projectName);
-                           hashSpinnerProject.put(i+1,projecrID);
-                           //Toast.makeText(MainActivity.this, "id="+projecrID+"name="+projectName, Toast.LENGTH_SHORT).show();
+                         //  Toast.makeText(CheckIn.this, "long=" + projectLong + "lat=" + projectLat, Toast.LENGTH_SHORT).show();
                        }
-
-
-
-                       //-------setting data to spinner----------------
-                       ArrayAdapter projectAdapter = new ArrayAdapter(MainActivity.this,android.R.layout.simple_spinner_item,listproject);
-                       projectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                       //Setting the ArrayAdapter data on the Spinner
-                       project.setAdapter(projectAdapter);
-                       //--------------------------------------------------------------------------
-
-*/
-
 
                        if (progressDialog.isShowing())
                            progressDialog.hide();
@@ -544,6 +582,114 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
            //---------------------------end calling webservice--------------------
        }
 
+       if(parent.getId() == R.id.spinnerTask && position==0)
+       {
+           selectedTaskID="0";
+
+       }
+        if(parent.getId() == R.id.spinnerTask && position!=0)
+       {
+           //Toast.makeText(this, "id="+hashSpinnerTask.get(task.getSelectedItemPosition())+"name="+task.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+//--------------------calling webservice for tasks-------------------------------
+
+           selectedTaskID=hashSpinnerTask.get(task.getSelectedItemPosition());
+
+
+           RequestQueue MyRequestQueue = Volley.newRequestQueue(CheckIn.this);
+           String url = "http://" + instanceStr + ".5dsurf.com/app/webservice/getProjectTasksActivities/" + bg + "/" + lg  + "/" + userID+"/"+token+"/"+selectedTaskID;
+           StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+               @Override
+               public void onResponse(String response) {
+
+                   try {
+                       JSONObject data = new JSONObject(response.toString());
+
+                       // user_valid = data.getBoolean("valid_user");
+                       //  if(user_valid==true) {}
+                       //  else {
+                       listactivity.clear();
+                       hashSpinnerActivity.clear();
+                       listactivity.add("Select activity");
+                       hashSpinnerActivity.put(0,"0");
+                        if(data.getJSONArray("taskActivity")!=null){
+
+
+
+                       otlPorjectTaskActivityArray=data.getJSONArray("taskActivity");
+                      // if(otlPorjectTaskActivityArray!=null) {
+                           otlActivitydetail = new JSONObject[otlPorjectTaskActivityArray.length()];
+                           for (int i = 0; i < otlPorjectTaskActivityArray.length(); i++) {
+                               otlActivitydetail[i] = otlPorjectTaskActivityArray.getJSONObject(i);
+                               activityID = otlActivitydetail[i].getString("TaskActivityid");
+                               activityName = otlActivitydetail[i].getString("TaskActivityNAME");
+                               listactivity.add(activityName);
+                               hashSpinnerActivity.put(i + 1, activityID);
+                               //Toast.makeText(MainActivity.this, "id="+projecrID+"name="+projectName, Toast.LENGTH_SHORT).show();
+                           }
+                        }
+                           //-------setting data to spinner----------------
+                           ArrayAdapter activityAdapter = new ArrayAdapter(CheckIn.this, android.R.layout.simple_spinner_item, listactivity);
+                           activityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                           //Setting the ArrayAdapter data on the Spinner
+                           activity.setAdapter(activityAdapter);
+
+
+
+                       if (progressDialog.isShowing())
+                           progressDialog.hide();
+                       //   message = data.getString("message");
+                       // Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                       // }
+
+                   }
+                   catch (JSONException e) {
+                       if (progressDialog.isShowing())
+                           progressDialog.hide();
+                       e.printStackTrace();
+                       //
+                       //                            //  instance.setText("error= " + e.getMessage());
+                       Toast.makeText(CheckIn.this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                   }
+               }
+           }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+               @Override
+               public void onErrorResponse(VolleyError error) {
+                   //This code is executed if there is an error.
+                   String message = null;
+                   if (error instanceof NetworkError) {
+                       message = "Cannot connect to Internet...Please check your connection!";
+                   } else if (error instanceof ServerError) {
+                       message = "The server could not be found. Please try again after some time!!";
+                   } else if (error instanceof AuthFailureError) {
+                       message = "Cannot connect to Internet...Please check your connection!";
+                   } else if (error instanceof ParseError) {
+                       message = "Parsing error! Please try again after some time!!";
+                   } else if (error instanceof NoConnectionError) {
+                       message = "Cannot connect to Internet...Please check your connection!";
+                   } else if (error instanceof TimeoutError) {
+                       message = "Connection TimeOut! Please check your internet connection.";
+                   }
+                   Toast.makeText(CheckIn.this, message, Toast.LENGTH_SHORT).show();
+               }
+           });
+           MyStringRequest.setShouldCache(false);
+           MyRequestQueue.add(MyStringRequest);
+
+           progressDialog.setCancelable(false);
+           progressDialog.setTitle("Loading...");
+           progressDialog.setMessage("Please wait");
+           //    progressDialog.show();
+
+           //---------------------------end calling webservice--------------------
+       }
+        if(parent.getId() == R.id.spinnerActivity && position!=0)
+       {
+           selectedActivityID=hashSpinnerActivity.get(activity.getSelectedItemPosition());
+       }
+       if(parent.getId() == R.id.spinnerActivity && position==0)
+       {
+           selectedActivityID="0";
+       }
 
    }
     @Override
@@ -627,68 +773,146 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
             //   locationMangaer.requestLocationUpdates(LocationManager
             //         .GPS_PROVIDER, 5000, 10,locationListener);
 
-        } else {
-            alertbox("Gps Status!!", "Your GPS is: OFF");
-
-        }
-
-
-
-
 
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
 
         if (location != null) {
-            String message = String.format(
-                    "Current Location \n Longitude: %1$s \n Latitude: %2$s",
-                    location.getLongitude(), location.getLatitude()
-            );
-          //  showOTLDialog(location.getLatitude(), location.getLongitude());
-            longitude=location.getLongitude();
-            latitude=location.getLatitude();
-            Intent intent=new Intent(CheckIn.this, OTLDialogActivity.class);
-            intent.putExtra("instanceStr", instanceStr);
-            intent.putExtra("token", token);
-            intent.putExtra("lg", lg);
-            intent.putExtra("bg", bg);
-            intent.putExtra("userID", userID);
-            intent.putExtra("longitude", longitude);
-            intent.putExtra("latitude", latitude);
-            intent.putExtra("empName", empName);
-            intent.putExtra("empPic", empPic);
-            startActivity(intent);
+       //     String message = String.format(
 
+          //  showOTLDialog(location.getLatitude(), location.g     "Current Location \n Longitude: %1$s \n Latitude: %2$s",
+            //                    location.getLongitude(), location.getLatitude()
+            //            );etLongitude());
+            user_longitude=location.getLongitude();
+            user_latitude=location.getLatitude();
+    if(locationBasedProject=="true") {
+        float[] results = new float[1];
+        Location.distanceBetween(location.getLatitude(), location.getLongitude(), projectLat, projectLong, results);
+        float distanceInMeters = results[0];
+        Toast.makeText(CheckIn.this, "result=" + distanceInMeters, Toast.LENGTH_SHORT).show();
+        boolean within500m = distanceInMeters < 500;
+             if (within500m) {
+                    Toast.makeText(CheckIn.this, "Location confirmed", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(CheckIn.this, OTLDialogActivity.class);
+                    intent.putExtra("instanceStr", instanceStr);
+                    intent.putExtra("lg", lg);
+                    intent.putExtra("bg", bg);
+                    intent.putExtra("userID", userID);
+                    intent.putExtra("token", token);
+                    intent.putExtra("timesheetID", timePeriodID);
+                    intent.putExtra("personID", empId);
+                    intent.putExtra("attendanceDate", time);
+                    intent.putExtra("type", selectedTypeID);
+                    intent.putExtra("project", selectedProjectID);
+                    intent.putExtra("task", selectedTaskID);
+                    intent.putExtra("activity", selectedActivityID);
+                    intent.putExtra("checkinTime", time);
+                    intent.putExtra("longitude", user_longitude);
+                    intent.putExtra("latitude", user_latitude);
+                    intent.putExtra("empName", empName);
+                    intent.putExtra("empPic", empPic);
+                    startActivity(intent);
+                } else {
+             Toast.makeText(CheckIn.this, "Cannot check in. You are too far from the project site.", Toast.LENGTH_SHORT).show();
+            }
+            }
+            else
+            {
+                Intent intent = new Intent(CheckIn.this, OTLDialogActivity.class);
+                intent.putExtra("instanceStr", instanceStr);
+                intent.putExtra("lg", lg);
+                intent.putExtra("bg", bg);
+                intent.putExtra("userID", userID);
+                intent.putExtra("token", token);
+                intent.putExtra("timesheetID", timePeriodID);
+                intent.putExtra("personID", empId);
+                intent.putExtra("attendanceDate", time);
+                intent.putExtra("type", selectedTypeID);
+                intent.putExtra("project", selectedProjectID);
+                intent.putExtra("task", selectedTaskID);
+                intent.putExtra("activity", selectedActivityID);
+                intent.putExtra("checkinTime", time);
+                intent.putExtra("longitude", user_longitude);
+                intent.putExtra("latitude", user_latitude);
+                intent.putExtra("empName", empName);
+                intent.putExtra("empPic", empPic);
+                startActivity(intent);
+
+            }
        //     Toast.makeText(MainActivity.this, message,
          //           Toast.LENGTH_LONG).show();
         }
         else {
-            Toast.makeText(this, "null otl", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, "null otl", Toast.LENGTH_SHORT).show();
             final LocationListener locationListener = new LocationListener() {
                 @Override
                 public void onLocationChanged(final Location location) {
                     if(location!=null) {
                         loc = location;
                         // getting location of user
-                        latitude = loc.getLatitude();
-                        longitude = loc.getLongitude();
-                        Toast.makeText(CheckIn.this, "lat111111=" + latitude + "log=" + longitude, Toast.LENGTH_SHORT).show();
+                        user_latitude = loc.getLatitude();
+                        user_longitude = loc.getLongitude();
+                     //   Toast.makeText(CheckIn.this, "lat111111=" + latitude + "log=" + longitude, Toast.LENGTH_SHORT).show();
                     locationManager.removeUpdates(this);
                         if ( progressDialog.isShowing())
                             progressDialog.hide();
 
-                        longitude=location.getLongitude();
-                        latitude=location.getLatitude();
-                        Intent intent=new Intent(CheckIn.this, OTLDialogActivity.class);
-                        intent.putExtra("instanceStr", instanceStr);
-                        intent.putExtra("token", token);
-                        intent.putExtra("lg", lg);
-                        intent.putExtra("bg", bg);
-                        intent.putExtra("userID", userID);
-                        intent.putExtra("longitude", longitude);
-                        intent.putExtra("latitude", latitude);
-                        startActivity(intent);
-                 //   showOTLDialog(latitude, longitude);
+                        if(locationBasedProject=="true") {
+
+                            float[] results = new float[1];
+                            Location.distanceBetween(location.getLatitude(), location.getLongitude(), projectLat, projectLong, results);
+                            float distanceInMeters = results[0];
+                            Toast.makeText(CheckIn.this, "result=" + distanceInMeters, Toast.LENGTH_SHORT).show();
+                            boolean within500m = distanceInMeters < 500;
+                            if (within500m) {
+                                Toast.makeText(CheckIn.this, "Location confirmed", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(CheckIn.this, OTLDialogActivity.class);
+                                intent.putExtra("instanceStr", instanceStr);
+                                intent.putExtra("lg", lg);
+                                intent.putExtra("bg", bg);
+                                intent.putExtra("userID", userID);
+                                intent.putExtra("token", token);
+                                intent.putExtra("timesheetID", timePeriodID);
+                                intent.putExtra("personID", empId);
+                                intent.putExtra("attendanceDate", time);
+                                intent.putExtra("type", selectedTypeID);
+                                intent.putExtra("project", selectedProjectID);
+                                intent.putExtra("task", selectedTaskID);
+                                intent.putExtra("activity", selectedActivityID);
+                                intent.putExtra("checkinTime", time);
+                                intent.putExtra("longitude", user_longitude);
+                                intent.putExtra("latitude", user_latitude);
+                                intent.putExtra("empName", empName);
+                                intent.putExtra("empPic", empPic);
+                                startActivity(intent);
+                                //   finish();
+                                //   showOTLDialog(latitude, longitude);
+                            } else {
+                                Toast.makeText(CheckIn.this, "Cannot check in. You are too far from the project site.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        else
+                            {
+                                Intent intent = new Intent(CheckIn.this, OTLDialogActivity.class);
+                                intent.putExtra("instanceStr", instanceStr);
+                                intent.putExtra("lg", lg);
+                                intent.putExtra("bg", bg);
+                                intent.putExtra("userID", userID);
+                                intent.putExtra("token", token);
+                                intent.putExtra("timesheetID", timePeriodID);
+                                intent.putExtra("personID", empId);
+                                intent.putExtra("attendanceDate", time);
+                                intent.putExtra("type", selectedTypeID);
+                                intent.putExtra("project", selectedProjectID);
+                                intent.putExtra("task", selectedTaskID);
+                                intent.putExtra("activity", selectedActivityID);
+                                intent.putExtra("checkinTime", time);
+                                intent.putExtra("longitude", user_longitude);
+                                intent.putExtra("latitude", user_latitude);
+                                intent.putExtra("empName", empName);
+                                intent.putExtra("empPic", empPic);
+                                startActivity(intent);
+                            }
                     }
                     else
                         Toast.makeText(CheckIn.this, "location null", Toast.LENGTH_SHORT).show();
@@ -716,6 +940,10 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
             locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, locationListener, null);
             locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, locationListener, null);
            // locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+
+        }
+        } else {
+            alertbox("Gps Status!!", "Your GPS is: OFF");
 
         }
 
@@ -751,220 +979,7 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
     }
 
 
-    private void showOTLDialog(double latitude, double longitude) {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
-        dialog.setContentView(R.layout.dialog_otl_remarks);
-        dialog.setCancelable(true);
 
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(dialog.getWindow().getAttributes());
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-
-        final EditText txt1 = (EditText) dialog.findViewById(R.id.et_post);
-        final ImageView imageview1 = (ImageView)dialog.findViewById(R.id.imageView_pic);
-        final ImageView imageview2 = (ImageView)dialog.findViewById(R.id.imageView_pic2);
-        final ImageView imageview3 = (ImageView)dialog.findViewById(R.id.imageView_pic3);
-        final ImageView imageview4 = (ImageView)dialog.findViewById(R.id.imageView_pic4);
-        final ImageView imageview5 = (ImageView)dialog.findViewById(R.id.imageView_pic5);
-        final ImageView imageview6 = (ImageView)dialog.findViewById(R.id.imageView_pic6);
-        final ImageView imageview7 = (ImageView)dialog.findViewById(R.id.imageView_pic7);
-
-        imageview1.setVisibility(View.GONE);
-        imageview2.setVisibility(View.GONE);
-        imageview3.setVisibility(View.GONE);
-        imageview4.setVisibility(View.GONE);
-        imageview5.setVisibility(View.GONE);
-        imageview6.setVisibility(View.GONE);
-        imageview7.setVisibility(View.GONE);
-        Toast.makeText(this, "in visiblity if"+picCounter, Toast.LENGTH_SHORT).show();
-        if(picCounter==1){
-            imageview1.setImageBitmap(bm1);
-        imageview1.setVisibility(View.VISIBLE);
-           }
-        else if(picCounter==2){
-            imageview2.setImageBitmap(bm2);
-            imageview2.setVisibility(View.VISIBLE);}
-        else if(picCounter==3){
-            imageview3.setImageBitmap(bm3);
-            imageview3.setVisibility(View.VISIBLE);}
-        else if(picCounter==4){
-            imageview4.setImageBitmap(bm4);
-            imageview4.setVisibility(View.VISIBLE);}
-        else if(picCounter==5){
-            imageview5.setImageBitmap(bm5);
-            imageview5.setVisibility(View.VISIBLE);}
-        else if(picCounter==6){
-            imageview6.setImageBitmap(bm6);
-            imageview6.setVisibility(View.VISIBLE);}
-        else if(picCounter==7) {
-            imageview7.setImageBitmap(bm7);
-        }
-
-
-
-       // txt1.setText("lat="+latitude+"long=");
-       // latitude=0;
-
-        // final AppCompatRatingBar rating_bar = (AppCompatRatingBar) dialog.findViewById(R.id.rating_bar);
-        ((Button) dialog.findViewById(R.id.upload_image)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-    //       startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
-
-      //          startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
-          /*      Intent i = new Intent(
-                        Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-                startActivityForResult(i, RESULT_LOAD_IMAGE);*/
-
-//                dialog.dismiss();
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, Utils.REQCODE);
-
-
-
-            //    Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-              //  Intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-              //  startActivityForResult(intent, 0);
-             //   dialog.dismiss();
-             //   Toast.makeText(getApplicationContext(), "Submitted", Toast.LENGTH_SHORT).show();
-
-            }
-
-        });
-
-
-        ((Button) dialog.findViewById(R.id.upload_signature)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String review = txt1.getText().toString().trim();
-                if (review.isEmpty()) {
-
-                    Toast.makeText(getApplicationContext(), "Please fill review text", Toast.LENGTH_SHORT).show();
-                } else {
-
-                    Intent intent=new Intent(CheckIn.this, UploadSignature.class);
-                  //  intent.putExtra("userID",userID);
-                  //  intent.putExtra("token",token);
-                  //  intent.putExtra("instance", instanceStr);
-                  //  intent.putExtra("lg",lg);
-                  //  intent.putExtra("bg",bg);
-                    startActivity(intent);
-
-
-                }
-
-                dialog.dismiss();
-             //   Toast.makeText(getApplicationContext(), "Submitted", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        ((Button) dialog.findViewById(R.id.submit_checkin)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String imageArray[]=new String[7];
-                Bitmap image1 = ((BitmapDrawable) imageview1.getDrawable()).getBitmap();
-                Bitmap image2=((BitmapDrawable) imageview2.getDrawable()).getBitmap();
-  /*              Bitmap image3=((BitmapDrawable) imageview3.getDrawable()).getBitmap();
-                Bitmap image4=((BitmapDrawable) imageview4.getDrawable()).getBitmap();
-                Bitmap image5=((BitmapDrawable) imageview5.getDrawable()).getBitmap();
-                Bitmap image6=((BitmapDrawable) imageview6.getDrawable()).getBitmap();
-                Bitmap image7=((BitmapDrawable) imageview7.getDrawable()).getBitmap();*/
-
-
-             //   dialog.show();
-                ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
-                image1.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream1);
-                String encodedImage1 = Base64.encodeToString(byteArrayOutputStream1.toByteArray(), Base64.DEFAULT);
-
-                ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
-                image2.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream2);
-                String encodedImage2 = Base64.encodeToString(byteArrayOutputStream2.toByteArray(), Base64.DEFAULT);
-
-              /*  ByteArrayOutputStream byteArrayOutputStream3 = new ByteArrayOutputStream();
-                image3.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream3);
-                String encodedImage3 = Base64.encodeToString(byteArrayOutputStream3.toByteArray(), Base64.DEFAULT);
-
-                ByteArrayOutputStream byteArrayOutputStream4 = new ByteArrayOutputStream();
-                image4.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream4);
-                String encodedImage4 = Base64.encodeToString(byteArrayOutputStream4.toByteArray(), Base64.DEFAULT);
-
-                ByteArrayOutputStream byteArrayOutputStream5 = new ByteArrayOutputStream();
-                image5.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream5);
-                String encodedImage5 = Base64.encodeToString(byteArrayOutputStream5.toByteArray(), Base64.DEFAULT);
-
-                ByteArrayOutputStream byteArrayOutputStream6 = new ByteArrayOutputStream();
-                image6.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream6);
-                String encodedImage6 = Base64.encodeToString(byteArrayOutputStream6.toByteArray(), Base64.DEFAULT);
-
-                ByteArrayOutputStream byteArrayOutputStream7 = new ByteArrayOutputStream();
-                image7.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream7);
-                String encodedImage7 = Base64.encodeToString(byteArrayOutputStream7.toByteArray(), Base64.DEFAULT);*/
-
-                imageArray[0]=encodedImage1;
-                imageArray[1]=encodedImage2;
-         /*       imageArray[2]=encodedImage3;
-                imageArray[3]=encodedImage4;
-                imageArray[4]=encodedImage5;
-                imageArray[5]=encodedImage6;
-                imageArray[6]=encodedImage7;*/
-
-                JSONArray imgArray=new JSONArray();
-                for(int i=0;i<picCounter;i++)
-                    imgArray.put(imageArray[i]);
-                //   String jsonObjectString = new Gson().toJson(imageArray);
-
-dialog.dismiss();
-
-                try {
-                    jsonObject.put(Utils.imageName, "upload"+counterImages++);
-                 //   Log.e("Image name", etxtUpload.getText().toString().trim());
-                    jsonObject.put("picCounter", picCounter);
-                    //  jsonObject.put(Utils.image, tmp);
-                    jsonObject.put(Utils.image, imgArray);
-
-
-                    //  messageText.setText(encodedImage1);
-                    Log.e("Images", imgArray.toString());
-
-
-                    Log.e("JSON", jsonObject.toString());
-
-                   // Toast.makeText(MainActivity.this, "pic counter="+picCounter, Toast.LENGTH_SHORT).show();
-                } catch (JSONException e) {
-                    Log.e("JSONObject Here", e.toString());
-                }
-                JsonObjectRequest jsonObjectRequest1 = new JsonObjectRequest(Request.Method.POST, Utils.urlUpload, jsonObject,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject jsonObject) {
-                                Log.e("Message from server", jsonObject.toString());
-                                dialog.dismiss();
-                             //   messageText.setText("Image Uploaded Successfully");
-                                Toast.makeText(getApplication(), "Image Uploaded Successfully", Toast.LENGTH_SHORT).show();
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        Log.e("Message from server:   ", volleyError.toString());
-                     //   messageText.setText("Message from server:   "+ volleyError.toString());
-                        dialog.dismiss();
-                    }
-                });
-                jsonObjectRequest1.setRetryPolicy(new DefaultRetryPolicy(5000,
-                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-                Volley.newRequestQueue(CheckIn.this).add(jsonObjectRequest1);
-            }
-        });
-
-        dialog.show();
-        dialog.getWindow().setAttributes(lp);
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -982,31 +997,31 @@ dialog.dismiss();
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
+ /*   @Override
     protected void onActivityResult(int requestCode, int resultCode,  Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        LayoutInflater inflater = LayoutInflater.from(CheckIn.this);
-        final View yourCustomView = inflater.inflate(R.layout.dialog_otl_remarks, null);
+    //    LayoutInflater inflater = LayoutInflater.from(CheckIn.this);
+    //    final View yourCustomView = inflater.inflate(R.layout.dialog_otl_remarks, null);
 
-        final ImageView imageview1=(ImageView) yourCustomView.findViewById(R.id.imageView_pic);
+    //    final ImageView imageview1=(ImageView) yourCustomView.findViewById(R.id.imageView_pic);
       /*  final ImageView imageview2=(ImageView) yourCustomView.findViewById(R.id.imageView_pic2);
         final ImageView imageview3=(ImageView) yourCustomView.findViewById(R.id.imageView_pic3);
         final ImageView imageview4=(ImageView) yourCustomView.findViewById(R.id.imageView_pic4);
         final ImageView imageview5=(ImageView) yourCustomView.findViewById(R.id.imageView_pic5);
         final ImageView imageview6=(ImageView) yourCustomView.findViewById(R.id.imageView_pic6);
         final ImageView imageview7=(ImageView) yourCustomView.findViewById(R.id.imageView_pic7);*/
-      final EditText ed=(EditText) yourCustomView.findViewById(R.id.et_post);
-      ed.setText("helloooo");
+   //   final EditText ed=(EditText) yourCustomView.findViewById(R.id.et_post);
+   //   ed.setText("helloooo");
 
       //ImageView imageview1=findViewById(R.id.imageView_pic);
 
-        if (requestCode == Utils.REQCODE && resultCode == RESULT_OK && data != null) {
+      /*  if (requestCode == Utils.REQCODE && resultCode == RESULT_OK && data != null) {
         picCounter++;
         try {
             if (picCounter == 1) {
                 bm1 = (Bitmap) MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
-                 imageview1.setVisibility(View.VISIBLE);
-                 imageview1.setImageBitmap(bm1);
+               //  imageview1.setVisibility(View.VISIBLE);
+                // imageview1.setImageBitmap(bm1);
            //     Toast.makeText(this, "visible1", Toast.LENGTH_SHORT).show();
             } else if (picCounter == 2)
                 bm2 = (Bitmap) MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
@@ -1045,41 +1060,7 @@ dialog.dismiss();
             cursor.moveToFirst();
             String s= cursor.getString(column_index);
             String ImName = s.substring(s.lastIndexOf("/") + 1);
-            Toast.makeText(this, "name="+ImName, Toast.LENGTH_SHORT).show();
-            // Utils.imageName=ImName;
-            //    String s= getRealPathFromURI(selectedImageUri);
-            //  File f = new File("" + selectedImageUri);
-            //  Utils.imageName=f.getName();
-    /*        if(counterImages==0)
-            {   imageview1.setImageURI(selectedImageUri);
-                Toast.makeText(this, "countimage1", Toast.LENGTH_SHORT).show();
-                counterImages++;
-            }
 
-            else if(counterImages==1)
-            {   imageview2.setImageURI(selectedImageUri);
-                counterImages++;
-            }
-            else if(counterImages==2)
-            {   imageview3.setImageURI(selectedImageUri);
-                counterImages++;
-            }
-            else if(counterImages==3)
-            {   imageview4.setImageURI(selectedImageUri);
-                counterImages++;
-            }
-            else if(counterImages==4)
-            {   imageview5.setImageURI(selectedImageUri);
-                counterImages++;
-            }
-            else if(counterImages==5)
-            {   imageview6.setImageURI(selectedImageUri);
-                counterImages++;
-            }
-            else if(counterImages==6)
-            {   imageview7.setImageURI(selectedImageUri);
-                counterImages++;
-//            }*/
 /*
 
 try {
@@ -1122,9 +1103,9 @@ catch (IOException e)
 {
     Toast.makeText(this, "Error uploading image: Please select an image first.", Toast.LENGTH_SHORT).show();
 }
-*/
+
         }
-    }
+    }  */
 }
 
 
