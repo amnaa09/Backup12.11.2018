@@ -515,7 +515,7 @@ final PieChartView pieChartrecv=(PieChartView)findViewById(R.id.chartrecv13);
                     //   gauge1.setMaxValue(100);
                     gauge3.setSpeed(countarray12);
 //..................Count13..........................................................................//
-                    countarray_13=data.getJSONArray("count13");
+                    countarray_13=data.getJSONArray("count_13");
                     countarray_132=countarray_13.getJSONArray(1);
                     Toast.makeText(DashFinance.this, "arrayindex=" +countarray_132.length(), Toast.LENGTH_SHORT).show();
                     countarray132 = new JSONObject[countarray_132.length()];
@@ -1044,7 +1044,7 @@ final PieChartView pieChartrecv=(PieChartView)findViewById(R.id.chartrecv13);
                     gauge1.setSpeed(count11);
 
 //..................Count13..........................................................................//
-                    count_13=data.getJSONArray("count13");
+                    count_13=data.getJSONArray("count_13");
                     count_132=count_13.getJSONArray(1);
                     Toast.makeText(DashFinance.this, "arrayindex=" +count_132.length(), Toast.LENGTH_SHORT).show();
                     count132 = new JSONObject[count_132.length()];

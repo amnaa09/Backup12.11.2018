@@ -4,13 +4,23 @@ package com.example.sammrabatool.solutions5d.Reminder;
  * Created by hardik on 9/1/17.
  */
 public class Model {
-    private String image;
+    public String image;
     private String Notifcation_id;
     public String fyr;
     public String status;
     public String message;
     public String date;
     private String name;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    private String type;
 
     public String getName() {
         return name;
