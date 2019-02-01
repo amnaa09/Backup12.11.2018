@@ -109,7 +109,8 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
     int lg,bg;
     JSONObject otlProjectdetail[], otlTypedetail[], otlEmpDetail,otlTimeSheetDetail, otlProjectLocationDetail, otlTaskdetail[], otlActivitydetail[];
     JSONArray otlPorjectArray, otltypeArray, otlPorjectTaskArray, otlPorjectTaskActivityArray;
-    String projecrID, projectName,timePeriodID,timePeriodCurrentMonth,timePeriodCurrentYear,timePeriodStartDate, timePeriodEndDate,typeId, typeName, empId, empName, empGrade, empOrg, empPic, selectedTypeID="0",selectedProjectID="0", taskID, taskName, selectedTaskID="0", activityID, activityName, selectedActivityID="0";
+    String projecrID, projectName,timePeriodID,timePeriodCurrentMonth,timePeriodCurrentYear,timePeriodStartDate, timePeriodEndDate,typeId, typeName, empId,
+            empName, empGrade, empOrg, empPic, selectedTypeID="0",selectedProjectID="0", taskID, taskName, selectedTaskID="0", activityID, activityName, selectedActivityID="0";
     ImageView profileImage;
     Double projectLong, projectLat;
     String locationBasedProject;
@@ -304,7 +305,7 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
 
 
         RequestQueue MyRequestQueue = Volley.newRequestQueue(CheckIn.this);
-        String url = "http://" + instanceStr + ".5dsurf.com/app/webservice//" + bg + "/" + lg  + "/" + userID+"/"+token;
+        String url = "http://" + instanceStr + ".5dsurf.com/app/webservice/getTimeAndAttendancePageOpeningDetail/" + bg + "/" + lg  + "/" + userID+"/"+token;
         StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -478,9 +479,6 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
                    try {
                        JSONObject data = new JSONObject(response.toString());
 
-                       // user_valid = data.getBoolean("valid_user");
-                       //  if(user_valid==true) {}
-                       //  else {
                        listtask.clear();
                        hashSpinnerTask.clear();
                        listtask.add("Select task");

@@ -8,19 +8,23 @@
     android:background="@android:color/white"
     android:scrollbars="none"
     android:scrollingCache="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:contentInsetStartWithNavigation="0dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
 
-
-
-
-        <!--<android.support.v7.widget.Toolbar-->
-            <!--android:id="@+id/toolbar"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="?attr/actionBarSize"-->
-            <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
-            <!--app:contentInsetStartWithNavigation="0dp"-->
-            <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
-
+        app:subtitleTextAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+        app:subtitleTextColor="@color/grey_10"
+        app:title=""
+        android:background="@color/colorPrimary"/>
         <LinearLayout
             android:id="@+id/nested_content"
             android:layout_width="match_parent"
@@ -36,29 +40,6 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/image"
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"
-                    android:layout_marginTop="@dimen/spacing_mlarge"
-                    android:src="@drawable/logo_round" />
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="James Pratterson"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-                    android:textColor="@color/grey_90" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_medium"
-                    android:text="Graphic Designer"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                    android:textColor="@color/grey_60" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -66,36 +47,59 @@
                     android:minHeight="?attr/actionBarSize"
                     android:orientation="horizontal">
 
-                    <ImageButton
-                        android:layout_width="?attr/actionBarSize"
-                        android:layout_height="?attr/actionBarSize"
-                        android:background="@android:color/transparent"
-                        android:tint="@color/colorPrimaryLight"
-                        app:srcCompat="@drawable/employee"
-                        tools:ignore="VectorDrawableCompat" />
+                    <!--<ImageView-->
+                    <!--android:id="@+id/profileImage"-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="100dp"-->
+                    <!--android:src="@drawable/man"-->
+                    <!--tools:ignore="ObsoleteLayoutParam" />-->
 
-                    <TextView
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="List Of Employee"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/grey_40" />
+                        android:orientation="horizontal"
+                        android:weightSum="3">
 
-                    <View
-                        android:layout_width="@dimen/spacing_smlarge"
-                        android:layout_height="wrap_content" />
+                        <TextView
+                            android:layout_width="149dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Select Employee:"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textStyle="bold" />
 
-                    <ImageButton
-                        android:id="@+id/bt_toggle_items1"
-                        android:layout_width="?attr/actionBarSize"
-                        android:layout_height="?attr/actionBarSize"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:tint="@color/grey_40"
-                        app:srcCompat="@drawable/ic_arrow_drop"
-                        tools:ignore="VectorDrawableCompat" />
+
+                        <Spinner
+                            android:id="@+id/spinnerType"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+
+                            />
+
+                    </LinearLayout>
 
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/profileImage"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/man"
+                    tools:ignore="ObsoleteLayoutParam" />
+
+
+                <TextView
+                    android:id="@+id/empName"
+                    android:layout_width="187dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:gravity="center"
+                    android:text="ABCDEFGHIJKLMNOP"
+                    android:textStyle="bold" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -118,13 +122,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_mlarge"
                     android:orientation="horizontal"
-                    android:paddingLeft="20dp">
+                    android:paddingLeft="10dp">
 
                     <ImageView
                         android:layout_width="@dimen/spacing_xmlarge"
                         android:layout_height="@dimen/spacing_xmlarge"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/leave"
+                        app:srcCompat="@drawable/leave"
                         android:tint="@color/colorPrimaryLight" />
 
                     <View
@@ -138,9 +142,10 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/anualleaveentitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Annual Leave Entitlement Yearly:"
+                            android:text="Annual Leave Entitlement Yearly:0"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                             android:textColor="@color/grey_90" />
 
@@ -161,13 +166,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_mlarge"
                         android:orientation="horizontal"
-                        android:paddingLeft="20dp">
+                        android:paddingLeft="10dp">
 
                         <ImageView
                             android:layout_width="@dimen/spacing_xmlarge"
                             android:layout_height="@dimen/spacing_xmlarge"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/outst"
+                            app:srcCompat="@drawable/outst"
                             android:tint="@color/colorPrimaryLight" />
 
                         <View
@@ -175,14 +180,16 @@
                             android:layout_height="0dp" />
 
                         <LinearLayout
-                            android:layout_width="84dp"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/anualleave"
                                 android:layout_width="match_parent"
-                                android:layout_height="35dp"
-                                android:text="Annual Leave"
+                                android:layout_height="40dp"
+                                android:text="Annual
+Leave:0"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                                 android:textColor="@color/grey_90" />
 
@@ -194,22 +201,20 @@
                         android:layout_width="@dimen/spacing_middle"
                         android:layout_height="0dp" />
 
-                    <View
-                        android:layout_width="@dimen/spacing_middle"
-                        android:layout_height="0dp" />
+
 
                     <LinearLayout
                         android:layout_width="203dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_mlarge"
                         android:orientation="horizontal"
-                        android:paddingLeft="20dp">
+                      >
 
                         <ImageView
                             android:layout_width="39dp"
                             android:layout_height="@dimen/spacing_xmlarge"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/outst"
+                            app:srcCompat="@drawable/outst"
                             android:tint="@color/colorPrimaryLight" />
 
                         <View
@@ -222,10 +227,11 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/outanuleave"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:text=" Outstanding
- Annual Leave:"
+ Annual Leave:0"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                                 android:textColor="@color/grey_90" />
 
@@ -250,13 +256,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_mlarge"
                         android:orientation="horizontal"
-                        android:paddingLeft="20dp">
+                        android:paddingLeft="10dp">
 
                         <ImageView
                             android:layout_width="@dimen/spacing_xmlarge"
                             android:layout_height="@dimen/spacing_xmlarge"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/outst"
+                            app:srcCompat="@drawable/outst"
                             android:tint="@color/colorPrimaryLight" />
 
                         <View
@@ -264,14 +270,15 @@
                             android:layout_height="0dp" />
 
                         <LinearLayout
-                            android:layout_width="84dp"
+                            android:layout_width="98dp"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/sickleave"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
-                                android:text="Sick Leave"
+                                android:text="Sick Leave:0"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                                 android:textColor="@color/grey_90" />
 
@@ -283,23 +290,21 @@
                         android:layout_width="@dimen/spacing_middle"
                         android:layout_height="0dp" />
 
-                    <View
-                        android:layout_width="@dimen/spacing_middle"
-                        android:layout_height="0dp" />
 
                     <LinearLayout
-                        android:layout_width="188dp"
+                        android:layout_width="206dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_mlarge"
                         android:orientation="horizontal"
-                        android:paddingLeft="20dp">
+                        android:paddingLeft="10dp">
 
                         <ImageView
                             android:layout_width="@dimen/spacing_xmlarge"
                             android:layout_height="@dimen/spacing_xmlarge"
                             android:scaleType="centerCrop"
                             android:src="@drawable/outst"
-                            android:tint="@color/colorPrimaryLight" />
+                            android:tint="@color/colorPrimaryLight"
+                            tools:ignore="VectorDrawableCompat" />
 
                         <View
                             android:layout_width="@dimen/spacing_middle"
@@ -311,9 +316,11 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Unpaid Leave"
+                                android:id="@+id/upadleave"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Unpaid
+Leave:0"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                                 android:textColor="@color/grey_90" />
 
@@ -336,43 +343,43 @@
                         android:layout_height="1px"
                         android:background="@color/grey_10" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:minHeight="?attr/actionBarSize"
-                        android:orientation="horizontal">
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:minHeight="?attr/actionBarSize"-->
+                        <!--android:orientation="horizontal">-->
 
-                        <ImageButton
-                            android:layout_width="?attr/actionBarSize"
-                            android:layout_height="?attr/actionBarSize"
-                            android:background="@android:color/transparent"
-                            android:tint="@color/grey_40"
-                            app:srcCompat="@drawable/leave"
-                            tools:ignore="VectorDrawableCompat" />
+                        <!--<ImageButton-->
+                            <!--android:layout_width="?attr/actionBarSize"-->
+                            <!--android:layout_height="?attr/actionBarSize"-->
+                            <!--android:background="@android:color/transparent"-->
+                            <!--android:tint="@color/grey_40"-->
+                            <!--app:srcCompat="@drawable/leave"-->
+                            <!--tools:ignore="VectorDrawableCompat" />-->
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="List Of Leave Detail"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:textColor="@color/grey_40" />
+                        <!--<TextView-->
+                            <!--android:layout_width="0dp"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:text="List Of Leave Detail"-->
+                            <!--android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
+                            <!--android:textColor="@color/grey_40" />-->
 
-                        <View
-                            android:layout_width="@dimen/spacing_smlarge"
-                            android:layout_height="wrap_content" />
+                        <!--<View-->
+                            <!--android:layout_width="@dimen/spacing_smlarge"-->
+                            <!--android:layout_height="wrap_content" />-->
 
-                        <ImageButton
-                            android:id="@+id/bt_toggle_items"
-                            android:layout_width="?attr/actionBarSize"
-                            android:layout_height="?attr/actionBarSize"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:tint="@color/grey_40"
-                            app:srcCompat="@drawable/ic_arrow_drop"
-                            tools:ignore="VectorDrawableCompat" />
+                        <!--<ImageButton-->
+                            <!--android:id="@+id/bt_toggle_items"-->
+                            <!--android:layout_width="?attr/actionBarSize"-->
+                            <!--android:layout_height="?attr/actionBarSize"-->
+                            <!--android:background="?attr/selectableItemBackgroundBorderless"-->
+                            <!--android:tint="@color/grey_40"-->
+                            <!--app:srcCompat="@drawable/ic_arrow_drop"-->
+                            <!--tools:ignore="VectorDrawableCompat" />-->
 
-                    </LinearLayout>
+                    <!--</LinearLayout>-->
 
 
                     <LinearLayout
@@ -381,33 +388,38 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/spacing_middle"
                         android:orientation="vertical"
-                        android:visibility="gone">
+                       >
                         <ScrollView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="?attr/actionBarSize"
-                            android:layout_marginLeft="?attr/actionBarSize"
+                           android:paddingLeft="20dp"
+
                             android:layout_marginEnd="@dimen/spacing_smlarge"
                             android:layout_marginRight="@dimen/spacing_smlarge"
                             android:gravity="center_vertical"
                             android:minHeight="@dimen/spacing_mxlarge"
-                            android:orientation="horizontal">
+                            android:orientation="vertical">
+                           // android:layout_marginLeft="?attr/actionBarSize"
+                           // android:layout_marginStart="?attr/actionBarSize"
+
 
 
                             <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="261dp">
 
-                            <de.codecrafters.tableview.TableView xmlns:table="http://schemas.android.com/apk/res-auto"
-                            android:id="@+id/tableView"
-                            android:layout_width="match_parent"
-                            android:layout_height="300dp"
-                            android:paddingTop="10dp"
-                            table:tableView_columnCount="3"
-                            />
+                                <de.codecrafters.tableview.TableView
+                                    xmlns:table="http://schemas.android.com/apk/res-auto"
+                                    android:id="@+id/tableView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="300dp"
+                                    android:paddingTop="10dp"
+                                    table:tableView_columnCount="3"
+
+                                    table:tableView_headerColor="@color/colorPrimaryLight"/>
                             </LinearLayout>
 
                         </LinearLayout>
@@ -490,4 +502,5 @@
 
 
         </LinearLayout>
+    </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

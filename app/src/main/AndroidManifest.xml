@@ -56,6 +56,7 @@
         <activity android:name=".OTL.MapAttendence" />
         <activity android:name=".OTL.MainActivityOut" />
         <activity android:name=".OTL.CheckIn" />
+        <activity android:name=".leave.ExpansionPanelInvoice"></activity>
 
         <activity android:name=".OTL.OTLDialogActivity" android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"/>
 

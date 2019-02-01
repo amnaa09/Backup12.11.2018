@@ -64,10 +64,10 @@ public class DashInsurance extends AppCompatActivity {
     String   instanceStr,  userID, token, count1,count2,count3,count4,count5,count6;
     JSONArray countarray_7 = null, countarray_71 = null, countarray_72 = null, countarray_73 = null,countarray_74=null, countarray_8 = null,
             countarray_81 = null, countarray_82 = null, countarray_83 = null,countarray_9=null,countarray_91=null,
-            countarray_92=null,countarray_93=null,countarray_10=null,countarray_101=null,countarray_102=null,countarray_103=null,
+            countarray_92=null,countarray_93=null,countarray_94=null,countarray_10=null,countarray_101=null,countarray_102=null,countarray_103=null,
     countarray_11=null,countarray_111=null,countarray_112=null,countarray_12=null,countarray_121=null;
     JSONObject countarray111[],countarray121[];
-    double  array7[], array71[],array72[],array74[], array8[], array81[], array82[],array9[],array91[],array92[],array10[],array101[],array102[],
+    double  array7[], array71[],array72[],array74[], array8[], array81[], array82[],array9[],array91[],array92[],array94[],array10[],array101[],array102[],
             array11[],array111a[],array12[],array121a[];
     String array73[], array83[],array93[],array103[],array112b[],array122b[];
     int lg, bg;
@@ -135,15 +135,15 @@ public class DashInsurance extends AppCompatActivity {
                         array73[i] = countarray_73.getString(i);
                         //  Toast.makeText(DashFinance.this, "value="+arr72[i], Toast.LENGTH_SHORT).show();
                     }
-//                    countarray_74 = countarray_7.getJSONArray(0);
-//                    array74 = new double[countarray_74.length()];
-//                    for (int i = 0; i < countarray_74.length(); i++) {
-//                        array74[i] = countarray_74.getDouble(i);
-//                        //  Toast.makeText(DashFinance.this, "value="+arr72[i], Toast.LENGTH_SHORT).show();
-//                    }
+                    countarray_74 = countarray_7.getJSONArray(3);
+                    array74 = new double[countarray_74.length()];
+                    for (int i = 0; i < countarray_74.length(); i++) {
+                        array74[i] = countarray_74.getDouble(i);
+                        //  Toast.makeText(DashFinance.this, "value="+arr72[i], Toast.LENGTH_SHORT).show();
+                    }
                     List<Entry> valsComp1 = new ArrayList<Entry>();
                     List<Entry> valsComp2 = new ArrayList<Entry>();
-//                    List<Entry> valsComp3 = new ArrayList<Entry>();
+                    List<Entry> valsComp3 = new ArrayList<Entry>();
                     for (int i = 0; i < countarray_71.length(); i++) {
                         Entry e = new Entry(i, (float) array71[i]);
                         valsComp1.add(e);
@@ -157,12 +157,12 @@ public class DashInsurance extends AppCompatActivity {
                         //arr82[i]=count_82.getDouble(i);
                         //  Toast.makeText(DashFinance.this, "value="+arr72[i], Toast.LENGTH_SHORT).show();
                     }
-//                    for (int i = 0; i < countarray_74.length(); i++) {
-//                        Entry e = new Entry(i, (float) array74[i]);
-//                        valsComp3.add(e);
-                        //arr82[i]=count_82.getDouble(i);
-                        //  Toast.makeText(DashFinance.this, "value="+arr72[i], Toast.LENGTH_SHORT).show();
-//                    }
+                    for (int i = 0; i < countarray_74.length(); i++) {
+                        Entry e = new Entry(i, (float) array74[i]);
+                        valsComp3.add(e);
+//                        arr82[i]=count_82.getDouble(i);
+//                          Toast.makeText(DashFinance.this, "value="+arr72[i], Toast.LENGTH_SHORT).show();
+                    }
 
                     LineDataSet setComp1 = new LineDataSet(valsComp1, "Insurrance");
                     setComp1.setAxisDependency(YAxis.AxisDependency.LEFT);
@@ -174,10 +174,15 @@ public class DashInsurance extends AppCompatActivity {
 
                     setComp2.setColor(R.color.green_500);
 
+                    LineDataSet setComp3 = new LineDataSet(valsComp2, "VATT");
+                    setComp3.setAxisDependency(YAxis.AxisDependency.LEFT);
+
+                    setComp3.setColor(R.color.colorAccent);
+
                     List<ILineDataSet> line_dataSets1 = new ArrayList<ILineDataSet>();
                     line_dataSets1.add(setComp1);
                     line_dataSets1.add(setComp2);
-
+                    line_dataSets1.add(setComp3);
 
                     LineData line_data1 = new LineData(line_dataSets1);
                     linechartPayable1.setData(line_data1);
@@ -306,6 +311,13 @@ public class DashInsurance extends AppCompatActivity {
                         array93[i] = countarray_93.getString(i);
                         //   Toast.makeText(DashFinance.this, "value="+arr73[i], Toast.LENGTH_SHORT).show();
                     }
+//                    countarray_94 = countarray_9.getJSONArray(3);
+//                    array94 = new double[countarray_94.length()];
+//                    for (int i = 0; i < countarray_94.length(); i++) {
+//                        array94[i] = countarray_94.getDouble(i);
+//                        //   Toast.makeText(DashFinance.this, "value="+arr73[i], Toast.LENGTH_SHORT).show();
+//                    }
+
 
                     ArrayList<BarEntry> graphrcv1 = new ArrayList<>();
                     for (int i = 0; i < array91.length; i++) {
@@ -315,7 +327,10 @@ public class DashInsurance extends AppCompatActivity {
                     ArrayList<BarEntry> graphrcv2 = new ArrayList<>();
                     for (int i = 0; i < array92.length; i++)
                         graphrcv2.add(new BarEntry(i, (float) array92[i]));
-
+//                    ArrayList<BarEntry> graphrcv3 = new ArrayList<>();
+//
+//                    for (int i = 0; i < array94.length; i++)
+//                        graphrcv3.add(new BarEntry(i, (float) array94[i]));
 
                     ArrayList<String> labels_graphrcv1 = new ArrayList<String>();
                     for (int i = 0; i < array93.length; i++)
@@ -324,14 +339,17 @@ public class DashInsurance extends AppCompatActivity {
 
                     BarDataSet bardatasetrcv = new BarDataSet(graphrcv1, "Cells");
                     BarDataSet bardatasetrcv2 = new BarDataSet(graphrcv2, "Cells");
+//                    BarDataSet bardatasetrcv3 = new BarDataSet(graphrcv3, "Cells");
                     //   BarData dataBar = new BarData(labels_graph1,bardataset);
 
                     bardatasetrcv.setColors(new int[]{R.color.blue_500});
                     bardatasetrcv2.setColors(new int[]{R.color.red_500});
+//                    bardatasetrcv3.setColors(new int[]{R.color.amber_700});
 
                     ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
                     dataSets.add(bardatasetrcv);
                     dataSets.add(bardatasetrcv2);
+//                    dataSets.add(bardatasetrcv3);
 
                     BarData datarcv1 = new BarData(dataSets);
                     datarcv1.setBarWidth(0.45f);
