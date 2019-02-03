@@ -68,7 +68,8 @@ public class ExpansionPanelInvoice extends AppCompatActivity implements AdapterV
     JSONArray otlPorjectArray;
     JSONArray absenseInform;
     JSONObject getjsonarray[];
-    String projecrID, projectName,projectfullname,pic,employeeid="0",sickleav,annuleav,unpdleav ,anuuleavEntit,outannuleav,idd[],leavetype[],duration[],status[];
+    String projecrID, projectName,projectfullname,pic,employeeid="0",sickleav,annuleav,unpdleav ,anuuleavEntit,outannuleav,idd[],
+            leavetype[],duration[],status[];
 
     private static final String TAG = "ExpansionPanelnvoice";
     ImageView profileImage;
@@ -140,29 +141,26 @@ TextView t1,t2,t3,t4,t5;
                             projectName = otlProjectdetail[i].getString("name");
                             projectfullname = otlProjectdetail[i].getString("fullname");
                             pic = otlProjectdetail[i].getString("pic");
-
-                            //Toast.makeText(ExpansionPanelInvoice.this, "name" + projectName, Toast.LENGTH_SHORT).show();
-//                            int SDK_INT = Build.VERSION.SDK_INT;
-//                            if (SDK_INT > 8) {
-//                                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-//                                        .permitAll().build();
-//                                StrictMode.setThreadPolicy(policy);
-//                                //your codes here
-//                                try {
-//                                    //   URL url = new URL(data.getString(""));
-//                                    //    Toast.makeText(ProfilePurple.this, "picccc", Toast.LENGTH_SHORT).show();
-//
-//                                    Picasso.get().load(otlProjectdetail[i].getString("employeePic")).transform(new CircleTransform()).into(profileImage);
-//
-//                                } catch (JSONException error) {
-//                                    Toast.makeText(ExpansionPanelInvoice.this, "Error:" + error.toString(), Toast.LENGTH_SHORT).show();
-//
-//                                }
-//                            }
-
                             listtype.add(projectfullname);
                             hashSpinnerType.put(i + 1, projecrID);
                             hashSpinnerimage.put(i+1,pic);
+                            int SDK_INT = Build.VERSION.SDK_INT;
+                            if (SDK_INT > 8) {
+                                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                                        .permitAll().build();
+                                StrictMode.setThreadPolicy(policy);
+                                //your codes here
+                                try {
+                                    //   URL url = new URL(data.getString(""));
+                                    //    Toast.makeText(ProfilePurple.this, "picccc", Toast.LENGTH_SHORT).show();
+
+                                    Picasso.get().load(otlProjectdetail[i].getString("pic")).transform(new CircleTransform()).into(profileImage);
+
+                                } catch (JSONException error) {
+                                    Toast.makeText(ExpansionPanelInvoice.this, "Error:" + error.toString(), Toast.LENGTH_SHORT).show();
+
+                                }
+                            }
                             //Toast.makeText(MainActivity.this, "id="+projecrID+"name="+projectName, Toast.LENGTH_SHORT).show();
                         }
                         //-------setting data to spinner----------------
