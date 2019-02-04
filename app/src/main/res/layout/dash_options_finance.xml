@@ -894,15 +894,9 @@
                     app:speed_limit="75"
                     app:speedTextSize="70dp"
                     app:unitOfMeasurementTextSize="15dp"
-                    app:unitOfMeasurement="No. of Invoices In-Approval"/>
+                    app:unitOfMeasurement="Unsettled Prepayment"/>
 
-                <TextView
-                    android:id="@+id/guageText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Amount:0"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                    android:textColor="@color/grey_40" />
+
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/dashboard_buttons77"

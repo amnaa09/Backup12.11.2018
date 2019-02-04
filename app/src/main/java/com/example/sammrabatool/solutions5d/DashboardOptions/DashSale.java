@@ -134,7 +134,7 @@ public class DashSale extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //   Toast.makeText(DashFinance.this, "in click", Toast.LENGTH_SHORT).show();
-                showInfoDialog(array73, array73 , "Code", "Customer");
+                showInfoDialog(array73, array74 , "Code", "Customer");
             }
         });
 
@@ -273,77 +273,79 @@ public class DashSale extends AppCompatActivity {
                             array162[i] = countarray_162.getDouble(i);
                             // Toast.makeText(DashFinance.this, "value="+arr71[i], Toast.LENGTH_SHORT).show();
                         }
-                 /*       if (countarray_16.getString(1) != "null" || countarray_16.getString(1) != null)
-                        {
+                       if (countarray_16.get(1) != "null" || countarray_16.get(1) != null) {
 
-                            countarray_160 = countarray_16.getJSONArray(1);
-                            array160 = new double[countarray_160.length()];
-                            for (int i = 0; i < countarray_160.length(); i++) {
-                                array160[i] = countarray_160.getDouble(i);
-                                //  Toast.makeText(DashSale.this, "value=" + array161[i], Toast.LENGTH_SHORT).show();
-                            }
-                        }*/
-                        countarray_161 = countarray_16.getJSONArray(0);
-                        array161 = new String[countarray_161.length()];
-                        for (int i = 0; i < countarray_161.length(); i++) {
-                            array161[i] = countarray_161.getString(i);
-                          //  Toast.makeText(DashSale.this, "value=" + array161[i], Toast.LENGTH_SHORT).show();
-                        }
-                        ArrayList<BarEntry> graphsale1 = new ArrayList<>();
-                        for (int i = 0; i < array162.length; i++) {
-                            graphsale1.add(new BarEntry(i, (float) array162[i]));
-                            //   Toast.makeText(DashFinance.this, "data="+ arr71[i], Toast.LENGTH_SHORT).show();
-                        }
-                /*    ArrayList<BarEntry> graphsale2 = new ArrayList<>();
-                    for (int i = 0; i < array160.length; i++)
-                        graphsale2.add(new BarEntry(i, (float) array160[i]));
-*/
+                           countarray_160 = countarray_16.getJSONArray(1);
+                           array160 = new double[countarray_160.length()];
+                           for (int i = 0; i < countarray_160.length(); i++) {
+                               array160[i] = countarray_160.getDouble(i);
+                               //  Toast.makeText(DashSale.this, "value=" + array161[i], Toast.LENGTH_SHORT).show();
+                           }
 
-                        ArrayList<String> labels_graphsale1 = new ArrayList<String>();
-                        for (int i = 0; i < array161.length; i++)
-                            labels_graphsale1.add(array161[i]);
+                           countarray_161 = countarray_16.getJSONArray(0);
+                           array161 = new String[countarray_161.length()];
+                           for (int i = 0; i < countarray_161.length(); i++) {
+                               array161[i] = countarray_161.getString(i);
+                               //  Toast.makeText(DashSale.this, "value=" + array161[i], Toast.LENGTH_SHORT).show();
+                           }
+                           ArrayList<BarEntry> graphsale1 = new ArrayList<>();
+                           for (int i = 0; i < array162.length; i++) {
+                               graphsale1.add(new BarEntry(i, (float) array162[i]));
+                               //   Toast.makeText(DashFinance.this, "data="+ arr71[i], Toast.LENGTH_SHORT).show();
+                           }
+                           ArrayList<BarEntry> graphsale2 = new ArrayList<>();
+                           for (int i = 0; i < array160.length; i++)
+                               graphsale2.add(new BarEntry(i, (float) array160[i]));
 
 
-                        BarDataSet bardatasetsale = new BarDataSet(graphsale1, "Credit");
-  //                  BarDataSet bardatasetsale2 = new BarDataSet(graphsale2, "Cash");
-
-                        bardatasetsale.setColors(new int[]{R.color.blue_500});
-    //                    bardatasetsale2.setColors(new int[]{R.color.red_500});
-
-                        ArrayList<IBarDataSet> dataSets2 = new ArrayList<IBarDataSet>();
-                        dataSets2.add(bardatasetsale);
-                      //  dataSets2.add(bardatasetsale2);
-
-                        BarData datasale1 = new BarData(dataSets2);
-                        datasale1.setBarWidth(0.45f);
-                        barchartSale2.setData(datasale1);
-             //           barchartSale2.groupBars(0.001f, 0.06f, 0.02f); // perform the "explicit" grouping
-                             barchartSale2.animateY(5000);
-
-                        YAxis yAxis2 = barchartSale2.getAxisLeft();
-                        yAxis2.setValueFormatter(new IAxisValueFormatter() {
-                            @Override
-                            public String getFormattedValue(float value, AxisBase axis) {
-                                return String.valueOf((int) value);
-                            }
-                        });
-                        yAxis2.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+                           ArrayList<String> labels_graphsale1 = new ArrayList<String>();
+                           for (int i = 0; i < array161.length; i++)
+                               labels_graphsale1.add(array161[i]);
 
 
-                        yAxis2.setGranularity(1f);
-                        yAxis2.setGranularityEnabled(true);
+                           BarDataSet bardatasetsale = new BarDataSet(graphsale1, "Credit");
+                           //                  BarDataSet bardatasetsale2 = new BarDataSet(graphsale2, "Cash");
 
-                        barchartSale2.getAxisRight().setEnabled(false);
+                           bardatasetsale.setColors(new int[]{R.color.blue_500});
+                           //                    bardatasetsale2.setColors(new int[]{R.color.red_500});
 
-                        XAxis xAxis2 = barchartSale2.getXAxis();
-                        xAxis2.setGranularity(1f);
-                        xAxis2.setGranularityEnabled(true);
-                        xAxis2.setCenterAxisLabels(true);
-                        xAxis2.setDrawGridLines(true);
-                        xAxis2.setAxisMaximum(5);
+                           ArrayList<IBarDataSet> dataSets2 = new ArrayList<IBarDataSet>();
+                           dataSets2.add(bardatasetsale);
+                           //  dataSets2.add(bardatasetsale2);
 
-                        xAxis2.setPosition(XAxis.XAxisPosition.BOTTOM);
-                        xAxis2.setValueFormatter(new IndexAxisValueFormatter(labels_graphsale1));
+                           BarData datasale1 = new BarData(dataSets2);
+                           datasale1.setBarWidth(0.45f);
+                           barchartSale2.setData(datasale1);
+                           //           barchartSale2.groupBars(0.001f, 0.06f, 0.02f); // perform the "explicit" grouping
+                           barchartSale2.animateY(5000);
+
+                           YAxis yAxis2 = barchartSale2.getAxisLeft();
+                           yAxis2.setValueFormatter(new IAxisValueFormatter() {
+                               @Override
+                               public String getFormattedValue(float value, AxisBase axis) {
+                                   return String.valueOf((int) value);
+                               }
+                           });
+                           yAxis2.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+
+
+                           yAxis2.setGranularity(1f);
+                           yAxis2.setGranularityEnabled(true);
+
+                           barchartSale2.getAxisRight().setEnabled(false);
+
+                           XAxis xAxis2 = barchartSale2.getXAxis();
+                           xAxis2.setGranularity(1f);
+                           xAxis2.setGranularityEnabled(true);
+                           xAxis2.setCenterAxisLabels(true);
+                           xAxis2.setDrawGridLines(true);
+                           xAxis2.setAxisMaximum(5);
+
+                           xAxis2.setPosition(XAxis.XAxisPosition.BOTTOM);
+                           xAxis2.setValueFormatter(new IndexAxisValueFormatter(labels_graphsale1));
+                       }
+                       else
+                           Toast.makeText(DashSale.this, "null="+countarray_16.getString(1), Toast.LENGTH_SHORT).show();
                     }
                     //------------------------------------------------------------------------------
                     if(data.getString("count_08")!=null || data.getString("count_08")!="null") {
@@ -670,7 +672,6 @@ public class DashSale extends AppCompatActivity {
                         array13b = new String[countarray_132.length()];
 
                         for (int i = 0; i < countarray_132.length(); i++) {
-
                             countarray132[i] = countarray_132.getJSONObject(i);
                             array13a[i] = countarray132[i].getDouble("value");
                             array13b[i] = countarray132[i].getString("name");
@@ -680,7 +681,6 @@ public class DashSale extends AppCompatActivity {
                         List<SliceValue> pieData1 = new ArrayList<>();
                         for (int i = 0; i < countarray_132.length(); i++) {
                             pieData1.add(new SliceValue((float) array13a[i], MY_COLORS[i]).setLabel(array13b[i]+"="+array13a[i]));
-
                         }
 
                         PieChartData pieChartData1 = new PieChartData(pieData1);
