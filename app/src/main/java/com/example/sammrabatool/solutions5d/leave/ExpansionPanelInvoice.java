@@ -278,17 +278,20 @@ TextView t1,t2,t3,t4,t5;
 
                                  //   final TableView<String[]> tb = (TableView<String[]>) findViewById(R.id.tableView);
                                     tb.setColumnCount(3);
+                                    tb.setColumnWeight(0,2);
+                                    tb.setColumnWeight(2,1);
+
                                     tb.setHeaderBackgroundColor(Color.parseColor("#1E88E5"));
                                     //ADAPTERS
                                     tb.setHeaderAdapter(new SimpleTableHeaderAdapter(ExpansionPanelInvoice.this, spaceProbeHeaders));
                                     tb.setDataAdapter(new SimpleTableDataAdapter(ExpansionPanelInvoice.this, spaceProbes));
                                     tb.setVisibility(View.VISIBLE);
-                                    tb.addDataClickListener(new TableDataClickListener<String[]>() {
-                                        @Override
-                                        public void onDataClicked(int rowIndex, String[] clickedData) {
-                                            Toast.makeText(ExpansionPanelInvoice.this, ((String[]) clickedData)[1], Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
+                                   // tb.addDataClickListener(new TableDataClickListener<String[]>() {
+//                                        @Override
+//                                        public void onDataClicked(int rowIndex, String[] clickedData) {
+//                                            Toast.makeText(ExpansionPanelInvoice.this, ((String[]) clickedData)[1], Toast.LENGTH_SHORT).show();
+//                                        }
+//                                    });
                                 }
                                 else
                                     tb.setVisibility(View.GONE);

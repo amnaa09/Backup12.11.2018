@@ -48,7 +48,7 @@ public class Recyclerview extends AppCompatActivity {
     private RecyclerView recyclerView;
     //  public static ArrayList<Model> modelArrayList;
     private CustomAdapter mcustomAdapter;
-    private Button btnnext;
+
     String reminder, notification_id, messg, c, status, date, f, fy, h, k, l, m, n, text;
     //    private String[] reminder = new String[]{"FYR", "FYR", "FYR", "FYR", "FYI", "FYI", "FYR", "FYI", "FYI"};
     private ProgressDialog progressDialog;
@@ -67,7 +67,7 @@ public class Recyclerview extends AppCompatActivity {
         lg = getIntent().getIntExtra("lg", 0);
         bg = getIntent().getIntExtra("bg", 0);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
-        btnnext = (Button) findViewById(R.id.next);
+
         initToolbar();
         initComponent();
         final ArrayList<Model> list = new ArrayList<>();

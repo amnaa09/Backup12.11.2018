@@ -1,4 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <!--<android.support.design.widget.AppBarLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:theme="@style/AppTheme.AppBarOverlay">-->
+
+        <!--<android.support.v7.widget.Toolbar-->
+            <!--android:id="@+id/toolbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="?attr/actionBarSize"-->
+            <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
+            <!--app:contentInsetStartWithNavigation="0dp"-->
+            <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
+            <!--app:subtitle="Welcome to 5D SURf CLOUD"-->
+            <!--app:subtitleTextAppearance="@style/Base.TextAppearance.AppCompat.Caption"-->
+            <!--app:subtitleTextColor="@color/grey_10"-->
+            <!--app:title="Hi, " />-->
+
+    <!--</android.support.design.widget.AppBarLayout>-->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -13,10 +40,13 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
+
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -646,6 +676,8 @@
                                 app:cardCornerRadius="2dp"
                                 app:cardElevation="2dp">
 
+
+
                                 <LinearLayout
                                     android:id="@+id/recent"
                                     android:layout_width="match_parent"
@@ -939,57 +971,57 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/spacing_middle" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="141dp"
-                            android:gravity="right|end|top"
+                        <!--<LinearLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="141dp"-->
+                            <!--android:gravity="right|end|top"-->
 
-                            android:orientation="vertical">
-
-
-                            <RelativeLayout
-                                android:id="@+id/badge"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-
-                                <RelativeLayout
-                                    android:id="@+id/relative_layout"
-                                    android:layout_width="99dp"
-                                    android:layout_height="wrap_content">
-
-                                    <pl.droidsonroids.gif.GifImageButton
-                                        android:id="@+id/APPLY"
-                                        android:layout_width="91dp"
-                                        android:layout_height="96dp"
-                                        android:layout_alignParentStart="true"
-                                        android:layout_alignParentTop="true"
-                                        android:layout_marginStart="0dp"
-                                        android:layout_marginTop="0dp"
-                                        android:background="@drawable/yesmove" />
-                                </RelativeLayout>
+                            <!--android:orientation="vertical">-->
 
 
-                                <TextView
-                                    android:id="@+id/bagetext"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignRight="@+id/relative_layout"
-                                    android:layout_marginLeft="20dp"
-                                    android:layout_marginTop="0dp"
-                                    android:layout_marginRight="15dp"
-                                    android:background="@drawable/circle"
-                                    android:text="16"
-                                    android:textColor="#fff"
-                                    android:textSize="24dp"
-                                    android:textStyle="bold">
+                            <!--<RelativeLayout-->
+                                <!--android:id="@+id/badge"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content">-->
 
-                                </TextView>
-                                <!--/>-->
+                                <!--<RelativeLayout-->
+                                    <!--android:id="@+id/relative_layout"-->
+                                    <!--android:layout_width="99dp"-->
+                                    <!--android:layout_height="wrap_content">-->
 
-                            </RelativeLayout>
+                                    <!--<pl.droidsonroids.gif.GifImageButton-->
+                                        <!--android:id="@+id/APPLY"-->
+                                        <!--android:layout_width="91dp"-->
+                                        <!--android:layout_height="96dp"-->
+                                        <!--android:layout_alignParentStart="true"-->
+                                        <!--android:layout_alignParentTop="true"-->
+                                        <!--android:layout_marginStart="0dp"-->
+                                        <!--android:layout_marginTop="0dp"-->
+                                        <!--android:background="@drawable/yesmove" />-->
+                                <!--</RelativeLayout>-->
 
 
-                        </LinearLayout>
+                                <!--<TextView-->
+                                    <!--android:id="@+id/bagetext"-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:layout_alignRight="@+id/relative_layout"-->
+                                    <!--android:layout_marginLeft="20dp"-->
+                                    <!--android:layout_marginTop="0dp"-->
+                                    <!--android:layout_marginRight="15dp"-->
+                                    <!--android:background="@drawable/circle"-->
+                                    <!--android:text="16"-->
+                                    <!--android:textColor="#fff"-->
+                                    <!--android:textSize="24dp"-->
+                                    <!--android:textStyle="bold">-->
+
+                                <!--</TextView>-->
+                                <!--&lt;!&ndash;/>&ndash;&gt;-->
+
+                            <!--</RelativeLayout>-->
+
+
+                        <!--</LinearLayout>-->
 
 
                         <View
@@ -1002,21 +1034,23 @@
 
             </android.support.v4.widget.NestedScrollView>
         </LinearLayout>
+
     </ScrollView>
-    <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/fab"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="bottom|end"-->
-        <!--android:layout_margin="@dimen/fab_margin"-->
-        <!--app:backgroundTint="@color/light_green_500"-->
-        <!--app:elevation="0dp"-->
-        <!--app:fabSize="mini"-->
-        <!--app:rippleColor="@android:color/white"-->
-        <!--app:srcCompat="@drawable/bellnoti"-->
-        <!--android:clickable="true"-->
-        <!--android:tint="@android:color/white"-->
-        <!--tools:ignore="VectorDrawableCompat" />-->
-
 </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="#008CE7"
+        app:elevation="0dp"
+        app:fabSize="mini"
+        app:rippleColor="@android:color/white"
+        app:srcCompat="@drawable/bellnoti"
+        android:clickable="true"
+        android:tint="@android:color/white"
+        tools:ignore="VectorDrawableCompat"
+        android:background="@drawable/yesmove"/>
 
+</android.support.design.widget.CoordinatorLayout>

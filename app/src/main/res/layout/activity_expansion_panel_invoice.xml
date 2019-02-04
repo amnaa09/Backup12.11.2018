@@ -392,37 +392,33 @@ Leave:0"
                         <ScrollView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                           android:paddingLeft="20dp"
-
-                            android:layout_marginEnd="@dimen/spacing_smlarge"
-                            android:layout_marginRight="@dimen/spacing_smlarge"
-                            android:gravity="center_vertical"
-                            android:minHeight="@dimen/spacing_mxlarge"
-                            android:orientation="vertical">
-                           // android:layout_marginLeft="?attr/actionBarSize"
-                           // android:layout_marginStart="?attr/actionBarSize"
-
-
 
                             <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="261dp">
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minHeight="@dimen/spacing_mxlarge"
+                                android:orientation="vertical">
+                                // android:layout_marginLeft="?attr/actionBarSize"
+                                // android:layout_marginStart="?attr/actionBarSize"
 
-                                <de.codecrafters.tableview.TableView
-                                    xmlns:table="http://schemas.android.com/apk/res-auto"
-                                    android:id="@+id/tableView"
+
+                                <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="300dp"
-                                    android:paddingTop="10dp"
-                                    table:tableView_columnCount="3"
+                                    android:layout_height="261dp">
 
-                                    table:tableView_headerColor="@color/colorPrimaryLight"/>
+                                    <de.codecrafters.tableview.TableView xmlns:table="http://schemas.android.com/apk/res-auto"
+                                        android:id="@+id/tableView"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:accessibilityHeading="?android:attr/windowOverscan"
+                                        android:minWidth="@dimen/appbar_padding_top"
+                                        android:minHeight="@dimen/activity_horizontal_margin"
+                                        android:paddingTop="10dp"
+                                        table:tableView_columnCount="3"
+                                        table:tableView_headerColor="@color/colorPrimaryLight" />
+                                </LinearLayout>
+
                             </LinearLayout>
-
-                        </LinearLayout>
                         </ScrollView>
 
 

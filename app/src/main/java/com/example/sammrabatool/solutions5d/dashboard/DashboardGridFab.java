@@ -58,7 +58,7 @@ import pl.droidsonroids.gif.GifImageButton;
 public class DashboardGridFab extends AppCompatActivity {
     private CustomAdapter mcustomAdapter;
     private RecyclerView recyclerView;
-    GifImageButton btnbell;
+//    GifImageButton btnbell;
     FloatingActionButton profile, otl, fyi, fyr, request, dash,leave;
     String   instanceStr, message, userID, token, details, image, name="Unknown";
     LinearLayout dashboard, recent;
@@ -89,16 +89,23 @@ public class DashboardGridFab extends AppCompatActivity {
         receipt=(TextView)findViewById(R.id.receipt);
         customer=(TextView)findViewById(R.id.customer);
         requisition=(TextView)findViewById(R.id.requisition);
-        btnbell=(GifImageButton)findViewById(R.id.APPLY);
+//        btnbell=(GifImageButton)findViewById(R.id.APPLY);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-//            }
-//        });
+                Intent intent = new Intent(DashboardGridFab.this, Recyclerview.class);
+                intent.putExtra("userID", userID);
+                intent.putExtra("token", token);
+                intent.putExtra("instance", instanceStr);
+                intent.putExtra("lg", lg);
+                intent.putExtra("bg", bg);
+                startActivity(intent);
+            }
+        });
 
 
         SharedPreferences sharedprefSignup = getSharedPreferences("SignupPref", Context.MODE_PRIVATE);
@@ -280,91 +287,17 @@ public class DashboardGridFab extends AppCompatActivity {
 
             }
         });
-        btnbell.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(DashboardGridFab.this, Recyclerview.class);
-                intent.putExtra("userID", userID);
-                intent.putExtra("token", token);
-                intent.putExtra("instance", instanceStr);
-                intent.putExtra("lg", lg);
-                intent.putExtra("bg", bg);
-                startActivity(intent);
-//                final ArrayList<Model> list = new ArrayList<>();
+//        btnbell.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
 //
-//
-//                RequestQueue MyRequestQueue = Volley.newRequestQueue(DashboardGridFab.this);
-//
-//                String url = "http://"+instanceStr+".5dsurf.com/app/webservice/getReminders/"+bg+"/"+lg+"/"+userID+"/"+token;
-//                final ProgressDialog progressDialog = new ProgressDialog(DashboardGridFab.this);
-//
-//                StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        JSONObject data = null;
-//                        try {
-//                            data = new JSONObject(response.toString());
-//                            reminder = data.getString("reminder");
-//                            JSONArray not_data = new JSONArray(reminder);
-//                            for (int i = 0; i < not_data.length(); i++) {
-//                                Model obj = new Model();
-//                                JSONObject not_obj = (JSONObject) not_data.get(i);
-//                                obj.setMessage(not_obj.getString("b"));
-//                                obj.setNotifcation_id(not_obj.getString("a"));
-//                                obj.setStatus(not_obj.getString("d"));
-//                                obj.setDate(not_obj.getString("e"));
-//                                obj.setFyr(not_obj.getString("g"));
-//                                obj.setName(not_obj.getString("h"));
-//                                list.add(obj);
-//                            }
-//                           mcustomAdapter = new CustomAdapter(DashboardGridFab.this, list);
-//                            recyclerView.setAdapter(mcustomAdapter);
-//                            mcustomAdapter.notifyDataSetChanged();
-//
-//
-//                        } catch (JSONException e1) {
-//                            e1.printStackTrace();
-//                            Toast.makeText(DashboardGridFab.this, "Error:" + e1.getMessage(), Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                }, new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//
-//                        String message = null;
-//                        if (error instanceof NetworkError) {
-//                            message = "Cannot connect to Internet...Please check your connection!";
-//                        } else if (error instanceof ServerError) {
-//                            message = "The server could not be found. Please try again after some time!!";
-//                        } else if (error instanceof AuthFailureError) {
-//                            message = "Cannot connect to Internet...Please check your connection!";
-//                        } else if (error instanceof ParseError) {
-//                            message = "Parsing error! Please try again after some time!!";
-//                        } else if (error instanceof NoConnectionError) {
-//                            message = "Cannot connect to Internet...Please check your connection!";
-//                        } else if (error instanceof TimeoutError) {
-//                            message = "Connection TimeOut! Please check your internet connection.";
-//                        }
-//                        Toast.makeText(DashboardGridFab.this, message, Toast.LENGTH_SHORT).show();
-//
-//                    }
-//                }
-//                );
-//                MyStringRequest.setShouldCache(true);
-//                MyRequestQueue.add(MyStringRequest);
-//
-//
-//                progressDialog.setCancelable(false);
-//                progressDialog.setTitle("Loading...");
-//                progressDialog.setMessage("Please wait");
-//                progressDialog.show();
-//            }
-//        });
-
-
-            }
-        });
+//                Intent intent = new Intent(DashboardGridFab.this, Recyclerview.class);
+//                intent.putExtra("userID", userID);
+//                intent.putExtra("token", token);
+//                intent.putExtra("instance", instanceStr);
+//                intent.putExtra("lg", lg);
+//                intent.putExtra("bg", bg);
+//                startActivity(intent);
     }
     private void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
