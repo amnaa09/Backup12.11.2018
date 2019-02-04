@@ -1,6 +1,7 @@
 package com.example.sammrabatool.solutions5d.OTL.SignatureUpload;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -187,7 +188,7 @@ public class UploadSignature extends AppCompatActivity {
 
             byte[] byteArray = byteArrayOutputStream.toByteArray();
 
-            Intent intent = new Intent(this, OTLDialogActivity.class);
+           /* Intent intent = new Intent(this, OTLDialogActivity.class);
             intent.putExtra("image",byteArray);
             intent.putExtra("fromSignature", 1);
             intent.putExtra("instanceStr", instanceStr);
@@ -208,9 +209,14 @@ public class UploadSignature extends AppCompatActivity {
             intent.putExtra("empName", empName);
             intent.putExtra("empPic", empPicture);
             startActivity(intent);
+            finish();*/
+
+            Intent returnIntent = new Intent();
+          //  returnIntent.putExtra("result",result);
+            returnIntent.putExtra("image",byteArray);
+            returnIntent.putExtra("fromSignature", 1);
+            setResult(Activity.RESULT_OK,returnIntent);
             finish();
-
-
 
        /*     String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
             imageArray[0]=encodedImage;

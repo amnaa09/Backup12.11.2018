@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".DashboardOptions.DashFinance"
+
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
@@ -66,13 +66,13 @@
             <LinearLayout
                 android:id="@+id/dashboard_cards"
                 android:layout_width="match_parent"
-                android:layout_height="322dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/text"
                     android:layout_width="match_parent"
-                    android:layout_height="23dp"
+                    android:layout_height="wrap_content"
                     android:text="Account Payable Dashborad"
 
                     android:textSize="20dp"
@@ -155,11 +155,11 @@
                                     android:orientation="vertical">
 
                                     <TextView
-                                        android:id="@+id/count0"
+                                        android:id="@+id/countP1"
                                         android:layout_width="wrap_content"
                                         android:layout_height="0dp"
                                         android:layout_weight="1"
-                                        android:text="4000+"
+                                        android:text="0"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                         android:textColor="@color/grey_60"
                                         android:textStyle="bold" />
@@ -167,7 +167,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Products"
+                                        android:text="Active Suppliers"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                                         android:textColor="@color/grey_40" />
 
@@ -230,10 +230,11 @@
                                     android:orientation="vertical">
 
                                     <TextView
+                                        android:id="@+id/countP2"
                                         android:layout_width="wrap_content"
                                         android:layout_height="0dp"
                                         android:layout_weight="1"
-                                        android:text="4429"
+                                        android:text="0"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                         android:textColor="@color/grey_60"
                                         android:textStyle="bold" />
@@ -241,7 +242,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Reports"
+                                        android:text="Last Month Payable"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                                         android:textColor="@color/grey_40" />
 
@@ -309,9 +310,10 @@
                                     android:orientation="vertical">
 
                                     <TextView
+                                        android:id="@+id/countP3"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="92776"
+                                        android:text="0"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                         android:textColor="@color/grey_60"
                                         android:textStyle="bold" />
@@ -319,7 +321,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Viewer"
+                                        android:text="Total PDC"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                                         android:textColor="@color/grey_40" />
 
@@ -382,10 +384,11 @@
                                     android:orientation="vertical">
 
                                     <TextView
+                                        android:id="@+id/countP4"
                                         android:layout_width="wrap_content"
                                         android:layout_height="0dp"
                                         android:layout_weight="1"
-                                        android:text="52791"
+                                        android:text="0"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                         android:textColor="@color/grey_60"
                                         android:textStyle="bold" />
@@ -393,7 +396,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Downloads"
+                                        android:text="Current Month PDC"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                                         android:textColor="@color/grey_40" />
 
@@ -462,10 +465,11 @@
                                     android:orientation="vertical">
 
                                     <TextView
+                                        android:id="@+id/countP5"
                                         android:layout_width="wrap_content"
                                         android:layout_height="0dp"
                                         android:layout_weight="1"
-                                        android:text="4000+"
+                                        android:text="0"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                         android:textColor="@color/grey_60"
                                         android:textStyle="bold" />
@@ -473,7 +477,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Products"
+                                        android:text="Due Amount"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                                         android:textColor="@color/grey_40" />
 
@@ -532,15 +536,16 @@
                                     android:layout_height="0dp" />
 
                                 <LinearLayout
-                                    android:layout_width="103dp"
-                                    android:layout_height="40dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
                                     android:orientation="vertical">
 
                                     <TextView
+                                        android:id="@+id/countP6"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="0dp"
+                                        android:layout_height="wrap_content"
                                         android:layout_weight="1"
-                                        android:text="52791"
+                                        android:text="0"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                         android:textColor="@color/grey_60"
                                         android:textStyle="bold" />
@@ -548,7 +553,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Downloads"
+                                        android:text="Current Month VAT"
                                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                                         android:textColor="@color/grey_40" />
 
@@ -582,7 +587,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="0dp"
-                    android:text="Supplierwise Outstanding Amount"
+                    android:text="Top 10 Supplier Outstanding Payable"
                     android:textSize="15dp"
                     android:paddingRight="60dp"
                     android:textStyle="bold"
@@ -590,16 +595,17 @@
                 </TextView>
 
                 <ImageView
-                    android:layout_width="36dp"
+                    android:id="@+id/info1"
+                    android:layout_width="match_parent"
+                    android:clickable="true"
                     android:layout_height="20dp"
-                    android:layout_alignRight="@+id/refresh"
-
-                    android:layout_gravity="left"
+                    android:layout_gravity="right"
                     android:layout_marginTop="4dp"
-                    app:srcCompat="@drawable/ic_file_download"
+                    android:paddingLeft="10dp"
+                    app:srcCompat="@drawable/info"
                     tools:ignore="VectorDrawableCompat" />
 
-                <ImageView
+        <!--        <ImageView
                     android:id="@+id/refresh1"
                     android:layout_width="36dp"
                     android:layout_height="20dp"
@@ -610,7 +616,7 @@
                     android:paddingRight="0dp"
                     app:srcCompat="@drawable/ref"
                     tools:ignore="VectorDrawableCompat" />
-
+-->
             </LinearLayout>
 
             <LinearLayout
@@ -654,34 +660,13 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="0dp"
-                    android:text="Supplierwise Outstanding Amount"
+                    android:text="Monthwise Payable and VAT"
                     android:textSize="15dp"
                     android:paddingRight="60dp"
                     android:textStyle="bold"
                     tools:ignore="InvalidId">
                 </TextView>
 
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="20dp"
-                    android:layout_alignRight="@+id/refresh"
-
-                    android:layout_gravity="left"
-                    android:layout_marginTop="4dp"
-                    app:srcCompat="@drawable/ic_file_download"
-                    tools:ignore="VectorDrawableCompat" />
-
-                <ImageView
-                    android:id="@+id/refresh3"
-                    android:layout_width="36dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="2dp"
-                    android:paddingRight="0dp"
-                    app:srcCompat="@drawable/ref"
-                    tools:ignore="VectorDrawableCompat" />
 
             </LinearLayout>
 
@@ -727,34 +712,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="0dp"
-                android:text="Supplierwise Outstanding Amount"
+                android:text="Payable Vs Payment Voucher"
                 android:textSize="15dp"
                 android:paddingRight="60dp"
                 android:textStyle="bold"
                 tools:ignore="InvalidId">
             </TextView>
 
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="20dp"
-                android:layout_alignRight="@+id/refresh"
 
-                android:layout_gravity="left"
-                android:layout_marginTop="4dp"
-                app:srcCompat="@drawable/ic_file_download"
-                tools:ignore="VectorDrawableCompat" />
-
-            <ImageView
-                android:id="@+id/refresh44"
-                android:layout_width="36dp"
-                android:layout_height="20dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="2dp"
-                android:paddingRight="0dp"
-                app:srcCompat="@drawable/ref"
-                tools:ignore="VectorDrawableCompat" />
 
         </LinearLayout>
 
@@ -799,34 +764,13 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="0dp"
-                    android:text="Supplierwise Outstanding Amount"
+                    android:text="Outstanding Payable Invoices By Age"
                     android:textSize="15dp"
                     android:paddingRight="60dp"
                     android:textStyle="bold"
                     tools:ignore="InvalidId">
                 </TextView>
 
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="20dp"
-                    android:layout_alignRight="@+id/refresh"
-
-                    android:layout_gravity="left"
-                    android:layout_marginTop="4dp"
-                    app:srcCompat="@drawable/ic_file_download"
-                    tools:ignore="VectorDrawableCompat" />
-
-                <ImageView
-                    android:id="@+id/refresh55"
-                    android:layout_width="36dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="2dp"
-                    android:paddingRight="0dp"
-                    app:srcCompat="@drawable/ref"
-                    tools:ignore="VectorDrawableCompat" />
 
             </LinearLayout>
 
@@ -874,56 +818,32 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="0dp"
                 android:paddingRight="60dp"
-                android:text="Supplierwise Outstanding Amount"
+                android:text="Payable Invoices Status"
                 android:textSize="15dp"
                 android:textStyle="bold"
                 tools:ignore="InvalidId"></TextView>
 
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="20dp"
-                android:layout_alignRight="@+id/refresh"
-
-                android:layout_gravity="left"
-                android:layout_marginTop="4dp"
-                app:srcCompat="@drawable/ic_file_download"
-                tools:ignore="VectorDrawableCompat" />
-
-            <ImageView
-                android:id="@+id/refresh"
-                android:layout_width="36dp"
-                android:layout_height="20dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="2dp"
-                android:paddingRight="0dp"
-                app:srcCompat="@drawable/ref"
-                tools:ignore="VectorDrawableCompat" />
-        </LinearLayout>
+             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:id="@+id/funnel1_layout"
-                android:layout_height="400dp"
+                android:layout_height="250dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:orientation="vertical">
 
                 <lecho.lib.hellocharts.view.PieChartView
                     android:id="@+id/piechartpay"
-                    android:layout_width="350dp"
-                    android:layout_height="365dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_gravity="center"
+
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="36dp" />
                     />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:text="hellloooo"/>
-            </LinearLayout>
+                          </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/dashboard_buttons7"
@@ -949,39 +869,18 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="0dp"
                     android:paddingRight="60dp"
-                    android:text="Supplierwise Outstanding Amount"
+                    android:text="Unsettled Prepayment"
                     android:textSize="15dp"
                     android:textStyle="bold"
                     tools:ignore="InvalidId"></TextView>
 
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="20dp"
-                    android:layout_alignRight="@+id/refresh"
-
-                    android:layout_gravity="left"
-                    android:layout_marginTop="4dp"
-                    app:srcCompat="@drawable/ic_file_download"
-                    tools:ignore="VectorDrawableCompat" />
-
-                <ImageView
-                    android:id="@+id/refresh6"
-                    android:layout_width="36dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="2dp"
-                    android:paddingRight="0dp"
-                    app:srcCompat="@drawable/ref"
-                    tools:ignore="VectorDrawableCompat" />
-            </LinearLayout>
+                </LinearLayout>
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:id="@+id/guage1_layout"
-                android:layout_height="300dp"
+                android:layout_height="350dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:orientation="vertical">
@@ -995,10 +894,70 @@
                     app:speed_limit="75"
                     app:speedTextSize="70dp"
                     app:unitOfMeasurementTextSize="15dp"
-                    app:unitOfMeasurement="Unsettled Prepayments"/>
+                    app:unitOfMeasurement="No. of Invoices In-Approval"/>
+
+                <TextView
+                    android:id="@+id/guageText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Amount:0"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/grey_40" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/dashboard_buttons77"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/payLine3_layout"
+                android:orientation="horizontal"
+                >
+
+                <View
+                    android:layout_width="@dimen/spacing_middle"
+                    android:layout_height="0dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/spacing_large" />
+
+                <TextView
+                    android:id="@+id/text66"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/dashboard_buttons6"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp"
+                    android:paddingRight="60dp"
+                    android:text="Incomplete Invoices"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    tools:ignore="InvalidId"></TextView>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/guage3_layout"
+                android:layout_height="350dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <in.unicodelabs.kdgaugeview.KdGaugeView
+                    android:id="@+id/gauge3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="300dp"
+                    android:layout_gravity="center"
+                    app:maxSpeed="100"
+                    app:speed_limit="75"
+                    app:speedTextSize="70dp"
+                    app:unitOfMeasurementTextSize="15dp"
+                    app:unitOfMeasurement="No. of Incomplete Invoices"/>
 
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/dashboard_buttons10"
                 android:layout_width="match_parent"
@@ -1023,33 +982,12 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="0dp"
                     android:paddingRight="60dp"
-                    android:text="Supplierwise Outstanding Amount"
+                    android:text="Top 10 Suppliers in 2 Years"
                     android:textSize="15dp"
                     android:textStyle="bold"
                     tools:ignore="InvalidId"></TextView>
 
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="20dp"
-                    android:layout_alignRight="@+id/refresh"
-
-                    android:layout_gravity="left"
-                    android:layout_marginTop="4dp"
-                    app:srcCompat="@drawable/ic_file_download"
-                    tools:ignore="VectorDrawableCompat" />
-
-                <ImageView
-                    android:id="@+id/refresh8"
-                    android:layout_width="36dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="2dp"
-                    android:paddingRight="0dp"
-                    app:srcCompat="@drawable/ref"
-                    tools:ignore="VectorDrawableCompat" />
-            </LinearLayout>
+                 </LinearLayout>
 
 
             <LinearLayout
@@ -1062,8 +1000,62 @@
 
                 <lecho.lib.hellocharts.view.PieChartView
                     android:id="@+id/chart13"
-                    android:layout_width="350dp"
-                    android:layout_height="365dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:layout_gravity="center"
+
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="36dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dashboard_buttons110"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/payLine3_layout"
+                android:orientation="horizontal"
+                >
+
+                <View
+                    android:layout_width="@dimen/spacing_middle"
+                    android:layout_height="0dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/spacing_large" />
+
+                <TextView
+                    android:id="@+id/text69"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/dashboard_buttons6"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp"
+                    android:paddingRight="60dp"
+                    android:text="Payment Bank vs Cash"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    tools:ignore="InvalidId"></TextView>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/piechart14"
+                android:layout_height="250dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <lecho.lib.hellocharts.view.PieChartView
+                    android:id="@+id/chart14"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_gravity="center"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="36dp" />
@@ -1086,7 +1078,7 @@
             <LinearLayout
                 android:id="@+id/secndlinea"
                 android:layout_width="match_parent"
-                android:layout_height="188dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/text"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="1dp"
@@ -1155,11 +1147,11 @@
                                 android:orientation="vertical">
 
                                 <TextView
-                                    android:id="@+id/count00"
+                                    android:id="@+id/countR1"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="0dp"
+                                    android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="4000+"
+                                    android:text="0"
                                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                     android:textColor="@color/grey_60"
                                     android:textStyle="bold" />
@@ -1167,7 +1159,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Products"
+                                    android:text="Active Customers"
                                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                                     android:textColor="@color/grey_40" />
 
@@ -1230,10 +1222,11 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:id="@+id/countR2"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="0dp"
+                                    android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="4429"
+                                    android:text="0"
                                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                     android:textColor="@color/grey_60"
                                     android:textStyle="bold" />
@@ -1241,7 +1234,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Reports"
+                                    android:text="Last Month Receivable"
                                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                                     android:textColor="@color/grey_40" />
 
@@ -1309,9 +1302,10 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:id="@+id/countR3"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="92776"
+                                    android:text="0"
                                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                     android:textColor="@color/grey_60"
                                     android:textStyle="bold" />
@@ -1319,7 +1313,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Viewer"
+                                    android:text="Total PDC"
                                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                                     android:textColor="@color/grey_40" />
 
@@ -1382,10 +1376,11 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:id="@+id/countR4"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="0dp"
+                                    android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="52791"
+                                    android:text="0"
                                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                     android:textColor="@color/grey_60"
                                     android:textStyle="bold" />
@@ -1393,7 +1388,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Downloads"
+                                    android:text="Current Month PDC"
                                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                                     android:textColor="@color/grey_40" />
 
@@ -1462,10 +1457,11 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:id="@+id/countR5"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="0dp"
+                                    android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="4000+"
+                                    android:text="0"
                                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                     android:textColor="@color/grey_60"
                                     android:textStyle="bold" />
@@ -1473,7 +1469,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Products"
+                                    android:text="Due Amount"
                                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                                     android:textColor="@color/grey_40" />
 
@@ -1532,15 +1528,16 @@
                                 android:layout_height="0dp" />
 
                             <LinearLayout
-                                android:layout_width="103dp"
-                                android:layout_height="40dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:id="@+id/countR6"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="0dp"
+                                    android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="52791"
+                                    android:text="0"
                                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                     android:textColor="@color/grey_60"
                                     android:textStyle="bold" />
@@ -1548,7 +1545,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Downloads"
+                                    android:text="Current Month VAT"
                                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                                     android:textColor="@color/grey_40" />
 
@@ -1583,46 +1580,33 @@
 
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="0dp"
-                    android:text="Customerwise Outstanding Amount"
+                    android:text="Top 10 Customer Outstanding Receivable"
                     android:textSize="15dp"
                     android:textStyle="bold"
                     tools:ignore="InvalidId"></TextView>
 
                 <ImageView
-                    android:id="@+id/refresh2"
-                    android:layout_width="27dp"
-                    android:layout_height="15dp"
-                    android:layout_alignRight="@+id/text3"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
+                    android:id="@+id/info2"
+                    android:layout_width="match_parent"
+                    android:clickable="true"
+                    android:layout_height="20dp"
+                    android:layout_gravity="right"
                     android:layout_marginTop="4dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_marginRight="2dp"
                     android:paddingLeft="10dp"
-                    app:srcCompat="@drawable/ref"
+                    app:srcCompat="@drawable/info"
                     tools:ignore="VectorDrawableCompat" />
 
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="20dp"
-                    android:layout_alignRight="@+id/refresh2"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="4dp"
-                    android:paddingLeft="20dp"
-                    app:srcCompat="@drawable/ic_file_download"
-                    tools:ignore="VectorDrawableCompat" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="250dp">
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/barchartReceivable1"
                     android:layout_width="match_parent"
-                    android:layout_height="179dp"
+                    android:layout_height="250dp"
                     android:layout_below="@id/dashboard_buttons3"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
@@ -1653,45 +1637,25 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="0dp"
-                    android:text="Supplierwise Outstanding Amount"
+                    android:text="Monthwiise Receivable and VAT"
                     android:textSize="15dp"
                     android:paddingRight="60dp"
                     android:textStyle="bold"
                     tools:ignore="InvalidId">
                 </TextView>
 
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="20dp"
-                    android:layout_alignRight="@+id/refresh"
 
-                    android:layout_gravity="left"
-                    android:layout_marginTop="4dp"
-                    app:srcCompat="@drawable/ic_file_download"
-                    tools:ignore="VectorDrawableCompat" />
-
-                <ImageView
-                    android:id="@+id/refresh4"
-                    android:layout_width="36dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="2dp"
-                    android:paddingRight="0dp"
-                    app:srcCompat="@drawable/ref"
-                    tools:ignore="VectorDrawableCompat" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="196dp">
+                android:layout_height="250dp">
 
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/linechartReceivable1"
                     android:layout_width="match_parent"
-                    android:layout_height="179dp"
+                    android:layout_height="250dp"
                     android:layout_below="@id/dashboard_buttons4"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
@@ -1725,45 +1689,24 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="0dp"
-                    android:text="Supplierwise Outstanding Amount"
+                    android:text="Receivable vs Receipt Voucher"
                     android:textSize="15dp"
                     android:paddingRight="60dp"
                     android:textStyle="bold"
                     tools:ignore="InvalidId">
                 </TextView>
 
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="20dp"
-                    android:layout_alignRight="@+id/refresh"
-
-                    android:layout_gravity="left"
-                    android:layout_marginTop="4dp"
-                    app:srcCompat="@drawable/ic_file_download"
-                    tools:ignore="VectorDrawableCompat" />
-
-                <ImageView
-                    android:id="@+id/refresh5"
-                    android:layout_width="36dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="2dp"
-                    android:paddingRight="0dp"
-                    app:srcCompat="@drawable/ref"
-                    tools:ignore="VectorDrawableCompat" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="196dp">
+                android:layout_height="250dp">
 
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/linechartReceivable2"
                     android:layout_width="match_parent"
-                    android:layout_height="179dp"
+                    android:layout_height="250dp"
                     android:layout_below="@id/dashboard_buttons5"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
@@ -1797,45 +1740,24 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="0dp"
-                    android:text="Supplierwise Outstanding Amount"
+                    android:text="Outstanding Receivable Invoices By Age"
                     android:textSize="15dp"
                     android:paddingRight="60dp"
                     android:textStyle="bold"
                     tools:ignore="InvalidId">
                 </TextView>
 
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="20dp"
-                    android:layout_alignRight="@+id/refresh"
-
-                    android:layout_gravity="left"
-                    android:layout_marginTop="4dp"
-                    app:srcCompat="@drawable/ic_file_download"
-                    tools:ignore="VectorDrawableCompat" />
-
-                <ImageView
-                    android:id="@+id/refresh5"
-                    android:layout_width="36dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="2dp"
-                    android:paddingRight="0dp"
-                    app:srcCompat="@drawable/ref"
-                    tools:ignore="VectorDrawableCompat" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="196dp">
+                android:layout_height="250dp">
 
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/linechartReceivable3"
                     android:layout_width="match_parent"
-                    android:layout_height="179dp"
+                    android:layout_height="250dp"
                     android:layout_below="@id/dashboard_buttons6"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
@@ -1871,56 +1793,33 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="0dp"
                     android:paddingRight="60dp"
-                    android:text="Supplierwise Outstanding Amount"
+                    android:text="Receivable Invoices Status"
                     android:textSize="15dp"
                     android:textStyle="bold"
                     tools:ignore="InvalidId"></TextView>
 
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="20dp"
-                    android:layout_alignRight="@+id/refresh"
-
-                    android:layout_gravity="left"
-                    android:layout_marginTop="4dp"
-                    app:srcCompat="@drawable/ic_file_download"
-                    tools:ignore="VectorDrawableCompat" />
-
-                <ImageView
-                    android:id="@+id/refreshh"
-                    android:layout_width="36dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="2dp"
-                    android:paddingRight="0dp"
-                    app:srcCompat="@drawable/ref"
-                    tools:ignore="VectorDrawableCompat" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:id="@+id/funnel1_layoutt"
-                android:layout_height="400dp"
+                android:layout_height="250dp"
                 android:orientation="vertical">
 
                 <lecho.lib.hellocharts.view.PieChartView
                     android:id="@+id/piechartrecv"
-                    android:layout_width="350dp"
-                    android:layout_height="365dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
                     android:layout_below="@+id/dashboard_buttons6"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="-6dp"
                     android:layout_marginBottom="8dp"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
 
-                    android:text="hellloooo"/>
+                    />
+
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/dashboard_buttons9"
@@ -1946,39 +1845,18 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="0dp"
                     android:paddingRight="60dp"
-                    android:text="Supplierwise Outstanding Amount"
+                    android:text="No. of Incomplete Invoices"
                     android:textSize="15dp"
                     android:textStyle="bold"
                     tools:ignore="InvalidId"></TextView>
 
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="20dp"
-                    android:layout_alignRight="@+id/refresh"
-
-                    android:layout_gravity="left"
-                    android:layout_marginTop="4dp"
-                    app:srcCompat="@drawable/ic_file_download"
-                    tools:ignore="VectorDrawableCompat" />
-
-                <ImageView
-                    android:id="@+id/refresh7"
-                    android:layout_width="36dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="2dp"
-                    android:paddingRight="0dp"
-                    app:srcCompat="@drawable/ref"
-                    tools:ignore="VectorDrawableCompat" />
-            </LinearLayout>
+                </LinearLayout>
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:id="@+id/guage2_layout"
-                android:layout_height="300dp"
+                android:layout_height="350dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:orientation="vertical">
@@ -1992,7 +1870,7 @@
                     app:speed_limit="75"
                     app:speedTextSize="70dp"
                     app:unitOfMeasurementTextSize="15dp"
-                    app:unitOfMeasurement="Unsettled Prepayments"/>
+                    app:unitOfMeasurement="Incomplete Invoices"/>
 
 
             </LinearLayout>
@@ -2020,39 +1898,19 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="0dp"
                     android:paddingRight="60dp"
-                    android:text="Supplierwise Outstanding Amount"
+                    android:text="Number of Invoices In-Approval"
                     android:textSize="15dp"
                     android:textStyle="bold"
                     tools:ignore="InvalidId"></TextView>
 
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="20dp"
-                    android:layout_alignRight="@+id/refresh"
 
-                    android:layout_gravity="left"
-                    android:layout_marginTop="4dp"
-                    app:srcCompat="@drawable/ic_file_download"
-                    tools:ignore="VectorDrawableCompat" />
-
-                <ImageView
-                    android:id="@+id/refreshrecv"
-                    android:layout_width="36dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="2dp"
-                    android:paddingRight="0dp"
-                    app:srcCompat="@drawable/ref"
-                    tools:ignore="VectorDrawableCompat" />
             </LinearLayout>
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:id="@+id/guage_layout2"
-                android:layout_height="300dp"
+                android:layout_height="350dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:orientation="vertical">
@@ -2066,8 +1924,14 @@
                     app:speed_limit="75"
                     app:speedTextSize="70dp"
                     app:unitOfMeasurementTextSize="15dp"
-                    app:unitOfMeasurement="Unsettled Prepayments"/>
-
+                    app:unitOfMeasurement="In-Approval"/>
+                <TextView
+                    android:id="@+id/guageTextreceivable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Amount:0"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/grey_40" />
 
             </LinearLayout>
 
@@ -2095,47 +1959,79 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="0dp"
                     android:paddingRight="60dp"
-                    android:text="Supplierwise Outstanding Amount"
+                    android:text="Top 10 Customers in 2 Years"
                     android:textSize="15dp"
                     android:textStyle="bold"
                     tools:ignore="InvalidId"></TextView>
 
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="20dp"
-                    android:layout_alignRight="@+id/refresh"
-
-                    android:layout_gravity="left"
-                    android:layout_marginTop="4dp"
-                    app:srcCompat="@drawable/ic_file_download"
-                    tools:ignore="VectorDrawableCompat" />
-
-                <ImageView
-                    android:id="@+id/refresh9"
-                    android:layout_width="36dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="2dp"
-                    android:paddingRight="0dp"
-                    app:srcCompat="@drawable/ref"
-                    tools:ignore="VectorDrawableCompat" />
-            </LinearLayout>
+                 </LinearLayout>
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:id="@+id/piecharrecvt13"
-                android:layout_height="400dp"
+                android:layout_height="350dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:orientation="vertical">
 
                 <lecho.lib.hellocharts.view.PieChartView
                     android:id="@+id/chartrecv13"
-                    android:layout_width="350dp"
-                    android:layout_height="365dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_gravity="center"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="36dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dashboard_buttons111"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/payLine3_layout"
+                android:orientation="horizontal"
+                >
+
+                <View
+                    android:layout_width="@dimen/spacing_middle"
+                    android:layout_height="0dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/spacing_large" />
+
+                <TextView
+                    android:id="@+id/text656"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/dashboard_buttons6"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp"
+                    android:paddingRight="60dp"
+                    android:text="Receipt Bank vs Cash"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    tools:ignore="InvalidId"></TextView>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/piecharrecvt14"
+                android:layout_height="350dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <lecho.lib.hellocharts.view.PieChartView
+                    android:id="@+id/chartrecv14"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_gravity="center"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="36dp" />

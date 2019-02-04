@@ -57,12 +57,18 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     String instanceStr, userID, token, userName,message,notificationID,type;
     int lg, bg;
-    public CustomAdapter(Context ctx, List<Model> list) {
+    public CustomAdapter(Context ctx, List<Model> list,String instanceStr, int bg, int lg, String userID, String token) {
 
         inflater = LayoutInflater.from(ctx);
         this.ctx = ctx;
         this.list=list;
         selected_items = new SparseBooleanArray();
+        this.bg=bg;
+        this.lg=lg;
+        this.userID=userID;
+        this.token=token;
+        this.instanceStr=instanceStr;
+
 
     }
 
@@ -78,8 +84,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         final Model obj = list.get(position);
+
+     //   notificationID=list.get(position).getNotifcation_id();
+     //   Toast.makeText(ctx, "id=="+notificationID, Toast.LENGTH_SHORT).show();
       //  holder.fyr.setText(list.get(position).getFyr());
-       // holder.id.setText(String.valueOf(list.get(position).getNotifcation_id()));
+        holder.id.setText(String.valueOf(list.get(position).getNotifcation_id()));
         holder.name.setText(list.get(position).getName());
         holder.date.setText(String.valueOf(list.get(position).getDate()));
        // holder.status.setText(list.get(position).getStatus());
@@ -125,7 +134,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         public MyViewHolder(View itemView) {
             super(itemView);
 //imageView=(ImageView)itemView.findViewById(R.id.image);
-//            id=(TextView)itemView.findViewById(R.id.a);
+           id=(TextView)itemView.findViewById(R.id.remId);
 //            fyr = (TextView) itemView.findViewById(R.id.g);
             name = (TextView) itemView.findViewById(R.id.h);
             date = (TextView) itemView.findViewById(R.id.e);
@@ -144,6 +153,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             btn_minus.setTag(R.integer.btn_minus_view, itemView);
             btn_plus.setOnClickListener(this);
             btn_minus.setOnClickListener(this);
+            id.setVisibility(View.INVISIBLE);
 
         }
 
@@ -152,8 +162,18 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         public void onClick(View v) {
 
             if (v.getId() == btn_plus.getId()){
-                RequestQueue MyRequestQueue = Volley.newRequestQueue(ctx);
+                View tempview = (View) btn_plus.getTag(R.integer.btn_plus_view);
+//                TextView tv = (TextView) tempview.findViewById(R.id.a);
+//                int number = Integer.parseInt(tv.getText().toString()) + 1;
+//                tv.setText(String.valueOf(number));
+//                list.get(getAdapterPosition()).setName("name");
+                TextView tv = (TextView) tempview.findViewById(R.id.remId);
+                int number = Integer.parseInt(tv.getText().toString());
 
+             //   Toast.makeText(ctx, "id=="+number, Toast.LENGTH_SHORT).show();
+                notificationID=String.valueOf(number);
+                RequestQueue MyRequestQueue = Volley.newRequestQueue(ctx);
+           //     Toast.makeText(ctx, "bg="+bg+"lg="+lg+"notid="+notificationID, Toast.LENGTH_SHORT).show();
                 String url = "http://" + instanceStr + ".5dsurf.com/app/webservice/UpdateReminderStatus/" + bg + "/" + lg + "/" + userID + "/" + token+"/"+notificationID+"/"+"1";
                 final ProgressDialog progressDialog = new ProgressDialog(ctx);
                 StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
@@ -161,8 +181,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                     public void onResponse(String response) {
                         JSONObject data = null;
                         try {
+                            if (progressDialog.isShowing())
+                                progressDialog.hide();
                             data = new JSONObject(response.toString());
                             message = data.getString("message");
+                            Toast.makeText(ctx, message, Toast.LENGTH_SHORT).show();
 
                         } catch (JSONException e) {
                             if (progressDialog.isShowing())
@@ -192,6 +215,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                             message = "Connection TimeOut! Please check your internet connection.";
                         }
                         Toast.makeText(ctx, message, Toast.LENGTH_SHORT).show();
+                        if ( progressDialog.isShowing())
+                            progressDialog.hide();
                     }
                 }
                 );
@@ -218,8 +243,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                     public void onResponse(String response) {
                         JSONObject data = null;
                         try {
+                            if (progressDialog.isShowing())
+                                progressDialog.hide();
                             data = new JSONObject(response.toString());
                             message = data.getString("message");
+                            Toast.makeText(ctx, message, Toast.LENGTH_SHORT).show();
 
                         } catch (JSONException e) {
                             if (progressDialog.isShowing())
@@ -249,6 +277,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                             message = "Connection TimeOut! Please check your internet connection.";
                         }
                         Toast.makeText(ctx, message, Toast.LENGTH_SHORT).show();
+                        if ( progressDialog.isShowing())
+                            progressDialog.hide();
                     }
                 }
                 );

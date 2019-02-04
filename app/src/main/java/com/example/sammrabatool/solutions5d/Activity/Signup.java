@@ -203,6 +203,8 @@ public class Signup extends AppCompatActivity
                         }
                         catch (JSONException e)
                         {
+                            if (progressDialog.isShowing())
+                                progressDialog.hide();
                             e.printStackTrace();
                             Toast.makeText(Signup.this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -228,6 +230,8 @@ public class Signup extends AppCompatActivity
                             message = "Connection TimeOut! Please check your internet connection.";
                         }
                         Toast.makeText(Signup.this, "Error:"+message, Toast.LENGTH_SHORT).show();
+                        if (progressDialog.isShowing())
+                            progressDialog.hide();
 
                     }
                 })

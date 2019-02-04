@@ -810,6 +810,8 @@ public class ListMultiSelection extends AppCompatActivity  {
                     message = "Connection TimeOut! Please check your internet connection.";
                 }
                 Toast.makeText(ListMultiSelection.this, message, Toast.LENGTH_SHORT).show();
+                if (progressDialog.isShowing())
+                    progressDialog.hide();
 
             }
         });

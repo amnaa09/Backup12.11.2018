@@ -369,6 +369,8 @@ public class ProfileFabMenu extends AppCompatActivity {
 
 
                 } catch (JSONException e) {
+                    if (progressDialog.isShowing())
+                        progressDialog.hide();
                     e.printStackTrace();
                 }
 
@@ -392,6 +394,8 @@ public class ProfileFabMenu extends AppCompatActivity {
                     message = "Connection TimeOut! Please check your internet connection.";
                 }
                 Toast.makeText(ProfileFabMenu.this, message, Toast.LENGTH_SHORT).show();
+                if (progressDialog.isShowing())
+                    progressDialog.hide();
             }
         });
         MyStringRequest.setShouldCache(false);

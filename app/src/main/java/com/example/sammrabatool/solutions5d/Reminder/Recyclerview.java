@@ -99,7 +99,7 @@ public class Recyclerview extends AppCompatActivity {
                         obj.image=pic;
                         list.add(obj);
                     }
-                    mcustomAdapter = new CustomAdapter(Recyclerview.this, list);
+                    mcustomAdapter = new CustomAdapter(Recyclerview.this, list,instanceStr, bg, lg, userID, token);
                     recyclerView.setAdapter(mcustomAdapter);
                     mcustomAdapter.notifyDataSetChanged();
                     if (progressDialog.isShowing())
@@ -132,6 +132,8 @@ public class Recyclerview extends AppCompatActivity {
                     message = "Connection TimeOut! Please check your internet connection.";
                 }
                 Toast.makeText(Recyclerview.this, message, Toast.LENGTH_SHORT).show();
+                if ( progressDialog.isShowing())
+                    progressDialog.hide();
 
             }
         }

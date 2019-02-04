@@ -90,16 +90,16 @@ public class ProfilePurple extends AppCompatActivity {
                 try {
                     JSONObject data = new JSONObject(response.toString());
                     user_valid = data.getBoolean("valid_user");
-                    if(user_valid==true) {
+                    if (user_valid == true) {
                         message = data.getString("message");
                         userID = data.getString("user_id");
-                        details=data.getString("details");
+                        details = data.getString("details");
                         JSONObject dataDetails = new JSONObject(details.toString());
-                        if(dataDetails.getString("name").equals(""))
+                        if (dataDetails.getString("name").equals(""))
                             name.setText("Unknown");
                         else
                             name.setText(dataDetails.getString("name"));
-                        if(dataDetails.getString("job").equals(""))
+                        if (dataDetails.getString("job").equals(""))
                             job.setText("Unknown");
                         else
                             job.setText(dataDetails.getString("job"));
@@ -107,64 +107,64 @@ public class ProfilePurple extends AppCompatActivity {
                         fyiCount.setText(dataDetails.getString("total_FYI"));
                         fyrCount.setText(dataDetails.getString("total_FYR"));
 
-                        if(dataDetails.getString("email").equals(""))
+                        if (dataDetails.getString("email").equals(""))
                             email.setText("--");
                         else
                             email.setText(dataDetails.getString("email"));
-                        if(dataDetails.getString("location").equals(""))
+                        if (dataDetails.getString("location").equals(""))
                             location.setText("--");
                         else
                             location.setText(dataDetails.getString("location"));
-                        if(dataDetails.getString("company").equals(""))
+                        if (dataDetails.getString("company").equals(""))
                             company.setText("Unknown");
                         else
                             company.setText(dataDetails.getString("company"));
-                        if(dataDetails.getString("name").equals(""))
+                        if (dataDetails.getString("name").equals(""))
                             userName.setText("Unknown");
                         else
                             userName.setText(dataDetails.getString("name"));
 
                         int SDK_INT = android.os.Build.VERSION.SDK_INT;
-                        if (SDK_INT > 8)
-                        {
+                        if (SDK_INT > 8) {
                             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                                     .permitAll().build();
                             StrictMode.setThreadPolicy(policy);
                             //your codes here
-                            try {
-                                URL url = new URL(dataDetails.getString(""));
+//                            try {
+                            //                              URL url = new URL(dataDetails.getString(""));
                             //    Toast.makeText(ProfilePurple.this, "picccc", Toast.LENGTH_SHORT).show();
 
-                                Picasso.get().load(dataDetails.getString("pic")).transform(new CircleTransform()).into(profileImage);
-
-                            }
-                            catch (MalformedURLException error) {
-                                Toast.makeText(ProfilePurple.this, "Error:"+error.toString(), Toast.LENGTH_SHORT).show();
-
-                            }
+                            Picasso.get().load(dataDetails.getString("pic")).transform(new CircleTransform()).into(profileImage);
 
                         }
+//                            catch (MalformedURLException error) {
+                        //                              Toast.makeText(ProfilePurple.this, "Error:"+error.toString(), Toast.LENGTH_SHORT).show();
 
-                        if ( progressDialog.isShowing())
+                        //                        }
+
+
+                        if (progressDialog.isShowing())
                             progressDialog.hide();
-
-                        //Toast.makeText(ProfilePurple.this, "details="+dataDetails.getString("name"), Toast.LENGTH_LONG).show();
                     }
+                        else
+                        {
+                            if ( progressDialog.isShowing())
+                                progressDialog.hide();
+                            message = data.getString("message");
+                            Toast.makeText(ProfilePurple.this, message, Toast.LENGTH_LONG).show();
 
-                    else
-                    {
-                        if ( progressDialog.isShowing())
-                            progressDialog.hide();
-                        message = data.getString("message");
-                        Toast.makeText(ProfilePurple.this, message, Toast.LENGTH_LONG).show();
+                            SharedPreferences preferences =getSharedPreferences("LoginDetails",Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.clear();
+                            editor.commit();
+                            Intent intent=new Intent(ProfilePurple.this,LoginCardOverlap.class);
+                            startActivity(intent);
+                        }
 
-                        SharedPreferences preferences =getSharedPreferences("LoginDetails",Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.clear();
-                        editor.commit();
-                        Intent intent=new Intent(ProfilePurple.this,LoginCardOverlap.class);
-                        startActivity(intent);
-                    }
+
+
+
+
                     //  tx.setText("response== " + name+ age);
                     //    Toast.makeText(Signup.this, "result="+user_valid, Toast.LENGTH_SHORT).show();
                     //   company.setText(name);
@@ -183,6 +183,8 @@ public class ProfilePurple extends AppCompatActivity {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    if ( progressDialog.isShowing())
+                        progressDialog.hide();
                     //
                     //                            //  instance.setText("error= " + e.getMessage());
                     Toast.makeText(ProfilePurple.this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -214,6 +216,8 @@ public class ProfilePurple extends AppCompatActivity {
                     message = "Connection TimeOut! Please check your internet connection.";
                 }
                 Toast.makeText(ProfilePurple.this, message, Toast.LENGTH_SHORT).show();
+                if ( progressDialog.isShowing())
+                    progressDialog.hide();
             }
         })
         {

@@ -55,6 +55,8 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TimeZone;
 
 public class OTLDialogActivity extends Activity {
@@ -72,6 +74,7 @@ public class OTLDialogActivity extends Activity {
     ImageView imageview1, imageview2,imageview3,imageview4,imageview5;
     Button upload_img, upload_signature, submit;
      SharedPreferences checkin_preferences;
+    byte[] byteArray;
   //  public static Bitmap bm1,bm2,bm3,bm4,bm5,bm6,bm7;
 
     @Override
@@ -161,41 +164,41 @@ public class OTLDialogActivity extends Activity {
 
 
 //-------------getting signature image from signature activity-----------------------------------
-        byte[] byteArray = getIntent().getByteArrayExtra("image");
+       /* byte[] byteArray = getIntent().getByteArrayExtra("image");
         if(byteArray!=null) {
             Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
            // imageview1.setVisibility(View.VISIBLE);
           //  imageview1.setImageBitmap(bmp);
             int counterFlag = getIntent().getIntExtra("fromSignature", 0);
            // picCounter++;
-            if(picCounter==1) {
+            if(picCounter==0) {
                 imageview1.setVisibility(View.VISIBLE);
                 imageview1.setImageBitmap(bmp);
                 picCounter++;
             }
-            else if(picCounter==2) {
+            else if(picCounter==1) {
                 imageview2.setVisibility(View.VISIBLE);
                 imageview2.setImageBitmap(bmp);
                 picCounter++;
             }
-            else if(picCounter==3) {
+            else if(picCounter==2) {
                 imageview3.setVisibility(View.VISIBLE);
                 imageview3.setImageBitmap(bmp);
                 picCounter++;
             }
-            else if(picCounter==4) {
+            else if(picCounter==3) {
                 imageview4.setVisibility(View.VISIBLE);
                 imageview4.setImageBitmap(bmp);
                 picCounter++;
             }
-            else if(picCounter==5) {
+            else if(picCounter==4) {
                 picCounter++;
                 imageview5.setVisibility(View.VISIBLE);
                 imageview5.setImageBitmap(bmp);
             }
           //  if (counterFlag == 1)
             //    picCounter = 1;
-        }
+        }*/
 
         //----------------------------------end---------------------------------------
 
@@ -215,8 +218,11 @@ public class OTLDialogActivity extends Activity {
 
                     Toast.makeText(getApplicationContext(), "Please fill review text", Toast.LENGTH_SHORT).show();
                 } else {
+                    Intent i = new Intent(OTLDialogActivity.this, UploadSignature.class);
+                    startActivityForResult(i, 1);
 
-                    Intent intent=new Intent(OTLDialogActivity.this, UploadSignature.class);
+
+                  /*  Intent intent=new Intent(OTLDialogActivity.this, UploadSignature.class);
 
                     intent.putExtra("instanceStr", instanceStr);
                     intent.putExtra("lg", lg);
@@ -235,7 +241,7 @@ public class OTLDialogActivity extends Activity {
                     intent.putExtra("latitude", user_latitude);
                     intent.putExtra("empName", empName);
                     intent.putExtra("empPic", empPicture);
-                    startActivity(intent);
+                    startActivity(intent);*/
                    // finish();
 
 
@@ -378,7 +384,7 @@ public class OTLDialogActivity extends Activity {
                     Log.e("JSONObject Here", e.toString());
                 }
 
-                Location loc= new Location("");
+          /*      Location loc= new Location("");
                 loc.setLongitude((double)user_longitude);
                 loc.setLatitude((double)user_latitude);
                 Calendar cal = Calendar.getInstance();
@@ -387,21 +393,24 @@ public class OTLDialogActivity extends Activity {
                 SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd/ kk:mm:ss");
                 sdf.setTimeZone(tz);
                 String time= sdf.format(d);
+                if(loc!=null)*/
+                Toast.makeText(OTLDialogActivity.this, "time="+checkinTime+"long="+user_longitude, Toast.LENGTH_SHORT).show();
 
                 note=txt1.getText().toString();
                 //--------------------calling webservice for tasks-------------------------------
 
-
                 RequestQueue MyRequestQueue = Volley.newRequestQueue(OTLDialogActivity.this);
-               String url = "http://" + instanceStr + ".5dsurf.com/app/webservice/checkIn/" + bg + "/" + lg  + "/" + userID+"/"+token+"/"+timesheetID+"/"+personID+"/"+time+"/"+type+"/"+project+"/"+task+"/"+activity+"/"+note+"/"+time+"/"+"0/"+user_longitude+"/"+user_latitude+"/"+jsonObject;
-                StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+               String url = "http://" + instanceStr + ".5dsurf.com/app/webservice/checkIn";
+                String url1 = "http://" + instanceStr + ".5dsurf.com/app/webservice/checkIn/"+ bg + "/" + lg  + "/" + userID+"/"+token+"/"+timesheetID+"/"+personID+"/"+attendanceDate+"/"+type+"/"+project+"/"+task+"/"+activity+"/"+note+"/"+checkinTime+"/"+"0/"+user_longitude+"/"+user_latitude;
+               Log.e("url:", url1);
+                final StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
 
                         try {
                             JSONObject data = new JSONObject(response.toString());
 
-                            Toast.makeText(OTLDialogActivity.this, "check in done", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(OTLDialogActivity.this, "check in done"+response.toString(), Toast.LENGTH_SHORT).show();
                             if (progressDialog.isShowing())
                                 progressDialog.hide();
                             //   message = data.getString("message");
@@ -436,12 +445,51 @@ public class OTLDialogActivity extends Activity {
                         } else if (error instanceof TimeoutError) {
                             message = "Connection TimeOut! Please check your internet connection.";
                         }
-                        Toast.makeText(OTLDialogActivity.this, message, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OTLDialogActivity.this, "mesg="+message, Toast.LENGTH_SHORT).show();
                         if (progressDialog.isShowing())
                             progressDialog.hide();
 
+                        Log.d("Maps:", " Error: " + new String(error.networkResponse.data));
+
                     }
-                });
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String,String> param = new HashMap<>();
+
+                      //  String images = getStringImage(bitmap);
+                       // Log.i("Mynewsam",""+images);
+                        param.put("bg", String.valueOf(bg) );
+                        param.put("lg", String.valueOf(lg) );
+                        param.put("userID", String.valueOf(userID) );
+                        param.put("token", token );
+                        param.put("timesheetID", String.valueOf(timesheetID) );
+                        param.put("personID", personID );
+                        param.put("attendanceDate", String.valueOf(attendanceDate) );
+                        param.put("type", type );
+                        param.put("project", project );
+                        param.put("task", task );
+                        param.put("activity", activity );
+                        param.put("note", note );
+                        param.put("checkinTime", String.valueOf(checkinTime) );
+                        param.put("costing", "0" );
+                        param.put("longitude", String.valueOf(user_longitude) );
+                        param.put("latitude", String.valueOf(user_latitude) );
+                //        try {
+                  //          if (jsonObject.getInt("picCounter") > 0) {
+                    //            param.put("attachments", String.valueOf(jsonObject));
+                         //       Toast.makeText(OTLDialogActivity.this, " image attached", Toast.LENGTH_SHORT).show();
+
+                      //      }
+                           // else
+                       //         Toast.makeText(OTLDialogActivity.this, "no image attached", Toast.LENGTH_SHORT).show();
+                   //     }catch (JSONException e)
+                     //   {
+                       //     Log.e("json", "not available");
+                      //  }
+                        return param;
+                    }
+                };
                 MyStringRequest.setShouldCache(false);
                 MyRequestQueue.add(MyStringRequest);
 
@@ -474,7 +522,7 @@ public class OTLDialogActivity extends Activity {
             cursor.moveToFirst();
             String s= cursor.getString(column_index);
             String ImName = s.substring(s.lastIndexOf("/") + 1);
-            Toast.makeText(this, "name="+ImName, Toast.LENGTH_SHORT).show();
+        //    Toast.makeText(this, "name="+ImName, Toast.LENGTH_SHORT).show();
             // Utils.imageName=ImName;
             //    String s= getRealPathFromURI(selectedImageUri);
             //  File f = new File("" + selectedImageUri);
@@ -546,6 +594,55 @@ catch (IOException e)
     Toast.makeText(this, "Error uploading image: Please select an image first.", Toast.LENGTH_SHORT).show();
 }
 */
+        }
+
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+
+
+                byteArray = data.getByteArrayExtra("image");
+                if(byteArray!=null) {
+
+                 //   Toast.makeText(this, "back here="+picCounter, Toast.LENGTH_SHORT).show();
+                    Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                    // imageview1.setVisibility(View.VISIBLE);
+                    //  imageview1.setImageBitmap(bmp);
+                    int counterFlag = getIntent().getIntExtra("fromSignature", 0);
+                    // picCounter++;
+                    if(picCounter==0) {
+                        imageview1.setVisibility(View.VISIBLE);
+                        imageview1.setImageBitmap(bmp);
+                        picCounter++;
+                    }
+                    else if(picCounter==1) {
+                        imageview2.setVisibility(View.VISIBLE);
+                        imageview2.setImageBitmap(bmp);
+                        picCounter++;
+                      //  Toast.makeText(this, "im here", Toast.LENGTH_SHORT).show();
+
+                    }
+                    else if(picCounter==2) {
+                        imageview3.setVisibility(View.VISIBLE);
+                        imageview3.setImageBitmap(bmp);
+                        picCounter++;
+                    }
+                    else if(picCounter==3) {
+                        imageview4.setVisibility(View.VISIBLE);
+                        imageview4.setImageBitmap(bmp);
+                        picCounter++;
+                    }
+                    else if(picCounter==4) {
+                        picCounter++;
+                        imageview5.setVisibility(View.VISIBLE);
+                        imageview5.setImageBitmap(bmp);
+                    }
+                    //  if (counterFlag == 1)
+                    //    picCounter = 1;
+                }
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
         }
     }
 }

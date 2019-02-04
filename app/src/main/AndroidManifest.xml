@@ -58,10 +58,11 @@
         <activity android:name=".OTL.CheckIn" />
         <activity android:name=".leave.ExpansionPanelInvoice"></activity>
 
-        <activity android:name=".OTL.OTLDialogActivity" android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"/>
+        <activity android:name=".OTL.OTLDialogActivity" android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
 
         <meta-data android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyA_U_fzn3FZn12GeE1nK_D85xg1Ql1Ox2w" />
+
         <activity android:name=".Reminder.Recyclerview"></activity>
     </application>
 

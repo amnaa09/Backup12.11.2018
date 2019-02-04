@@ -77,7 +77,7 @@ public class MapAttendence extends FragmentActivity implements
                     SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd/ kk:mm:ss");
                     sdf.setTimeZone(tz);
                     String time= sdf.format(d);
-                    Toast.makeText(MapAttendence.this, "time="+time, Toast.LENGTH_LONG).show();
+                   // Toast.makeText(MapAttendence.this, "time="+time, Toast.LENGTH_LONG).show();
                     double lo=loc.getLongitude();
                     double la=loc.getLatitude();
                     Intent intent=new Intent(MapAttendence.this, CheckIn.class);

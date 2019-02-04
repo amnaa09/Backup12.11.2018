@@ -71,8 +71,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TimeZone;
 
 public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSelectedListener {
 
@@ -89,7 +91,7 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
     private static  int uploadCounter=0;
     Toolbar toolbar;
     Button in, out, checkin, test;
-    CircularImageView map;
+    ImageView map;
     int flagForCheckin=0;
     Spinner type, task, project, activity;
     List<String> listtype = new ArrayList<String>();
@@ -146,7 +148,7 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
         empNameText=(TextView) findViewById(R.id.empName);
         in = (Button) findViewById(R.id.attendenceIn);
         out = (Button) findViewById(R.id.attendenceOut);
-        map = (CircularImageView) findViewById(R.id.mapButton);
+        map = (ImageView) findViewById(R.id.mapButton);
         checkin = (Button) findViewById(R.id.checkin);
 
         type=(Spinner) findViewById(R.id.spinnerType);
@@ -283,7 +285,7 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
         checkin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(CheckIn.this, "type="+selectedTypeID+"project="+selectedProjectID+"task="+selectedTaskID+"activity="+selectedActivityID, Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(CheckIn.this, "type="+selectedTypeID+"project="+selectedProjectID+"task="+selectedTaskID+"activity="+selectedActivityID, Toast.LENGTH_SHORT).show();
 
                 progressDialog.setCancelable(false);
                 progressDialog.setTitle("Loading...");
@@ -427,6 +429,8 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
                     message = "Connection TimeOut! Please check your internet connection.";
                 }
                 Toast.makeText(CheckIn.this, message, Toast.LENGTH_SHORT).show();
+                if (progressDialog.isShowing())
+                    progressDialog.hide();
             }
         });
         MyStringRequest.setShouldCache(false);
@@ -567,6 +571,8 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
                        message = "Connection TimeOut! Please check your internet connection.";
                    }
                    Toast.makeText(CheckIn.this, message, Toast.LENGTH_SHORT).show();
+                   if (progressDialog.isShowing())
+                       progressDialog.hide();
                }
            });
            MyStringRequest.setShouldCache(false);
@@ -668,6 +674,8 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
                        message = "Connection TimeOut! Please check your internet connection.";
                    }
                    Toast.makeText(CheckIn.this, message, Toast.LENGTH_SHORT).show();
+                   if (progressDialog.isShowing())
+                       progressDialog.hide();
                }
            });
            MyStringRequest.setShouldCache(false);
@@ -761,7 +769,7 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
 
 
                 //   locationMangaer.requestLocationUpdates(LocationManager
-                  //        .GPS_PROVIDER, 5000, 10,locationListener);
+                //        .GPS_PROVIDER, 5000, 10,locationListener);
 
 
             } else {
@@ -769,8 +777,7 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
             }
 
             //   locationMangaer.requestLocationUpdates(LocationManager
-            //         .GPS_PROVIDER, 5000, 10,locationListener);
-
+              //       .GPS_PROVIDER, 5000, 10,locationListener);
 
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
@@ -784,13 +791,38 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
             user_longitude=location.getLongitude();
             user_latitude=location.getLatitude();
     if(locationBasedProject=="true") {
+
+
+
+       /* Calendar cal = Calendar.getInstance();
+        TimeZone tz = cal.getTimeZone();
+        Date d = new Date(location.getTime());
+        SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd/ kk:mm:ss");
+        sdf.setTimeZone(tz);
+        String time= sdf.format(d);
+
+            Toast.makeText(CheckIn.this, "timeeeeee="+time+"long="+user_longitude, Toast.LENGTH_SHORT).show();*/
+
+
+
         float[] results = new float[1];
         Location.distanceBetween(location.getLatitude(), location.getLongitude(), projectLat, projectLong, results);
         float distanceInMeters = results[0];
         Toast.makeText(CheckIn.this, "result=" + distanceInMeters, Toast.LENGTH_SHORT).show();
         boolean within500m = distanceInMeters < 500;
              if (within500m) {
-                    Toast.makeText(CheckIn.this, "Location confirmed", Toast.LENGTH_SHORT).show();
+
+                 Calendar cal = Calendar.getInstance();
+                 TimeZone tz = cal.getTimeZone();
+                 Date d = new Date(location.getTime());
+                 SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd-kk:mm:ss");
+                 sdf.setTimeZone(tz);
+                 String time1= sdf.format(d);
+
+//                 Toast.makeText(CheckIn.this, "timeeeeee="+time1+"long="+user_longitude, Toast.LENGTH_SHORT).show();
+
+
+                 Toast.makeText(CheckIn.this, "Location confirmed", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(CheckIn.this, OTLDialogActivity.class);
                     intent.putExtra("instanceStr", instanceStr);
                     intent.putExtra("lg", lg);
@@ -799,12 +831,12 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
                     intent.putExtra("token", token);
                     intent.putExtra("timesheetID", timePeriodID);
                     intent.putExtra("personID", empId);
-                    intent.putExtra("attendanceDate", time);
+                    intent.putExtra("attendanceDate", time1);
                     intent.putExtra("type", selectedTypeID);
                     intent.putExtra("project", selectedProjectID);
                     intent.putExtra("task", selectedTaskID);
                     intent.putExtra("activity", selectedActivityID);
-                    intent.putExtra("checkinTime", time);
+                    intent.putExtra("checkinTime", time1);
                     intent.putExtra("longitude", user_longitude);
                     intent.putExtra("latitude", user_latitude);
                     intent.putExtra("empName", empName);
@@ -816,6 +848,16 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
             }
             else
             {
+
+                Calendar cal = Calendar.getInstance();
+                TimeZone tz = cal.getTimeZone();
+                Date d = new Date(location.getTime());
+                SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd-kk:mm:ss");
+                sdf.setTimeZone(tz);
+                String time1= sdf.format(d);
+
+              //  Toast.makeText(CheckIn.this, "timeeeeee="+time1+"long="+user_longitude, Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent(CheckIn.this, OTLDialogActivity.class);
                 intent.putExtra("instanceStr", instanceStr);
                 intent.putExtra("lg", lg);
@@ -824,12 +866,12 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
                 intent.putExtra("token", token);
                 intent.putExtra("timesheetID", timePeriodID);
                 intent.putExtra("personID", empId);
-                intent.putExtra("attendanceDate", time);
+                intent.putExtra("attendanceDate", time1);
                 intent.putExtra("type", selectedTypeID);
                 intent.putExtra("project", selectedProjectID);
                 intent.putExtra("task", selectedTaskID);
                 intent.putExtra("activity", selectedActivityID);
-                intent.putExtra("checkinTime", time);
+                intent.putExtra("checkinTime", time1);
                 intent.putExtra("longitude", user_longitude);
                 intent.putExtra("latitude", user_latitude);
                 intent.putExtra("empName", empName);
@@ -847,6 +889,9 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
                 public void onLocationChanged(final Location location) {
                     if(location!=null) {
                         loc = location;
+
+
+
                         // getting location of user
                         user_latitude = loc.getLatitude();
                         user_longitude = loc.getLongitude();
@@ -863,6 +908,16 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
                             Toast.makeText(CheckIn.this, "result=" + distanceInMeters, Toast.LENGTH_SHORT).show();
                             boolean within500m = distanceInMeters < 500;
                             if (within500m) {
+
+                                Calendar cal = Calendar.getInstance();
+                                TimeZone tz = cal.getTimeZone();
+                                Date d = new Date(location.getTime());
+                                SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd-kk:mm:ss");
+                                sdf.setTimeZone(tz);
+                                String time1= sdf.format(d);
+
+                             //   Toast.makeText(CheckIn.this, "timeeeeee="+time1+"long="+user_longitude, Toast.LENGTH_SHORT).show();
+
                                 Toast.makeText(CheckIn.this, "Location confirmed", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(CheckIn.this, OTLDialogActivity.class);
                                 intent.putExtra("instanceStr", instanceStr);
@@ -872,12 +927,12 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
                                 intent.putExtra("token", token);
                                 intent.putExtra("timesheetID", timePeriodID);
                                 intent.putExtra("personID", empId);
-                                intent.putExtra("attendanceDate", time);
+                                intent.putExtra("attendanceDate", time1);
                                 intent.putExtra("type", selectedTypeID);
                                 intent.putExtra("project", selectedProjectID);
                                 intent.putExtra("task", selectedTaskID);
                                 intent.putExtra("activity", selectedActivityID);
-                                intent.putExtra("checkinTime", time);
+                                intent.putExtra("checkinTime", time1);
                                 intent.putExtra("longitude", user_longitude);
                                 intent.putExtra("latitude", user_latitude);
                                 intent.putExtra("empName", empName);
@@ -891,6 +946,16 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
                         }
                         else
                             {
+
+                                Calendar cal = Calendar.getInstance();
+                                TimeZone tz = cal.getTimeZone();
+                                Date d = new Date(location.getTime());
+                                SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd-kk:mm:ss");
+                                sdf.setTimeZone(tz);
+                                String time1= sdf.format(d);
+
+//                                Toast.makeText(CheckIn.this, "timeeeeee="+time1+"long="+user_longitude, Toast.LENGTH_SHORT).show();
+
                                 Intent intent = new Intent(CheckIn.this, OTLDialogActivity.class);
                                 intent.putExtra("instanceStr", instanceStr);
                                 intent.putExtra("lg", lg);
@@ -899,12 +964,12 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
                                 intent.putExtra("token", token);
                                 intent.putExtra("timesheetID", timePeriodID);
                                 intent.putExtra("personID", empId);
-                                intent.putExtra("attendanceDate", time);
+                                intent.putExtra("attendanceDate", time1);
                                 intent.putExtra("type", selectedTypeID);
                                 intent.putExtra("project", selectedProjectID);
                                 intent.putExtra("task", selectedTaskID);
                                 intent.putExtra("activity", selectedActivityID);
-                                intent.putExtra("checkinTime", time);
+                                intent.putExtra("checkinTime", time1);
                                 intent.putExtra("longitude", user_longitude);
                                 intent.putExtra("latitude", user_latitude);
                                 intent.putExtra("empName", empName);
@@ -940,6 +1005,7 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
            // locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 
         }
+
         } else {
             alertbox("Gps Status!!", "Your GPS is: OFF");
 

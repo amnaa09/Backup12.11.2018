@@ -230,7 +230,7 @@ finish();
                 @Override
                 public void onResponse(String response) {
 
-                 //   Toast.makeText(VerificationCode.this, "response="+response, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VerificationCode.this, response, Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -250,6 +250,9 @@ finish();
                     } else if (error instanceof TimeoutError) {
                         message = "Connection TimeOut! Please check your internet connection.";
                     }
+
+                    Toast.makeText(VerificationCode.this, "Error:"+message, Toast.LENGTH_SHORT).show();
+
 
                 }
             });
@@ -311,6 +314,8 @@ finish();
                             Toast.makeText(VerificationCode.this, message, Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
+                        if ( progressDialog.isShowing())
+                            progressDialog.hide();
                         e.printStackTrace();
                         //
                         //                            //  instance.setText("error= " + e.getMessage());
@@ -318,6 +323,7 @@ finish();
                         //                            // tx.setText( "Error: " + e.getMessage());
 
                     }
+
                 }
 
 
@@ -343,6 +349,8 @@ finish();
                         message = "Connection TimeOut! Please check your internet connection.";
                     }
                     Toast.makeText(VerificationCode.this, message, Toast.LENGTH_SHORT).show();
+                    if ( progressDialog.isShowing())
+                        progressDialog.hide();
                 }
             })
             {

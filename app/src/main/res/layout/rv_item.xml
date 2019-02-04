@@ -148,7 +148,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/spacing_large"
                 android:layout_marginTop="@dimen/spacing_large"
                 android:layout_marginRight="@dimen/spacing_large"
@@ -370,7 +370,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
                         <!--<TextView-->
                         <!--android:id="@+id/b1"-->
                         <!--android:layout_width="79dp"-->
@@ -393,18 +393,31 @@
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                             android:textColor="@android:color/black" />
 
+                        <TextView
+                            android:id="@+id/remId"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_medium"
+                            android:fontFamily="sans-serif-light"
+                            android:lineSpacingExtra="2dp"
+                            android:text="short_lorem_ipsum"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            android:textColor="@android:color/black" />
+
+
+
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="38dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_medium"
                         android:gravity="right"
                         android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="38dp"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
 
                             android:orientation="horizontal">
 

@@ -234,6 +234,8 @@ public class LoginCardOverlap extends AppCompatActivity {
                         message = "Connection TimeOut! Please check your internet connection.";
                     }
                     Toast.makeText(LoginCardOverlap.this, message, Toast.LENGTH_SHORT).show();
+                    if (progressDialog.isShowing())
+                        progressDialog.hide();
                 }
             });
             MyStringRequest.setShouldCache(false);
@@ -392,6 +394,8 @@ public class LoginCardOverlap extends AppCompatActivity {
 
                                 }
                             } catch (JSONException e) {
+                                if (progressDialog.isShowing())
+                                    progressDialog.hide();
                                 e.printStackTrace();
                                 //
                                 //                            //  instance.setText("error= " + e.getMessage());
@@ -419,6 +423,8 @@ public class LoginCardOverlap extends AppCompatActivity {
                                 message = "Connection TimeOut! Please check your internet connection.";
                             }
                             Toast.makeText(LoginCardOverlap.this, message, Toast.LENGTH_SHORT).show();
+                            if (progressDialog.isShowing())
+                                progressDialog.hide();
                         }
                     });
 

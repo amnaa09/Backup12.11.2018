@@ -81,7 +81,7 @@ public class DashInsurance extends AppCompatActivity {
         setContentView(R.layout.dash_options_insurance);
         final ProgressDialog progressDialog = new ProgressDialog(this);
         count0 = (TextView) findViewById(R.id.count0);
-        count00 = (TextView) findViewById(R.id.count00);
+    //    count00 = (TextView) findViewById(R.id.count00);
         userID = getIntent().getStringExtra("userID");
         instanceStr = getIntent().getStringExtra("instance");
         token = getIntent().getStringExtra("token");
@@ -630,6 +630,8 @@ public class DashInsurance extends AppCompatActivity {
                     message = "Connection TimeOut! Please check your internet connection.";
                 }
                 Toast.makeText(DashInsurance.this, message, Toast.LENGTH_SHORT).show();
+                if (progressDialog.isShowing())
+                    progressDialog.hide();
             }
         });
 

@@ -91,7 +91,7 @@ TextView t1,t2,t3,t4,t5;
           progressDialog = new ProgressDialog(this);
     //    progressDialog=new ProgressDialog(this);
         count0 = (TextView) findViewById(R.id.count0);
-        count00 = (TextView) findViewById(R.id.count00);
+       // count00 = (TextView) findViewById(R.id.count00);
         t1=(TextView)findViewById(R.id.anualleaveentitle);
         t2=(TextView)findViewById(R.id.anualleave);
         t3=(TextView)findViewById(R.id.outanuleave);
@@ -199,6 +199,8 @@ TextView t1,t2,t3,t4,t5;
                     message = "Connection TimeOut! Please check your internet connection.";
                 }
                 Toast.makeText(ExpansionPanelInvoice.this, message, Toast.LENGTH_SHORT).show();
+                if (progressDialog.isShowing())
+                    progressDialog.hide();
             }
         });
         MyStringRequest.setShouldCache(false);
@@ -325,6 +327,8 @@ TextView t1,t2,t3,t4,t5;
                             message = "Connection TimeOut! Please check your internet connection.";
                         }
                         Toast.makeText(ExpansionPanelInvoice.this, message, Toast.LENGTH_SHORT).show();
+                        if (progressDialog.isShowing())
+                            progressDialog.hide();
                     }
                 });
                 MyStringRequest.setShouldCache(false);
