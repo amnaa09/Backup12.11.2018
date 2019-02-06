@@ -10,6 +10,7 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -188,33 +189,33 @@ JSONObject countarray101[],countarray102[],countarray132[], countarray142[];
                     JSONObject data = new JSONObject(response);
                     if (progressDialog.isShowing())
                         progressDialog.hide();
-                    if(data.getString("count_01")!=null || data.getString("count_01")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_01"))) {
                         countr_1 = data.getString("count_01");
                         countR1.setText(countr_1);
                     }
-                    if(data.getString("count_02")!=null || data.getString("count_02")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_02"))) {
                         countr_2 = data.getString("count_02");
                         countR2.setText(countr_2);
                     }
-                    if(data.getString("count_03")!=null || data.getString("count_03")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_03"))) {
                         countr_3 = data.getString("count_03");
                         countR3.setText(countr_3);
                     }
-                    if(data.getString("count_04")!=null || data.getString("count_04")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_04"))) {
                         countr_4 = data.getString("count_04");
                         countR4.setText(countr_4);
                     }
-                    if(data.getString("count_05")!=null || data.getString("count_05")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_05"))) {
                         countr_5 = data.getString("count_05");
                         countR5.setText(countr_5);
                     }
-                    if(data.getString("count_06")!=null || data.getString("count_06")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_06"))) {
                         countr_6 = data.getString("count_06");
                         countR6.setText(countr_6);
                     }
 
 
-                    if(data.getString("count_07")!="null" || data.getString("count_07")!=null) {
+                    if(!TextUtils.isEmpty(data.getString("count_07"))) {
                         info2.setVisibility(View.VISIBLE);
                         countarray_7 = data.getJSONArray("count_07");
 
@@ -268,6 +269,8 @@ JSONObject countarray101[],countarray102[],countarray132[], countarray142[];
 
                         bardatasetrcv.setColors(new int[]{R.color.blue_500});
                         bardatasetrcv2.setColors(new int[]{R.color.red_500});
+                        bardatasetrcv.setDrawValues(false);
+                        bardatasetrcv2.setDrawValues(false);
 
                         ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
                         dataSets.add(bardatasetrcv);
@@ -305,9 +308,11 @@ JSONObject countarray101[],countarray102[],countarray132[], countarray142[];
 
                         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                         xAxis.setValueFormatter(new IndexAxisValueFormatter(labels_graphrcv1));
+                        barchartReceivable1.setTouchEnabled(true);
+                        barchartReceivable1.setMarker(mv);
                     }
                     //------------------------------------------------------------------------------
-                    if(data.getString("count_08")!=null || data.getString("count_08")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_08"))) {
                         countarray_8 = data.getJSONArray("count_08");
                         array8 = new double[countarray_8.length()];
                         //for(int i=0;i<count_7.length();i++)
@@ -357,6 +362,7 @@ JSONObject countarray101[],countarray102[],countarray132[], countarray142[];
                         setComp1.setFillColor(R.color.red_500);
                         setComp1.setDrawFilled(true);
                         setComp1.setCircleColor(R.color.red_500);
+                        setComp1.setDrawValues(false);
 
 
                         LineDataSet setComp2 = new LineDataSet(valsComp2, "VAT");
@@ -366,6 +372,7 @@ JSONObject countarray101[],countarray102[],countarray132[], countarray142[];
                         setComp2.setFillColor(R.color.green_500);
                         setComp2.setDrawFilled(true);
                         setComp2.setCircleColor(R.color.green_500);
+                        setComp2.setDrawValues(false);
 
                         List<ILineDataSet> line_dataSets1 = new ArrayList<ILineDataSet>();
                         line_dataSets1.add(setComp1);
@@ -393,10 +400,12 @@ JSONObject countarray101[],countarray102[],countarray132[], countarray142[];
                         XAxis xAxis_line1 = linechartReceivable1.getXAxis();
                         xAxis_line1.setGranularity(1f); // minimum axis-step (interval) is 1
                         xAxis_line1.setValueFormatter(formatter);
+                        linechartReceivable1.setTouchEnabled(true);
+                        linechartReceivable1.setMarker(mv);
                     }
                     //.......................................................................................................................
 
-                    if(data.getString("count_09")!=null || data.getString("count_09")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_09"))) {
                         countarray_9 = data.getJSONArray("count_09");
 
                         //for(int i=0;i<count_7.length();i++)
@@ -494,7 +503,7 @@ JSONObject countarray101[],countarray102[],countarray132[], countarray142[];
                         yAxisRight2.setEnabled(false);
                     }
                     //.................................................................................................
-                    if(data.getString("count_10")!=null || data.getString("count_10")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_10"))) {
                         countarray_10 = data.getJSONArray("count_10");
                         countarray_101 = countarray_10.getJSONArray(0);
                         countarray101 = new JSONObject[countarray_101.length()];
@@ -598,7 +607,7 @@ JSONObject countarray101[],countarray102[],countarray132[], countarray142[];
                         pieChartrcv.setPieChartData(pieChartData);
                     }
 
-                    if(data.getString("count_11")!=null || data.getString("count_11")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_11"))) {
                         countarray11 = data.getJSONArray("count_11");
                         array11 = new String[countarray11.length()];
                         for (int i = 0; i < countarray11.length(); i++)
@@ -608,7 +617,7 @@ JSONObject countarray101[],countarray102[],countarray132[], countarray142[];
                         //guagerecv.setSpeed(temp);
                         amounttext.setText("Amount: "+array11[1].toString());
                     }
-                    if(data.getString("count_12")!=null || data.getString("count_12")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_12"))) {
 
                         countarray12 = data.getInt("count_12");
                         //   gauge1.setMinValue(0);
@@ -616,7 +625,7 @@ JSONObject countarray101[],countarray102[],countarray132[], countarray142[];
                         gauge2.setSpeed(countarray12);
                     }
 //..................Count13..........................................................................//
-                    if(data.getString("count_13")!=null || data.getString("count_13")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_13"))) {
                         countarray_13 = data.getJSONArray("count_13");
                         countarray_132 = countarray_13.getJSONArray(1);
                         //  Toast.makeText(DashFinance.this, "arrayindex=" +countarray_132.length(), Toast.LENGTH_SHORT).show();
@@ -647,7 +656,7 @@ JSONObject countarray101[],countarray102[],countarray132[], countarray142[];
                     }
 
 //..................Count14..........................................................................//
-                    if(data.getString("count_14")!=null || data.getString("count_14")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_14"))) {
                         countarray_14 = data.getJSONArray("count_14");
                         countarray_142 = countarray_14.getJSONArray(1);
                         //  Toast.makeText(DashFinance.this, "arrayindex=" +countarray_132.length(), Toast.LENGTH_SHORT).show();
@@ -743,27 +752,27 @@ JSONObject countarray101[],countarray102[],countarray132[], countarray142[];
                     JSONObject data = new JSONObject(response);
                     if ( progressDialog.isShowing())
                         progressDialog.hide();
-                    if(data.getString("count_01")!=null || data.getString("count_01")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_01"))) {
                         count1 = data.getString("count_01");
                         countP1.setText(count1);
                     }
-                    if(data.getString("count_02")!=null || data.getString("count_02")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_02"))) {
                         count2 = data.getString("count_02");
                         countP2.setText(count2);
                     }
-                    if(data.getString("count_03")!=null || data.getString("count_03")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_03"))) {
                         count3 = data.getString("count_03");
                         countP3.setText(count1);
                     }
-                    if(data.getString("count_04")!=null || data.getString("count_04")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_04"))) {
                         count4 = data.getString("count_04");
                         countP4.setText(count4);
                     }
-                    if(data.getString("count_05")!=null || data.getString("count_05")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_05"))) {
                         count5 = data.getString("count_05");
                         countP5.setText(count5);
                     }
-                    if(data.getString("count_06")!=null || data.getString("count_06")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_06"))) {
                         count6 = data.getString("count_06");
                         countP6.setText(count1);
                     }
@@ -774,7 +783,7 @@ JSONObject countarray101[],countarray102[],countarray132[], countarray142[];
                     //  count7_length=data.getJSONArray("count_07").length();
                   //  count_7=new int[count7_length];
 
-                    if(data.getString("count_07")!=null || data.getString("count_07")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_07"))) {
                         info1.setVisibility(View.VISIBLE);
                         count_7 = data.getJSONArray("count_07");
                         arr7 = new double[count_7.length()];
@@ -879,7 +888,7 @@ JSONObject countarray101[],countarray102[],countarray132[], countarray142[];
 
                     }
                  //------------------------------------------------------------------------------
-                    if(data.getString("count_08")!=null || data.getString("count_08")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_08"))) {
 
                         count_8 = data.getJSONArray("count_08");
                         arr8 = new double[count_8.length()];
@@ -980,7 +989,7 @@ JSONObject countarray101[],countarray102[],countarray132[], countarray142[];
                         linechartPayable1.setMarker(mv);
                     }
                     //------------------------------------------------------------------------------
-                   if(data.getString("count_09")!=null || data.getString("count_09")!="null") {
+                   if(!TextUtils.isEmpty(data.getString("count_09"))) {
                        count_9 = data.getJSONArray("count_09");
 
                        //for(int i=0;i<count_7.length();i++)
@@ -1079,7 +1088,7 @@ JSONObject countarray101[],countarray102[],countarray132[], countarray142[];
 
                    }
                     //------------------------------------------------------------------------------
-                   if(data.getString("count_10")!=null || data.getString("count_10")!="null") {
+                   if(!TextUtils.isEmpty(data.getString("count_10"))) {
                        count_10 = data.getJSONArray("count_10");
 
                        //for(int i=0;i<count_7.length();i++)
@@ -1185,14 +1194,14 @@ JSONObject countarray101[],countarray102[],countarray132[], countarray142[];
 
 
                    }
-                    if(data.getString("count_11")!=null || data.getString("count_11")!="null")
+                    if(!TextUtils.isEmpty(data.getString("count_11")))
                     { count11 = data.getInt("count_11");
                         gauge1.setSpeed(count11);
                     }
 
 
 
-                    if(data.getString("count_12")!=null || data.getString("count_12")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_12"))) {
                         count12 = data.getInt("count_12");
                         gauge3.setSpeed(count12);
 
@@ -1202,7 +1211,7 @@ JSONObject countarray101[],countarray102[],countarray132[], countarray142[];
 
 
 //..................Count13..........................................................................//
-                   if(data.getString("count_13")!=null || data.getString("count_13")!="null") {
+                   if(!TextUtils.isEmpty(data.getString("count_13"))) {
                        count_13 = data.getJSONArray("count_13");
                        count_132 = count_13.getJSONArray(1);
                        //    Toast.makeText(DashFinance.this, "arrayindex=" +count_132.length(), Toast.LENGTH_SHORT).show();
@@ -1242,7 +1251,7 @@ JSONObject countarray101[],countarray102[],countarray132[], countarray142[];
                    }
                    //..................Count14..........................................................................//
 
-                    if(data.getString("count_14")!=null || data.getString("count_14")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_14"))) {
                         count_14 = data.getJSONArray("count_14");
                         count_142 = count_14.getJSONArray(1);
                         //    Toast.makeText(DashFinance.this, "arrayindex=" +count_132.length(), Toast.LENGTH_SHORT).show();

@@ -113,20 +113,19 @@
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                     android:textColor="@color/grey_40" />
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/SignUp_instance"
+
+                <Spinner
+                    android:id="@+id/instanceSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="-4dp"
                     android:layout_marginRight="-4dp"
-                    android:inputType="text"
-                    android:maxLength="50"
-                    android:maxLines="1"
-                    android:singleLine="true"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                     android:textColor="@color/blue_600"
                     android:textStyle="bold"
-                    android:theme="@style/EditText.Grey" />
+                    android:theme="@style/EditText.Grey">
+
+                </Spinner>
 
                 <View
                     android:layout_width="0dp"

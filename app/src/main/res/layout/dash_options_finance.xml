@@ -17,7 +17,7 @@
 
         app:subtitleTextAppearance="@style/Base.TextAppearance.AppCompat.Caption"
         app:subtitleTextColor="@color/grey_10"
-        app:title="FINANCE"
+        app:title="Finance Dashboard"
         android:background="@color/colorPrimary"/>
 
 

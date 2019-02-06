@@ -15,11 +15,11 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:subtitleTextAppearance="@style/Base.TextAppearance.AppCompat.Caption"
         app:subtitleTextColor="@color/grey_10"
-        app:title="INSURANCE"
+        app:title="Insurance Dashboard"
         android:background="@color/colorPrimary"
         />
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
@@ -120,11 +120,11 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/count0"
+                                android:id="@+id/countI1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
-                                android:text="4000+"
+                                android:text="0"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_60"
                                 android:textStyle="bold" />
@@ -132,7 +132,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Products"
+                                android:text="Active Customer"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                                 android:textColor="@color/grey_40" />
 
@@ -195,10 +195,11 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/countI2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
-                                android:text="4429"
+                                android:text="0"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_60"
                                 android:textStyle="bold" />
@@ -206,7 +207,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Reports"
+                                android:text="Active Customer Company"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                                 android:textColor="@color/grey_40" />
 
@@ -274,9 +275,10 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/countI3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="92776"
+                                android:text="0"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_60"
                                 android:textStyle="bold" />
@@ -284,7 +286,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Viewer"
+                                android:text="Insurance Companies"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                                 android:textColor="@color/grey_40" />
 
@@ -347,10 +349,11 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/countI4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
-                                android:text="52791"
+                                android:text="0"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_60"
                                 android:textStyle="bold" />
@@ -358,7 +361,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Downloads"
+                                android:text="Total Motor(E)"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                                 android:textColor="@color/grey_40" />
 
@@ -427,10 +430,11 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/countI5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
-                                android:text="4000+"
+                                android:text="0"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_60"
                                 android:textStyle="bold" />
@@ -438,7 +442,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Products"
+                                android:text="Total Medical(E)"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                                 android:textColor="@color/grey_40" />
 
@@ -502,10 +506,11 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/countI6"
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
-                                android:text="52791"
+                                android:text="0"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_60"
                                 android:textStyle="bold" />
@@ -513,7 +518,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Downloads"
+                                android:text="Total General(E)"
                                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                                 android:textColor="@color/grey_40" />
 
@@ -547,41 +552,52 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginTop="0dp"
-            android:text="Supplierwise Outstanding Amount"
+            android:text="Last Six Month Insurance Trend"
             android:textSize="15dp"
             android:paddingRight="60dp"
             android:textStyle="bold"
             tools:ignore="InvalidId">
         </TextView>
 
-        <ImageView
-            android:layout_width="36dp"
-            android:layout_height="20dp"
-            android:layout_alignRight="@+id/refresh"
 
-            android:layout_gravity="left"
-            android:layout_marginTop="4dp"
-            app:srcCompat="@drawable/ic_file_download"
-            tools:ignore="VectorDrawableCompat" />
-
-        <ImageView
-            android:id="@+id/refresh1"
-            android:layout_width="36dp"
-            android:layout_height="20dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="2dp"
-            android:paddingRight="0dp"
-            app:srcCompat="@drawable/ref"
-            tools:ignore="VectorDrawableCompat" />
 
     </LinearLayout>
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dashboard_cards"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="@dimen/spacing_middle"
+                android:layout_height="0dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/spacing_large" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:text=""
+                android:textSize="15dp"
+                android:paddingRight="60dp"
+                android:textStyle="bold"
+                tools:ignore="InvalidId">
+            </TextView>
+
+
+
+        </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:id="@+id/payBar1_layout"
-        android:layout_height="322dp">
+        android:layout_height="280dp">
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/linechartisurrance1"
@@ -597,12 +613,71 @@
 
 
     </LinearLayout>
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dashboard_cards"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="@dimen/spacing_middle"
+                android:layout_height="0dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/spacing_large" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:text="Last Six Month Insurance Trend with Premium"
+                android:textSize="15dp"
+                android:paddingRight="60dp"
+                android:textStyle="bold"
+                tools:ignore="InvalidId">
+            </TextView>
 
 
+        </LinearLayout>
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dashboard_cards"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="@dimen/spacing_middle"
+                android:layout_height="0dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/spacing_large" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:text=" "
+                android:textSize="15dp"
+                android:paddingRight="60dp"
+                android:textStyle="bold"
+                tools:ignore="InvalidId">
+            </TextView>
+
+
+
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:id="@+id/payLine2_layout"
-            android:layout_height="322dp">
+            android:layout_height="280dp">
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/linechartisurrance2"
@@ -618,7 +693,67 @@
 
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dashboard_cards"
+            android:orientation="horizontal">
 
+            <View
+                android:layout_width="@dimen/spacing_middle"
+                android:layout_height="0dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/spacing_large" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:text="Last Six Month Comapny wise Insurance Trend"
+                android:textSize="15dp"
+                android:paddingRight="60dp"
+                android:textStyle="bold"
+                tools:ignore="InvalidId">
+            </TextView>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dashboard_cards"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="@dimen/spacing_middle"
+                android:layout_height="0dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/spacing_large" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:text=" "
+                android:textSize="15dp"
+                android:paddingRight="60dp"
+                android:textStyle="bold"
+                tools:ignore="InvalidId">
+            </TextView>
+
+
+
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -627,27 +762,15 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="@dimen/spacing_large" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="choose"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="@color/grey_40" />
-
-            <ImageButton
-                android:id="@+id/bt_toggle_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                app:srcCompat="@drawable/ic_expand_arrow"
-                tools:ignore="VectorDrawableCompat" />
+           <Spinner
+               android:id="@+id/spinnerInsurance1"
+               android:layout_width="220dp"
+               android:layout_height="wrap_content"></Spinner>
 
             <Button
-                android:id="@+id/signin"
-                android:layout_width="106dp"
-                android:layout_height="35dp"
+                android:id="@+id/searchInsurance1"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/btn_rounded_primary"
                 android:text="Search"
                 android:textAllCaps="false"
@@ -660,7 +783,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:id="@+id/payLine3_layout"
-            android:layout_height="322dp">
+            android:layout_height="280dp">
 
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barchart"
@@ -676,6 +799,68 @@
 
         </LinearLayout>
         <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dashboard_cards"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="@dimen/spacing_middle"
+                android:layout_height="0dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/spacing_large" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:text="Last Six Month Comapny wise Insurance Trend with Premium"
+                android:textSize="15dp"
+                android:paddingRight="60dp"
+                android:textStyle="bold"
+                tools:ignore="InvalidId">
+            </TextView>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dashboard_cards"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="@dimen/spacing_middle"
+                android:layout_height="0dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/spacing_large" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:text=" "
+                android:textSize="15dp"
+                android:paddingRight="60dp"
+                android:textStyle="bold"
+                tools:ignore="InvalidId">
+            </TextView>
+
+
+
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -683,27 +868,15 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="@dimen/spacing_large" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Choose"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="@color/grey_40" />
-
-            <ImageButton
-                android:id="@+id/bt_toggle_text1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                app:srcCompat="@drawable/ic_expand_arrow"
-                tools:ignore="VectorDrawableCompat" />
+            <Spinner
+                android:id="@+id/spinnerInsurance2"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"></Spinner>
 
             <Button
-                android:id="@+id/search"
-                android:layout_width="106dp"
-                android:layout_height="35dp"
+                android:id="@+id/searchInsurance2"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/btn_rounded_primary"
                 android:text="Search"
                 android:textAllCaps="false"
@@ -716,7 +889,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:id="@+id/payLine4_layout"
-            android:layout_height="322dp">
+            android:layout_height="280dp">
 
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barchart1"
@@ -733,75 +906,131 @@
         </LinearLayout>
 
         <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dashboard_cards"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="@dimen/spacing_middle"
+                android:layout_height="0dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/spacing_large" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:text="Last Six Month Motor Insurance Type , Make Wise W.R.T Company"
+                android:textSize="15dp"
+                android:paddingRight="60dp"
+                android:textStyle="bold"
+                tools:ignore="InvalidId">
+            </TextView>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dashboard_cards"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="@dimen/spacing_middle"
+                android:layout_height="0dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/spacing_large" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:text=" "
+                android:textSize="15dp"
+                android:paddingRight="60dp"
+                android:textStyle="bold"
+                tools:ignore="InvalidId">
+            </TextView>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="3">
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/spacing_large" />
+            <Spinner
+                android:id="@+id/spinnerInsurance3"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"></Spinner>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="choose"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="@color/grey_40" />
 
-            <ImageButton
-                android:id="@+id/bt_toggle_text2"
-                android:layout_width="wrap_content"
+        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                app:srcCompat="@drawable/ic_expand_arrow"
-                tools:ignore="VectorDrawableCompat" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="choose"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="@color/grey_40" />
+                android:orientation="horizontal"
+                android:weightSum="3">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/spacing_large" />
+                <Spinner
+                    android:id="@+id/spinnerInsurance4"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"></Spinner>
 
-            <ImageButton
-                android:id="@+id/bt_toggle_text3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                app:srcCompat="@drawable/ic_expand_arrow"
-                tools:ignore="VectorDrawableCompat" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="choose"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="@color/grey_40" />
 
-            <ImageButton
-                android:id="@+id/bt_toggle_text4"
-                android:layout_width="wrap_content"
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                app:srcCompat="@drawable/ic_expand_arrow"
-                tools:ignore="VectorDrawableCompat" />
+                android:orientation="horizontal"
+                android:weightSum="3">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/spacing_large" />
+                <Spinner
+                    android:id="@+id/spinnerInsurance5"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"></Spinner>
 
-            <Button
-                android:id="@+id/signin1"
-                android:layout_width="106dp"
-                android:layout_height="35dp"
-                android:background="@drawable/btn_rounded_primary"
-                android:text="Search"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                />
+                <Button
+                    android:id="@+id/searchInsurance3"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_rounded_primary"
+                    android:text="Search"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    />
+            </LinearLayout>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:id="@+id/insuBar1_layout"
-            android:layout_height="322dp">
+            android:layout_height="280dp">
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/linechartisurrance3"
@@ -819,75 +1048,132 @@
         </LinearLayout>
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:layout_below="@id/dashboard_cards"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="@dimen/spacing_middle"
+                android:layout_height="0dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/spacing_large" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="choose"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="@color/grey_40" />
 
-            <ImageButton
-                android:id="@+id/bt_toggle_text5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                app:srcCompat="@drawable/ic_expand_arrow"
-                tools:ignore="VectorDrawableCompat" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="choose"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="@color/grey_40" />
-
-            <ImageButton
-                android:id="@+id/bt_toggle_text6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                app:srcCompat="@drawable/ic_expand_arrow"
-                tools:ignore="VectorDrawableCompat" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Choose"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="@color/grey_40" />
-
-            <ImageButton
-                android:id="@+id/bt_toggle_text7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                app:srcCompat="@drawable/ic_expand_arrow"
-                tools:ignore="VectorDrawableCompat" />
-
-            <Button
-                android:id="@+id/signin2"
-                android:layout_width="106dp"
-                android:layout_height="35dp"
-                android:background="@drawable/btn_rounded_primary"
-                android:text="Search"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:text="Last Six Month Motor Insurance Type , Make Wise W.R.T Company Premium
+"
+                android:textSize="15dp"
+                android:paddingRight="60dp"
                 android:textStyle="bold"
-                />
+                tools:ignore="InvalidId">
+            </TextView>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dashboard_cards"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="@dimen/spacing_middle"
+                android:layout_height="0dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/spacing_large" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:text=" "
+                android:textSize="15dp"
+                android:paddingRight="60dp"
+                android:textStyle="bold"
+                tools:ignore="InvalidId">
+            </TextView>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/spacing_large" />
+                <Spinner
+                    android:id="@+id/spinnerInsurance6"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"></Spinner>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/spacing_large" />
+                <Spinner
+                    android:id="@+id/spinnerInsurance7"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"></Spinner>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/spacing_large" />
+                <Spinner
+                    android:id="@+id/spinnerInsurance8"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"></Spinner>
+
+                <Button
+                    android:id="@+id/searchInsurance4"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_rounded_primary"
+                    android:text="Search"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    />
+            </LinearLayout>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:id="@+id/insuline_layout"
-            android:layout_height="250dp">
+            android:layout_height="280dp">
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/linechartisurrance4"

@@ -90,7 +90,7 @@ TextView t1,t2,t3,t4,t5;
         setContentView(R.layout.activity_expansion_panel_invoice);
           progressDialog = new ProgressDialog(this);
     //    progressDialog=new ProgressDialog(this);
-        count0 = (TextView) findViewById(R.id.count0);
+     //   count0 = (TextView) findViewById(R.id.count0);
        // count00 = (TextView) findViewById(R.id.count00);
         t1=(TextView)findViewById(R.id.anualleaveentitle);
         t2=(TextView)findViewById(R.id.anualleave);

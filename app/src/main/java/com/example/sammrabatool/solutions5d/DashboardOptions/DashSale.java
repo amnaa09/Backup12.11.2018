@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -117,6 +118,7 @@ public class DashSale extends AppCompatActivity {
         final PieChartView pieChartView1=findViewById(R.id.chart13);
         final PieChartView pieChartView2=findViewById(R.id.piechartSale);
         info1=(ImageView) findViewById(R.id.infoS1);
+        info1.setVisibility(View.INVISIBLE);
        // info2=(ImageView) findViewById(R.id.infoS2);
         amounttext=(TextView) findViewById(R.id.guageTextSale);
         final int[] MY_COLORS = {Color.rgb(0,0,255), Color.rgb(225,0,127), Color.rgb(0,255,255),
@@ -150,31 +152,31 @@ public class DashSale extends AppCompatActivity {
                     JSONObject data = new JSONObject(response);
                     if (progressDialog.isShowing())
                         progressDialog.hide();
-                    if(data.getString("count_01")!=null || data.getString("count_01")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_01"))) {
                         count1 = data.getString("count_01");
                         countS1.setText(count1);
                     }
-                    if(data.getString("count_02")!=null || data.getString("count_02")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_02"))) {
                         count2 = data.getString("count_02");
                         countS2.setText(count2);
                     }
-                    if(data.getString("count_03")!=null || data.getString("count_03")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_03"))) {
                         count3 = data.getString("count_03");
                         countS3.setText(count3);
                     }
-                    if(data.getString("count_04")!=null || data.getString("count_04")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_04"))) {
                         count4 = data.getString("count_04");
                         countS4.setText(count4);
                     }
-                    if(data.getString("count_05")!=null || data.getString("count_05")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_05"))) {
                         count5 = data.getString("count_05");
                         countS5.setText(count5);
                     }
-                    if(data.getString("count_06")!=null || data.getString("count_06")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_06"))) {
                         count6 = data.getString("count_06");
                         countS6.setText(count6);
                     }
-                    if(data.getString("count_07")!=null || data.getString("count_07")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_07"))) {
                         info1.setVisibility(View.VISIBLE);
                         countarray_7 = data.getJSONArray("count_07");
                         array7 = new double[countarray_7.length()];
@@ -225,6 +227,8 @@ public class DashSale extends AppCompatActivity {
 
                         bardatasetrcv.setColors(new int[]{R.color.blue_500});
                         bardatasetrcv2.setColors(new int[]{R.color.red_500});
+                        bardatasetrcv.setDrawValues(false);
+                        bardatasetrcv2.setDrawValues(false);
 
                         ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
                         dataSets.add(bardatasetrcv);
@@ -262,9 +266,11 @@ public class DashSale extends AppCompatActivity {
 
                         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                         xAxis.setValueFormatter(new IndexAxisValueFormatter(labels_graphrcv1));
+                        barchartSale1.setTouchEnabled(true);
+                        barchartSale1.setMarker(mv);
                     }
                     //...................................................................................
-                    if(data.getString("count_16")!=null || data.getString("count_16")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_16"))) {
                         countarray_16 = data.getJSONArray("count_16");
                         array16 = new double[countarray_16.length()];
                         countarray_162 = countarray_16.getJSONArray(2);
@@ -273,7 +279,8 @@ public class DashSale extends AppCompatActivity {
                             array162[i] = countarray_162.getDouble(i);
                             // Toast.makeText(DashFinance.this, "value="+arr71[i], Toast.LENGTH_SHORT).show();
                         }
-                       if (countarray_16.get(1) != "null" || countarray_16.get(1) != null) {
+                        if(!countarray_16.get(1).equals(null))
+                       {
 
                            countarray_160 = countarray_16.getJSONArray(1);
                            array160 = new double[countarray_160.length()];
@@ -343,12 +350,14 @@ public class DashSale extends AppCompatActivity {
 
                            xAxis2.setPosition(XAxis.XAxisPosition.BOTTOM);
                            xAxis2.setValueFormatter(new IndexAxisValueFormatter(labels_graphsale1));
+                           barchartSale2.setTouchEnabled(true);
+                           barchartSale2.setMarker(mv);
                        }
                        else
                            Toast.makeText(DashSale.this, "null="+countarray_16.getString(1), Toast.LENGTH_SHORT).show();
                     }
                     //------------------------------------------------------------------------------
-                    if(data.getString("count_08")!=null || data.getString("count_08")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_08"))) {
                         countarray_8 = data.getJSONArray("count_08");
                         array8 = new double[countarray_8.length()];
                         countarray_81 = countarray_8.getJSONArray(1);
@@ -387,11 +396,13 @@ public class DashSale extends AppCompatActivity {
                         LineDataSet setComp1 = new LineDataSet(valsComp1, "Receivable");
                         setComp1.setAxisDependency(YAxis.AxisDependency.LEFT);
                         setComp1.setColor(R.color.red_500);
+                        setComp1.setDrawValues(false);
 
                         LineDataSet setComp2 = new LineDataSet(valsComp2, "VAT");
                         setComp2.setAxisDependency(YAxis.AxisDependency.LEFT);
 
                         setComp2.setColor(R.color.green_500);
+                        setComp2.setDrawValues(false);
 
                         List<ILineDataSet> line_dataSets1 = new ArrayList<ILineDataSet>();
                         line_dataSets1.add(setComp1);
@@ -429,7 +440,7 @@ public class DashSale extends AppCompatActivity {
 
                     }
                     //.........................................................................................................
-                    if(data.getString("count_09")!=null || data.getString("count_09")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_09"))) {
                         countarray_9 = data.getJSONArray("count_09");
                         array9 = new double[countarray_9.length()];
                         countarray_91 = countarray_9.getJSONArray(1);
@@ -521,7 +532,7 @@ public class DashSale extends AppCompatActivity {
                         yAxisRight2.setEnabled(false);
                     }
                     //.................................................................................................
-                    if(data.getString("count_10")!=null || data.getString("count_10")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_10"))) {
                         countarray_10 = data.getJSONArray("count_10");
                         countarray_101 = countarray_10.getJSONArray(0);
                         countarray101 = new JSONObject[countarray_101.length()];
@@ -618,7 +629,7 @@ public class DashSale extends AppCompatActivity {
                     }
 //........................................................................................................
 
-                    if(data.getString("count_11")!=null || data.getString("count_11")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_11"))) {
                         countarray_11 = data.getJSONArray("count_11");
                         array11 = new String[countarray_11.length()];
                         for (int i = 0; i < countarray_11.length(); i++)
@@ -630,7 +641,7 @@ public class DashSale extends AppCompatActivity {
                     }
 //...................................................................................................
 
-                    if(data.getString("count_12")!=null || data.getString("count_12")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_12"))) {
                         countarray_12 = data.getJSONArray("count_12");
                         countarray_122 = countarray_12.getJSONArray(1);
                         //      Toast.makeText(DashSale.this, "arrayindex=" +countarray_122.length(), Toast.LENGTH_SHORT).show();
@@ -662,7 +673,7 @@ public class DashSale extends AppCompatActivity {
                         pieChartView.setPieChartData(pieChartData);
                     }
 //...................................................Count13................................................................//
-                    if(data.getString("count_13")!=null || data.getString("count_13")!="null") {
+                    if(!TextUtils.isEmpty(data.getString("count_13"))) {
                         countarray_13 = data.getJSONArray("count_13");
                         countarray_132 = countarray_13.getJSONArray(1);
                      //   Toast.makeText(DashSale.this, "arrayindex=" + countarray_132.length(), Toast.LENGTH_SHORT).show();
@@ -691,6 +702,7 @@ public class DashSale extends AppCompatActivity {
 
 
                     }
+
                 } catch (JSONException e) {
 
                     if ( progressDialog.isShowing())
@@ -741,7 +753,7 @@ public class DashSale extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //  toolbar.setNavigationIcon(R.drawable.ic_menu);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("DashSale");
+        getSupportActionBar().setTitle("Sales Dashboard");
         // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Tools.setSystemBarColor(this);
     }

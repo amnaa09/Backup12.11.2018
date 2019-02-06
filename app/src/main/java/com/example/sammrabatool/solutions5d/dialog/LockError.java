@@ -39,7 +39,7 @@ public class LockError extends AppCompatActivity {
     //    name=sharedprefSignup.getString("emailKey", "save user id");
     //    token=sharedprefSignup.getString("token", "save user id");
     //    Toast.makeText(Agreement.this, "in agreement from pref  activity="+activity+" name="+name+"token="+token, Toast.LENGTH_SHORT).show();
-        count=Prefs.getInt("lockCounter",3);
+        count=Prefs.getInt("lockCounter",0);
        // Toast.makeText(this, "lockcounter="+count, Toast.LENGTH_SHORT).show();
 
 
@@ -65,7 +65,8 @@ public class LockError extends AppCompatActivity {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
         dialog.setContentView(R.layout.dialog_lock_error);
-        dialog.setCancelable(true);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
 
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(dialog.getWindow().getAttributes());

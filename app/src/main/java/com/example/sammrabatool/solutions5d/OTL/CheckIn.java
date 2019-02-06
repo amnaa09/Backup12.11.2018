@@ -318,7 +318,7 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
                    // user_valid = data.getBoolean("valid_user");
                   //  if(user_valid==true) {}
                   //  else {
-                    if(data.getJSONArray("project")!=null){
+                    if(data.getJSONArray("project").length()>0){
                     otlPorjectArray=data.getJSONArray("project");
                   //  if(otlPorjectArray!=null) {
                         otlProjectdetail = new JSONObject[otlPorjectArray.length()];
@@ -338,7 +338,7 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
                         project.setAdapter(projectAdapter);
                         //--------------------------------------------------------------------------
                     }
-                    if(data.getJSONArray("type")!=null){
+                    if(data.getJSONArray("type").length()>0){
                     otltypeArray=data.getJSONArray("type");
                    // if(otltypeArray!=null) {
                         otlTypedetail = new JSONObject[otltypeArray.length()];
@@ -493,7 +493,7 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
                        listactivity.add("Select activity");
                        hashSpinnerActivity.put(0,"0");
 
-                        if(data.getString("tasks")!="null"){
+                        if(data.getJSONArray("tasks").length()>0){
 
                        otlPorjectTaskArray=data.getJSONArray("tasks");
                       // if(otlPorjectTaskArray!=null) {
@@ -615,10 +615,9 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
                        hashSpinnerActivity.clear();
                        listactivity.add("Select activity");
                        hashSpinnerActivity.put(0,"0");
-                        if(data.getJSONArray("taskActivity")!=null){
 
 
-
+                        if(data.getJSONArray("taskActivity").length()>0){
                        otlPorjectTaskActivityArray=data.getJSONArray("taskActivity");
                       // if(otlPorjectTaskActivityArray!=null) {
                            otlActivitydetail = new JSONObject[otlPorjectTaskActivityArray.length()];
