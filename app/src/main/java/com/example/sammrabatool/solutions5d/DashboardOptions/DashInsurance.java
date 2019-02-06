@@ -146,8 +146,8 @@ public class DashInsurance extends AppCompatActivity implements  AdapterView.OnI
         s7=(Spinner) findViewById(R.id.spinnerInsurance7);
         s8=(Spinner) findViewById(R.id.spinnerInsurance8);
 
-        supplier.add("Select Supplier");
-        hashSpinnerSupplier.put(0, "0");
+        supplier.add("Select Supplier");// for showing
+        hashSpinnerSupplier.put(0, "0");//hashspinner for set the key and value
         subtype.add("Select Subtype");
         hashSpinnerSubtype.put(0,"0");
         makes.add("Select Makes");
@@ -162,7 +162,7 @@ public class DashInsurance extends AppCompatActivity implements  AdapterView.OnI
         s6.setOnItemSelectedListener(this);
         s7.setOnItemSelectedListener(this);
         s8.setOnItemSelectedListener(this);
-
+//...................setting the value of spinner..............//
         ArrayAdapter sup1Adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,supplier);
         sup1Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Setting the ArrayAdapter data on the Spinner
@@ -285,7 +285,7 @@ public class DashInsurance extends AppCompatActivity implements  AdapterView.OnI
                                 bardatasetrcv.setColors(Color.BLUE);
                                 bardatasetrcv2.setColors(Color.GREEN);
                                 bardatasetrcv3.setColors(Color.RED);
-                                bardatasetrcv.setDrawValues(false);
+                                bardatasetrcv.setDrawValues(false);//bydefault values hide,and on touch screen the values will show
                                 bardatasetrcv2.setDrawValues(false);
                                 bardatasetrcv3.setDrawValues(false);
 
@@ -338,7 +338,7 @@ public class DashInsurance extends AppCompatActivity implements  AdapterView.OnI
                                 xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                                 xAxis.setValueFormatter(new IndexAxisValueFormatter(labels_graphrcv1));
 
-                                barchartinsurr1.setTouchEnabled(true);
+                                barchartinsurr1.setTouchEnabled(true);//allow to touch the chart and see the values
                                 barchartinsurr1.setMarker(mv);
                             }
                             else
@@ -577,7 +577,7 @@ public class DashInsurance extends AppCompatActivity implements  AdapterView.OnI
                                 progressDialog.hide();
 
 //........................................count11....................................................//
-                            if(!TextUtils.isEmpty(data.getString("count_11"))) {
+                            if (data.getJSONArray("count_11").length()>0) {
                                 countarray_11 = data.getJSONArray("count_11");
                                 countarray_111 = countarray_11.getJSONArray(1);
                                 countarray111 = new JSONObject[countarray_111.length()];
@@ -1407,7 +1407,7 @@ public class DashInsurance extends AppCompatActivity implements  AdapterView.OnI
 
                     }
 //........................................count11....................................................//
-                    if(!TextUtils.isEmpty(data.getString("count_11"))) {
+                    if (data.getJSONArray("count_11").length()>0) {
                         countarray_11 = data.getJSONArray("count_11");
                         countarray_111 = countarray_11.getJSONArray(1);
                         countarray111 = new JSONObject[countarray_111.length()];
@@ -1470,7 +1470,7 @@ public class DashInsurance extends AppCompatActivity implements  AdapterView.OnI
                         yAxisRight3.setEnabled(false);
                     }
 //...................................count12..............................................//
-                if(!TextUtils.isEmpty(data.getString("count_12"))) {
+                    if (data.getJSONArray("count_12").length()>0){
                     countarray_12 = data.getJSONArray("count_12");
                     countarray_121 = countarray_12.getJSONArray(1);
                     countarray121 = new JSONObject[countarray_121.length()];

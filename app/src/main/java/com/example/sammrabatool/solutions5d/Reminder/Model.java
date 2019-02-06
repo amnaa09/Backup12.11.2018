@@ -4,6 +4,8 @@ package com.example.sammrabatool.solutions5d.Reminder;
  * Created by hardik on 9/1/17.
  */
 public class Model {
+
+    public String msgtype;
     public String image;
     private String Notifcation_id;
     public String fyr;
@@ -11,6 +13,14 @@ public class Model {
     public String message;
     public String date;
     private String name;
+    public String getMsgtype() {
+        return msgtype;
+    }
+
+    public void setMsgtype(String msgtype) {
+        this.msgtype = msgtype;
+    }
+
 
     public String getType() {
         return type;

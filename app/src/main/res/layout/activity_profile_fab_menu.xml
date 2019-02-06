@@ -37,11 +37,11 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="203dp"
+                android:layout_width="wrap_content"
+                android:layout_height="107dp"
                 android:foreground="@color/overlay_dark_30"
                 android:scaleType="centerCrop"
-                android:src="@drawable/image_19" />
+                android:src="@drawable/peechy" />
 
             <ImageView
                 android:id="@+id/image"

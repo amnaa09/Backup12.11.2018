@@ -55,7 +55,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         this.onClickListener = onClickListener;
     }
 
-    String instanceStr, userID, token, userName,message,notificationID,type;
+    String instanceStr, userID, token, userName,message,notificationID,type,msgtyp;
     int lg, bg;
     public CustomAdapter(Context ctx, List<Model> list,String instanceStr, int bg, int lg, String userID, String token) {
 
@@ -89,6 +89,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
      //   Toast.makeText(ctx, "id=="+notificationID, Toast.LENGTH_SHORT).show();
       //  holder.fyr.setText(list.get(position).getFyr());
         holder.id.setText(String.valueOf(list.get(position).getNotifcation_id()));
+        holder.msgtype.setText(String.valueOf(list.get(position).getNotifcation_id()));
         holder.name.setText(list.get(position).getName());
         holder.date.setText(String.valueOf(list.get(position).getDate()));
        // holder.status.setText(list.get(position).getStatus());
@@ -125,7 +126,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         protected FloatingActionButton btn_plus, btn_minus;
-        private TextView fyr, id,name,date,status,msg,image_letter;
+        private TextView fyr, id,name,date,status,msg,image_letter,msgtype;
        private ImageView imageView;
         public ImageView image, imaget1, imaget2;
         public RelativeLayout lyt_checked, lyt_image;
@@ -138,6 +139,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 //            fyr = (TextView) itemView.findViewById(R.id.g);
             name = (TextView) itemView.findViewById(R.id.h);
             date = (TextView) itemView.findViewById(R.id.e);
+            msgtype=(TextView)itemView.findViewById(R.id.msgtpe);
 //            status = (TextView) itemView.findViewById(R.id.d);
             msg = (TextView) itemView.findViewById(R.id.b);
             image_letter = (TextView) itemView.findViewById(R.id.image_letter);
@@ -154,6 +156,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             btn_plus.setOnClickListener(this);
             btn_minus.setOnClickListener(this);
             id.setVisibility(View.INVISIBLE);
+            msgtype.setVisibility(View.INVISIBLE);
 
         }
 
@@ -167,14 +170,18 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 //                int number = Integer.parseInt(tv.getText().toString()) + 1;
 //                tv.setText(String.valueOf(number));
 //                list.get(getAdapterPosition()).setName("name");
-                TextView tv = (TextView) tempview.findViewById(R.id.remId);
+                TextView tv,tv1;
+                        tv= (TextView) tempview.findViewById(R.id.remId);
+                        tv1 = (TextView) tempview.findViewById(R.id.msgtpe);
                 int number = Integer.parseInt(tv.getText().toString());
-
              //   Toast.makeText(ctx, "id=="+number, Toast.LENGTH_SHORT).show();
                 notificationID=String.valueOf(number);
+                int number1 = Integer.parseInt(tv1.getText().toString());
+               // Toast.makeText(ctx, "msgtype=="+number1, Toast.LENGTH_SHORT).show();
+                msgtyp=String.valueOf(number1);
                 RequestQueue MyRequestQueue = Volley.newRequestQueue(ctx);
            //     Toast.makeText(ctx, "bg="+bg+"lg="+lg+"notid="+notificationID, Toast.LENGTH_SHORT).show();
-                String url = "http://" + instanceStr + ".5dsurf.com/app/webservice/UpdateReminderStatus/" + bg + "/" + lg + "/" + userID + "/" + token+"/"+notificationID+"/"+"1";
+                String url = "http://" + instanceStr + ".5dsurf.com/app/webservice/UpdateReminderStatus/" + bg + "/" + lg + "/" + userID + "/" + token+"/"+notificationID+"/"+"1"+"/"+msgtyp;
                 final ProgressDialog progressDialog = new ProgressDialog(ctx);
                 StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                     @Override
@@ -183,9 +190,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                         try {
                             if (progressDialog.isShowing())
                                 progressDialog.hide();
+//                            JSONObject data = new JSONObject(response);
                             data = new JSONObject(response.toString());
                             message = data.getString("message");
-                            Toast.makeText(ctx, message, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(ctx, message, Toast.LENGTH_SHORT).show();
 
                         } catch (JSONException e) {
                             if (progressDialog.isShowing())
@@ -193,7 +201,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                             e.printStackTrace();
                             //
                             //                            //  instance.setText("error= " + e.getMessage());
-                            Toast.makeText(ctx, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(ctx, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -234,9 +242,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 //                list.get(getAdapterPosition()).setName("name");
 
             } else if(v.getId() == btn_minus.getId()) {
+                View tempview = (View) btn_plus.getTag(R.integer.btn_plus_view);
+                TextView tv = (TextView) tempview.findViewById(R.id.remId);
+                int number = Integer.parseInt(tv.getText().toString());
+                notificationID=String.valueOf(number);
+                msgtyp=String.valueOf(number);
                 RequestQueue MyRequestQueue = Volley.newRequestQueue(ctx);
 
-                String url = "http://" + instanceStr + ".5dsurf.com/app/webservice/UpdateReminderStatus/" + bg + "/" + lg + "/" + userID + "/" + token+"/"+notificationID+"/"+"2";
+                String url = "http://" + instanceStr + ".5dsurf.com/app/webservice/UpdateReminderStatus/" + bg + "/" + lg + "/" + userID + "/" + token+"/"+notificationID+"/"+"2"+"/"+msgtyp;
                 final ProgressDialog progressDialog = new ProgressDialog(ctx);
                 StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                     @Override

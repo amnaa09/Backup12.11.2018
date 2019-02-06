@@ -54,7 +54,7 @@ public class Recyclerview extends AppCompatActivity {
     private ProgressDialog progressDialog;
     boolean user_valid = false;
     String message;
-    String instanceStr, userID, token, pic;
+    String instanceStr, userID, token, pic,msgtype;
     int lg, bg;
 
     @Override
@@ -95,6 +95,7 @@ public class Recyclerview extends AppCompatActivity {
                         obj.setDate(not_obj.getString("e"));
                         obj.setFyr(not_obj.getString("g"));
                         obj.setName(not_obj.getString("h"));
+                        obj.setMsgtype(not_obj.getString("msgType"));
                         pic=not_obj.getString("pic");
                         obj.image=pic;
                         list.add(obj);

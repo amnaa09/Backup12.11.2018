@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-   >
+    tools:context=".MainActivity">
 
 
     <!--<android.support.design.widget.AppBarLayout-->
@@ -625,7 +625,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="564dp"
+                        android:layout_height="426dp"
                         android:descendantFocusability="blocksDescendants"
                         android:orientation="vertical">
 
@@ -675,7 +675,6 @@
                                 android:visibility="visible"
                                 app:cardCornerRadius="2dp"
                                 app:cardElevation="2dp">
-
 
 
                                 <LinearLayout
@@ -972,53 +971,53 @@
                             android:layout_height="@dimen/spacing_middle" />
 
                         <!--<LinearLayout-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="141dp"-->
-                            <!--android:gravity="right|end|top"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="141dp"-->
+                        <!--android:gravity="right|end|top"-->
 
-                            <!--android:orientation="vertical">-->
-
-
-                            <!--<RelativeLayout-->
-                                <!--android:id="@+id/badge"-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content">-->
-
-                                <!--<RelativeLayout-->
-                                    <!--android:id="@+id/relative_layout"-->
-                                    <!--android:layout_width="99dp"-->
-                                    <!--android:layout_height="wrap_content">-->
-
-                                    <!--<pl.droidsonroids.gif.GifImageButton-->
-                                        <!--android:id="@+id/APPLY"-->
-                                        <!--android:layout_width="91dp"-->
-                                        <!--android:layout_height="96dp"-->
-                                        <!--android:layout_alignParentStart="true"-->
-                                        <!--android:layout_alignParentTop="true"-->
-                                        <!--android:layout_marginStart="0dp"-->
-                                        <!--android:layout_marginTop="0dp"-->
-                                        <!--android:background="@drawable/yesmove" />-->
-                                <!--</RelativeLayout>-->
+                        <!--android:orientation="vertical">-->
 
 
-                                <!--<TextView-->
-                                    <!--android:id="@+id/bagetext"-->
-                                    <!--android:layout_width="wrap_content"-->
-                                    <!--android:layout_height="wrap_content"-->
-                                    <!--android:layout_alignRight="@+id/relative_layout"-->
-                                    <!--android:layout_marginLeft="20dp"-->
-                                    <!--android:layout_marginTop="0dp"-->
-                                    <!--android:layout_marginRight="15dp"-->
-                                    <!--android:background="@drawable/circle"-->
-                                    <!--android:text="16"-->
-                                    <!--android:textColor="#fff"-->
-                                    <!--android:textSize="24dp"-->
-                                    <!--android:textStyle="bold">-->
+                        <!--<RelativeLayout-->
+                        <!--android:id="@+id/badge"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content">-->
 
-                                <!--</TextView>-->
-                                <!--&lt;!&ndash;/>&ndash;&gt;-->
+                        <!--<RelativeLayout-->
+                        <!--android:id="@+id/relative_layout"-->
+                        <!--android:layout_width="99dp"-->
+                        <!--android:layout_height="wrap_content">-->
 
-                            <!--</RelativeLayout>-->
+                        <!--<pl.droidsonroids.gif.GifImageButton-->
+                        <!--android:id="@+id/APPLY"-->
+                        <!--android:layout_width="91dp"-->
+                        <!--android:layout_height="96dp"-->
+                        <!--android:layout_alignParentStart="true"-->
+                        <!--android:layout_alignParentTop="true"-->
+                        <!--android:layout_marginStart="0dp"-->
+                        <!--android:layout_marginTop="0dp"-->
+                        <!--android:background="@drawable/yesmove" />-->
+                        <!--</RelativeLayout>-->
+
+
+                        <!--<TextView-->
+                        <!--android:id="@+id/bagetext"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignRight="@+id/relative_layout"-->
+                        <!--android:layout_marginLeft="20dp"-->
+                        <!--android:layout_marginTop="0dp"-->
+                        <!--android:layout_marginRight="15dp"-->
+                        <!--android:background="@drawable/circle"-->
+                        <!--android:text="16"-->
+                        <!--android:textColor="#fff"-->
+                        <!--android:textSize="24dp"-->
+                        <!--android:textStyle="bold">-->
+
+                        <!--</TextView>-->
+                        <!--&lt;!&ndash;/>&ndash;&gt;-->
+
+                        <!--</RelativeLayout>-->
 
 
                         <!--</LinearLayout>-->
@@ -1037,20 +1036,20 @@
 
     </ScrollView>
 </LinearLayout>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        android:clickable="true"
+        android:tint="@android:color/white"
         app:backgroundTint="#008CE7"
         app:elevation="0dp"
         app:fabSize="mini"
         app:rippleColor="@android:color/white"
         app:srcCompat="@drawable/bellnoti"
-        android:clickable="true"
-        android:tint="@android:color/white"
-        tools:ignore="VectorDrawableCompat"
-       />
+        tools:ignore="VectorDrawableCompat" />
 
 </android.support.design.widget.CoordinatorLayout>

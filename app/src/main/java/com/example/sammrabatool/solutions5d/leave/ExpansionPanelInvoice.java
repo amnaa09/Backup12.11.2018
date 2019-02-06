@@ -2,12 +2,16 @@ package com.example.sammrabatool.solutions5d.leave;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,8 +39,11 @@ import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
 import com.example.sammrabatool.solutions5d.OTL.CheckIn;
 import com.example.sammrabatool.solutions5d.OTL.CircleTransform;
 import com.example.sammrabatool.solutions5d.R;
+import com.example.sammrabatool.solutions5d.Reminder.Recyclerview;
 import com.example.sammrabatool.solutions5d.Tools;
 import com.example.sammrabatool.solutions5d.ViewAnimation;
+import com.example.sammrabatool.solutions5d.dashboard.DashboardGridFab;
+import com.example.sammrabatool.solutions5d.profile.ProfilePurple;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -107,7 +114,8 @@ TextView t1,t2,t3,t4,t5;
         profileImage = (ImageView) findViewById(R.id.profileImage);
         TableView<String[]> tb = (TableView<String[]>) findViewById(R.id.tableView);
         tb.setVisibility(View.GONE);
-
+        initComponent();
+        initToolbar();
 
 
         //.....................settingspinner........................................//
@@ -121,7 +129,7 @@ TextView t1,t2,t3,t4,t5;
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Setting the ArrayAdapter data on the Spinner
         employtype.setAdapter(typeAdapter);
-        initComponent();
+
         //--------------------calling webservice-------------------------------//
 
         RequestQueue MyRequestQueue = Volley.newRequestQueue(ExpansionPanelInvoice.this);
@@ -142,8 +150,8 @@ TextView t1,t2,t3,t4,t5;
                             projectfullname = otlProjectdetail[i].getString("fullname");
                             pic = otlProjectdetail[i].getString("pic");
                             listtype.add(projectfullname);
-                            hashSpinnerType.put(i + 1, projecrID);
-                            hashSpinnerimage.put(i+1,pic);
+                            hashSpinnerType.put(i + 1, projecrID);//saving id
+                            hashSpinnerimage.put(i+1,pic);//saving image
                             int SDK_INT = Build.VERSION.SDK_INT;
                             if (SDK_INT > 8) {
                                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
@@ -211,7 +219,27 @@ TextView t1,t2,t3,t4,t5;
         progressDialog.setMessage("Please wait");
     }
 
-        //----------------------spinner methods----------------
+    private void initToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //  toolbar.setNavigationIcon(R.drawable.ic_menu);
+        setSupportActionBar(toolbar);
+//        getSupportActionBar().setTitle("Reminder");
+        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        com.example.sammrabatool.solutions5d.utils.Tools.setSystemBarColor(this);
+//        toolbar.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //  Toast.makeText(DashboardGridFab.this, "click", Toast.LENGTH_SHORT).show();
+//                Intent intent=new Intent(ExpansionPanelInvoice.this, LoginCardOverlap.class);
+//                intent.putExtra("userID",userID);
+//                intent.putExtra("token",token);
+//                intent.putExtra("instance", instanceStr);
+//                startActivity(intent);
+//            }
+//        });
+    }
+
+    //----------------------spinner methods----------------
         //Performing action onItemSelected and onNothing selected
         @Override
         public void onItemSelected(AdapterView<?> parent, View arg1, int position, final long id) {
@@ -531,10 +559,20 @@ TextView t1,t2,t3,t4,t5;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        } else if (id == R.id.logout) {
+            Toast.makeText(this, "You have successfully logged out", Toast.LENGTH_LONG).show();
+            SharedPreferences preferences = getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.clear();
+            editor.commit();
+            Intent intent = new Intent(ExpansionPanelInvoice.this, LoginCardOverlap.class);
+            startActivity(intent);
             finish();
-        } else {
-            Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }

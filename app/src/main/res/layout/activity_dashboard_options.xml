@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
     android:orientation="vertical">
@@ -28,7 +28,7 @@
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nested_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="711dp"
+        android:layout_height="wrap_content"
         android:scrollbars="none"
         android:scrollingCache="true">
 
@@ -186,7 +186,7 @@
                         <LinearLayout
                             android:id="@+id/dash_project"
                             android:layout_width="match_parent"
-                            android:layout_height="174dp"
+                            android:layout_height="172dp"
                             android:gravity="center"
                             android:orientation="vertical"
                             android:padding="@dimen/spacing_large">
