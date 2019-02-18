@@ -121,10 +121,10 @@ public class DashSale extends AppCompatActivity {
         info1.setVisibility(View.INVISIBLE);
        // info2=(ImageView) findViewById(R.id.infoS2);
         amounttext=(TextView) findViewById(R.id.guageTextSale);
-        final int[] MY_COLORS = {Color.rgb(0,0,255), Color.rgb(225,0,127), Color.rgb(0,255,255),
-                Color.rgb(127,0,255), Color.rgb(255,128,0), Color.rgb(255,255,0), Color.rgb(255,0,0)
-                , Color.rgb(160,160,160), Color.rgb(0,0,102), Color.rgb(102,255,102)
-                , Color.rgb(102,0,0), Color.rgb(153,76,0), Color.rgb(102,0,51)
+        final int[] MY_COLORS = {Color.rgb(255,204,204), Color.rgb(153,255,255), Color.rgb(178,255,102),
+                Color.rgb(255,255,102), Color.rgb(204,153,255), Color.rgb(204,255,204), Color.rgb(244,244,244)
+                , Color.rgb(51,255,255), Color.rgb(255,178,102), Color.rgb(255,102,255)
+                , Color.rgb(229,204,255), Color.rgb(153,76,0), Color.rgb(102,0,51)
                 , Color.rgb(0,0,0)};
         countS1=(TextView) findViewById(R.id.countS1);
         countS2=(TextView) findViewById(R.id.countS2);
@@ -353,8 +353,8 @@ public class DashSale extends AppCompatActivity {
                            barchartSale2.setTouchEnabled(true);
                            barchartSale2.setMarker(mv);
                        }
-                       else
-                           Toast.makeText(DashSale.this, "null="+countarray_16.getString(1), Toast.LENGTH_SHORT).show();
+                     //  else
+                       //    Toast.makeText(DashSale.this, "null="+countarray_16.getString(1), Toast.LENGTH_SHORT).show();
                     }
                     //------------------------------------------------------------------------------
                     if(!TextUtils.isEmpty(data.getString("count_08"))) {

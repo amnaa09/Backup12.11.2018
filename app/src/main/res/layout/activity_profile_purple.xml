@@ -102,6 +102,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
+                            android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title"
                             android:textColor="@color/colorPrimary" />
 
@@ -129,6 +130,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
+                            android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title"
                             android:textColor="@color/colorPrimary" />
 
@@ -156,6 +158,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
+                            android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title"
                             android:textColor="@color/colorPrimary" />
 
@@ -186,8 +189,7 @@
                 android:layout_marginTop="@dimen/spacing_large"
                 android:gravity="center"
                 android:lineSpacingExtra="0dp"
-                android:text="The only way to do great work is to love what you do.
-Steve Jobs"
+                android:text="@string/quote"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                 android:textColor="@color/grey_60" />
 

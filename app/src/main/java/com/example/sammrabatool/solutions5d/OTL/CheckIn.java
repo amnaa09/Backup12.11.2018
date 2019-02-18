@@ -25,6 +25,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -264,9 +265,8 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
         });
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.ACCESS_FINE_LOCATION},
@@ -493,7 +493,7 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
                        listactivity.add("Select activity");
                        hashSpinnerActivity.put(0,"0");
 
-                        if(data.getJSONArray("tasks").length()>0){
+                        if(!data.isNull("tasks")){
 
                        otlPorjectTaskArray=data.getJSONArray("tasks");
                       // if(otlPorjectTaskArray!=null) {
@@ -617,7 +617,7 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
                        hashSpinnerActivity.put(0,"0");
 
 
-                        if(data.getJSONArray("taskActivity").length()>0){
+                        if(data.isNull("taskActivity")){
                        otlPorjectTaskActivityArray=data.getJSONArray("taskActivity");
                       // if(otlPorjectTaskActivityArray!=null) {
                            otlActivitydetail = new JSONObject[otlPorjectTaskActivityArray.length()];
@@ -769,27 +769,27 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
 
                 //   locationMangaer.requestLocationUpdates(LocationManager
                 //        .GPS_PROVIDER, 5000, 10,locationListener);
+                Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
 
-            } else {
+
+            /*else {
                 Toast.makeText(this, "error", Toast.LENGTH_LONG).show();
-            }
+            }*/
 
-            //   locationMangaer.requestLocationUpdates(LocationManager
-              //       .GPS_PROVIDER, 5000, 10,locationListener);
-
-        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                //   locationMangaer.requestLocationUpdates(LocationManager
+                //       .GPS_PROVIDER, 5000, 10,locationListener);
 
 
-        if (location != null) {
-       //     String message = String.format(
+                if (location != null) {
+                    //     String message = String.format(
 
-          //  showOTLDialog(location.getLatitude(), location.g     "Current Location \n Longitude: %1$s \n Latitude: %2$s",
-            //                    location.getLongitude(), location.getLatitude()
-            //            );etLongitude());
-            user_longitude=location.getLongitude();
-            user_latitude=location.getLatitude();
-    if(locationBasedProject=="true") {
+                    //  showOTLDialog(location.getLatitude(), location.g     "Current Location \n Longitude: %1$s \n Latitude: %2$s",
+                    //                    location.getLongitude(), location.getLatitude()
+                    //            );etLongitude());
+                    user_longitude = location.getLongitude();
+                    user_latitude = location.getLatitude();
+                    if (locationBasedProject == "true") {
 
 
 
@@ -803,207 +803,203 @@ public class CheckIn extends AppCompatActivity implements  AdapterView.OnItemSel
             Toast.makeText(CheckIn.this, "timeeeeee="+time+"long="+user_longitude, Toast.LENGTH_SHORT).show();*/
 
 
+                        float[] results = new float[1];
+                        Location.distanceBetween(location.getLatitude(), location.getLongitude(), projectLat, projectLong, results);
+                        float distanceInMeters = results[0];
+                        Toast.makeText(CheckIn.this, "result=" + distanceInMeters, Toast.LENGTH_SHORT).show();
+                        boolean within500m = distanceInMeters < 500;
+                        if (within500m) {
 
-        float[] results = new float[1];
-        Location.distanceBetween(location.getLatitude(), location.getLongitude(), projectLat, projectLong, results);
-        float distanceInMeters = results[0];
-        Toast.makeText(CheckIn.this, "result=" + distanceInMeters, Toast.LENGTH_SHORT).show();
-        boolean within500m = distanceInMeters < 500;
-             if (within500m) {
-
-                 Calendar cal = Calendar.getInstance();
-                 TimeZone tz = cal.getTimeZone();
-                 Date d = new Date(location.getTime());
-                 SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd-kk:mm:ss");
-                 sdf.setTimeZone(tz);
-                 String time1= sdf.format(d);
+                            Calendar cal = Calendar.getInstance();
+                            TimeZone tz = cal.getTimeZone();
+                            Date d = new Date(location.getTime());
+                            SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd-kk:mm:ss");
+                            sdf.setTimeZone(tz);
+                            String time1 = sdf.format(d);
 
 //                 Toast.makeText(CheckIn.this, "timeeeeee="+time1+"long="+user_longitude, Toast.LENGTH_SHORT).show();
 
 
-                 Toast.makeText(CheckIn.this, "Location confirmed", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(CheckIn.this, OTLDialogActivity.class);
-                    intent.putExtra("instanceStr", instanceStr);
-                    intent.putExtra("lg", lg);
-                    intent.putExtra("bg", bg);
-                    intent.putExtra("userID", userID);
-                    intent.putExtra("token", token);
-                    intent.putExtra("timesheetID", timePeriodID);
-                    intent.putExtra("personID", empId);
-                    intent.putExtra("attendanceDate", time1);
-                    intent.putExtra("type", selectedTypeID);
-                    intent.putExtra("project", selectedProjectID);
-                    intent.putExtra("task", selectedTaskID);
-                    intent.putExtra("activity", selectedActivityID);
-                    intent.putExtra("checkinTime", time1);
-                    intent.putExtra("longitude", user_longitude);
-                    intent.putExtra("latitude", user_latitude);
-                    intent.putExtra("empName", empName);
-                    intent.putExtra("empPic", empPic);
-                    startActivity(intent);
-                } else {
-             Toast.makeText(CheckIn.this, "Cannot check in. You are too far from the project site.", Toast.LENGTH_SHORT).show();
-            }
-            }
-            else
-            {
-
-                Calendar cal = Calendar.getInstance();
-                TimeZone tz = cal.getTimeZone();
-                Date d = new Date(location.getTime());
-                SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd-kk:mm:ss");
-                sdf.setTimeZone(tz);
-                String time1= sdf.format(d);
-
-              //  Toast.makeText(CheckIn.this, "timeeeeee="+time1+"long="+user_longitude, Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(CheckIn.this, OTLDialogActivity.class);
-                intent.putExtra("instanceStr", instanceStr);
-                intent.putExtra("lg", lg);
-                intent.putExtra("bg", bg);
-                intent.putExtra("userID", userID);
-                intent.putExtra("token", token);
-                intent.putExtra("timesheetID", timePeriodID);
-                intent.putExtra("personID", empId);
-                intent.putExtra("attendanceDate", time1);
-                intent.putExtra("type", selectedTypeID);
-                intent.putExtra("project", selectedProjectID);
-                intent.putExtra("task", selectedTaskID);
-                intent.putExtra("activity", selectedActivityID);
-                intent.putExtra("checkinTime", time1);
-                intent.putExtra("longitude", user_longitude);
-                intent.putExtra("latitude", user_latitude);
-                intent.putExtra("empName", empName);
-                intent.putExtra("empPic", empPic);
-                startActivity(intent);
-
-            }
-       //     Toast.makeText(MainActivity.this, message,
-         //           Toast.LENGTH_LONG).show();
-        }
-        else {
-           // Toast.makeText(this, "null otl", Toast.LENGTH_SHORT).show();
-            final LocationListener locationListener = new LocationListener() {
-                @Override
-                public void onLocationChanged(final Location location) {
-                    if(location!=null) {
-                        loc = location;
-
-
-
-                        // getting location of user
-                        user_latitude = loc.getLatitude();
-                        user_longitude = loc.getLongitude();
-                     //   Toast.makeText(CheckIn.this, "lat111111=" + latitude + "log=" + longitude, Toast.LENGTH_SHORT).show();
-                    locationManager.removeUpdates(this);
-                        if ( progressDialog.isShowing())
-                            progressDialog.hide();
-
-                        if(locationBasedProject=="true") {
-
-                            float[] results = new float[1];
-                            Location.distanceBetween(location.getLatitude(), location.getLongitude(), projectLat, projectLong, results);
-                            float distanceInMeters = results[0];
-                            Toast.makeText(CheckIn.this, "result=" + distanceInMeters, Toast.LENGTH_SHORT).show();
-                            boolean within500m = distanceInMeters < 500;
-                            if (within500m) {
-
-                                Calendar cal = Calendar.getInstance();
-                                TimeZone tz = cal.getTimeZone();
-                                Date d = new Date(location.getTime());
-                                SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd-kk:mm:ss");
-                                sdf.setTimeZone(tz);
-                                String time1= sdf.format(d);
-
-                             //   Toast.makeText(CheckIn.this, "timeeeeee="+time1+"long="+user_longitude, Toast.LENGTH_SHORT).show();
-
-                                Toast.makeText(CheckIn.this, "Location confirmed", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(CheckIn.this, OTLDialogActivity.class);
-                                intent.putExtra("instanceStr", instanceStr);
-                                intent.putExtra("lg", lg);
-                                intent.putExtra("bg", bg);
-                                intent.putExtra("userID", userID);
-                                intent.putExtra("token", token);
-                                intent.putExtra("timesheetID", timePeriodID);
-                                intent.putExtra("personID", empId);
-                                intent.putExtra("attendanceDate", time1);
-                                intent.putExtra("type", selectedTypeID);
-                                intent.putExtra("project", selectedProjectID);
-                                intent.putExtra("task", selectedTaskID);
-                                intent.putExtra("activity", selectedActivityID);
-                                intent.putExtra("checkinTime", time1);
-                                intent.putExtra("longitude", user_longitude);
-                                intent.putExtra("latitude", user_latitude);
-                                intent.putExtra("empName", empName);
-                                intent.putExtra("empPic", empPic);
-                                startActivity(intent);
-                                //   finish();
-                                //   showOTLDialog(latitude, longitude);
-                            } else {
-                                Toast.makeText(CheckIn.this, "Cannot check in. You are too far from the project site.", Toast.LENGTH_SHORT).show();
-                            }
+                            Toast.makeText(CheckIn.this, "Location confirmed", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(CheckIn.this, OTLDialogActivity.class);
+                            intent.putExtra("instanceStr", instanceStr);
+                            intent.putExtra("lg", lg);
+                            intent.putExtra("bg", bg);
+                            intent.putExtra("userID", userID);
+                            intent.putExtra("token", token);
+                            intent.putExtra("timesheetID", timePeriodID);
+                            intent.putExtra("personID", empId);
+                            intent.putExtra("attendanceDate", time1);
+                            intent.putExtra("type", selectedTypeID);
+                            intent.putExtra("project", selectedProjectID);
+                            intent.putExtra("task", selectedTaskID);
+                            intent.putExtra("activity", selectedActivityID);
+                            intent.putExtra("checkinTime", time1);
+                            intent.putExtra("longitude", user_longitude);
+                            intent.putExtra("latitude", user_latitude);
+                            intent.putExtra("empName", empName);
+                            intent.putExtra("empPic", empPic);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(CheckIn.this, "Cannot check in. You are too far from the project site.", Toast.LENGTH_SHORT).show();
                         }
-                        else
-                            {
+                    } else {
 
-                                Calendar cal = Calendar.getInstance();
-                                TimeZone tz = cal.getTimeZone();
-                                Date d = new Date(location.getTime());
-                                SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd-kk:mm:ss");
-                                sdf.setTimeZone(tz);
-                                String time1= sdf.format(d);
+                        Calendar cal = Calendar.getInstance();
+                        TimeZone tz = cal.getTimeZone();
+                        Date d = new Date(location.getTime());
+                        SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd-kk:mm:ss");
+                        sdf.setTimeZone(tz);
+                        String time1 = sdf.format(d);
+
+                        //  Toast.makeText(CheckIn.this, "timeeeeee="+time1+"long="+user_longitude, Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(CheckIn.this, OTLDialogActivity.class);
+                        intent.putExtra("instanceStr", instanceStr);
+                        intent.putExtra("lg", lg);
+                        intent.putExtra("bg", bg);
+                        intent.putExtra("userID", userID);
+                        intent.putExtra("token", token);
+                        intent.putExtra("timesheetID", timePeriodID);
+                        intent.putExtra("personID", empId);
+                        intent.putExtra("attendanceDate", time1);
+                        intent.putExtra("type", selectedTypeID);
+                        intent.putExtra("project", selectedProjectID);
+                        intent.putExtra("task", selectedTaskID);
+                        intent.putExtra("activity", selectedActivityID);
+                        intent.putExtra("checkinTime", time1);
+                        intent.putExtra("longitude", user_longitude);
+                        intent.putExtra("latitude", user_latitude);
+                        intent.putExtra("empName", empName);
+                        intent.putExtra("empPic", empPic);
+                        startActivity(intent);
+
+                    }
+                    //     Toast.makeText(MainActivity.this, message,
+                    //           Toast.LENGTH_LONG).show();
+                } else {
+                    // Toast.makeText(this, "null otl", Toast.LENGTH_SHORT).show();
+                    final LocationListener locationListener = new LocationListener() {
+                        @Override
+                        public void onLocationChanged(final Location location) {
+                            if (location != null) {
+                                loc = location;
+
+
+                                // getting location of user
+                                user_latitude = loc.getLatitude();
+                                user_longitude = loc.getLongitude();
+                                //   Toast.makeText(CheckIn.this, "lat111111=" + latitude + "log=" + longitude, Toast.LENGTH_SHORT).show();
+                                locationManager.removeUpdates(this);
+                                if (progressDialog.isShowing())
+                                    progressDialog.hide();
+
+                                if (locationBasedProject == "true") {
+
+                                    float[] results = new float[1];
+                                    Location.distanceBetween(location.getLatitude(), location.getLongitude(), projectLat, projectLong, results);
+                                    float distanceInMeters = results[0];
+                                    Toast.makeText(CheckIn.this, "result=" + distanceInMeters, Toast.LENGTH_SHORT).show();
+                                    boolean within500m = distanceInMeters < 500;
+                                    if (within500m) {
+
+                                        Calendar cal = Calendar.getInstance();
+                                        TimeZone tz = cal.getTimeZone();
+                                        Date d = new Date(location.getTime());
+                                        SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd-kk:mm:ss");
+                                        sdf.setTimeZone(tz);
+                                        String time1 = sdf.format(d);
+
+                                        //   Toast.makeText(CheckIn.this, "timeeeeee="+time1+"long="+user_longitude, Toast.LENGTH_SHORT).show();
+
+                                        Toast.makeText(CheckIn.this, "Location confirmed", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(CheckIn.this, OTLDialogActivity.class);
+                                        intent.putExtra("instanceStr", instanceStr);
+                                        intent.putExtra("lg", lg);
+                                        intent.putExtra("bg", bg);
+                                        intent.putExtra("userID", userID);
+                                        intent.putExtra("token", token);
+                                        intent.putExtra("timesheetID", timePeriodID);
+                                        intent.putExtra("personID", empId);
+                                        intent.putExtra("attendanceDate", time1);
+                                        intent.putExtra("type", selectedTypeID);
+                                        intent.putExtra("project", selectedProjectID);
+                                        intent.putExtra("task", selectedTaskID);
+                                        intent.putExtra("activity", selectedActivityID);
+                                        intent.putExtra("checkinTime", time1);
+                                        intent.putExtra("longitude", user_longitude);
+                                        intent.putExtra("latitude", user_latitude);
+                                        intent.putExtra("empName", empName);
+                                        intent.putExtra("empPic", empPic);
+                                        startActivity(intent);
+                                        //   finish();
+                                        //   showOTLDialog(latitude, longitude);
+                                    } else {
+                                        Toast.makeText(CheckIn.this, "Cannot check in. You are too far from the project site.", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+
+                                    Calendar cal = Calendar.getInstance();
+                                    TimeZone tz = cal.getTimeZone();
+                                    Date d = new Date(location.getTime());
+                                    SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd-kk:mm:ss");
+                                    sdf.setTimeZone(tz);
+                                    String time1 = sdf.format(d);
 
 //                                Toast.makeText(CheckIn.this, "timeeeeee="+time1+"long="+user_longitude, Toast.LENGTH_SHORT).show();
 
-                                Intent intent = new Intent(CheckIn.this, OTLDialogActivity.class);
-                                intent.putExtra("instanceStr", instanceStr);
-                                intent.putExtra("lg", lg);
-                                intent.putExtra("bg", bg);
-                                intent.putExtra("userID", userID);
-                                intent.putExtra("token", token);
-                                intent.putExtra("timesheetID", timePeriodID);
-                                intent.putExtra("personID", empId);
-                                intent.putExtra("attendanceDate", time1);
-                                intent.putExtra("type", selectedTypeID);
-                                intent.putExtra("project", selectedProjectID);
-                                intent.putExtra("task", selectedTaskID);
-                                intent.putExtra("activity", selectedActivityID);
-                                intent.putExtra("checkinTime", time1);
-                                intent.putExtra("longitude", user_longitude);
-                                intent.putExtra("latitude", user_latitude);
-                                intent.putExtra("empName", empName);
-                                intent.putExtra("empPic", empPic);
-                                startActivity(intent);
-                            }
-                    }
-                    else
-                        Toast.makeText(CheckIn.this, "location null", Toast.LENGTH_SHORT).show();
-                    //do something with Lat and Lng
+                                    Intent intent = new Intent(CheckIn.this, OTLDialogActivity.class);
+                                    intent.putExtra("instanceStr", instanceStr);
+                                    intent.putExtra("lg", lg);
+                                    intent.putExtra("bg", bg);
+                                    intent.putExtra("userID", userID);
+                                    intent.putExtra("token", token);
+                                    intent.putExtra("timesheetID", timePeriodID);
+                                    intent.putExtra("personID", empId);
+                                    intent.putExtra("attendanceDate", time1);
+                                    intent.putExtra("type", selectedTypeID);
+                                    intent.putExtra("project", selectedProjectID);
+                                    intent.putExtra("task", selectedTaskID);
+                                    intent.putExtra("activity", selectedActivityID);
+                                    intent.putExtra("checkinTime", time1);
+                                    intent.putExtra("longitude", user_longitude);
+                                    intent.putExtra("latitude", user_latitude);
+                                    intent.putExtra("empName", empName);
+                                    intent.putExtra("empPic", empPic);
+                                    startActivity(intent);
+                                }
+                            } else
+                                Toast.makeText(CheckIn.this, "location null", Toast.LENGTH_SHORT).show();
+                            //do something with Lat and Lng
+                        }
+
+                        @Override
+                        public void onStatusChanged(String provider, int status, Bundle extras) {
+                        }
+
+                        @Override
+                        public void onProviderEnabled(String provider) {
+                            //when user enables the GPS setting, this method is triggered.
+                        }
+
+                        @Override
+                        public void onProviderDisabled(String provider) {
+                            //when no provider is available in this case GPS provider, trigger your gpsDialog here.
+                            alertbox("Gps Status!!", "Your GPS is: OFF");
+                        }
+                    };
+
+                    //update location every 10sec in 500m radius with both provider GPS and Network.
+
+                    locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, locationListener, null);
+                    locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, locationListener, null);
+                    // locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+
                 }
-
-                @Override
-                public void onStatusChanged(String provider, int status, Bundle extras) {
-                }
-
-                @Override
-                public void onProviderEnabled(String provider) {
-                    //when user enables the GPS setting, this method is triggered.
-                }
-
-                @Override
-                public void onProviderDisabled(String provider) {
-                    //when no provider is available in this case GPS provider, trigger your gpsDialog here.
-                    alertbox("Gps Status!!", "Your GPS is: OFF");
-                }
-            };
-
-            //update location every 10sec in 500m radius with both provider GPS and Network.
-
-            locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, locationListener, null);
-            locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, locationListener, null);
-           // locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-
-        }
+            }
+        else {
+                Toast.makeText(this, "error", Toast.LENGTH_LONG).show();
+            }
 
         } else {
             alertbox("Gps Status!!", "Your GPS is: OFF");

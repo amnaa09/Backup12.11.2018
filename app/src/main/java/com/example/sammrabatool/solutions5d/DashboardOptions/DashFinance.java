@@ -102,10 +102,10 @@ JSONObject countarray101[],countarray102[],countarray132[], countarray142[];
             array13b[], array14b[],arr14b[];
     int lg, bg;
     TextView countP1,countP2,countP3,countP4,countP5,countP6, countR1,countR2,countR3,countR4,countR5,countR6,amounttext ;
-    final int[] MY_COLORS = {Color.rgb(0,0,255), Color.rgb(225,0,127), Color.rgb(0,255,255),
-            Color.rgb(127,0,255), Color.rgb(255,128,0), Color.rgb(255,255,0), Color.rgb(255,0,0)
-            , Color.rgb(160,160,160), Color.rgb(0,0,102), Color.rgb(102,255,102)
-            , Color.rgb(102,0,0), Color.rgb(153,76,0), Color.rgb(102,0,51)
+    final int[] MY_COLORS = {Color.rgb(255,204,204), Color.rgb(153,255,255), Color.rgb(178,255,102),
+            Color.rgb(255,255,102), Color.rgb(204,153,255), Color.rgb(204,255,204), Color.rgb(244,244,244)
+            , Color.rgb(51,255,255), Color.rgb(255,178,102), Color.rgb(255,102,255)
+            , Color.rgb(229,204,255), Color.rgb(153,76,0), Color.rgb(102,0,51)
             , Color.rgb(0,0,0)};
 
 
@@ -1480,9 +1480,9 @@ JSONObject countarray101[],countarray102[],countarray132[], countarray142[];
         th.setText(heading1);
         th1.setPadding(10, 10, 10, 10);
 
+
         th1.setGravity(Gravity.CENTER);
         th1.setText(heading2);
-
         tableRowHeading.addView(th);
         tableRowHeading.addView(th1);
 

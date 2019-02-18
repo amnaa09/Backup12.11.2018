@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     android:orientation="vertical">
 
     <LinearLayout
@@ -16,7 +17,7 @@
         <com.mikhaellopez.circularimageview.CircularImageView
             android:layout_width="@dimen/spacing_xmlarge"
             android:layout_height="@dimen/spacing_xmlarge"
-            android:src="@drawable/man"
+
             app:civ_shadow="true"
             app:civ_shadow_radius="0"
             app:civ_border="false"
@@ -37,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="David Park"
+                android:text=""
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:textColor="@color/grey_90"
                 android:textStyle="bold" />
@@ -187,6 +188,7 @@
             android:layout_weight="1"
             android:background="@drawable/btn_rounded_primary"
             android:text="Upload Image"
+            android:textSize="12dp"
             android:textColor="@color/grey_3" />
 
 
@@ -199,6 +201,7 @@
             android:background="@drawable/btn_rounded_primary"
             android:gravity="center"
             android:text="Client Signature"
+            android:textSize="12dp"
             android:textColor="@color/grey_3" />
 
 
@@ -212,6 +215,7 @@
             android:background="@drawable/btn_rounded_primary"
             android:gravity="center"
             android:text="Submit"
+            android:textSize="12dp"
             android:layout_weight="1"
             android:textColor="@color/grey_3" />
 

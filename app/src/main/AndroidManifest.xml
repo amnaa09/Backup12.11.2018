@@ -19,17 +19,17 @@
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="false"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/asset"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_asset"
+
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".Activity.Signup">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -49,16 +49,22 @@
         <activity android:name=".DashboardOptions.HRpayroll" />
         <activity android:name=".DashboardOptions.DashProfile" />
         <activity android:name=".DashboardOptions.DashProperty" />
-        <activity android:name=".profile.ProfileFabMenu" />
+        <activity android:name=".profile.ProfileHrMenu" />
+        <activity android:name=".profile.ProfileTeamMenu" />
         <activity android:name=".profile.ProfilePolygon"></activity>
+        <activity android:name=".profile.hrProfile1"></activity>
+        <activity android:name=".profile.hrProfile2"></activity>
+        <activity android:name=".profile.teamProfile1"></activity>
+        <activity android:name=".profile.teamProfile2"></activity>
         <activity android:name=".DashboardOptions.DashSale"></activity>
         <activity android:name=".OTL.SignatureUpload.UploadSignature" />
         <activity android:name=".OTL.MapAttendence" />
         <activity android:name=".OTL.MainActivityOut" />
         <activity android:name=".OTL.CheckIn" />
-        <activity android:name=".leave.ExpansionPanelInvoice"></activity>
+        <activity android:name=".leave.LeaveHr"></activity>
+        <activity android:name=".leave.LeaveTeam"></activity>
 
-        <activity android:name=".OTL.OTLDialogActivity" android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
+        <activity android:name=".OTL.OTLDialogActivity" android:label="Time and Attendence" android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
 
         <meta-data android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyA_U_fzn3FZn12GeE1nK_D85xg1Ql1Ox2w" />

@@ -51,6 +51,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -376,7 +377,6 @@ public class OTLDialogActivity extends Activity {
                     //  messageText.setText(encodedImage1);
                     Log.e("Images", imgArray.toString());
 
-
                     Log.e("JSON", jsonObject.toString());
 
                     Toast.makeText(OTLDialogActivity.this, "pic counter="+picCounter, Toast.LENGTH_SHORT).show();
@@ -399,13 +399,52 @@ public class OTLDialogActivity extends Activity {
                 note=txt1.getText().toString();
                 //--------------------calling webservice for tasks-------------------------------
 
+                final JSONObject jsonObject = new JSONObject();
+                try {
+         /*           jsonObject.put("bg", String.valueOf(bg));
+                    jsonObject.put("lg", String.valueOf(lg));
+                    jsonObject.put("userID", String.valueOf(userID));
+                    jsonObject.put("token", token);
+                    jsonObject.put("timesheetID", String.valueOf(timesheetID));
+                    jsonObject.put("personID", personID);
+                    jsonObject.put("attendanceDate", String.valueOf(attendanceDate));
+                    jsonObject.put("type", type);
+                    jsonObject.put("project", project);
+                    jsonObject.put("task", task);
+                    jsonObject.put("activity", activity);
+                    jsonObject.put("note", note);
+                    jsonObject.put("checkinTime", String.valueOf(checkinTime));
+                    jsonObject.put("costing", "0");
+                    jsonObject.put("longitude", String.valueOf(user_longitude));
+                    jsonObject.put("latitude", String.valueOf(user_latitude));*/
+
+         jsonObject.put("test","test");
+        /*            try {
+                        if (jsonObject.getInt("picCounter") > 0) {
+                            jsonObject.put("attachments", String.valueOf(jsonObject));
+                            //   Toast.makeText(OTLDialogActivity.this, " image attached", Toast.LENGTH_SHORT).show();
+
+                        }
+                        //   else
+                        //   Toast.makeText(OTLDialogActivity.this, "no image attached", Toast.LENGTH_SHORT).show();
+                    } catch (JSONException e) {
+                        Log.e("json", "not available");
+                    }*/
+
+                }
+                catch (JSONException e) {
+                    // handle exception
+                    Toast.makeText(OTLDialogActivity.this, "Error json:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                }
                 RequestQueue MyRequestQueue = Volley.newRequestQueue(OTLDialogActivity.this);
                String url = "http://" + instanceStr + ".5dsurf.com/app/webservice/checkIn";
                 String url1 = "http://" + instanceStr + ".5dsurf.com/app/webservice/checkIn/"+ bg + "/" + lg  + "/" + userID+"/"+token+"/"+timesheetID+"/"+personID+"/"+attendanceDate+"/"+type+"/"+project+"/"+task+"/"+activity+"/"+note+"/"+checkinTime+"/"+"0/"+user_longitude+"/"+user_latitude;
                Log.e("url:", url1);
-                final StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                final JsonObjectRequest   MyStringRequest = new JsonObjectRequest (Request.Method.PUT, url,jsonObject, new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject  response) {
+                       // Toast.makeText(OTLDialogActivity.this, "res="+response.toString(), Toast.LENGTH_SHORT).show();
 
                         try {
                             JSONObject data = new JSONObject(response.toString());
@@ -430,8 +469,10 @@ public class OTLDialogActivity extends Activity {
                 }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.i("OTL Error" , "error: " + error);
                         //This code is executed if there is an error.
                         String message = null;
+                   //     Log.d("Maps:", " Error: " + (error.networkResponse.data).toString());
                         if (error instanceof NetworkError) {
                             message = "Cannot connect to Internet...Please check your connection!";
                         } else if (error instanceof ServerError) {
@@ -449,10 +490,39 @@ public class OTLDialogActivity extends Activity {
                         if (progressDialog.isShowing())
                             progressDialog.hide();
 
-                        Log.d("Maps:", " Error: " + new String(error.networkResponse.data));
+
 
                     }
-                }){
+                }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String>  params = new HashMap<String, String>();
+                 //   params.put("tess", "2222");
+                 //   params.put("Authorization", "def1bc98d032");
+
+                    // add this parameter
+                    params.put("Content-Type", "application/json; charset=utf-8");
+                    return params;
+                }
+
+                    @Override
+                    public byte[] getBody() {
+
+                        try {
+                            Log.i("json", jsonObject.toString());
+                            return jsonObject.toString().getBytes("UTF-8");
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                        return null;
+                    }
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/json";
+                    }
+                };
+
+             /*   {
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String,String> param = new HashMap<>();
@@ -475,21 +545,21 @@ public class OTLDialogActivity extends Activity {
                         param.put("costing", "0" );
                         param.put("longitude", String.valueOf(user_longitude) );
                         param.put("latitude", String.valueOf(user_latitude) );
-                //        try {
-                  //          if (jsonObject.getInt("picCounter") > 0) {
-                    //            param.put("attachments", String.valueOf(jsonObject));
-                         //       Toast.makeText(OTLDialogActivity.this, " image attached", Toast.LENGTH_SHORT).show();
+                        try {
+                           if (jsonObject.getInt("picCounter") > 0) {
+                                param.put("attachments", String.valueOf(jsonObject));
+                             //   Toast.makeText(OTLDialogActivity.this, " image attached", Toast.LENGTH_SHORT).show();
 
-                      //      }
-                           // else
-                       //         Toast.makeText(OTLDialogActivity.this, "no image attached", Toast.LENGTH_SHORT).show();
-                   //     }catch (JSONException e)
-                     //   {
-                       //     Log.e("json", "not available");
-                      //  }
+                            }
+                         //   else
+                             //   Toast.makeText(OTLDialogActivity.this, "no image attached", Toast.LENGTH_SHORT).show();
+                        }catch (JSONException e)
+                        {
+                            Log.e("json", "not available");
+                        }
                         return param;
                     }
-                };
+                };*/
                 MyStringRequest.setShouldCache(false);
                 MyRequestQueue.add(MyStringRequest);
 

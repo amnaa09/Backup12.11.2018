@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PROJECT</string>
+    <string name="app_name">5D SURf ERP</string>
     <string name="RETRY">RETRY</string>
     <string name="and"> HR &amp; PAYROLL </string>
 
@@ -12,6 +12,10 @@
     <string name="error_field_required">Field required</string>
     <string name="error_invalid_password">Invalid password</string>
     <string name="action_settings">Settings</string>
+    <string name="uteam"><u>My Team</u></string>
+
+
+    <string name="quote">\"The only way to do great work is to love what you do.\"<i> Steve Jobs</i></string>
     <string name="agreement">Dear User,
 
 \n\nWe strongly recommend acquaint yourself carefully with Terms and Conditions (“Terms” or “Agreement”) before using the services, provided by 5D Solutions. By accepting, you agree that 5D-SURf Application will store your credentials in the database on the server. We will not share your private and confidential information with any other third persons or third-party services. You agree to respect the services and follow the Terms and Conditions, prepared by 5D Solutions. Additional Agreement can be applied for services and products that will be launched in future, so for your best experience, it is important to become familiar with all of these Terms of Conditions.
@@ -47,10 +51,9 @@
 
     <string name="lockError">Dear User,
 
-\n\nYour account has been blocked due to three failed attempts. Please contact our support team to activate your account.
+\n\nYour account has been blocked due to three failed attempts. Please contact you Relationship Manager to activate your account.
 
-\n\nContact no:  12345
-        \nEmail: support@5derp.com
+\n\nEmail: support@5derp.com
 
     </string>
 

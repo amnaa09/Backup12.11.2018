@@ -9,9 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.Menu;
@@ -19,10 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,11 +37,9 @@ import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
 import com.example.sammrabatool.solutions5d.R;
 import com.example.sammrabatool.solutions5d.Tools;
 //import com.example.sammrabatool.solutions5d.dialog.DialogAddReview;
+
+import com.example.sammrabatool.solutions5d.leave.LeaveHr;
 import com.example.sammrabatool.solutions5d.list.CircleTransform;
-import com.example.sammrabatool.solutions5d.list.ListMultiSelection;
-import com.example.sammrabatool.solutions5d.list.ViewHtml;
-import com.example.sammrabatool.solutions5d.model.Notification;
-import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -54,35 +47,37 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
 
-public class ProfileFabMenu extends AppCompatActivity {
-    FloatingActionButton Basic, Employee, Passport, Visa, National, Labor;
+public class ProfileHrMenu extends AppCompatActivity {
+    FloatingActionButton myprofile, document, leave, request, payslip;
     FloatingActionButton basic;
     int lg, bg;
     boolean user_valid;
     ImageView profimg;
-    TextView pname;
+    TextView pname,yos, bsalary;
 
     String instanceStr, message, userID, token, profile, text;
-    String picture,name, employee_number,employee_heading, hireDate,hiredate_heading,gender_heading, gender,martial_heading, dob,dob_heading,email_heading, maritalStatus, nationality,nationality_heading,
+    String    personId,yearofservice, basicsalary,picture,name,employee_name, employee_number,employee_heading, hireDate,hiredate_heading,gender_heading, gender,martial_heading, dob,dob_heading,email_heading, maritalStatus, nationality,nationality_heading,
             email, officeNum,officeNum_heading, org,org_heading, job,job_heading, grade,grade_heading, location,location_heading, status,status_heading, manager,manager_heading, passNum,passnum_heading, passIssue,passissue_heading, passexpire,passexpire_heading, visaNum,visanum_heading, visaIssue,visaissue_heading, visaExpire,visaexpire_heading, laborNum,labornum_heading,
             laborIssue,laborissue_heading, laborExpire,laborexpire_heading, nationalId,nationalid_heading, nationalIdIssue,nationalIDissue_heading, nationalIdExpire,nationalIDexpire_heading, pic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_fab_menu);
-        basic = (FloatingActionButton) findViewById(R.id.basicc);
+        setContentView(R.layout.activity_profile_hr_menu);
+        myprofile = (FloatingActionButton) findViewById(R.id.basicc);
         profimg = (ImageView) findViewById(R.id.image);
        // Basic = (FloatingActionButton) findViewById(R.id.basic);
-        Employee = (FloatingActionButton) findViewById(R.id.employeemnt);
-        Passport = (FloatingActionButton) findViewById(R.id.passport);
-        Visa = (FloatingActionButton) findViewById(R.id.visa);
-        National = (FloatingActionButton) findViewById(R.id.national);
-        Labor = (FloatingActionButton) findViewById(R.id.labor);
+        document = (FloatingActionButton) findViewById(R.id.employeemnt);
+        leave = (FloatingActionButton) findViewById(R.id.passport);
+        request = (FloatingActionButton) findViewById(R.id.visa);
+        payslip = (FloatingActionButton) findViewById(R.id.national);
+     //   Labor = (FloatingActionButton) findViewById(R.id.labor);
         pname=(TextView) findViewById(R.id.profile_name);
+        yos=(TextView) findViewById(R.id.yos);
+        bsalary=(TextView) findViewById(R.id.bsalary);
+
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
         lg = getIntent().getIntExtra("lg", 0);
@@ -91,7 +86,7 @@ public class ProfileFabMenu extends AppCompatActivity {
         instanceStr = getIntent().getStringExtra("instance");
         token = getIntent().getStringExtra("token");
         name=getIntent().getStringExtra("name");
-        pname.setText(name);
+      //  pname.setText(name);
 
         RequestQueue MyRequestQueue = Volley.newRequestQueue(this);
 
@@ -110,8 +105,49 @@ public class ProfileFabMenu extends AppCompatActivity {
                         profile = data.getString("profile");
                         JSONObject dataDetails = new JSONObject(profile.toString());
 
-                        employee_heading="<b>" + "Employee Number: " + "</b> ";
+                        if (dataDetails.getString("personId").equals("")) {
 
+                            personId = "0";
+
+
+                        } else {
+                            personId =  dataDetails.getString("personId");
+
+                            //employee_p.setText(text);
+                        }
+
+                        if (dataDetails.getString("yearofservice").equals("")) {
+
+                            yearofservice = "0";
+                            yos.setText(yos.getText()+yearofservice);
+
+                        } else {
+                            yearofservice =  dataDetails.getString("yearofservice");
+                            yos.setText(yos.getText()+yearofservice);
+                            //employee_p.setText(text);
+                        }
+
+                        if (dataDetails.getString("basicsalary").equals("")) {
+
+                            basicsalary = "0";
+                            bsalary.setText(bsalary.getText()+basicsalary);
+
+                        } else {
+                            basicsalary =  dataDetails.getString("basicsalary");
+                            bsalary.setText(bsalary.getText()+basicsalary);
+                            //employee_p.setText(text);
+                        }
+
+                        if (dataDetails.getString("employeeName").equals("")) {
+
+                            employee_name = "Unknown";
+                            pname.setText(employee_name);
+
+                        } else {
+                            employee_name =  dataDetails.getString("employeeName");
+                            pname.setText(employee_name);
+                            //employee_p.setText(text);
+                        }
                         if (dataDetails.getString("employeeNo").equals("")) {
 
                             employee_number = "--";
@@ -335,7 +371,7 @@ public class ProfileFabMenu extends AppCompatActivity {
                                 Picasso.get().load(dataDetails.getString("pic")).transform(new CircleTransform()).into(profimg);
 
                             } catch (MalformedURLException error) {
-                                Toast.makeText(ProfileFabMenu.this, "Error:" + error.toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ProfileHrMenu.this, "Error:" + error.toString(), Toast.LENGTH_SHORT).show();
 
                             }
 
@@ -346,13 +382,13 @@ public class ProfileFabMenu extends AppCompatActivity {
                         if (progressDialog.isShowing())
                             progressDialog.hide();
                         message = data.getString("message");
-                        Toast.makeText(ProfileFabMenu.this, message, Toast.LENGTH_LONG).show();
+                        Toast.makeText(ProfileHrMenu.this, message, Toast.LENGTH_LONG).show();
 
                         SharedPreferences preferences = getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.clear();
                         editor.commit();
-                        Intent intent = new Intent(ProfileFabMenu.this, LoginCardOverlap.class);
+                        Intent intent = new Intent(ProfileHrMenu.this, LoginCardOverlap.class);
                         startActivity(intent);
                     }
                   /*  if(user_valid==true)
@@ -393,7 +429,7 @@ public class ProfileFabMenu extends AppCompatActivity {
                 } else if (error instanceof TimeoutError) {
                     message = "Connection TimeOut! Please check your internet connection.";
                 }
-                Toast.makeText(ProfileFabMenu.this, message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileHrMenu.this, message, Toast.LENGTH_SHORT).show();
                 if (progressDialog.isShowing())
                     progressDialog.hide();
             }
@@ -407,198 +443,104 @@ public class ProfileFabMenu extends AppCompatActivity {
         progressDialog.setMessage("Please wait");
         progressDialog.show();
 
-        basic.setOnClickListener(new View.OnClickListener() {
+        myprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ProfileFabMenu.this, "employee num: " + employee_number, Toast.LENGTH_SHORT).show();
-                showCustomDialog(ProfileFabMenu.this, "Basic information" ,employee_heading,employee_number, gender_heading,gender, martial_heading,maritalStatus, email_heading, email,hiredate_heading, hireDate,dob_heading, dob,nationality_heading, nationality,officeNum_heading, officeNum,"", "", "", "",picture);
+             //   Toast.makeText(ProfileFabMenu.this, "employee num: " + employee_number, Toast.LENGTH_SHORT).show();
+             //   showCustomDialog(ProfileFabMenu.this, "Basic information" ,employee_heading,employee_number, gender_heading,gender, martial_heading,maritalStatus, email_heading, email,hiredate_heading, hireDate,dob_heading, dob,nationality_heading, nationality,officeNum_heading, officeNum,"", "", "", "",picture);
+        Intent i=new Intent(ProfileHrMenu.this, hrProfile1.class);
+                i.putExtra("name", employee_name);
+                i.putExtra("gender", gender);
+                i.putExtra("maritalStatus", maritalStatus);
+                i.putExtra("email", email);
+                i.putExtra("hireDate", hireDate);
+                i.putExtra("dob", dob);
+                i.putExtra("nationality", nationality);
+                i.putExtra("officeNum", officeNum);
+                i.putExtra("employee_number", employee_number);
+                i.putExtra("manager", manager);
+                i.putExtra("job", job);
+                i.putExtra("grade", grade);
+                i.putExtra("org", org);
+                i.putExtra("location", location);
+                i.putExtra("status", status);
+
+        startActivity(i);
+
+            }
+        });
+
+        document.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            //    showCustomDialog(ProfileFabMenu.this, "Employment information", employee_heading,employee_number, location_heading,location,status_heading, status, org_heading,org, manager_heading,manager, job_heading, job, grade_heading, grade, "", "", "", "","","",picture);
+                Intent i=new Intent(ProfileHrMenu.this, hrProfile2.class);
+                i.putExtra("passNum", passNum);
+                i.putExtra("passIssue", passIssue);
+                i.putExtra("passexpire", passexpire);
+                i.putExtra("visaNum", visaNum);
+                i.putExtra("visaIssue", visaIssue);
+                i.putExtra("visaExpire", visaExpire);
+                i.putExtra("nationalId", nationalId);
+                i.putExtra("nationalIdIssue", nationalIdIssue);
+                i.putExtra("nationalIdExpire", nationalIdExpire);
+                i.putExtra("laborNum", laborNum);
+                i.putExtra("laborIssue", laborIssue);
+                i.putExtra("laborExpire", laborExpire);
+                startActivity(i);
+            }
+        });
+
+        leave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+             //   showCustomDialog(ProfileFabMenu.this, "Passport information", passnum_heading,passNum, passissue_heading,passIssue, passexpire_heading, passexpire, "", "", "", "", "", "", "", "", "", "","","","","",picture);
+                Intent intent=new Intent(ProfileHrMenu.this, LeaveHr.class);
+                intent.putExtra("userID",userID);
+                intent.putExtra("token",token);
+                intent.putExtra("instance", instanceStr);
+                intent.putExtra("lg",lg);
+                intent.putExtra("bg",bg);
+                intent.putExtra("personId", personId);
+                intent.putExtra("employee_name", employee_name);
+                intent.putExtra("pic",picture);
+                startActivity(intent);
+
+            }
+        });
+
+        request.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            //    showCustomDialog(ProfileFabMenu.this, "Visa information",visanum_heading, visaNum, visaissue_heading,visaIssue, visaexpire_heading,visaExpire,"", "", "", "", "", "", "", "", "", "","","","","",picture);
+            }
+        });
+
+        payslip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              //  showCustomDialog(ProfileFabMenu.this, "National ID information", nationalid_heading,nationalId, nationalIDissue_heading,nationalIdIssue, nationalIDexpire_heading,nationalIdExpire ,"", "", "", "", "", "", "", "", "", "","","","","",picture);
 
 
             }
         });
 
-        Employee.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showCustomDialog(ProfileFabMenu.this, "Employment information", employee_heading,employee_number, location_heading,location,status_heading, status, org_heading,org, manager_heading,manager, job_heading, job, grade_heading, grade, "", "", "", "","","",picture);
-
-            }
-        });
-
-        Passport.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showCustomDialog(ProfileFabMenu.this, "Passport information", passnum_heading,passNum, passissue_heading,passIssue, passexpire_heading, passexpire, "", "", "", "", "", "", "", "", "", "","","","","",picture);
-
-
-            }
-        });
-
-        Visa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showCustomDialog(ProfileFabMenu.this, "Visa information",visanum_heading, visaNum, visaissue_heading,visaIssue, visaexpire_heading,visaExpire,"", "", "", "", "", "", "", "", "", "","","","","",picture);
-            }
-        });
-
-        National.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showCustomDialog(ProfileFabMenu.this, "National ID information", nationalid_heading,nationalId, nationalIDissue_heading,nationalIdIssue, nationalIDexpire_heading,nationalIdExpire ,"", "", "", "", "", "", "", "", "", "","","","","",picture);
-
-
-            }
-        });
-
-        Labor.setOnClickListener(new View.OnClickListener() {
+/*        Labor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showCustomDialog(ProfileFabMenu.this, "Labour Card information", labornum_heading,laborNum,laborissue_heading,laborIssue,laborexpire_heading, laborExpire, "", "", "", "", "", "", "", "", "", "","","","","",picture);
 
 
             }
-        });
+        });*/
 
         initToolbar();
-    }
-    private void showCustomDialog(Context ctx, String heading, String text1, String text2, String text3, String text4, String text5, String text6, String text7, String text8, String text9, String text10, String text11, String text12, String text13,String text14,String text15,String text16,String text17,String text18,String text19,String text20, String pic12) {
-
-        final TextView headingHide, headingText, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20;
-        final ImageView img;
-
-        final Dialog dialog = new Dialog(ctx);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        dialog.setContentView(R.layout.activity_ploygon_profile);
-        dialog.setCancelable(true);
-
-
-        headingText = (TextView) dialog.findViewById(R.id.heading);
-        t1 = (TextView) dialog.findViewById(R.id.text1);
-        t2 = (TextView) dialog.findViewById(R.id.text2);
-        t3 = (TextView) dialog.findViewById(R.id.text3);
-        t4 = (TextView) dialog.findViewById(R.id.text4);
-        t5 = (TextView) dialog.findViewById(R.id.text5);
-        t6 = (TextView) dialog.findViewById(R.id.text6);
-        t7 = (TextView) dialog.findViewById(R.id.text7);
-        t8 = (TextView) dialog.findViewById(R.id.text8);
-        t9 = (TextView) dialog.findViewById(R.id.text9);
-        t10 = (TextView) dialog.findViewById(R.id.text10);
-        t11 = (TextView) dialog.findViewById(R.id.text11);
-        t12 = (TextView) dialog.findViewById(R.id.text12);
-        t13 = (TextView) dialog.findViewById(R.id.text13);
-        t14 = (TextView) dialog.findViewById(R.id.text14);
-        t15=(TextView)dialog.findViewById(R.id.text15);
-        t16=(TextView)dialog.findViewById(R.id.text16);
-        t17=(TextView)dialog.findViewById(R.id.text17);
-        t18=(TextView)dialog.findViewById(R.id.text18);
-
-        img = (ImageView) dialog.findViewById(R.id.image);
-
-     //   Toast.makeText(ctx, "url="+pic12, Toast.LENGTH_SHORT).show();
-if(!(pic12.equals(""))){
-        int SDK_INT = android.os.Build.VERSION.SDK_INT;
-        if (SDK_INT > 8) {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                    .permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-            //your codes here
-            try {
-                URL url = new URL(pic12);
-               // Toast.makeText(ProfileFabMenu.this, "picccc inn", Toast.LENGTH_SHORT).show();
-
-                Picasso.get().load(pic12).transform(new CircleTransform()).into(img);
-
-            } catch (MalformedURLException error) {
-                Toast.makeText(ProfileFabMenu.this, "Error this:" + error.toString(), Toast.LENGTH_SHORT).show();
-
-            }
-        }
-
-
-//            final ImageButton close = (ImageButton) dialog.findViewById(R.id.bt_Close);
-//
-//            close.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    dialog.dismiss();
-//                }
-//            });
-
-
-            headingText.setText(heading);
-            t1.setText(Html.fromHtml(text1));
-            t2.setText(Html.fromHtml(text2));
-            t3.setText(Html.fromHtml(text3));
-            t4.setText(Html.fromHtml(text4));
-            t5.setText(Html.fromHtml(text5));
-            t6.setText(Html.fromHtml(text6));
-            t7.setText(Html.fromHtml(text7));
-            t8.setText(Html.fromHtml(text8));
-            t9.setText(Html.fromHtml(text9));
-            t10.setText(Html.fromHtml(text10));
-            t11.setText(Html.fromHtml(text11));
-            t12.setText(Html.fromHtml(text12));
-            t13.setText(Html.fromHtml(text13));
-            t14.setText(Html.fromHtml(text14));
-            t15.setText(Html.fromHtml(text15));
-            t16.setText(Html.fromHtml(text16));
-            t17.setText(Html.fromHtml(text17));
-            t18.setText(Html.fromHtml(text18));
-
-
-            if (t4.getText().equals(""))
-                t4.setVisibility(View.GONE);
-            if (t5.getText().equals(""))
-                t5.setVisibility(View.GONE);
-            if (t6.getText().equals(""))
-                t6.setVisibility(View.GONE);
-            if (t7.getText().equals(""))
-                t7.setVisibility(View.GONE);
-            if (t8.getText().equals(""))
-                t8.setVisibility(View.GONE);
-            if (t9.getText().equals(""))
-                t9.setVisibility(View.GONE);
-            if (t10.getText().equals(""))
-                t10.setVisibility(View.GONE);
-            if (t11.getText().equals(""))
-                t11.setVisibility(View.GONE);
-            if (t12.getText().equals(""))
-                t12.setVisibility(View.GONE);
-            if (t13.getText().equals(""))
-                t13.setVisibility(View.GONE);
-    if (t14.getText().equals(""))
-        t14.setVisibility(View.GONE);
-    if (t15.getText().equals(""))
-        t15.setVisibility(View.GONE);
-    if (t16.getText().equals(""))
-        t16.setVisibility(View.GONE);
-    if (t17.getText().equals(""))
-        t17.setVisibility(View.GONE);
-    if (t18.getText().equals(""))
-        t18.setVisibility(View.GONE);
-
-
-
-            final WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-            lp.copyFrom(dialog.getWindow().getAttributes());
-            lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
-            lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-
-            //  final EditText et_post = (EditText) dialog.findViewById(R.id.et_post);
-
-
-            dialog.show();
-            dialog.getWindow().setAttributes(lp);
-
-
-        }
     }
         private void initToolbar () {
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             //  toolbar.setNavigationIcon(R.drawable.ic_menu);
             setSupportActionBar(toolbar);
-            getSupportActionBar().setTitle("HR Profile");
+            getSupportActionBar().setTitle("My Information");
             // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             Tools.setSystemBarColor(this);
         }
@@ -622,7 +564,7 @@ if(!(pic12.equals(""))){
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.clear();
                 editor.commit();
-                Intent intent = new Intent(ProfileFabMenu.this, LoginCardOverlap.class);
+                Intent intent = new Intent(ProfileHrMenu.this, LoginCardOverlap.class);
                 startActivity(intent);
                 finish();
             }

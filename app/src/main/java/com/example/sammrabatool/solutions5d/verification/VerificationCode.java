@@ -50,7 +50,7 @@ public class VerificationCode extends AppCompatActivity {
     SharedPreferences prefs,prefLockError;
     boolean user_valid=false;
     public static final String VERIFYCODE = "false";
-    int count;
+    int count,wrong_attempt;
 
 
     @Override
@@ -206,7 +206,7 @@ public class VerificationCode extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
-            count++;
+   /*         count++;
          //   Toast.makeText(VerificationCode.this, message, Toast.LENGTH_SHORT).show();
             if(count==3)
             {
@@ -216,7 +216,7 @@ public class VerificationCode extends AppCompatActivity {
                 Intent intent=new Intent(VerificationCode.this,LockError.class);
                 startActivity(intent);
 finish();
-            }
+            }*/
 
 
             companyStr=prefs.getString("companyID","0");
@@ -230,7 +230,7 @@ finish();
                 @Override
                 public void onResponse(String response) {
 
-                    Toast.makeText(VerificationCode.this, response, Toast.LENGTH_SHORT).show();
+                //    Toast.makeText(VerificationCode.this, response, Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -270,7 +270,7 @@ finish();
 
             otpCode+=otp_code1.getText().toString()+otp_code2.getText().toString()+otp_code3.getText().toString()+otp_code4.getText().toString();
 
-          //  Toast.makeText(VerificationCode.this, "otp="+otpCode, Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(VerificationCode.this, "data="+instanceStr+" "+userID, Toast.LENGTH_SHORT).show();
             RequestQueue MyRequestQueue = Volley.newRequestQueue(VerificationCode.this);
            String url = "http://"+instanceStr+".5dsurf.com/app/webservice/verifiedotp/"+userID+"/"+otpCode;
             otpCode="";
@@ -286,11 +286,12 @@ finish();
                         user_valid = data.getBoolean("valid_user");
                         message = data.getString("message");
                         userID=data.getString("user_id");
+                        wrong_attempt=data.getInt("wrong_attempt");
                         //  tx.setText("response== " + name+ age);
                         //    Toast.makeText(Signup.this, "result="+user_valid, Toast.LENGTH_SHORT).show();
                         //   company.setText(name);
                         //     userId.setText(age);
-                        if(user_valid==true) {
+                        if(user_valid==true && wrong_attempt < 3) {
                             user_valid=false;
                             SharedPreferences.Editor editor=prefs.edit();
                             editor.putString(VERIFYCODE,"true");
@@ -312,6 +313,15 @@ finish();
                                 progressDialog.hide();
 
                             Toast.makeText(VerificationCode.this, message, Toast.LENGTH_SHORT).show();
+                            if (wrong_attempt >= 3) {
+                                SharedPreferences.Editor editor = prefLockError.edit();
+                                editor.putInt("lockCounter", wrong_attempt);
+                                editor.commit();
+                                Intent intent = new Intent(VerificationCode.this, LockError.class);
+                                startActivity(intent);
+                                finish();
+
+                            }
                         }
                     } catch (JSONException e) {
                         if ( progressDialog.isShowing())

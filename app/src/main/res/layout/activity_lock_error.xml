@@ -15,7 +15,7 @@
 
         app:subtitleTextAppearance="@style/Base.TextAppearance.AppCompat.Caption"
         app:subtitleTextColor="@color/grey_10"
-        app:title="LOCKERROR"
+        app:title="5D SURf Warning"
         android:background="@color/colorPrimary"/>
 
 

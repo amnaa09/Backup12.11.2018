@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nested_scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:scrollbars="none"
+    android:scrollingCache="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:contentInsetStartWithNavigation="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+
+            app:subtitleTextAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+            app:subtitleTextColor="@color/grey_10"
+            app:title="Leave"
+            android:background="@color/colorPrimary"/>
+        <LinearLayout
+            android:id="@+id/nested_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:scrollbars="none"
+            android:scrollingCache="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+               <!-- <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minHeight="?attr/actionBarSize"
+                    android:orientation="horizontal">
+
+                &lt;!&ndash;    &lt;!&ndash;<ImageView&ndash;&gt;
+                    &lt;!&ndash;android:id="@+id/profileImage"&ndash;&gt;
+                    &lt;!&ndash;android:layout_width="100dp"&ndash;&gt;
+                    &lt;!&ndash;android:layout_height="100dp"&ndash;&gt;
+                    &lt;!&ndash;android:src="@drawable/man"&ndash;&gt;
+                    &lt;!&ndash;tools:ignore="ObsoleteLayoutParam" />&ndash;&gt;
+&ndash;&gt;
+                 &lt;!&ndash;   <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="149dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Select Employee:"
+                            android:paddingLeft="10dp"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textStyle="bold" />
+
+
+                        <Spinner
+                            android:id="@+id/spinnerType"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+
+                            />
+
+                    </LinearLayout>&ndash;&gt;
+
+                </LinearLayout>-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:text="Current Year Summary"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/grey_90"
+                        android:textSize="18dp"
+                        android:gravity="center"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/profileImage"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+
+                    tools:ignore="ObsoleteLayoutParam" />
+
+
+                <TextView
+                    android:id="@+id/empName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:gravity="center"
+                    android:text="unknown"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_mlarge"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp">
+
+                    <ImageView
+                        android:layout_width="@dimen/spacing_xmlarge"
+                        android:layout_height="@dimen/spacing_xmlarge"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/leave"
+                        android:tint="@color/colorPrimaryLight" />
+
+                    <View
+                        android:layout_width="@dimen/spacing_middle"
+                        android:layout_height="0dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/anualleaveentitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="6dp"
+                            android:text="Annual Leave Entitlement Yearly:0"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                            android:textColor="@color/grey_90" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+
+                    android:paddingRight="@dimen/spacing_xlarge">
+
+
+                    <LinearLayout
+                        android:layout_width="157dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_mlarge"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp">
+
+                        <ImageView
+                            android:layout_width="@dimen/spacing_xmlarge"
+                            android:layout_height="@dimen/spacing_xmlarge"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/outst"
+                            android:tint="@color/colorPrimaryLight" />
+
+                        <View
+                            android:layout_width="@dimen/spacing_middle"
+                            android:layout_height="0dp" />
+
+                        <LinearLayout
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/anualleave"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:text="Annual
+Leave:0"
+                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                                android:textColor="@color/grey_90" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="@dimen/spacing_middle"
+                        android:layout_height="0dp" />
+
+
+                    <LinearLayout
+                        android:layout_width="224dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_mlarge"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="39dp"
+                            android:layout_height="@dimen/spacing_xmlarge"
+                            android:scaleType="centerCrop"
+                            android:tint="@color/colorPrimaryLight"
+                            app:srcCompat="@drawable/outst" />
+
+                        <View
+                            android:layout_width="@dimen/spacing_middle"
+                            android:layout_height="0dp" />
+
+                        <LinearLayout
+                            android:layout_width="169dp"
+                            android:layout_height="39dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/outanuleave"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Outstanding
+:0"
+                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                                android:textColor="@color/grey_90" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+
+                    android:paddingRight="@dimen/spacing_xlarge">
+
+
+                    <LinearLayout
+                        android:layout_width="156dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_mlarge"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp">
+
+                        <ImageView
+                            android:layout_width="@dimen/spacing_xmlarge"
+                            android:layout_height="@dimen/spacing_xmlarge"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/outst"
+                            android:tint="@color/colorPrimaryLight" />
+
+                        <View
+                            android:layout_width="@dimen/spacing_middle"
+                            android:layout_height="0dp" />
+
+                        <LinearLayout
+                            android:layout_width="98dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/sickleave"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:text="Sick Leave:0"
+                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                                android:textColor="@color/grey_90" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="@dimen/spacing_middle"
+                        android:layout_height="0dp" />
+
+
+                    <LinearLayout
+                        android:layout_width="227dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_mlarge"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/spacing_xmlarge"
+                            android:layout_height="@dimen/spacing_xmlarge"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/outst"
+                            android:tint="@color/colorPrimaryLight"
+                            tools:ignore="VectorDrawableCompat" />
+
+                        <View
+                            android:layout_width="@dimen/spacing_middle"
+                            android:layout_height="0dp" />
+
+                        <LinearLayout
+                            android:layout_width="168dp"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/upadleave"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Unpaid
+Leave:0"
+                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                                android:textColor="@color/grey_90" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/grey_10" />
+
+                    <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:minHeight="?attr/actionBarSize"-->
+                    <!--android:orientation="horizontal">-->
+
+                    <!--<ImageButton-->
+                    <!--android:layout_width="?attr/actionBarSize"-->
+                    <!--android:layout_height="?attr/actionBarSize"-->
+                    <!--android:background="@android:color/transparent"-->
+                    <!--android:tint="@color/grey_40"-->
+                    <!--app:srcCompat="@drawable/leave"-->
+                    <!--tools:ignore="VectorDrawableCompat" />-->
+
+                    <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:text="List Of Leave Detail"-->
+                    <!--android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
+                    <!--android:textColor="@color/grey_40" />-->
+
+                    <!--<View-->
+                    <!--android:layout_width="@dimen/spacing_smlarge"-->
+                    <!--android:layout_height="wrap_content" />-->
+
+                    <!--<ImageButton-->
+                    <!--android:id="@+id/bt_toggle_items"-->
+                    <!--android:layout_width="?attr/actionBarSize"-->
+                    <!--android:layout_height="?attr/actionBarSize"-->
+                    <!--android:background="?attr/selectableItemBackgroundBorderless"-->
+                    <!--android:tint="@color/grey_40"-->
+                    <!--app:srcCompat="@drawable/ic_arrow_drop"-->
+                    <!--tools:ignore="VectorDrawableCompat" />-->
+
+                    <!--</LinearLayout>-->
+
+
+                    <LinearLayout
+                        android:id="@+id/lyt_expand_items"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/spacing_middle"
+                        android:orientation="vertical"
+                        >
+                        <ScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minHeight="@dimen/spacing_mxlarge"
+                                android:orientation="vertical">
+
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+                                    <TextView
+
+
+                                        android:layout_width="match_parent"
+                                        android:layout_height="5dp"
+                                        android:text=""
+                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                                        android:textColor="@color/grey_90" />
+
+
+                                    <!--    <de.codecrafters.tableview.TableView
+                                            xmlns:table="http://schemas.android.com/apk/res-auto"
+                                            android:id="@+id/tableView"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:accessibilityHeading="?android:attr/windowOverscan"
+                                            android:minWidth="@dimen/appbar_padding_top"
+                                            android:minHeight="@dimen/activity_horizontal_margin"
+                                            android:paddingTop="0dp"
+                                            table:tableView_columnCount="3"
+                                            table:tableView_headerColor="@color/colorPrimaryLight"
+                                            />-->
+                                    <TableLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:id="@+id/tabinfo2">
+
+                                    </TableLayout>
+                                </LinearLayout>
+
+                            </LinearLayout>
+                        </ScrollView>
+
+
+
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="@color/grey_10" />
+
+
+
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="@color/grey_10" />
+
+
+                        <LinearLayout
+                            android:id="@+id/lyt_expand_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="?attr/actionBarSize"
+                            android:layout_marginLeft="?attr/actionBarSize"
+                            android:layout_marginEnd="@dimen/spacing_smlarge"
+                            android:layout_marginRight="@dimen/spacing_smlarge"
+                            android:layout_marginBottom="@dimen/spacing_middle"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingTop="@dimen/spacing_medium"
+                            android:paddingBottom="@dimen/spacing_medium"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/textView8"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="invoice_address"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <!--<Button-->
+            <!--android:id="@+id/APPLY"-->
+            <!--android:layout_width="74dp"-->
+            <!--android:layout_height="76dp"-->
+            <!--android:layout_gravity="bottom|end|right"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:background="@drawable/circle"-->
+            <!--android:text="APPLY"-->
+            <!--android:textColor="@color/grey_3" />-->
+
+            <!--    <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/grey_10" />
+                <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/grey_10" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/grey_10" />-->
+
+
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

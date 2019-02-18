@@ -92,9 +92,115 @@ public class Signup extends AppCompatActivity implements AdapterView.OnItemSelec
 
 
      //   Toast.makeText(this, "counter="+prefLockError.getInt("lockCounter",0), Toast.LENGTH_SHORT).show();
+     /*   userID=userId.getText().toString();
+        instanceStr=sharedpreferences.getString(INST, "save instance");
+        Toast.makeText(this, "inst="+instanceStr+"user="+userID, Toast.LENGTH_SHORT).show();
+        RequestQueue MyRequestQueue = Volley.newRequestQueue(Signup.this);
+        String url = "http://"+instanceStr+".5dsurf.com/app/webservice/checkUserLock/"+userID;
+
+        StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                //This code is executed if the server responds, whether or not the response contains data.
+                //The String 'response' contains the server's response.
+                // tx.setText("response: " + response.toString());
+                //  Toast.makeText(Signup.this, "reponse=" + response, Toast.LENGTH_SHORT).show();
+                try {
+                    JSONObject data = new JSONObject(response.toString());
+                    user_valid = data.getBoolean("valid_user");
+                    message = data.getString("message");
+                    userID=data.getString("user_id");
+                    wrong_attempt=data.getInt("wrong_attempt");
+                    //  tx.setText("response== " + name+ age);
+                    //    Toast.makeText(Signup.this, "result="+user_valid, Toast.LENGTH_SHORT).show();
+                    //   company.setText(name);
+                    //     userId.setText(age);
+                    if(user_valid==true && wrong_attempt<3) {
+                        user_valid=false;
+                        SharedPreferences.Editor editor=prefLockError.edit();
+
+                        editor.putInt("lockCounter", wrong_attempt);
+                        editor.commit();
+
+                        //   Toast.makeText(VerificationCode.this, "verified"+prefs.getString(VERIFYCODE,"false"), Toast.LENGTH_SHORT).show();
+
+                        if ( progressDialog.isShowing())
+                            progressDialog.hide();
+
+                        Intent intent=new Intent(Signup.this, LoginCardOverlap.class);
+                        intent.putExtra("userID",userID);
+                        intent.putExtra("instance",instanceStr);
+                        startActivity(intent);
+                        finish();
+                    }
+
+                    else {
+                        if ( progressDialog.isShowing())
+                            progressDialog.hide();
+
+                        Toast.makeText(Signup.this, message, Toast.LENGTH_SHORT).show();
+                        if (wrong_attempt >= 3) {
+                            SharedPreferences.Editor editor = prefLockError.edit();
+                            editor.putInt("lockCounter", wrong_attempt);
+                            editor.commit();
+                            Intent intent = new Intent(Signup.this, LockError.class);
+                            startActivity(intent);
+                            finish();
+
+                        }
+                    }
+                } catch (JSONException e) {
+                    if ( progressDialog.isShowing())
+                        progressDialog.hide();
+                    e.printStackTrace();
+                    //
+                    //                            //  instance.setText("error= " + e.getMessage());
+                    Toast.makeText(Signup.this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    //                            // tx.setText( "Error: " + e.getMessage());
+
+                }
+
+            }
 
 
-        if(prefLockError.getInt("lockCounter",0)==3) {
+
+
+        }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //This code is executed if there is an error.
+
+                String message = null;
+                if (error instanceof NetworkError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof ServerError) {
+                    message = "The server could not be found. Please try again after some time!!";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof ParseError) {
+                    message = "Parsing error! Please try again after some time!!";
+                } else if (error instanceof NoConnectionError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof TimeoutError) {
+                    message = "Connection TimeOut! Please check your internet connection.";
+                }
+                Toast.makeText(Signup.this, message, Toast.LENGTH_SHORT).show();
+                if ( progressDialog.isShowing())
+                    progressDialog.hide();
+            }
+        })
+        {
+        };
+
+        MyStringRequest.setShouldCache(false);
+        MyRequestQueue.add(MyStringRequest);
+
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("Loading...");
+        progressDialog.setMessage("Please wait");
+        progressDialog.show();*/
+
+        if(prefLockError.getInt("lockCounter",0)>=3) {
 
             Intent intent=new Intent(Signup.this,LockError.class);
             startActivity(intent);
@@ -158,7 +264,7 @@ public class Signup extends AppCompatActivity implements AdapterView.OnItemSelec
                                 userID = data.getString("user_id");
                                 wrong_attempt = data.getInt("wrong_attempt");
 
-                                if (user_valid == true && wrong_attempt <= 3) {
+                                if (user_valid == true && wrong_attempt < 3) {
                                     user_valid = false;
 
                                     //-----------------sharer ppref
@@ -204,7 +310,7 @@ public class Signup extends AppCompatActivity implements AdapterView.OnItemSelec
                                         progressDialog.hide();
                                     //   count++;
                                     Toast.makeText(Signup.this, message, Toast.LENGTH_SHORT).show();
-                                    if (wrong_attempt == 3) {
+                                    if (wrong_attempt >= 3) {
                                         SharedPreferences.Editor editor = prefLockError.edit();
                                         editor.putInt("lockCounter", wrong_attempt);
                                         editor.commit();

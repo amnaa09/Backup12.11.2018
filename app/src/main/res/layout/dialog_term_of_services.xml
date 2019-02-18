@@ -32,14 +32,14 @@
                 android:layout_height="match_parent"
                 android:text="Term of Services"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-                android:textColor="@color/teal_500"
+                android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 app:fontFamily="serif" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="last update January 2018"
+                android:text="last update January 2019"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                 android:textColor="@color/teal_200"
                 android:textStyle="italic"
@@ -139,7 +139,7 @@
             android:text="Decline"
             android:textStyle="bold"
             android:textAllCaps="false"
-            android:textColor="@color/teal_500"
+            android:textColor="@color/colorPrimary"
             app:fontFamily="serif" />
        <!--     style="@style/Button.Primary.Borderless"  -->
 

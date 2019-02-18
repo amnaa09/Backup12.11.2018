@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -73,43 +74,22 @@ public class LockError extends AppCompatActivity {
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
 
-        ((ImageButton) dialog.findViewById(R.id.bt_close)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-    /*    ((Button) dialog.findViewById(R.id.bt_accept)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LockError.this, Signup.class);
-
-               // intent.putExtra("userID",userID);
-              //  intent.putExtra("token",token);
-              //  intent.putExtra("instance", instanceStr);
-             //   intent.putExtra("name", name);
-            //    Toast.makeText(getApplicationContext(),"Read: " + token,Toast.LENGTH_SHORT).show();
-               startActivity(intent);
-             //   finish();
-                // Toast.makeText(getApplicationContext(), "Button Accept Clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        ((Button) dialog.findViewById(R.id.bt_decline)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Button Decline Clicked", Toast.LENGTH_SHORT).show();
-            }
-        });    */
-
+      //  Toast.makeText(this, "in dialog", Toast.LENGTH_SHORT).show();
+ImageButton cancel=(ImageButton) dialog.findViewById(R.id.bt_Close1) ;
+cancel.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        finish();
+        System.exit(0);
+    }
+});
         dialog.show();
         dialog.getWindow().setAttributes(lp);
     }
 
     // The function that decides if you need to prompt the dialog window
     private boolean promptTutorial() {
-        // Check fo saved value in Shared preference for key: keyTutorial return "NullTutorial" if nothing found
+     /*   // Check fo saved value in Shared preference for key: keyTutorial return "NullTutorial" if nothing found
         int keyTutorial = Prefs.getInt("lockCounter", count);
 
         // Log what we found in shared preference
@@ -119,20 +99,18 @@ public class LockError extends AppCompatActivity {
             // if nothing found save a new value "PROMPTED" for the key: keyTutorial
             // to save it in shared prefs just call our saveKey function
             saveKey("lockCounter",count);
-          //  Toast.makeText(this, "in if counter="+count, Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(this, "in if counter="+count, Toast.LENGTH_SHORT).show();*/
             return true;
-        }
-        // if some value was found for this key we already propted this window some time in the past
-        // no need to prompt it again
-        return false;
+
+
     }
 
-    private void saveKey(String key, int value) {
+  /*  private void saveKey(String key, int value) {
         SharedPreferences.Editor editor = Prefs.edit();
         // Log what are we saving in the shared Prefs
         Log.d(TAG, "Shared Prefs Write [" + key + ":" + value + "]");
         editor.putInt(key, value);
         editor.commit();
-    }
+    }*/
 
 }

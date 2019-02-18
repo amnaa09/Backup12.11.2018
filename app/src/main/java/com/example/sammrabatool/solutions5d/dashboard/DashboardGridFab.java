@@ -37,12 +37,14 @@ import com.example.sammrabatool.solutions5d.R;
 import com.example.sammrabatool.solutions5d.Reminder.CustomAdapter;
 import com.example.sammrabatool.solutions5d.Reminder.Model;
 import com.example.sammrabatool.solutions5d.Reminder.Recyclerview;
-import com.example.sammrabatool.solutions5d.leave.ExpansionPanelInvoice;
+
 import com.example.sammrabatool.solutions5d.list.AdapterListInbox;
 import com.example.sammrabatool.solutions5d.list.ListMultiSelection;
 import com.example.sammrabatool.solutions5d.model.Notification;
-import com.example.sammrabatool.solutions5d.profile.ProfileFabMenu;
+
+import com.example.sammrabatool.solutions5d.profile.ProfileHrMenu;
 import com.example.sammrabatool.solutions5d.profile.ProfilePurple;
+import com.example.sammrabatool.solutions5d.profile.ProfileTeamMenu;
 import com.example.sammrabatool.solutions5d.utils.Tools;
 
 import org.json.JSONArray;
@@ -77,7 +79,7 @@ public class DashboardGridFab extends AppCompatActivity {
         otl = (FloatingActionButton ) findViewById(R.id.otl_button);
         fyi = (FloatingActionButton ) findViewById(R.id.fyi_button);
         fyr = (FloatingActionButton ) findViewById(R.id.fyr_button);
-        request = (FloatingActionButton ) findViewById(R.id.request_button);
+     //   request = (FloatingActionButton ) findViewById(R.id.request_button);
         dash=(FloatingActionButton) findViewById(R.id.dashboard);
         leave=(FloatingActionButton)findViewById(R.id.leavedetail);
        // dashboard=(LinearLayout) findViewById(R.id.linear_dash);
@@ -164,7 +166,7 @@ public class DashboardGridFab extends AppCompatActivity {
         leave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(DashboardGridFab.this, ExpansionPanelInvoice.class);
+                Intent intent=new Intent(DashboardGridFab.this, ProfileTeamMenu.class);
                 intent.putExtra("userID",userID);
                 intent.putExtra("token",token);
                 intent.putExtra("instance", instanceStr);
@@ -180,7 +182,7 @@ public class DashboardGridFab extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent=new Intent(DashboardGridFab.this, ProfileFabMenu.class);
+                Intent intent=new Intent(DashboardGridFab.this, ProfileHrMenu.class);
                 intent.putExtra("userID",userID);
                 intent.putExtra("token",token);
                 intent.putExtra("instance", instanceStr);
@@ -261,7 +263,7 @@ public class DashboardGridFab extends AppCompatActivity {
             }
         });
 
-        request.setOnClickListener(new View.OnClickListener()
+ /*       request.setOnClickListener(new View.OnClickListener()
 
         {
             @Override
@@ -271,7 +273,7 @@ public class DashboardGridFab extends AppCompatActivity {
 
 
             }
-        });
+        });*/
 
         dash.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -42,6 +42,7 @@ import com.example.sammrabatool.solutions5d.dialog.Agreement;
 import com.example.sammrabatool.solutions5d.dialog.LockError;
 import com.example.sammrabatool.solutions5d.profile.ProfilePurple;
 import com.example.sammrabatool.solutions5d.utils.Tools;
+import com.example.sammrabatool.solutions5d.verification.VerificationCode;
 
 
 import org.json.JSONArray;
@@ -70,6 +71,7 @@ public class LoginCardOverlap extends AppCompatActivity {
     JSONArray recent_activity=null;
     String[] arr;
     LinearLayout login_layout;
+    int wrong_attempt;
 
 
     @Override
@@ -83,13 +85,14 @@ public class LoginCardOverlap extends AppCompatActivity {
         login_layout=(LinearLayout) findViewById(R.id.login_layout) ;
 
 
-        count=0;
+
         prefLockError=getSharedPreferences("LockError",Context.MODE_PRIVATE);
 
-        if(prefLockError.getInt("lockCounter",0)==3) {
+        if(prefLockError.getInt("lockCounter",0)>=3) {
 
             Intent intent=new Intent(LoginCardOverlap.this,LockError.class);
             startActivity(intent);
+            finish();
         }
         final SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
@@ -144,7 +147,7 @@ public class LoginCardOverlap extends AppCompatActivity {
             RequestQueue MyRequestQueue = Volley.newRequestQueue(LoginCardOverlap.this);
 
 
-            Toast.makeText(this, "pass if1=" + Passowrd, Toast.LENGTH_SHORT).show();
+         //   Toast.makeText(this, "pass if1=" + Passowrd, Toast.LENGTH_SHORT).show();
             String url = "http://" + instanceStr + ".5dsurf.com/app/webservice/verifyuser/" + userID + "/" + Passowrd + "/" + userName;
             StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                 @Override
@@ -156,10 +159,12 @@ public class LoginCardOverlap extends AppCompatActivity {
                     try {
                         JSONObject data = new JSONObject(response.toString());
                         user_valid = data.getBoolean("valid_user");
-                        if (user_valid == true) {
+                        wrong_attempt=data.getInt("wrong_attempt");
+                        if (user_valid == true && wrong_attempt < 3) {
                             message = data.getString("message");
                             userID = data.getString("user_id");
                             userToken = data.getString("user_token");
+                            wrong_attempt=data.getInt("wrong_attempt");
                             super_user = data.getInt("superuser");
                             lg = data.getInt("lg");
                             bg = data.getInt("bg");
@@ -203,6 +208,15 @@ public class LoginCardOverlap extends AppCompatActivity {
                                 progressDialog.hide();
                             message = data.getString("message");
                             Toast.makeText(LoginCardOverlap.this, message, Toast.LENGTH_SHORT).show();
+                            if (wrong_attempt >= 3) {
+                                SharedPreferences.Editor editor = prefLockError.edit();
+                                editor.putInt("lockCounter", wrong_attempt);
+                                editor.commit();
+                                Intent intent = new Intent(LoginCardOverlap.this, LockError.class);
+                                startActivity(intent);
+                                finish();
+
+                            }
                         }
                     } catch (JSONException e) {
                         if (progressDialog.isShowing())
@@ -285,7 +299,7 @@ public class LoginCardOverlap extends AppCompatActivity {
                 Passowrd = password.getText().toString();
                 try {
                     String encodePassword = URLEncoder.encode(Passowrd, "UTF-8");
-                    Toast.makeText(LoginCardOverlap.this, "pass signin=" + encodePassword, Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(LoginCardOverlap.this, "pass signin=" + encodePassword, Toast.LENGTH_SHORT).show();
                     RequestQueue MyRequestQueue = Volley.newRequestQueue(LoginCardOverlap.this);
                     String url = "http://" + instanceStr + ".5dsurf.com/app/webservice/verifyuser/" + userID + "/" + encodePassword + "/" + userName;
                     StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
@@ -298,7 +312,8 @@ public class LoginCardOverlap extends AppCompatActivity {
                             try {
                                 JSONObject data = new JSONObject(response.toString());
                                 user_valid = data.getBoolean("valid_user");
-                                if (user_valid == true) {
+                                wrong_attempt=data.getInt("wrong_attempt");
+                                if (user_valid == true && wrong_attempt<3) {
                                     message = data.getString("message");
                                     userID = data.getString("user_id");
                                     userToken = data.getString("user_token");
@@ -329,7 +344,7 @@ public class LoginCardOverlap extends AppCompatActivity {
                                 //    Toast.makeText(Signup.this, "result="+user_valid, Toast.LENGTH_SHORT).show();
                                 //   company.setText(name);
                                 //     userId.setText(age);
-                                if (user_valid == true) {
+                                if (user_valid == true && wrong_attempt<3) {
                                     user_valid = false;
                                     //==============shared pref
                                     attemptLogin();
@@ -381,14 +396,13 @@ public class LoginCardOverlap extends AppCompatActivity {
                                     if (progressDialog.isShowing())
                                         progressDialog.hide();
                                     Toast.makeText(LoginCardOverlap.this, message, Toast.LENGTH_SHORT).show();
-                                    count++;
-
-                                    if (count == 3) {
+                                    if (wrong_attempt >= 3) {
                                         SharedPreferences.Editor editor = prefLockError.edit();
-                                        editor.putInt("lockCounter", count);
+                                        editor.putInt("lockCounter", wrong_attempt);
                                         editor.commit();
                                         Intent intent = new Intent(LoginCardOverlap.this, LockError.class);
                                         startActivity(intent);
+                                        finish();
 
                                     }
 
@@ -464,7 +478,7 @@ public class LoginCardOverlap extends AppCompatActivity {
         String encodePassword="";
         try {
         encodePassword = URLEncoder.encode(passwordd, "UTF-8");
-            Toast.makeText(this, "attempt login pass="+encodePassword, Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, "attempt login pass="+encodePassword, Toast.LENGTH_SHORT).show();
         }catch(UnsupportedEncodingException e){
         Toast.makeText(this, "Error: Please try again", Toast.LENGTH_SHORT).show();
         }

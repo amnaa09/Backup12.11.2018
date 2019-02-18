@@ -12,6 +12,8 @@ import android.os.StrictMode;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +22,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,14 +40,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
-import com.example.sammrabatool.solutions5d.OTL.CheckIn;
 import com.example.sammrabatool.solutions5d.OTL.CircleTransform;
 import com.example.sammrabatool.solutions5d.R;
-import com.example.sammrabatool.solutions5d.Reminder.Recyclerview;
 import com.example.sammrabatool.solutions5d.Tools;
 import com.example.sammrabatool.solutions5d.ViewAnimation;
-import com.example.sammrabatool.solutions5d.dashboard.DashboardGridFab;
-import com.example.sammrabatool.solutions5d.profile.ProfilePurple;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -55,15 +55,16 @@ import java.util.HashMap;
 import java.util.List;
 
 import de.codecrafters.tableview.TableView;
-import de.codecrafters.tableview.listeners.TableDataClickListener;
 import de.codecrafters.tableview.toolkit.SimpleTableDataAdapter;
 import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
 
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
-public class ExpansionPanelInvoice extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+public class LeaveHr extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     String[] spaceProbeHeaders = {"Leave Type", "Duration", "Status"};
     String[][] spaceProbes;
-
     private ImageButton bt_toggle_items, bt_toggle_address, bt_toggle_description;
     private View lyt_expand_items, lyt_expand_address, lyt_expand_description;
     private NestedScrollView nested_scroll_view;
@@ -75,9 +76,10 @@ public class ExpansionPanelInvoice extends AppCompatActivity implements AdapterV
     JSONArray otlPorjectArray;
     JSONArray absenseInform;
     JSONObject getjsonarray[];
-    String projecrID, projectName,projectfullname,pic,employeeid="0",sickleav,annuleav,unpdleav ,anuuleavEntit,outannuleav,idd[],
+    String pic,employee_name,personId,projecrID, projectName,projectfullname,employeeid="0",sickleav,annuleav,unpdleav ,anuuleavEntit,outannuleav,idd[],
             leavetype[],duration[],status[];
-
+    TableLayout tableLayout;
+    TableRow tableRow;
     private static final String TAG = "ExpansionPanelnvoice";
     ImageView profileImage;
 
@@ -88,17 +90,18 @@ public class ExpansionPanelInvoice extends AppCompatActivity implements AdapterV
      DatePickerDialog.OnDateSetListener mDateSetListener;
     Spinner employtype;
     List<String> listtype = new ArrayList<String>();
-TextView t1,t2,t3,t4,t5;
+    TextView t1,t2,t3,t4,t5;
     HashMap<Integer,String> hashSpinnerType = new HashMap<Integer, String>();
     HashMap<Integer,String> hashSpinnerimage = new HashMap<Integer, String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_expansion_panel_invoice);
+        setContentView(R.layout.activity_leaveinfo_hr);
           progressDialog = new ProgressDialog(this);
     //    progressDialog=new ProgressDialog(this);
      //   count0 = (TextView) findViewById(R.id.count0);
        // count00 = (TextView) findViewById(R.id.count00);
+
         t1=(TextView)findViewById(R.id.anualleaveentitle);
         t2=(TextView)findViewById(R.id.anualleave);
         t3=(TextView)findViewById(R.id.outanuleave);
@@ -110,20 +113,242 @@ TextView t1,t2,t3,t4,t5;
         token = getIntent().getStringExtra("token");
         lg = getIntent().getIntExtra("lg", 0);
         bg = getIntent().getIntExtra("bg", 0);
-        employtype = (Spinner) findViewById(R.id.spinnerType);
+        personId=getIntent().getStringExtra("personId");
+        employee_name=getIntent().getStringExtra("employee_name");
+        pic=getIntent().getStringExtra("pic");
+
+     //   employtype = (Spinner) findViewById(R.id.spinnerType);
         profileImage = (ImageView) findViewById(R.id.profileImage);
-        TableView<String[]> tb = (TableView<String[]>) findViewById(R.id.tableView);
-        tb.setVisibility(View.GONE);
+
+        if(pic!=null || pic!="")
+        {
+            int SDK_INT = Build.VERSION.SDK_INT;
+            if (SDK_INT > 8) {
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                        .permitAll().build();
+                StrictMode.setThreadPolicy(policy);
+                //your codes here
+
+                    Picasso.get().load(pic).transform(new CircleTransform()).into(profileImage);
+
+
+                }
+        }
+
+       /* final TableView<String[]> tb = (TableView<String[]>) findViewById(R.id.tableView);*/
+        tableLayout=(TableLayout)findViewById(R.id.tabinfo1);
+        tableLayout.setVisibility(View.GONE);
         initComponent();
         initToolbar();
 
 
-        //.....................settingspinner........................................//
+        RequestQueue MyRequestQueue = Volley.newRequestQueue(LeaveHr.this);
+        String url = "http://" + instanceStr + ".5dsurf.com/app/webservice/getEmployeeLeaveDetail/" + bg + "/" + lg + "/" + userID + "/" + token + "/" + personId;
+        StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject data = new JSONObject(response.toString());
+                    //  listtype.clear();
+                    //  hashSpinnerType.clear();
+                    //listtype.add("Select Employee");
+                    // hashSpinnerType.put(0, "0");
+
+                    if (data.getString("leaveInfo") != null) {
+
+                        leavdetail = data.getJSONObject("leaveInfo");
+                        if (leavdetail != null) {
+//                                otlTaskdetail = new JSONObject[otlPorjectArray.length()];
+
+                            sickleav = leavdetail.getString("sick_leave");
+                            annuleav = leavdetail.getString("annual_leave");
+                            unpdleav = leavdetail.getString("unpaid_leave");
+                            anuuleavEntit = leavdetail.getString("annualLeavesEntitled");
+                            outannuleav = leavdetail.getString("outstantingAnuualLeave");
+                            String temp="Annual Leave Entitlement Yearly: "+"<b>" + anuuleavEntit + "</b>";
+                            t1.setText(Html.fromHtml(temp));
+                            temp="Annual Leave: "+"<b>" + annuleav + "</b>";
+                            t2.setText(Html.fromHtml(temp));
+                            temp="Outstanding: "+"<b>" + outannuleav + "</b>";
+                            t3.setText(Html.fromHtml(temp));
+
+                            temp="Sick Leave: "+"<b>" + sickleav + "</b>";
+                            t4.setText(Html.fromHtml(temp));
+                            temp="Unpaid Leave: "+"<b>" + unpdleav + "</b>";
+                            t5.setText(Html.fromHtml(temp));
+
+
+                            empNameText.setText(employee_name);
+
+//                                    pic = leavdetail.getString("pic");
+
+//                                    listtype.add(taskName);
+//                                    hashSpinnerType.put(1, taskID);
+                            //Toast.makeText(MainActivity.this, "id="+projecrID+"name="+projectName, Toast.LENGTH_SHORT).show();
+                        }
+                        if(!data.get("absenseInfo").equals(null)) {
+                            //   Toast.makeText(ExpansionPanelInvoice.this, "in if", Toast.LENGTH_SHORT).show();
+                            absenseInform = data.getJSONArray("absenseInfo");
+                            getjsonarray = new JSONObject[absenseInform.length()];
+                            idd=new String[absenseInform.length()];
+                            leavetype=new String[absenseInform.length()];
+                            duration=new String[absenseInform.length()];
+                            status=new String[absenseInform.length()];
+                            for (int i = 0; i < absenseInform.length(); i++) {
+                                getjsonarray[i] = absenseInform.getJSONObject(i);
+                                idd[i] = getjsonarray[i].getString("a");
+                                leavetype[i] = getjsonarray[i].getString("b");
+                                //   Toast.makeText(ExpansionPanelInvoice.this, "lt="+leavetype[i], Toast.LENGTH_SHORT).show();
+                                duration[i] = getjsonarray[i].getString("c");
+                                status[i] = getjsonarray[i].getString("d");
+                            }
+                           // populateData(absenseInform.length());
+                            tableLayout.removeAllViews();
+                            tableLayout.setStretchAllColumns(TRUE);
+                        //    tableLayout.setBackgroundResource(R.drawable.table_background);
+                        //    tableLayout.setBackgroundColor(Color.BLACK);
+                           /* TableLayout.LayoutParams tableRowParams =
+                                    new TableLayout.LayoutParams
+                                            (TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
+*/
+                            TableRow tableRowHeading = new TableRow(LeaveHr.this);
+                            tableRowHeading.setBackgroundColor(Color.parseColor("#1976D2"));
+                            tableRowHeading.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT));
+
+
+
+                            TextView th = new TextView(LeaveHr.this);
+                            TextView th1 = new TextView(LeaveHr.this);
+                            TextView th2 = new TextView(LeaveHr.this);
+                            th.setPadding(10, 10, 10, 10);
+                            th.setAllCaps(FALSE);
+                            th1.setAllCaps(FALSE);
+                            th.setGravity(Gravity.LEFT);
+                            th.setText("Leave Type");
+                            th1.setPadding(10, 10, 10, 10);
+
+                            th1.setGravity(Gravity.LEFT);
+                            th1.setText("Duration");
+
+                            th2.setPadding(10, 10, 10, 10);
+                            th2.setAllCaps(FALSE);
+                            th2.setGravity(Gravity.LEFT);
+                            th2.setAllCaps(FALSE);
+                            th2.setText("Status");
+                            th.setTextColor(Color.WHITE);
+                            th1.setTextColor(Color.WHITE);
+                            th2.setTextColor(Color.WHITE);
+
+                            tableRowHeading.addView(th);
+                            tableRowHeading.addView(th1);
+                            tableRowHeading.addView(th2);
+
+                            tableLayout.addView(tableRowHeading);
+                            View v = new View(LeaveHr.this);
+                            v.setLayoutParams(new TableRow.LayoutParams(
+                                    TableRow.LayoutParams.MATCH_PARENT, 1));
+                            v.setBackgroundColor(Color.parseColor("#1976D2"));
+
+                            tableLayout.addView(v);
+                            for (int i = 0; i < absenseInform.length(); i++) {
+                                getjsonarray[i] = absenseInform.getJSONObject(i);
+                                // idd = getjsonarray.getString("a");
+                                TableRow tableRow = new TableRow(LeaveHr.this);
+                                tableRow.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT));
+                                tableRow.setBackgroundColor(Color.WHITE);
+                          //      tableRowParams.setMargins(1,1,1,1);
+                                //tableRow.LayoutParams=tableRowParams;
+                            //    tableRow.setLayoutParams(tableRowParams);
+                                TextView tv = new TextView(LeaveHr.this);
+                                TextView tv1 = new TextView(LeaveHr.this);
+                                TextView tv2 = new TextView(LeaveHr.this);
+                                tv.setPadding(10, 10, 10, 10);
+
+                                tv.setGravity(Gravity.LEFT);
+                                tv.setText(leavetype[i]);
+                                tv1.setPadding(10, 10, 10, 10);
+
+                                tv1.setGravity(Gravity.LEFT);
+                                tv1.setText(duration[i]);
+
+                                tv2.setPadding(10, 10, 10, 10);
+
+                                tv2.setGravity(Gravity.LEFT);
+                                tv2.setText(status[i]);
+
+                                tv.setTextColor(Color.BLACK);
+                                tv1.setTextColor(Color.BLACK);
+                                tv2.setTextColor(Color.BLACK);
+
+
+
+//                                        tv1.setGravity(Gravity.LEFT);
+//                                        tv1.setText(duration[i]);
+
+                                tableRow.addView(tv);
+                                tableRow.addView(tv1);
+                                tableRow.addView(tv2);
+                          //      Toast.makeText(LeaveHr.this, "creating table", Toast.LENGTH_SHORT).show();
+                                tableLayout.addView(tableRow);
+                                View v1 = new View(LeaveHr.this);
+                                v1.setLayoutParams(new TableRow.LayoutParams(
+                                        TableRow.LayoutParams.MATCH_PARENT, 1));
+                                v1.setBackgroundColor(Color.rgb(51, 51, 51));
+                                tableLayout.addView(v1);
+                            }
+                            tableLayout.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            tableLayout.setVisibility(View.GONE);
+                            //     Toast.makeText(ExpansionPanelInvoice.this, "in else", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                } catch (JSONException e) {
+                    if (progressDialog.isShowing())
+                        progressDialog.hide();
+                    e.printStackTrace();
+                    //
+                    //                            //  instance.setText("error= " + e.getMessage());
+                    Toast.makeText(LeaveHr.this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = null;
+                if (error instanceof NetworkError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof ServerError) {
+                    message = "The server could not be found. Please try again after some time!!";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof ParseError) {
+                    message = "Parsing error! Please try again after some time!!";
+                } else if (error instanceof NoConnectionError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof TimeoutError) {
+                    message = "Connection TimeOut! Please check your internet connection.";
+                }
+                Toast.makeText(LeaveHr.this, message, Toast.LENGTH_SHORT).show();
+                if (progressDialog.isShowing())
+                    progressDialog.hide();
+            }
+        });
+        MyStringRequest.setShouldCache(false);
+        MyRequestQueue.add(MyStringRequest);
+
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("Loading...");
+        progressDialog.setMessage("Please wait");
+/*        //.....................settingspinner........................................//
         listtype.add("Select employee");
         hashSpinnerType.put(0, "0");
         hashSpinnerimage.put(0,"");
-
-        employtype.setOnItemSelectedListener(ExpansionPanelInvoice.this);
+        employtype.setOnItemSelectedListener(LeaveHr.this);
 
         ArrayAdapter typeAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, listtype);
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -132,7 +357,7 @@ TextView t1,t2,t3,t4,t5;
 
         //--------------------calling webservice-------------------------------//
 
-        RequestQueue MyRequestQueue = Volley.newRequestQueue(ExpansionPanelInvoice.this);
+        RequestQueue MyRequestQueue = Volley.newRequestQueue(LeaveHr.this);
         String url = "http://" + instanceStr + ".5dsurf.com/app/webservice/getEmployeeList/" + bg + "/" + lg + "/" + userID + "/" + token;
         StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -165,14 +390,14 @@ TextView t1,t2,t3,t4,t5;
                                     Picasso.get().load(otlProjectdetail[i].getString("pic")).transform(new CircleTransform()).into(profileImage);
 
                                 } catch (JSONException error) {
-                                    Toast.makeText(ExpansionPanelInvoice.this, "Error:" + error.toString(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LeaveHr.this, "Error:" + error.toString(), Toast.LENGTH_SHORT).show();
 
                                 }
                             }
                             //Toast.makeText(MainActivity.this, "id="+projecrID+"name="+projectName, Toast.LENGTH_SHORT).show();
                         }
                         //-------setting data to spinner----------------
-                        ArrayAdapter projectAdapter = new ArrayAdapter(ExpansionPanelInvoice.this, android.R.layout.simple_spinner_item, listtype);
+                        ArrayAdapter projectAdapter = new ArrayAdapter(LeaveHr.this, android.R.layout.simple_spinner_item, listtype);
                         projectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         //Setting the ArrayAdapter data on the Spinner
                         employtype.setAdapter(projectAdapter);
@@ -186,7 +411,7 @@ TextView t1,t2,t3,t4,t5;
                     e.printStackTrace();
                     //
                     //                            //  instance.setText("error= " + e.getMessage());
-                    Toast.makeText(ExpansionPanelInvoice.this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LeaveHr.this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -206,7 +431,7 @@ TextView t1,t2,t3,t4,t5;
                 } else if (error instanceof TimeoutError) {
                     message = "Connection TimeOut! Please check your internet connection.";
                 }
-                Toast.makeText(ExpansionPanelInvoice.this, message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(LeaveHr.this, message, Toast.LENGTH_SHORT).show();
                 if (progressDialog.isShowing())
                     progressDialog.hide();
             }
@@ -216,7 +441,7 @@ TextView t1,t2,t3,t4,t5;
 
         progressDialog.setCancelable(false);
         progressDialog.setTitle("Loading...");
-        progressDialog.setMessage("Please wait");
+        progressDialog.setMessage("Please wait");*/
     }
 
     private void initToolbar() {
@@ -244,129 +469,18 @@ TextView t1,t2,t3,t4,t5;
         @Override
         public void onItemSelected(AdapterView<?> parent, View arg1, int position, final long id) {
 
-            final TableView<String[]> tb = (TableView<String[]>) findViewById(R.id.tableView);
+        /*    final TableView<String[]> tb = (TableView<String[]>) findViewById(R.id.tableView);
 
 
             final String text=parent.getItemAtPosition(position).toString();
-            Toast.makeText(ExpansionPanelInvoice.this, "text=" + text, Toast.LENGTH_SHORT).show();
+       //     Toast.makeText(ExpansionPanelInvoice.this, "text=" + text, Toast.LENGTH_SHORT).show();
             if (parent.getId() == R.id.spinnerType && position!=0) {
                // employeeid = hashSpinnerType.get(employtype.getSelectedItemPosition());
                 employeeid = hashSpinnerType.get(employtype.getSelectedItemPosition());
-                Toast.makeText(ExpansionPanelInvoice.this, "employeeid=" + employeeid, Toast.LENGTH_SHORT).show();
-                RequestQueue MyRequestQueue = Volley.newRequestQueue(ExpansionPanelInvoice.this);
-                String url = "http://" + instanceStr + ".5dsurf.com/app/webservice/getEmployeeLeaveDetail/" + bg + "/" + lg + "/" + userID + "/" + token + "/" + employeeid;
-                StringRequest MyStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
+            //    Toast.makeText(ExpansionPanelInvoice.this, "employeeid=" + employeeid, Toast.LENGTH_SHORT).show();
 
-                        try {
-                            JSONObject data = new JSONObject(response.toString());
-                          //  listtype.clear();
-                          //  hashSpinnerType.clear();
-                            //listtype.add("Select Employee");
-                           // hashSpinnerType.put(0, "0");
-
-                            if (data.getString("leaveInfo") != null) {
-
-                                leavdetail = data.getJSONObject("leaveInfo");
-                                if (leavdetail != null) {
-//                                otlTaskdetail = new JSONObject[otlPorjectArray.length()];
-
-                                    sickleav = leavdetail.getString("sick_leave");
-                                    annuleav = leavdetail.getString("annual_leave");
-                                    unpdleav = leavdetail.getString("unpaid_leave");
-                                    anuuleavEntit = leavdetail.getString("annualLeavesEntitled");
-                                    outannuleav = leavdetail.getString("outstantingAnuualLeave");
-                                    t1.setText("Annual Leave Entitlement Yearly:" + anuuleavEntit);
-                                    t2.setText("Annual Leave:" + annuleav);
-                                    t3.setText("Outstanding Annual Leave:" + outannuleav);
-                                    t4.setText("Sick Leave:" + sickleav);
-                                    t5.setText("Unpaid Leave:" + unpdleav);
-                                    empNameText.setText(text);
-
-//                                    pic = leavdetail.getString("pic");
-
-//                                    listtype.add(taskName);
-//                                    hashSpinnerType.put(1, taskID);
-                                    //Toast.makeText(MainActivity.this, "id="+projecrID+"name="+projectName, Toast.LENGTH_SHORT).show();
-                                }
-                                if(data.getString("absenseInfo")!="null") {
-                                    absenseInform = data.getJSONArray("absenseInfo");//tableview code
-                                    getjsonarray = new JSONObject[absenseInform.length()];//tableview code
-                                    idd=new String[absenseInform.length()];
-                                    leavetype=new String[absenseInform.length()];
-                                    duration=new String[absenseInform.length()];
-                                    status=new String[absenseInform.length()];
-                                    for (int i = 0; i < absenseInform.length(); i++) {
-                                        getjsonarray[i] = absenseInform.getJSONObject(i);
-                                        idd[i] = getjsonarray[i].getString("a");
-                                        leavetype[i] = getjsonarray[i].getString("b");
-                                        duration[i] = getjsonarray[i].getString("c");
-                                        status[i] = getjsonarray[i].getString("d");
-                                    }
-                                    populateData(absenseInform.length());
-
-                                 //   final TableView<String[]> tb = (TableView<String[]>) findViewById(R.id.tableView);
-                                    tb.setColumnCount(3);
-                                    tb.setColumnWeight(0,2);
-                                    tb.setColumnWeight(2,1);
-
-                                    tb.setHeaderBackgroundColor(Color.parseColor("#1E88E5"));
-                                    //ADAPTERS
-                                    tb.setHeaderAdapter(new SimpleTableHeaderAdapter(ExpansionPanelInvoice.this, spaceProbeHeaders));
-                                    tb.setDataAdapter(new SimpleTableDataAdapter(ExpansionPanelInvoice.this, spaceProbes));
-                                    tb.setVisibility(View.VISIBLE);
-                                   // tb.addDataClickListener(new TableDataClickListener<String[]>() {
-//                                        @Override
-//                                        public void onDataClicked(int rowIndex, String[] clickedData) {
-//                                            Toast.makeText(ExpansionPanelInvoice.this, ((String[]) clickedData)[1], Toast.LENGTH_SHORT).show();
-//                                        }
-//                                    });
-                                }
-                                else
-                                    tb.setVisibility(View.GONE);
-                            }
-                        } catch (JSONException e) {
-                            if (progressDialog.isShowing())
-                                progressDialog.hide();
-                            e.printStackTrace();
-                            //
-                            //                            //  instance.setText("error= " + e.getMessage());
-                            Toast.makeText(ExpansionPanelInvoice.this, "Error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        String message = null;
-                        if (error instanceof NetworkError) {
-                            message = "Cannot connect to Internet...Please check your connection!";
-                        } else if (error instanceof ServerError) {
-                            message = "The server could not be found. Please try again after some time!!";
-                        } else if (error instanceof AuthFailureError) {
-                            message = "Cannot connect to Internet...Please check your connection!";
-                        } else if (error instanceof ParseError) {
-                            message = "Parsing error! Please try again after some time!!";
-                        } else if (error instanceof NoConnectionError) {
-                            message = "Cannot connect to Internet...Please check your connection!";
-                        } else if (error instanceof TimeoutError) {
-                            message = "Connection TimeOut! Please check your internet connection.";
-                        }
-                        Toast.makeText(ExpansionPanelInvoice.this, message, Toast.LENGTH_SHORT).show();
-                        if (progressDialog.isShowing())
-                            progressDialog.hide();
-                    }
-                });
-                MyStringRequest.setShouldCache(false);
-                MyRequestQueue.add(MyStringRequest);
-
-                progressDialog.setCancelable(false);
-                progressDialog.setTitle("Loading...");
-                progressDialog.setMessage("Please wait");
                 //    progressDialog.show();
-            }
+            }*/
 //................................................................................................................//
 
 //        mDisplayDate = (TextView) findViewById(R.id.tvDate);
@@ -459,49 +573,20 @@ TextView t1,t2,t3,t4,t5;
     }
     private void populateData(int size) {
 
-
-                Spaceprobe spaceprobe = new Spaceprobe();
-        ArrayList<Spaceprobe> spaceprobeList = new ArrayList<>();
-
-//        spaceprobe.setId("1");
-//        spaceprobe.setName("Pioneer");
-//        spaceprobe.setPropellant("Solar");
-//        spaceprobe.setDestination("Venus");
-//        spaceprobeList.add(spaceprobe);
-
-        spaceprobe = new Spaceprobe();
-//        spaceprobe.setId("2");
-        spaceprobe.setName("Casini");
-        spaceprobe.setPropellant("Nuclear");
-        spaceprobe.setDestination("Jupiter");
-        spaceprobeList.add(spaceprobe);
-
-        spaceprobe = new Spaceprobe();
-//        spaceprobe.setId("3");
-        spaceprobe.setName("Apollo");
-        spaceprobe.setPropellant("Chemical");
-        spaceprobe.setDestination("Moon");
-        spaceprobeList.add(spaceprobe);
-
-        spaceprobe = new Spaceprobe();
-//        spaceprobe.setId("4");
-        spaceprobe.setName("Enterpise");
-        spaceprobe.setPropellant("Anti-Matter");
-        spaceprobe.setDestination("Andromeda");
-        spaceprobeList.add(spaceprobe);
-
-        spaceProbes = new String[size][3];
+        spaceProbes = new String[size*3][3];
         // spaceProbes= new String[][]{{}};
+     //   Toast.makeText(this, "size="+size, Toast.LENGTH_SHORT).show();
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size*3; i++) {
 
          //   Spaceprobe s = spaceprobeList.get(i);
 
 //            spaceProbes[i][0] = s.getId();
-            spaceProbes[i][0] = leavetype[i];
-            spaceProbes[i][1] = duration[i];
-            spaceProbes[i][2] = status[i];
-            Toast.makeText(ExpansionPanelInvoice.this, "leavetype" + leavetype, Toast.LENGTH_SHORT).show();
+            spaceProbes[i][0] = leavetype[0];
+            spaceProbes[i][1] = duration[0];
+            spaceProbes[i][2] = status[0];
+
+      //      Toast.makeText(ExpansionPanelInvoice.this, "leavetype" + spaceProbes[i][0], Toast.LENGTH_SHORT).show();
 
         }
 
@@ -570,7 +655,7 @@ TextView t1,t2,t3,t4,t5;
             SharedPreferences.Editor editor = preferences.edit();
             editor.clear();
             editor.commit();
-            Intent intent = new Intent(ExpansionPanelInvoice.this, LoginCardOverlap.class);
+            Intent intent = new Intent(LeaveHr.this, LoginCardOverlap.class);
             startActivity(intent);
             finish();
         }

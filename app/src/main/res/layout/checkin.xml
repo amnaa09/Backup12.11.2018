@@ -18,7 +18,7 @@
 
         app:subtitleTextAppearance="@style/Base.TextAppearance.AppCompat.Caption"
         app:subtitleTextColor="@color/grey_10"
-        app:title="OTL"
+        app:title="Time and Attendence"
         android:background="@color/colorPrimary"/>
 
     <!--<TextView-->
@@ -82,7 +82,7 @@
             android:layout_alignStart="@+id/first"
             android:layout_alignParentStart="true"
             android:clickable="true"
-            android:text="IN"
+            android:text="Check In"
             android:background="@drawable/btn_square_blue"
             android:textColor="@color/grey_3" />
 
@@ -94,7 +94,7 @@
             android:layout_alignParentStart="true"
             android:background="@drawable/button_border_blue"
             android:clickable="true"
-            android:text="OUT"
+            android:text="Check Out"
             android:textColor="@color/colorPrimaryDark" />
     </LinearLayout>
 
@@ -118,7 +118,7 @@
             android:id="@+id/profileImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/man"
+
             tools:ignore="ObsoleteLayoutParam" />
     </LinearLayout>
 
@@ -179,7 +179,7 @@
                     <TextView
                         android:layout_width="125dp"
                         android:layout_height="wrap_content"
-
+                        android:paddingLeft="10dp"
                         android:text="Type    "
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                         android:textColor="@color/colorPrimaryDark"
@@ -215,7 +215,7 @@
                     <TextView
                         android:layout_width="125dp"
                         android:layout_height="wrap_content"
-
+                        android:paddingLeft="10dp"
                         android:text="Project"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                         android:textColor="@color/colorPrimaryDark"
@@ -253,7 +253,7 @@
                 <TextView
                     android:layout_width="125dp"
                     android:layout_height="wrap_content"
-
+                    android:paddingLeft="10dp"
                     android:text="Task    "
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                     android:textColor="@color/colorPrimaryDark"
@@ -290,7 +290,7 @@
                     <TextView
                         android:layout_width="125dp"
                         android:layout_height="wrap_content"
-
+                        android:paddingLeft="10dp"
                         android:text="Activity"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                         android:textColor="@color/colorPrimaryDark"
