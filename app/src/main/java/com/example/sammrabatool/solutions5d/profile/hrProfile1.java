@@ -1,15 +1,21 @@
 package com.example.sammrabatool.solutions5d.profile;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.sammrabatool.solutions5d.OTL.CircleTransform;
 import com.example.sammrabatool.solutions5d.R;
+import com.squareup.picasso.Picasso;
 
 public class hrProfile1 extends AppCompatActivity {
-    TextView  t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15;
+    TextView  t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15,name1;
+    ImageView pic1;
     String name, employee_number, hireDate, gender, dob, maritalStatus, nationality,
-            email, officeNum, org, job,grade, location, status,manager;
+            email, officeNum, org, job,grade, location, status,manager,pic;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,9 +37,11 @@ public class hrProfile1 extends AppCompatActivity {
         org = getIntent().getStringExtra("org");
         location = getIntent().getStringExtra("location");
         status = getIntent().getStringExtra("status");
+        pic=getIntent().getStringExtra("pic");
 
 
-
+        name1=(TextView) findViewById(R.id.name1);
+        pic1=(ImageView) findViewById(R.id.pic1);
         t1 = (TextView) findViewById(R.id.hrtext1);
         t2 = (TextView) findViewById(R.id.hrtext2);
         t3 = (TextView) findViewById(R.id.hrtext3);
@@ -50,6 +58,20 @@ public class hrProfile1 extends AppCompatActivity {
         t14 = (TextView) findViewById(R.id.hrtext14);
         t15 = (TextView) findViewById(R.id.hrtext15);
 
+        if(pic!=null || pic!="")
+        {
+            int SDK_INT = Build.VERSION.SDK_INT;
+            if (SDK_INT > 8) {
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                        .permitAll().build();
+                StrictMode.setThreadPolicy(policy);
+                //your codes here
+
+                Picasso.get().load(pic).transform(new CircleTransform()).into(pic1);
+
+            }
+        }
+        name1.setText(name);
         t1.setText(name);
         t2.setText(gender);
         t3.setText(maritalStatus);

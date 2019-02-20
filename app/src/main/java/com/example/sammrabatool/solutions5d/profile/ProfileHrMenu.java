@@ -464,6 +464,8 @@ public class ProfileHrMenu extends AppCompatActivity {
                 i.putExtra("org", org);
                 i.putExtra("location", location);
                 i.putExtra("status", status);
+                i.putExtra("pic",picture);
+
 
         startActivity(i);
 
@@ -487,6 +489,8 @@ public class ProfileHrMenu extends AppCompatActivity {
                 i.putExtra("laborNum", laborNum);
                 i.putExtra("laborIssue", laborIssue);
                 i.putExtra("laborExpire", laborExpire);
+                i.putExtra("pic",picture);
+                i.putExtra("employee_name", employee_name);
                 startActivity(i);
             }
         });
