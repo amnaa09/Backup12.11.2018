@@ -1,13 +1,24 @@
 package com.example.sammrabatool.solutions5d.profile;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
 import com.example.sammrabatool.solutions5d.R;
+import com.example.sammrabatool.solutions5d.Tools;
 import com.example.sammrabatool.solutions5d.list.CircleTransform;
 import com.squareup.picasso.Picasso;
 
@@ -15,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class teamProfile1 extends AppCompatActivity {
-    TextView t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15,empname,yost,basicsalt;
+    TextView t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15,empname, bst1, yost1;
     String name, employee_number, hireDate, gender, dob, maritalStatus, nationality,
             email, officeNum, org, job,grade, location, status,manager,yos,basicsal,pic;
     ImageView empPic;
@@ -44,10 +55,11 @@ public class teamProfile1 extends AppCompatActivity {
         basicsal = getIntent().getStringExtra("basicsalary");
         pic = getIntent().getStringExtra("pic");
 
-        yost=(TextView) findViewById(R.id.yos);
-        basicsalt=(TextView) findViewById(R.id.basicsal);
-        empname=(TextView) findViewById(R.id.empname) ;
-        empPic=(ImageView) findViewById(R.id.image);
+
+        empname=(TextView) findViewById(R.id.namet1);
+        empPic=(ImageView) findViewById(R.id.pic1);
+        bst1=(TextView) findViewById(R.id.bst1);
+        yost1=(TextView) findViewById(R.id.yost1);
 
 
         t1 = (TextView) findViewById(R.id.hrtext1);
@@ -66,14 +78,23 @@ public class teamProfile1 extends AppCompatActivity {
         t14 = (TextView) findViewById(R.id.hrtext14);
         t15 = (TextView) findViewById(R.id.hrtext15);
 
-        String temp=yost.getText().toString();
-        yost.setText(temp+yos);
-        String temp1=basicsalt.getText().toString();
-        basicsalt.setText(temp1+basicsal);
+        bst1.setText(basicsal);
+        yost1.setText(yos);
         empname.setText(name);
 
-        Picasso.get().load(pic).transform(new CircleTransform()).into(empPic);
+        if(pic!=null || pic!="")
+        {
+            int SDK_INT = Build.VERSION.SDK_INT;
+            if (SDK_INT > 8) {
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                        .permitAll().build();
+                StrictMode.setThreadPolicy(policy);
+                //your codes here
 
+                Picasso.get().load(pic).transform(new com.example.sammrabatool.solutions5d.OTL.CircleTransform()).into(empPic);
+
+            }
+        }
         t1.setText(name);
         t2.setText(gender);
         t3.setText(maritalStatus);
@@ -92,5 +113,39 @@ public class teamProfile1 extends AppCompatActivity {
 
 
 
+        initToolbar();
+    }
+    private void initToolbar () {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //  toolbar.setNavigationIcon(R.drawable.ic_menu);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Profile Information");
+        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Tools.setSystemBarColor(this);
+    }
+    @Override
+    public boolean onCreateOptionsMenu (Menu menu){
+        getMenuInflater().inflate(R.menu.menu_profile_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item){
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        } else if (id == R.id.logout) {
+            Toast.makeText(this, "You have successfully logged out", Toast.LENGTH_LONG).show();
+            SharedPreferences preferences = getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.clear();
+            editor.commit();
+            Intent intent = new Intent(teamProfile1.this, LoginCardOverlap.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -77,14 +77,14 @@ public class LeaveHr extends AppCompatActivity implements AdapterView.OnItemSele
     JSONArray absenseInform;
     JSONObject getjsonarray[];
     String pic,employee_name,personId,projecrID, projectName,projectfullname,employeeid="0",sickleav,annuleav,unpdleav ,anuuleavEntit,outannuleav,idd[],
-            leavetype[],duration[],status[];
+            leavetype[],duration[],status[],startDate[],endDate[], hd, job;
     TableLayout tableLayout;
     TableRow tableRow;
     private static final String TAG = "ExpansionPanelnvoice";
     ImageView profileImage;
 
     int lg, bg;
-    TextView count0, count00,empNameText;
+    TextView count0, count00,empNameText,jtLeave,hdLeave;
     String instanceStr, userID, token;
     TextView mDisplayDate;
      DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -107,18 +107,23 @@ public class LeaveHr extends AppCompatActivity implements AdapterView.OnItemSele
         t3=(TextView)findViewById(R.id.outanuleave);
         t4=(TextView)findViewById(R.id.sickleave);
         t5=(TextView)findViewById(R.id.upadleave);
-        empNameText=(TextView) findViewById(R.id.empName);
+
         userID = getIntent().getStringExtra("userID");
         instanceStr = getIntent().getStringExtra("instance");
         token = getIntent().getStringExtra("token");
         lg = getIntent().getIntExtra("lg", 0);
         bg = getIntent().getIntExtra("bg", 0);
         personId=getIntent().getStringExtra("personId");
-        employee_name=getIntent().getStringExtra("employee_name");
+        employee_name=getIntent().getStringExtra("name");
         pic=getIntent().getStringExtra("pic");
+        hd=getIntent().getStringExtra("hireDate");
+        job=getIntent().getStringExtra("job");
 
-     //   employtype = (Spinner) findViewById(R.id.spinnerType);
-        profileImage = (ImageView) findViewById(R.id.profileImage);
+
+        empNameText=(TextView) findViewById(R.id.name_leave);
+        profileImage = (ImageView) findViewById(R.id.pic1);
+        hdLeave=(TextView) findViewById(R.id.hd_leave);
+        jtLeave=(TextView) findViewById(R.id.job_leave);
 
         if(pic!=null || pic!="")
         {
@@ -134,6 +139,9 @@ public class LeaveHr extends AppCompatActivity implements AdapterView.OnItemSele
 
                 }
         }
+        hdLeave.setText(hd);
+        jtLeave.setText(job);
+        empNameText.setText(employee_name);
 
        /* final TableView<String[]> tb = (TableView<String[]>) findViewById(R.id.tableView);*/
         tableLayout=(TableLayout)findViewById(R.id.tabinfo1);
@@ -154,8 +162,8 @@ public class LeaveHr extends AppCompatActivity implements AdapterView.OnItemSele
                     //  hashSpinnerType.clear();
                     //listtype.add("Select Employee");
                     // hashSpinnerType.put(0, "0");
-
-                    if (data.getString("leaveInfo") != null) {
+                    if( !data.isNull("leaveInfo"))
+                    {
 
                         leavdetail = data.getJSONObject("leaveInfo");
                         if (leavdetail != null) {
@@ -187,7 +195,8 @@ public class LeaveHr extends AppCompatActivity implements AdapterView.OnItemSele
 //                                    hashSpinnerType.put(1, taskID);
                             //Toast.makeText(MainActivity.this, "id="+projecrID+"name="+projectName, Toast.LENGTH_SHORT).show();
                         }
-                        if(!data.get("absenseInfo").equals(null)) {
+                        if( !data.isNull("absenseInfo"))
+                        {
                             //   Toast.makeText(ExpansionPanelInvoice.this, "in if", Toast.LENGTH_SHORT).show();
                             absenseInform = data.getJSONArray("absenseInfo");
                             getjsonarray = new JSONObject[absenseInform.length()];
@@ -195,6 +204,8 @@ public class LeaveHr extends AppCompatActivity implements AdapterView.OnItemSele
                             leavetype=new String[absenseInform.length()];
                             duration=new String[absenseInform.length()];
                             status=new String[absenseInform.length()];
+                            startDate=new String[absenseInform.length()];
+                            endDate=new String[absenseInform.length()];
                             for (int i = 0; i < absenseInform.length(); i++) {
                                 getjsonarray[i] = absenseInform.getJSONObject(i);
                                 idd[i] = getjsonarray[i].getString("a");
@@ -202,6 +213,8 @@ public class LeaveHr extends AppCompatActivity implements AdapterView.OnItemSele
                                 //   Toast.makeText(ExpansionPanelInvoice.this, "lt="+leavetype[i], Toast.LENGTH_SHORT).show();
                                 duration[i] = getjsonarray[i].getString("c");
                                 status[i] = getjsonarray[i].getString("d");
+                                startDate[i]=getjsonarray[i].getString("DATE_START");
+                                endDate[i]=getjsonarray[i].getString("DATE_END");
                             }
                            // populateData(absenseInform.length());
                             tableLayout.removeAllViews();
@@ -214,7 +227,7 @@ public class LeaveHr extends AppCompatActivity implements AdapterView.OnItemSele
 */
                             TableRow tableRowHeading = new TableRow(LeaveHr.this);
                             tableRowHeading.setBackgroundColor(Color.parseColor("#1976D2"));
-                            tableRowHeading.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT));
+                            tableRowHeading.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
 
 
 
@@ -235,7 +248,7 @@ public class LeaveHr extends AppCompatActivity implements AdapterView.OnItemSele
                             th2.setAllCaps(FALSE);
                             th2.setGravity(Gravity.LEFT);
                             th2.setAllCaps(FALSE);
-                            th2.setText("Status");
+                            th2.setText("Date");
                             th.setTextColor(Color.WHITE);
                             th1.setTextColor(Color.WHITE);
                             th2.setTextColor(Color.WHITE);
@@ -255,7 +268,7 @@ public class LeaveHr extends AppCompatActivity implements AdapterView.OnItemSele
                                 getjsonarray[i] = absenseInform.getJSONObject(i);
                                 // idd = getjsonarray.getString("a");
                                 TableRow tableRow = new TableRow(LeaveHr.this);
-                                tableRow.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT));
+                                tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
                                 tableRow.setBackgroundColor(Color.WHITE);
                           //      tableRowParams.setMargins(1,1,1,1);
                                 //tableRow.LayoutParams=tableRowParams;
@@ -275,7 +288,7 @@ public class LeaveHr extends AppCompatActivity implements AdapterView.OnItemSele
                                 tv2.setPadding(10, 10, 10, 10);
 
                                 tv2.setGravity(Gravity.LEFT);
-                                tv2.setText(status[i]);
+                                tv2.setText(startDate[i]+" -- "+endDate[i]);
 
                                 tv.setTextColor(Color.BLACK);
                                 tv1.setTextColor(Color.BLACK);
@@ -449,6 +462,7 @@ public class LeaveHr extends AppCompatActivity implements AdapterView.OnItemSele
         //  toolbar.setNavigationIcon(R.drawable.ic_menu);
         setSupportActionBar(toolbar);
 //        getSupportActionBar().setTitle("Reminder");
+        getSupportActionBar().setTitle("Leave Information");
         // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         com.example.sammrabatool.solutions5d.utils.Tools.setSystemBarColor(this);
 //        toolbar.setOnClickListener(new View.OnClickListener() {

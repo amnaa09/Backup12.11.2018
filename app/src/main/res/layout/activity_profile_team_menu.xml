@@ -61,36 +61,22 @@
                 android:text="Unknown"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
                 android:textColor="@color/grey_90" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="3"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
             <TextView
                 android:id="@+id/team_position"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_middle"
                 android:text="--"
+                android:textStyle="italic"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
                 android:textColor="@color/colorPrimary"
                 android:layout_gravity="center" />
-                    <TextView
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:orientation="horizontal">
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/spacing_middle"
-                        android:text="Position "
-                        android:layout_gravity="center"
-                        android:textSize="15dp"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-                        android:textColor="@color/grey_90" />
-                </LinearLayout>
 
      <!--       <TextView
                 android:id="@+id/profile_name"
@@ -175,9 +161,8 @@
                 android:textColor="@color/colorPrimaryDark"/>-->
             <Spinner
                 android:id="@+id/teamSpinner"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                ></Spinner>
         </LinearLayout>
             <LinearLayout

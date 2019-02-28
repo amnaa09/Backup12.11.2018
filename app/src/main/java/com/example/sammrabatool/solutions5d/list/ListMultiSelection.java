@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.design.button.MaterialButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.AppCompatButton;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -39,10 +41,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
+import com.example.sammrabatool.solutions5d.OTL.CircleTransform;
 import com.example.sammrabatool.solutions5d.R;
 import com.example.sammrabatool.solutions5d.model.Notification;
 import com.example.sammrabatool.solutions5d.utils.Tools;
 import com.example.sammrabatool.solutions5d.widget.LineItemDecoration;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -425,6 +429,9 @@ public class ListMultiSelection extends AppCompatActivity  {
         final   TextView not_begin_date=(TextView) dialog.findViewById(R.id.not_begin_date);
         final   EditText not_remarks=(EditText) dialog.findViewById(R.id.not_remarks);
         final ImageButton close=(ImageButton) dialog.findViewById(R.id.bt_Close);
+        final ImageView pic=(ImageView) dialog.findViewById(R.id.listpic);
+
+        not_remarks.setVisibility(View.VISIBLE);
 
 
          String remarks="";
@@ -451,7 +458,7 @@ public class ListMultiSelection extends AppCompatActivity  {
             ((AppCompatButton) dialog.findViewById(R.id.bt_approve)).setVisibility(View.INVISIBLE);
             ((AppCompatButton) dialog.findViewById(R.id.bt_reject)).setVisibility(View.INVISIBLE);
             dialog.findViewById(R.id.not_remarks).setVisibility(View.INVISIBLE);
-            ((AppCompatButton) dialog.findViewById(R.id.bt_cancel)).setGravity(View.FOCUS_RIGHT);
+            ((Button) dialog.findViewById(R.id.bt_cancel)).setGravity(View.FOCUS_RIGHT);
             ((AppCompatButton)dialog.findViewById(R.id.view_html)).setVisibility(View.INVISIBLE);
 
         }
@@ -472,7 +479,7 @@ public class ListMultiSelection extends AppCompatActivity  {
         });
 
 
-        ((AppCompatButton) dialog.findViewById(R.id.bt_cancel)).setOnClickListener(new View.OnClickListener() {
+        ((Button) dialog.findViewById(R.id.bt_cancel)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -742,11 +749,13 @@ public class ListMultiSelection extends AppCompatActivity  {
                       //  Toast.makeText(ListMultiSelection.this, "redir="+redirection, Toast.LENGTH_SHORT).show();
 
 
-                         not_from_user.setText("From User: "+tousername);
-                         not_message_name.setText("Message: "+messagename);
-                         not_subject.setText("Subject: "+subject);
-                         not_status.setText("Status: "+Status);
-                         not_begin_date.setText("Begin Date: "+begindate);
+                         not_from_user.setText(tousername);
+                         not_message_name.setText(messagename);
+                         not_subject.setText(subject);
+                         not_status.setText(Status);
+                         not_begin_date.setText(begindate);
+                        Picasso.get().load(items.get(pos).imagelist).transform(new CircleTransform()).into(pic);
+
                      //    not_remarks.setText("Remarks: "+remarks);
 
                         if(message_type.equals("FYR") && redirection==1)
@@ -755,7 +764,7 @@ public class ListMultiSelection extends AppCompatActivity  {
                             ((AppCompatButton) dialog.findViewById(R.id.bt_approve)).setVisibility(View.INVISIBLE);
                             ((AppCompatButton) dialog.findViewById(R.id.bt_reject)).setVisibility(View.INVISIBLE);
                             dialog.findViewById(R.id.not_remarks).setVisibility(View.INVISIBLE);
-                            ((AppCompatButton) dialog.findViewById(R.id.bt_cancel)).setGravity(View.FOCUS_RIGHT);
+                            ((Button) dialog.findViewById(R.id.bt_cancel)).setGravity(View.FOCUS_RIGHT);
                             message_type_int = 1;
                         }
 

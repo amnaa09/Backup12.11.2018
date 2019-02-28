@@ -3,14 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+
+    android:orientation="vertical"
+    android:background="@color/grey_10">
 
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="2dp"
     android:paddingRight="2dp"
+    android:background="@color/colorPrimary"
     android:gravity="top|end">
+
 
     <ImageButton
         android:id="@+id/bt_Close"
@@ -19,7 +23,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top|end"
         android:outlineAmbientShadowColor="@color/green_800"
-
         android:background="@color/red_800"
         app:srcCompat="@drawable/ic_close" />
 </LinearLayout>
@@ -32,68 +35,548 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:layout_alignParentTop="true"
-        android:padding="@dimen/spacing_large">
+        android:padding="@dimen/spacing_medium">
 
         <View
-            android:layout_width="@dimen/spacing_large"
+            android:layout_width="@dimen/spacing_medium"
             android:layout_height="0dp" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
 
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/not_from_user"
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:backgroundTint="#FFFFFF"
+                app:cardCornerRadius="2dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true">
+
+                <FrameLayout
+                    android:layout_width="3dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                  >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/spacing_medium"
+                        android:paddingRight="@dimen/spacing_medium">
+
+                        <View
+                            android:layout_width="@dimen/spacing_large"
+                            android:layout_height="wrap_content" />
+
+                        <ImageView
+                            android:id="@+id/listpic"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp" />
+
+                        <View
+                            android:layout_width="@dimen/spacing_large"
+                            android:layout_height="wrap_content" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="55dp"
+                                android:background="?attr/selectableItemBackground"
+                                android:clickable="true"
+                                android:gravity="center_vertical"
+                                android:minHeight="@dimen/spacing_xlarge"
+                                android:orientation="horizontal"
+                                android:paddingLeft="@dimen/spacing_medium"
+                                android:paddingRight="@dimen/spacing_medium">
+
+                           <!--     <View
+                                    android:layout_width="@dimen/spacing_medium"
+                                    android:layout_height="wrap_content" />
+                                <ImageButton
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_marginLeft="0dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@android:color/transparent"
+                                    android:tint="@color/grey_60"
+                                    />
+
+                                <View
+                                    android:layout_width="@dimen/spacing_medium"
+                                    android:layout_height="wrap_content" />-->
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+
+                                    <TextView
+
+                                        android:id="@+id/not_from_user"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="User"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                    android:textColor="@color/grey_80"
+                                    android:textStyle="bold" />
+                             <!--       <TextView
+                                        android:id="@+id/not_from_user"
+
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Unknown"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                        android:textColor="@color/grey_80"
+                                       />-->
+
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="55dp"
+                                android:background="?attr/selectableItemBackground"
+                                android:clickable="true"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:paddingLeft="@dimen/spacing_medium"
+                                android:paddingRight="@dimen/spacing_medium">
+
+                                <View
+                                    android:layout_width="@dimen/spacing_medium"
+                                    android:layout_height="wrap_content" />
+                                <ImageButton
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_marginLeft="0dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@android:color/transparent"
+                                    android:tint="@color/grey_60"
+                                    app:srcCompat="@drawable/ic_event" />
+
+                                <View
+                                    android:layout_width="@dimen/spacing_medium"
+                                    android:layout_height="wrap_content" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+
+                                    <TextView
+
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                         android:gravity="center_vertical"
+                                        android:text="Status"
+                                        android:textStyle="bold"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                        android:textColor="@color/grey_60" />
+                                    <TextView
+                                        android:id="@+id/not_status"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center_vertical"
+                                        android:text="Unknown"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                        android:textColor="@color/grey_40" />
+
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="55dp"
+                                android:background="?attr/selectableItemBackground"
+                                android:clickable="true"
+                                android:gravity="center_vertical"
+                                android:minHeight="@dimen/spacing_xlarge"
+                                android:orientation="horizontal"
+                                android:paddingLeft="@dimen/spacing_medium"
+                                android:paddingRight="@dimen/spacing_medium">
+
+                                <View
+                                    android:layout_width="@dimen/spacing_medium"
+                                    android:layout_height="wrap_content" />
+                                <ImageButton
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:background="@android:color/transparent"
+                                    android:tint="@color/grey_60"
+                                    android:layout_marginTop="10dp"
+                                    app:srcCompat="@drawable/ic_schedule" />
+
+                                <View
+                                    android:layout_width="@dimen/spacing_medium"
+                                    android:layout_height="wrap_content" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                         android:gravity="center_vertical"
+                                        android:text="Begin Date"
+                                        android:textStyle="bold"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                        android:textColor="@color/grey_60" />
+                                    <TextView
+                                        android:id="@+id/not_begin_date"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center_vertical"
+                                        android:text="Unknown"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                        android:textColor="@color/grey_40" />
+
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <!--     <LinearLayout
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             android:background="?attr/selectableItemBackground"
+                             android:clickable="true"
+                             android:gravity="center_vertical"
+                             android:minHeight="@dimen/spacing_xxlarge"
+                             android:orientation="horizontal"
+                             android:paddingLeft="@dimen/spacing_medium"
+                             android:paddingRight="@dimen/spacing_medium">
+
+                             <View
+                                 android:layout_width="@dimen/spacing_mlarge"
+                                 android:layout_height="wrap_content" />
+
+                             <ImageButton
+                                 android:layout_width="@dimen/spacing_xmlarge"
+                                 android:layout_height="@dimen/spacing_xmlarge"
+                                 android:background="@android:color/transparent"
+                                 android:tint="@color/grey_40"
+                                 android:layout_marginLeft="0dp"
+                                 app:srcCompat="@drawable/ic_event" />
+
+                             <View
+                                 android:layout_width="@dimen/spacing_mlarge"
+                                 android:layout_height="wrap_content" />
+
+                             <LinearLayout
+                                 android:layout_width="match_parent"
+                                 android:layout_height="wrap_content"
+                                 android:orientation="horizontal">
+
+
+                                 <TextView
+
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+
+                                     android:text="Hire Date: "
+                                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                     android:textColor="@color/grey_80"
+
+                                     app:fontFamily="sans-serif-medium" />
+
+                                 <TextView
+                                     android:id="@+id/hrtext5"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:text=" "
+                                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                     android:textColor="@color/grey_40" />
+
+                             </LinearLayout>
+
+
+                         </LinearLayout>
+                         <LinearLayout
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             android:background="?attr/selectableItemBackground"
+                             android:clickable="true"
+                             android:gravity="center_vertical"
+                             android:minHeight="@dimen/spacing_xxlarge"
+                             android:orientation="horizontal"
+                             android:paddingLeft="@dimen/spacing_medium"
+                             android:paddingRight="@dimen/spacing_medium">
+
+                             <View
+                                 android:layout_width="@dimen/spacing_mlarge"
+                                 android:layout_height="wrap_content" />
+
+                             <ImageButton
+                                 android:layout_width="@dimen/spacing_xmlarge"
+                                 android:layout_height="@dimen/spacing_xmlarge"
+                                 android:background="@android:color/transparent"
+                                 android:tint="@color/grey_40"
+                                 app:srcCompat="@drawable/ic_event_seat" />
+
+                             <View
+                                 android:layout_width="@dimen/spacing_mlarge"
+                                 android:layout_height="wrap_content" />
+
+                             <LinearLayout
+                                 android:layout_width="match_parent"
+                                 android:layout_height="wrap_content"
+                                 android:orientation="horizontal">
+
+
+                                 <TextView
+
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+
+                                     android:text="Job Title: "
+                                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                     android:textColor="@color/grey_80"
+                                     app:fontFamily="sans-serif-medium"
+                                     />
+
+                                 <TextView
+                                     android:id="@+id/hrtext11"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:text=" "
+                                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                     android:textColor="@color/grey_40" />
+
+                             </LinearLayout>
+
+
+                         </LinearLayout>-->
+
+
+                </LinearLayout>
+
+                <!--        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:gravity="center_vertical"
+                            android:minHeight="@dimen/spacing_xxlarge"
+                            android:orientation="horizontal"
+                            android:paddingLeft="@dimen/spacing_medium"
+                            android:paddingRight="@dimen/spacing_medium">
+    &lt;!&ndash;
+                            <View
+                                android:layout_width="@dimen/spacing_mlarge"
+                                android:layout_height="wrap_content" />
+
+                            <ImageButton
+                                android:layout_width="@dimen/spacing_xmlarge"
+                                android:layout_height="@dimen/spacing_xmlarge"
+                                android:background="@android:color/transparent"
+                                android:tint="@color/grey_40"
+                                app:srcCompat="@drawable/ic_info" />&ndash;&gt;
+
+                            <View
+                                android:layout_width="@dimen/spacing_mlarge"
+                                android:layout_height="wrap_content" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Version"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                    android:textColor="@color/grey_80"
+                                    app:fontFamily="sans-serif-medium" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="4.2"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                    android:textColor="@color/grey_40" />
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:gravity="center_vertical"
+                            android:minHeight="@dimen/spacing_xxlarge"
+                            android:orientation="horizontal"
+                            android:paddingLeft="@dimen/spacing_medium"
+                            android:paddingRight="@dimen/spacing_medium">
+
+                        &lt;!&ndash;    <View
+                                android:layout_width="@dimen/spacing_mlarge"
+                                android:layout_height="wrap_content" />
+
+                            <ImageButton
+                                android:layout_width="@dimen/spacing_xmlarge"
+                                android:layout_height="@dimen/spacing_xmlarge"
+                                android:background="@android:color/transparent"
+                                android:tint="@color/grey_40"
+                                app:srcCompat="@drawable/ic_sync" />&ndash;&gt;
+
+                            <View
+                                android:layout_width="@dimen/spacing_mlarge"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Changelog"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                android:textColor="@color/grey_80" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:gravity="center_vertical"
+                            android:minHeight="@dimen/spacing_xxlarge"
+                            android:orientation="horizontal"
+                            android:paddingLeft="@dimen/spacing_medium"
+                            android:paddingRight="@dimen/spacing_medium">
+
+                     &lt;!&ndash;       <View
+                                android:layout_width="@dimen/spacing_mlarge"
+                                android:layout_height="wrap_content" />
+
+                            <ImageButton
+                                android:layout_width="@dimen/spacing_xmlarge"
+                                android:layout_height="@dimen/spacing_xmlarge"
+                                android:background="@android:color/transparent"
+                                android:tint="@color/grey_40"
+                                app:srcCompat="@drawable/ic_book" />&ndash;&gt;
+
+                            <View
+                                android:layout_width="@dimen/spacing_mlarge"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="License"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                android:textColor="@color/grey_90" />
+
+                        </LinearLayout>-->
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#FFFFFF"
+                app:cardCornerRadius="2dp"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+              <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium"
                 android:gravity="center_vertical"
-                android:text="Unknown"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="@color/grey_90"
-                android:textStyle="bold" />
+                android:paddingLeft="@dimen/spacing_medium"
+                android:paddingRight="@dimen/spacing_medium"
+                android:orientation="vertical">
+                  <TextView
+
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:gravity="center_vertical"
+                      android:text="Subject"
+                      android:padding="5dp"
+                      android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                      android:textColor="@color/grey_90"
+                      android:textStyle="bold" />
+                  <TextView
+                      android:id="@+id/not_subject"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:padding="10dp"
+                      android:layout_marginTop="@dimen/spacing_small"
+                      android:gravity="center_vertical"
+                      android:text="Unknown"
+                      android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                      android:textColor="@color/grey_40" />
+                  <TextView
+
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:gravity="center_vertical"
+                      android:text="Message"
+                      android:padding="5dp"
+                      android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                      android:textColor="@color/grey_90"
+                      android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/not_message_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_small"
                 android:gravity="center_vertical"
                 android:text="Unknown"
+                android:padding="10dp"
+                android:layout_marginTop="@dimen/spacing_small"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="@color/grey_40" />
+                android:textColor="@color/grey_40"
+               />
 
-            <TextView
-                android:id="@+id/not_subject"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_small"
-                android:gravity="center_vertical"
-                android:text="Unknown"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="@color/grey_40" />
 
-            <TextView
-                android:id="@+id/not_status"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_small"
-                android:gravity="center_vertical"
-                android:text="Unknown"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="@color/grey_40" />
 
-            <TextView
-                android:id="@+id/not_begin_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_small"
-                android:gravity="center_vertical"
-                android:text="Unknown"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="@color/grey_40" />
+
+
+
+
+
+
 
             <EditText
                 android:id="@+id/not_remarks"
@@ -102,9 +585,9 @@
                 android:layout_marginTop="@dimen/spacing_small"
                 android:gravity="center_vertical"
                 android:hint="Remarks"
-
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/grey_40" />
+            </LinearLayout>
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -123,14 +606,16 @@
         android:textColor="@color/blue_900"
         android:text="" />
 
-    <android.support.v7.widget.AppCompatButton
+    <Button
         android:id="@+id/view_html"
-        style="@style/Widget.AppCompat.Button.Borderless"
+
         android:layout_width="153dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/btn_outline_blue"
+        android:gravity="center"
+        android:textAlignment="center"
         android:layout_centerInParent="true"
         android:layout_weight="1"
-        android:gravity="center"
         android:text="View details"
         android:textColor="@color/blue_900" />
 
@@ -146,19 +631,6 @@
         android:textColor="@color/blue_900"
         android:text="" />
 </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="@dimen/spacing_large"
-        android:layout_marginRight="@dimen/spacing_large"
-        android:background="@color/grey_10" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -173,31 +645,56 @@
 
 
 
-        <android.support.v7.widget.AppCompatButton
+        <Button
             android:id="@+id/bt_approve"
-            style="@style/Widget.AppCompat.Button.Borderless"
+            android:background="@drawable/btn_outline_green"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_marginRight="5dp"
+            android:textAlignment="center"
             android:textColor="@color/green_800"
             android:text="APPROVE" />
-        <android.support.v7.widget.AppCompatButton
+
+        <Button
             android:id="@+id/bt_reject"
-            style="@style/Widget.AppCompat.Button.Borderless"
+            android:background="@drawable/btn_outline_red"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="@color/red_800"
+            android:layout_marginRight="5dp"
+            android:textAlignment="center"
             android:text="REJECT" />
-        <android.support.v7.widget.AppCompatButton
+
+        <Button
             android:id="@+id/bt_cancel"
-            style="@style/Button.Accent.Borderless"
+           android:background="@drawable/btn_outline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="CLOSE" />
+            android:text="CLOSE"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/colorAccent"
+            android:textAlignment="center"
+            />
 
     </LinearLayout>
+</LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="@dimen/spacing_large"
+        android:layout_marginRight="@dimen/spacing_large"
+        android:background="@color/grey_10" />
+
+
 
 
 

@@ -78,7 +78,7 @@ public class LeaveTeam extends AppCompatActivity  {
     JSONArray absenseInform;
     JSONObject getjsonarray[];
     String projecrID, projectName,projectfullname,pic,employeeid="0",sickleav,annuleav,unpdleav ,anuuleavEntit,outannuleav,idd[],
-            leavetype[],duration[],status[], personId, employee_name;
+            leavetype[],duration[],status[],startDate[],endDate[], personId, employee_name, yos, bs;
 
     TableLayout tableLayout;
     TableRow tableRow;
@@ -86,7 +86,7 @@ public class LeaveTeam extends AppCompatActivity  {
     ImageView profileImage;
 
     int lg, bg;
-    TextView count0, count00,empNameText;
+    TextView count0, count00,empNameText, yosLeave,bsLeave;
     String instanceStr, userID, token;
     TextView mDisplayDate;
      DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -108,17 +108,22 @@ TextView t1,t2,t3,t4,t5;
         t3=(TextView)findViewById(R.id.outanuleave);
         t4=(TextView)findViewById(R.id.sickleave);
         t5=(TextView)findViewById(R.id.upadleave);
-        empNameText=(TextView) findViewById(R.id.empName);
+        empNameText=(TextView) findViewById(R.id.name_leave);
+        profileImage = (ImageView) findViewById(R.id.pic1);
+        yosLeave=(TextView) findViewById(R.id.yos_leave);
+        bsLeave=(TextView) findViewById(R.id.bs_leave);
+
+
         userID = getIntent().getStringExtra("userID");
         instanceStr = getIntent().getStringExtra("instance");
         token = getIntent().getStringExtra("token");
         lg = getIntent().getIntExtra("lg", 0);
         bg = getIntent().getIntExtra("bg", 0);
         personId=getIntent().getStringExtra("personId");
-        employee_name=getIntent().getStringExtra("employee_name");
-        pic=getIntent().getStringExtra("pic");
-        profileImage = (ImageView) findViewById(R.id.profileImage);
-
+        employee_name = getIntent().getStringExtra("name");
+        yos = getIntent().getStringExtra("yearofservice");
+        bs = getIntent().getStringExtra("basicsalary");
+        pic = getIntent().getStringExtra("pic");
         if(pic!=null || pic!="")
         {
             int SDK_INT = Build.VERSION.SDK_INT;
@@ -133,6 +138,10 @@ TextView t1,t2,t3,t4,t5;
 
             }
         }
+
+        bsLeave.setText(bs);
+        yosLeave.setText(yos);
+        empNameText.setText(employee_name);
 
         tableLayout=(TableLayout)findViewById(R.id.tabinfo2);
         tableLayout.setVisibility(View.GONE);
@@ -153,8 +162,8 @@ TextView t1,t2,t3,t4,t5;
                     //listtype.add("Select Employee");
                     // hashSpinnerType.put(0, "0");
 
-                    if (data.getString("leaveInfo") != null) {
-
+                    if( !data.isNull("leaveInfo"))
+                     {
                         leavdetail = data.getJSONObject("leaveInfo");
                         if (leavdetail != null) {
 //                                otlTaskdetail = new JSONObject[otlPorjectArray.length()];
@@ -185,7 +194,8 @@ TextView t1,t2,t3,t4,t5;
 //                                    hashSpinnerType.put(1, taskID);
                             //Toast.makeText(MainActivity.this, "id="+projecrID+"name="+projectName, Toast.LENGTH_SHORT).show();
                         }
-                        if(!data.get("absenseInfo").equals(null)) {
+                         if( !data.isNull("absenseInfo"))
+                        {
                             //   Toast.makeText(ExpansionPanelInvoice.this, "in if", Toast.LENGTH_SHORT).show();
                             absenseInform = data.getJSONArray("absenseInfo");
                             getjsonarray = new JSONObject[absenseInform.length()];
@@ -193,13 +203,18 @@ TextView t1,t2,t3,t4,t5;
                             leavetype=new String[absenseInform.length()];
                             duration=new String[absenseInform.length()];
                             status=new String[absenseInform.length()];
+                            startDate=new String[absenseInform.length()];
+                            endDate=new String[absenseInform.length()];
                             for (int i = 0; i < absenseInform.length(); i++) {
                                 getjsonarray[i] = absenseInform.getJSONObject(i);
                                 idd[i] = getjsonarray[i].getString("a");
                                 leavetype[i] = getjsonarray[i].getString("b");
-                                //   Toast.makeText(ExpansionPanelInvoice.this, "lt="+leavetype[i], Toast.LENGTH_SHORT).show();
+                            //       Toast.makeText(LeaveTeam.this, "lt="+leavetype[i], Toast.LENGTH_SHORT).show();
                                 duration[i] = getjsonarray[i].getString("c");
                                 status[i] = getjsonarray[i].getString("d");
+                                startDate[i]=getjsonarray[i].getString("DATE_START");
+                                endDate[i]=getjsonarray[i].getString("DATE_END");
+
                             }
                             // populateData(absenseInform.length());
                             tableLayout.removeAllViews();
@@ -212,7 +227,7 @@ TextView t1,t2,t3,t4,t5;
 */
                             TableRow tableRowHeading = new TableRow(LeaveTeam.this);
                             tableRowHeading.setBackgroundColor(Color.parseColor("#1976D2"));
-                            tableRowHeading.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT));
+                            tableRowHeading.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
 
 
 
@@ -233,7 +248,7 @@ TextView t1,t2,t3,t4,t5;
                             th2.setAllCaps(FALSE);
                             th2.setGravity(Gravity.LEFT);
                             th2.setAllCaps(FALSE);
-                            th2.setText("Status");
+                            th2.setText("Date");
                             th.setTextColor(Color.WHITE);
                             th1.setTextColor(Color.WHITE);
                             th2.setTextColor(Color.WHITE);
@@ -253,7 +268,7 @@ TextView t1,t2,t3,t4,t5;
                                 getjsonarray[i] = absenseInform.getJSONObject(i);
                                 // idd = getjsonarray.getString("a");
                                 TableRow tableRow = new TableRow(LeaveTeam.this);
-                                tableRow.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT));
+                                tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
                                 tableRow.setBackgroundColor(Color.WHITE);
                                 //      tableRowParams.setMargins(1,1,1,1);
                                 //tableRow.LayoutParams=tableRowParams;
@@ -273,7 +288,7 @@ TextView t1,t2,t3,t4,t5;
                                 tv2.setPadding(10, 10, 10, 10);
 
                                 tv2.setGravity(Gravity.LEFT);
-                                tv2.setText(status[i]);
+                                tv2.setText(startDate[i]+" -- "+endDate[i]);
 
                                 tv.setTextColor(Color.BLACK);
                                 tv1.setTextColor(Color.BLACK);
@@ -296,10 +311,11 @@ TextView t1,t2,t3,t4,t5;
                                 tableLayout.addView(v1);
                             }
                             tableLayout.setVisibility(View.VISIBLE);
+
                         }
                         else {
                             tableLayout.setVisibility(View.GONE);
-                            //     Toast.makeText(ExpansionPanelInvoice.this, "in else", Toast.LENGTH_SHORT).show();
+//                                 Toast.makeText(ExpansionPanelInvoice.this, "in else", Toast.LENGTH_SHORT).show();
 
                         }
                     }
@@ -348,9 +364,11 @@ TextView t1,t2,t3,t4,t5;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //  toolbar.setNavigationIcon(R.drawable.ic_menu);
         setSupportActionBar(toolbar);
-//        getSupportActionBar().setTitle("Reminder");
+        getSupportActionBar().setTitle("Leave Information");
         // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         com.example.sammrabatool.solutions5d.utils.Tools.setSystemBarColor(this);
+
+
 //        toolbar.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

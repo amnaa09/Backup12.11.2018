@@ -63,7 +63,7 @@ public class ProfileTeamMenu extends AppCompatActivity implements AdapterView.On
 
     int lg, bg;
     boolean user_valid;
-    boolean selected=false;
+    boolean selected=false, profileBool=false;
     ImageView profimg;
     TextView pname, position,directcount, totalcount;
     Spinner emplist;
@@ -293,7 +293,8 @@ public class ProfileTeamMenu extends AppCompatActivity implements AdapterView.On
             public void onClick(View v) {
              //   Toast.makeText(ProfileFabMenu.this, "employee num: " + employee_number, Toast.LENGTH_SHORT).show();
              //   showCustomDialog(ProfileFabMenu.this, "Basic information" ,employee_heading,employee_number, gender_heading,gender, martial_heading,maritalStatus, email_heading, email,hiredate_heading, hireDate,dob_heading, dob,nationality_heading, nationality,officeNum_heading, officeNum,"", "", "", "",picture);
-            if(selected==true) {
+            if(selected==true ) {
+                if(profileBool==true){
                 Intent i = new Intent(ProfileTeamMenu.this, teamProfile1.class);
                 i.putExtra("name", employee_name);
                 i.putExtra("gender", gender);
@@ -316,6 +317,10 @@ public class ProfileTeamMenu extends AppCompatActivity implements AdapterView.On
                 startActivity(i);
             }
             else
+                Toast.makeText(ProfileTeamMenu.this, "Information not available for this employee", Toast.LENGTH_SHORT).show();
+
+            }
+            else
                 Toast.makeText(ProfileTeamMenu.this, "Please select any employee from the list", Toast.LENGTH_SHORT).show();
 
             }
@@ -325,26 +330,32 @@ public class ProfileTeamMenu extends AppCompatActivity implements AdapterView.On
             @Override
             public void onClick(View v) {
                 //    showCustomDialog(ProfileFabMenu.this, "Employment information", employee_heading,employee_number, location_heading,location,status_heading, status, org_heading,org, manager_heading,manager, job_heading, job, grade_heading, grade, "", "", "", "","","",picture);
-                if (selected == true){
-                    Intent i = new Intent(ProfileTeamMenu.this, teamProfile2.class);
-                i.putExtra("passNum", passNum);
-                i.putExtra("passIssue", passIssue);
-                i.putExtra("passexpire", passexpire);
-                i.putExtra("visaNum", visaNum);
-                i.putExtra("visaIssue", visaIssue);
-                i.putExtra("visaExpire", visaExpire);
-                i.putExtra("nationalId", nationalId);
-                i.putExtra("nationalIdIssue", nationalIdIssue);
-                i.putExtra("nationalIdExpire", nationalIdExpire);
-                i.putExtra("laborNum", laborNum);
-                i.putExtra("laborIssue", laborIssue);
-                i.putExtra("laborExpire", laborExpire);
-                i.putExtra("yearofservice", yearofservice);
-                i.putExtra("basicsalary", basicsalary);
-                i.putExtra("pic", pic);
-                i.putExtra("name", employee_name);
-                startActivity(i);
-            }
+                if (selected == true ){
+                    if(profileBool==true) {
+                        Intent i = new Intent(ProfileTeamMenu.this, teamProfile2.class);
+                        i.putExtra("passNum", passNum);
+                        i.putExtra("passIssue", passIssue);
+                        i.putExtra("passexpire", passexpire);
+                        i.putExtra("visaNum", visaNum);
+                        i.putExtra("visaIssue", visaIssue);
+                        i.putExtra("visaExpire", visaExpire);
+                        i.putExtra("nationalId", nationalId);
+                        i.putExtra("nationalIdIssue", nationalIdIssue);
+                        i.putExtra("nationalIdExpire", nationalIdExpire);
+                        i.putExtra("laborNum", laborNum);
+                        i.putExtra("laborIssue", laborIssue);
+                        i.putExtra("laborExpire", laborExpire);
+                        i.putExtra("yearofservice", yearofservice);
+                        i.putExtra("basicsalary", basicsalary);
+                        i.putExtra("pic", pic);
+                        i.putExtra("name", employee_name);
+
+                        startActivity(i);
+                    }
+                    else
+                        Toast.makeText(ProfileTeamMenu.this, "Information not available for this employee", Toast.LENGTH_SHORT).show();
+
+                }
               else
                       Toast.makeText(ProfileTeamMenu.this, "Please select any employee from the list", Toast.LENGTH_SHORT).show();
 
@@ -355,17 +366,21 @@ public class ProfileTeamMenu extends AppCompatActivity implements AdapterView.On
             @Override
             public void onClick(View v) {
 
-                if(selected==true) {
-                    Intent intent = new Intent(ProfileTeamMenu.this, LeaveTeam.class);
-                    intent.putExtra("userID", userID);
-                    intent.putExtra("token", token);
-                    intent.putExtra("instance", instanceStr);
-                    intent.putExtra("lg", lg);
-                    intent.putExtra("bg", bg);
-                    intent.putExtra("personId", personId);
-                    intent.putExtra("employee_name", employee_name);
-                    intent.putExtra("pic", pic);
-                    startActivity(intent);
+                if(selected==true ) {
+
+                        Intent intent = new Intent(ProfileTeamMenu.this, LeaveTeam.class);
+                        intent.putExtra("userID", userID);
+                        intent.putExtra("token", token);
+                        intent.putExtra("instance", instanceStr);
+                        intent.putExtra("lg", lg);
+                        intent.putExtra("bg", bg);
+                        intent.putExtra("personId", personId);
+                        intent.putExtra("yearofservice", yearofservice);
+                        intent.putExtra("basicsalary", basicsalary);
+                        intent.putExtra("pic", pic);
+                        intent.putExtra("name", employee_name);
+                        startActivity(intent);
+
                 }
                   else
                     Toast.makeText(ProfileTeamMenu.this, "Please select any employee from the list", Toast.LENGTH_SHORT).show();
@@ -459,6 +474,7 @@ public class ProfileTeamMenu extends AppCompatActivity implements AdapterView.On
                             message = data.getString("message");
                             userID = data.getString("user_id");
                             if( !data.isNull("profile")) {
+                                profileBool=true;
                                 profile = data.getString("profile");
                                 JSONObject dataDetails = new JSONObject(profile.toString());
 
@@ -710,6 +726,8 @@ public class ProfileTeamMenu extends AppCompatActivity implements AdapterView.On
 
                                 }*/
                             }
+                            else
+                                profileBool=false;
                             if (progressDialog.isShowing())
                                 progressDialog.hide();
                         } else {

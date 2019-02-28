@@ -55,7 +55,7 @@ public class ProfileHrMenu extends AppCompatActivity {
     int lg, bg;
     boolean user_valid;
     ImageView profimg;
-    TextView pname,yos, bsalary;
+    TextView pname,yos, bsalary, position;
 
     String instanceStr, message, userID, token, profile, text;
     String    personId,yearofservice, basicsalary,picture,name,employee_name, employee_number,employee_heading, hireDate,hiredate_heading,gender_heading, gender,martial_heading, dob,dob_heading,email_heading, maritalStatus, nationality,nationality_heading,
@@ -77,6 +77,7 @@ public class ProfileHrMenu extends AppCompatActivity {
         pname=(TextView) findViewById(R.id.profile_name);
         yos=(TextView) findViewById(R.id.yos);
         bsalary=(TextView) findViewById(R.id.bsalary);
+        position=(TextView) findViewById(R.id.position);
 
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -224,9 +225,11 @@ public class ProfileHrMenu extends AppCompatActivity {
                         job_heading="<b>" + "Job:" + "</b> ";
                         if (dataDetails.getString("job").equals("")) {
                             job = "Unknown";
+                            position.setText(job);
 
                         } else {
                             job = dataDetails.getString("job");
+                            position.setText(job);
 
                         }
                         grade_heading="<b>" + "Grade :" + "</b> ";
@@ -453,18 +456,20 @@ public class ProfileHrMenu extends AppCompatActivity {
                 i.putExtra("gender", gender);
                 i.putExtra("maritalStatus", maritalStatus);
                 i.putExtra("email", email);
-                i.putExtra("hireDate", hireDate);
+
                 i.putExtra("dob", dob);
                 i.putExtra("nationality", nationality);
                 i.putExtra("officeNum", officeNum);
                 i.putExtra("employee_number", employee_number);
                 i.putExtra("manager", manager);
-                i.putExtra("job", job);
+
                 i.putExtra("grade", grade);
                 i.putExtra("org", org);
                 i.putExtra("location", location);
                 i.putExtra("status", status);
                 i.putExtra("pic",picture);
+                i.putExtra("job", job);
+                i.putExtra("hireDate", hireDate);
 
 
         startActivity(i);
@@ -490,7 +495,9 @@ public class ProfileHrMenu extends AppCompatActivity {
                 i.putExtra("laborIssue", laborIssue);
                 i.putExtra("laborExpire", laborExpire);
                 i.putExtra("pic",picture);
-                i.putExtra("employee_name", employee_name);
+                i.putExtra("name", employee_name);
+                i.putExtra("job", job);
+                i.putExtra("hireDate", hireDate);
                 startActivity(i);
             }
         });
@@ -506,8 +513,10 @@ public class ProfileHrMenu extends AppCompatActivity {
                 intent.putExtra("lg",lg);
                 intent.putExtra("bg",bg);
                 intent.putExtra("personId", personId);
-                intent.putExtra("employee_name", employee_name);
                 intent.putExtra("pic",picture);
+                intent.putExtra("name", employee_name);
+                intent.putExtra("job", job);
+                intent.putExtra("hireDate", hireDate);
                 startActivity(intent);
 
             }

@@ -1,14 +1,23 @@
 package com.example.sammrabatool.solutions5d.profile;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.sammrabatool.solutions5d.Activity.LoginCardOverlap;
 import com.example.sammrabatool.solutions5d.OTL.CircleTransform;
 import com.example.sammrabatool.solutions5d.R;
+import com.example.sammrabatool.solutions5d.Tools;
 import com.squareup.picasso.Picasso;
 
 public class hrProfile1 extends AppCompatActivity {
@@ -90,5 +99,39 @@ public class hrProfile1 extends AppCompatActivity {
 
 
 
+        initToolbar();
+    }
+    private void initToolbar () {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //  toolbar.setNavigationIcon(R.drawable.ic_menu);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("My Information");
+        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Tools.setSystemBarColor(this);
+    }
+    @Override
+    public boolean onCreateOptionsMenu (Menu menu){
+        getMenuInflater().inflate(R.menu.menu_profile_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item){
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        } else if (id == R.id.logout) {
+            Toast.makeText(this, "You have successfully logged out", Toast.LENGTH_LONG).show();
+            SharedPreferences preferences = getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.clear();
+            editor.commit();
+            Intent intent = new Intent(hrProfile1.this, LoginCardOverlap.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
