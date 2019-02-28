@@ -455,18 +455,18 @@ public class ListMultiSelection extends AppCompatActivity  {
         });
         if(message_type.equals("FYI"))
         {
-            ((AppCompatButton) dialog.findViewById(R.id.bt_approve)).setVisibility(View.INVISIBLE);
-            ((AppCompatButton) dialog.findViewById(R.id.bt_reject)).setVisibility(View.INVISIBLE);
+            ((Button) dialog.findViewById(R.id.bt_approve)).setVisibility(View.INVISIBLE);
+            ((Button) dialog.findViewById(R.id.bt_reject)).setVisibility(View.INVISIBLE);
             dialog.findViewById(R.id.not_remarks).setVisibility(View.INVISIBLE);
             ((Button) dialog.findViewById(R.id.bt_cancel)).setGravity(View.FOCUS_RIGHT);
-            ((AppCompatButton)dialog.findViewById(R.id.view_html)).setVisibility(View.INVISIBLE);
+            ((Button)dialog.findViewById(R.id.view_html)).setVisibility(View.INVISIBLE);
 
         }
 
 
 
 
-        ((AppCompatButton) dialog.findViewById(R.id.view_html)).setOnClickListener(new View.OnClickListener() {
+        ((Button) dialog.findViewById(R.id.view_html)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                Intent intent=new Intent(ListMultiSelection.this, ViewHtml.class);
@@ -556,7 +556,7 @@ public class ListMultiSelection extends AppCompatActivity  {
             }
         });
 
-        ((AppCompatButton) dialog.findViewById(R.id.bt_reject)).setOnClickListener(new View.OnClickListener() {
+        ((Button) dialog.findViewById(R.id.bt_reject)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                // dialog.dismiss();
@@ -631,7 +631,7 @@ public class ListMultiSelection extends AppCompatActivity  {
             }
         });
 
-        ((AppCompatButton) dialog.findViewById(R.id.bt_approve)).setOnClickListener(new View.OnClickListener() {
+        ((Button) dialog.findViewById(R.id.bt_approve)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -761,8 +761,8 @@ public class ListMultiSelection extends AppCompatActivity  {
                         if(message_type.equals("FYR") && redirection==1)
                         {
 
-                            ((AppCompatButton) dialog.findViewById(R.id.bt_approve)).setVisibility(View.INVISIBLE);
-                            ((AppCompatButton) dialog.findViewById(R.id.bt_reject)).setVisibility(View.INVISIBLE);
+                            ((Button) dialog.findViewById(R.id.bt_approve)).setVisibility(View.INVISIBLE);
+                            ((Button) dialog.findViewById(R.id.bt_reject)).setVisibility(View.INVISIBLE);
                             dialog.findViewById(R.id.not_remarks).setVisibility(View.INVISIBLE);
                             ((Button) dialog.findViewById(R.id.bt_cancel)).setGravity(View.FOCUS_RIGHT);
                             message_type_int = 1;
